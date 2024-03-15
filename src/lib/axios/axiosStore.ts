@@ -1,6 +1,7 @@
 import axios from "axios";
-import Cookies from "js-cookie";
 import { redirect } from "react-router-dom";
+import Cookies from "js-cookie";
+
 
 const axiosStore = axios.create({
   baseURL: 'http://localhost:3000/api/store',
