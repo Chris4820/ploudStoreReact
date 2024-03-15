@@ -13,5 +13,5 @@ type UserInformationProps = {
 
 export async function getUserInformation(): Promise<UserInformationProps> {
     const response = await axiosUser.get<{userInformation: UserInformationProps[]}>('user');
-    return response.data.userInformation;
+    return response.data.userInformation[0]; // Obtemos o primeiro item do array
 }

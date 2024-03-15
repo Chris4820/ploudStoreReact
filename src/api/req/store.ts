@@ -11,5 +11,5 @@ export type RevenueSummaryProps = {
 
 export async function getRevenueSummary(): Promise<RevenueSummaryProps> {
     const response = await axiosStore.get<{revenueSummary: RevenueSummaryProps[]}>('revenueSummary');
-    return response.data.revenueSummary;
+    return response.data.revenueSummary[0]; // Obtemos o primeiro item do array
 }

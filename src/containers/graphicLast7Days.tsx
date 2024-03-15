@@ -1,6 +1,6 @@
 import React from 'react';
 import { ResponsiveContainer, AreaChart, Area, XAxis, Tooltip, TooltipProps } from 'recharts';
-import { startOfWeek, endOfWeek, format, subDays } from 'date-fns';
+import {subDays, endOfWeek, format} from 'date-fns'
 
 const today = new Date();
 const lastDayOfWeek = endOfWeek(today);
