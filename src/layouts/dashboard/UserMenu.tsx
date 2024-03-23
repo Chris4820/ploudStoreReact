@@ -1,4 +1,4 @@
-import { redirect } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "../../components/ui/avatar";
 import { Button } from "../../components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "../../components/ui/popover";
@@ -11,8 +11,11 @@ import { IoSunnyOutline, IoMoonOutline } from "react-icons/io5";
 
 
 export default function UserMenu() {
+    const navigate = useNavigate();
     const { setTheme , theme} = useTheme();
+
     const {data: userInformation} = useGetUserInformation();
+    console.log("userInformation: " + userInformation);
 
 
     function changeTheme() {
@@ -42,7 +45,7 @@ export default function UserMenu() {
                   <div className="grid gap-2">
                     <ul className="space-y-1">
                       <li>
-                        <Button onClick={() => redirect('#')} className="w-full" variant={"ghost"}>Ver perfil</Button>
+                        <Button onClick={() => navigate('/profile')} className="w-full" variant={"ghost"}>Ver perfil</Button>
                       </li>
                       <li>
                         <PopoverClose className="w-full">

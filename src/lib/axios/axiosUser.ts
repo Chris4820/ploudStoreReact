@@ -1,6 +1,6 @@
 import axios from "axios";
-import Cookies from "js-cookie";
-import { redirect } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
+import { getAuthTokenFromCookie, removeAuthCookie } from "../utils";
 
 const axiosUser = axios.create({
   baseURL: 'http://localhost:3000/api/user',
@@ -9,15 +9,16 @@ const axiosUser = axios.create({
   }
 });
 
+
 axiosUser.interceptors.request.use(
   async (config) => {
-    const authToken = Cookies.get('authToken');
+    const authToken = await getAuthTokenFromCookie();
     if (!authToken) {
-      redirect('/auth/login');
+      const navigate = useNavigate();
+      navigate('/auth/login');
       console.log('Token de autenticação não encontrado! Redirecionando para a página de login...');
     }
     config.headers.Authorization = `Bearer ${authToken}`;
-
     return config;
   },
   (error) => {
@@ -29,8 +30,7 @@ axiosUser.interceptors.request.use(
 axiosUser.interceptors.response.use(
     (response) => {
       if(response.status === 403) {
-        Cookies.remove("authToken");
-        console.log("A sessão expirou");
+        removeAuthCookie();
         redirect('/auth/login');
       }
       return response;

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { redirect } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
 
@@ -15,7 +15,6 @@ axiosStore.interceptors.request.use(
     const authToken = Cookies.get('authToken');
     const storeToken = Cookies.get('storeToken');
     if (!authToken) {
-      redirect('/auth/login');
       console.log('Token de autenticação não encontrado! Redirecionando para a página de login...');
     }
     if (!storeToken) {
@@ -36,13 +35,12 @@ axiosStore.interceptors.response.use(
     (response) => {
       if(response.status === 403) {
         Cookies.remove("authToken");
-        console.log("A sessão expirou");
-        redirect('/auth/login');
+        const navigate = useNavigate();
+        navigate('/auth/login');
       }
       if(response.status === 402) {
         Cookies.remove("storeToken");
         console.log("A sessão de loja expirou");
-        redirect('/');
       }
       return response;
     },

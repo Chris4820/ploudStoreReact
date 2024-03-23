@@ -5,6 +5,7 @@ import { IoMdMenu, IoMdNotificationsOutline } from "react-icons/io";
 import { CiCreditCard1 } from "react-icons/ci";
 import UserMenu from "./UserMenu";
 import { IoSettingsOutline } from "react-icons/io5";
+import { useGetStoreInformation } from "../../api/store/store";
 
 
 
@@ -13,13 +14,15 @@ import { IoSettingsOutline } from "react-icons/io5";
 const menuItems = [
   { href: '/dashboard', title: 'Dashboard', icon: RxDashboard },
   { href: '/dashboard/about', title: 'Statistic', icon: BsClipboard2Data },
-  { href: '#', title: 'Payments', icon: CiCreditCard1},
+  { href: '/dashboard/payments', title: 'Payments', icon: CiCreditCard1},
   { href: '/dashboard/settings', title: 'Settings', icon: IoSettingsOutline},
 ];
 
 
 export default function Layout() {
-
+  const {data:store} = useGetStoreInformation();
+  
+  console.log(store);
    return (
     <div className="max-h-screen max-w-screen overflow-hidden bg-background">
       <div className="h-[70px] sticky bg-secondary border-b">
@@ -27,6 +30,7 @@ export default function Layout() {
           <div className="flex items-center gap-2">
             <IoMdMenu size={26} className="text-primary lg:hidden cursor-pointer"/>
           <h1 className="text-purple-600 text-xl font-bold">&lt;PloudStore/&gt;</h1>
+          <p className="text-blue-600">{store?.subdomain}</p>
           </div>
           <div className="flex gap-3 items-center">
             <IoMdNotificationsOutline className="text-primary" size={30}/>

@@ -2,10 +2,12 @@ import { LockIcon } from "lucide-react"
 import { Button } from "../../components/ui/button"
 import { Input } from "../../components/ui/input"
 import HeaderSection from "../../components/commons/Header"
+import { useGetStoreInformation } from "../../api/store/store"
 
 
 
 export default function DomainPage() {
+    const { data: store } = useGetStoreInformation();
     return(
         <>
         <HeaderSection title="Domínio" description="Gerencie aqui o seu domínio"/>
@@ -27,7 +29,7 @@ export default function DomainPage() {
                     <div className="flex justify-between flex-wrap gap-10 items-center">
                         <div className="w-full flex">
                             <div className="hidden sm:flex h-10 items-center justify-center rounded-s-md border px-4 text-muted-foreground bg-muted">https://</div>
-                            <Input className="rounded-none"/>
+                            <Input defaultValue={store?.subdomain} className="rounded-none"/>
                             <div className="hidden sm:flex h-10 items-center justify-center rounded-e-md border px-4 text-muted-foreground bg-muted">.ploudstore.com</div>
                         </div>
                         <small className="sm:hidden mt-[-2.5rem] text-[12px] text-muted-foreground"><span className="font-semibold text-green-600">YourStoreName</span>.ploudstore.com</small>
