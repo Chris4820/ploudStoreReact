@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button } from "../../../components/ui/button";
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../../../components/ui/dialog";
 import { toast } from "sonner";
-import { CategorieProps, createCategorie, deleteCategorie } from "../../../api/req/store/categorie";
+import { createCategorie } from "../../../api/req/store/categorie";
 import { Input } from "../../../components/ui/input";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";

@@ -1,9 +1,6 @@
-import { ArrowLeftIcon } from "lucide-react";
-import { Link, unstable_HistoryRouter, useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { MdOutlineAddCircle } from "react-icons/md";
 import { ProductProps } from "../../../../../api/req/store/categorie";
-import { Button } from "../../../../../components/ui/button";
 import { Input } from "../../../../../components/ui/input";
 import BackComponent from "../../../../../components/commons/BackComponent";
 
@@ -13,10 +10,8 @@ import BackComponent from "../../../../../components/commons/BackComponent";
 
 export default function ProductIdPage() {
     const [products, setProducts] = useState<ProductProps>();
-    const params = useParams();
     const { state } = useLocation();
     const navigate = useNavigate();
-    const categoryId = params.categoryId;
 
 
     useEffect(() => {

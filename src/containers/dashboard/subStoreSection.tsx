@@ -1,4 +1,4 @@
-import { CgArrowRight, CgSpinner } from "react-icons/cg";
+import { CgSpinner } from "react-icons/cg";
 import CardEmptyComponent from "../../components/commons/CardEmpty";
 import { useNavigate } from "react-router-dom";
 import { useGetSubStores } from "../../api/store/user";

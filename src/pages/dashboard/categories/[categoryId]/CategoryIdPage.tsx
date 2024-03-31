@@ -1,5 +1,4 @@
-import { ArrowLeftIcon } from "lucide-react";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ProductSection } from "../../../../containers/dashboard/categories/ProductSection";
 import { Button } from "../../../../components/ui/button";

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getAuthTokenFromCookie, removeAuthCookie } from "../utils";
 
 const axiosUser = axios.create({

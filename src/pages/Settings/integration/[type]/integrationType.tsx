@@ -1,6 +1,5 @@
 import { useEffect } from "react";
-import { CgArrowLeft } from "react-icons/cg";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import MinecraftIntegrationForm from "../../../../components/dashboard/forms/MinecraftIntegrationForm";
 import BackComponent from "../../../../components/commons/BackComponent";
 
