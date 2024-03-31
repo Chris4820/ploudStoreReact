@@ -15,11 +15,15 @@ axiosStore.interceptors.request.use(
     const authToken = Cookies.get('authToken');
     const storeToken = Cookies.get('storeToken');
     if (!authToken) {
-      console.log('Token de autenticação não encontrado! Redirecionando para a página de login...');
+      Cookies.remove("authToken");
+      Cookies.remove("storeToken");
+      window.location.href = '/auth/login';
+      return Promise.reject("Redirecting to login...");
     }
     if (!storeToken) {
-      redirect('/');
-      console.log("O token de authStore não existe!");
+      Cookies.remove("storeToken");
+      window.location.href = '/';
+      return Promise.reject("Redirecting to store...");
     }
     config.headers.Authorization = `Bearer ${authToken}`;
     config.headers['Store-Token'] = `Bearer ${storeToken}`;
@@ -32,21 +36,12 @@ axiosStore.interceptors.request.use(
 
 // Response interceptor
 axiosStore.interceptors.response.use(
-    (response) => {
-      if(response.status === 403) {
-        Cookies.remove("authToken");
-        const navigate = useNavigate();
-        navigate('/auth/login');
-      }
-      if(response.status === 402) {
+    response => response,
+    error => {
+      if(error.response.status === 403) {
         Cookies.remove("storeToken");
-        console.log("A sessão de loja expirou");
+        return window.location.href = '/';
       }
-      return response;
-    },
-    (error) => {
-      return Promise.reject(error);
-    }
-  );
-
+    })
+  
 export default axiosStore;

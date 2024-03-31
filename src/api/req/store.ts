@@ -1,25 +1,5 @@
-import axios from "axios";
 import axiosStore from "../../lib/axios/axiosStore";
-import { useMutation } from "@tanstack/react-query";
-
-
-
-export type RevenueSummaryProps = {
-    dailySales: number,
-    dailyRevenue: number,
-    monthlySales: number,
-    monthlyRevenue: number,
-}
-
-export type Widget = {
-    bestClientShow: boolean;
-    bestClientShowValue: boolean;
-    showDiscord: boolean;
-    discordId: string;
-    lastPurchaseShow: boolean;
-    lastPurchaseShowValue: boolean;
-    topProductShow: boolean;
-};
+import axiosUser from "../../lib/axios/axiosUser";
 
 export type StoreInformationProps = {
     name: string,
@@ -33,32 +13,84 @@ export type StoreInformationProps = {
     createdAt: string,
 }
 
-export type PaymentProps = {
-    id: number,
-    clientName: string,
-    clientEmail: string,
-    value: number,
-    cupon: string | null,
-    status: "pending" | "success" | "failed"
-    created_at: string,
-  }
-
-export async function getRevenueSummary(): Promise<RevenueSummaryProps> {
-    const response = await axiosStore.get<{revenueSummary: RevenueSummaryProps}>('revenueSummary');
-    return response.data.revenueSummary; // Obtemos o primeiro item do array
+export type StoreProps = {
+    storeId: number,
+    name: string,
+    subdomain: string,
+    gametype: "MINECRAFT" | "FIVEM" | "REDM",
+    shortName?: string,
+    ownerId?: number,
 }
+
+export type createStoreProps = {
+    name: string,
+    description: string,
+    subDomain: string,
+    current: string,
+    gameType: 'MINECRAFT' | 'FIVEM' | 'REDDEAD',
+}
+
+export type SubStoreProps = {
+    store: StoreProps;
+    role: string,
+}
+
+export type InviteStoreProps = {
+    store: StoreProps;
+    role: string,
+    created_at: string,
+}
+
 
 export async function getStoreInformation(): Promise<StoreInformationProps> {
     const response = await axiosStore.get<{store: StoreInformationProps}>('store');
     return response.data.store; // Obtemos o primeiro item do array
 }
-
-export async function getStoreWidgets(): Promise<Widget> {
-    const response = await axiosStore.get<{widgets: Widget}>('widgets');
-    return response.data.widgets; // Obtemos o primeiro item do array
+export async function getStores() {
+    const response = await axiosUser.get<{ stores: StoreProps[] }>('stores');
+    console.log(response.data.stores);
+    return response.data.stores; // Retorna apenas a array de lojas
 }
 
-export async function getPayments(): Promise<PaymentProps> {
-    const response = await axiosStore.get<{payments: PaymentProps}>('payments');
-    return response.data.payments; // Obtemos o primeiro item do array
+export async function createStore({name, description, subDomain, current, gameType} : createStoreProps) {
+    const response = await axiosUser.post('store', {
+        name: name,
+        description: description,
+        subDomain: subDomain,
+        current: current,
+        gameType: gameType,
+    })
+    return response;
 }
+
+export async function getTokenStore(storeId : number) {
+    const response = await axiosUser.get(`openStore/${storeId}`);
+    return response;
+}
+
+export async function getSubStores() {
+    const response = await axiosUser.get<{ subStores: SubStoreProps[]}>('substores');
+    return response.data.subStores;
+}
+export async function createNewStore(store: StoreProps) {
+    const response = await axiosUser.post('store', store);
+    return response.data;
+}
+
+export async function getInviteStores() {
+    const response = await axiosUser.get<{ inviteStores: InviteStoreProps[]}>('inviteStores');
+    return response.data.inviteStores;
+}
+
+export async function acceptInviteStore(storeId: number) {
+    const response = await axiosUser.put(`inviteStore/${storeId}`);
+    return response;
+}
+
+export async function deleteInviteStore(storeId: number) {
+    const response = await axiosUser.delete(`inviteStore/${storeId}`);
+    return response;
+}
+
+
+

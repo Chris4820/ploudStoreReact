@@ -1,5 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { getPayments, getRevenueSummary, getStoreInformation, getStoreWidgets } from "../req/store";
+import { getRevenueSummary } from "../req/store/statistic";
+import { getStoreInformation } from "../req/store";
+import { getStoreWidgets } from "../req/store/widgets";
+import { getPayments } from "../req/store/payment";
 
 
 
@@ -7,8 +10,6 @@ export function useGetRevenueSummary() {
     return useQuery({
       queryKey: ['revenueSummary'],
       queryFn: getRevenueSummary,
-      staleTime: 1000*100*2, //2 minute
-      refetchOnWindowFocus: false,
     })
   }
 
@@ -16,8 +17,6 @@ export function useGetStoreInformation() {
     return useQuery({
       queryKey: ['store'],
       queryFn: getStoreInformation,
-      staleTime: 1000*100*2, //2 minute
-      refetchOnWindowFocus: false,
     })
   }
 
@@ -25,8 +24,6 @@ export function useGetStoreInformation() {
     return useQuery({
       queryKey: ['widgets'],
       queryFn: getStoreWidgets,
-      staleTime: 1000*100*2, //2 minute
-      refetchOnWindowFocus: false,
     })
   }
 

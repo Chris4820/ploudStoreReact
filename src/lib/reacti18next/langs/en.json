@@ -1,0 +1,82 @@
+{
+    "translation": {
+      "auth": {
+        "description": "Monetize your game server with our advanced e-commerce platform",
+        "noAccount": "Don't have an account yet?",
+        "createOne": "Create one now",
+        "loginPage": {
+          "welcomeback": "Welcome back!",
+          "description": "Log in to access the dashboard",
+          "forgot": "Forgot your password?",
+          "rememberMe": "Remember me",
+          "login": "Log in"
+        },
+        "registerPage": {
+          "welcome": "Welcome",
+          "description": "Register to access the dashboard",
+          "terms": "terms and conditions",
+          "createAccount": "Create account",
+          "haveAccount": "Already have an account?",
+          "login": "Log in"
+        }
+      },
+      "dashboardPage": {
+        "dailyEarnings": "Daily earnings",
+        "dailySales": "Daily Sales",
+        "monthlyEarnings": "Monthly Earnings",
+        "monthlySales": "Monthly Sales"
+      },
+      "settingsPage": {
+        "integrationSection": {
+          "integration": "Integrations",
+          "description": "Connect your store with various applications",
+          "configureMinecraft": {
+            "description": "Connect the store to your Minecraft server and set up automatic product activations!"
+          },
+          "configureDiscord": {
+            "description": "Connect the store to your Discord server to set up notifications for new purchases..."
+          },
+          "configureSlack": {
+            "description": "Connect the store to your Slack server to set up notifications for new purchases..."
+          }
+        },
+        "domainSection": {
+          "domain": "Domain",
+          "description": "Manage your domain here",
+          "configureDomain": {
+            "title": "Configure your domain",
+            "description": "Use your own domain name in your online store to match your brand."
+          },
+          "configureHttps": {
+            "description": "Your store is protected by an SSL certificate to keep all personal data secure.",
+            "footer": "Safe and encrypted"
+          },
+          "configureSubDomain": {
+            "title": "Configure sub-domain",
+            "description": "The PloudStore brand address used to access your online store."
+          }
+        }
+      },
+      "setup": {
+        "name": "Name",
+        "email": "Email",
+        "password": "Password",
+        "idiom": "Idiom",
+        "currency": "Currency",
+        "timezone": "Timezone"
+      },
+      "dashboard": "Dashboard",
+      "statistics": "Statistics",
+      "products": "Products",
+      "engagement": "Engagement",
+      "save": "Save",
+      "accepted": "Accepted",
+      "confirm": "Confirm",
+      "configure": "Configure",
+      "payments": "Payments",
+      "settings": "Settings",
+      "update": "Update",
+      "change": "Change"
+    }
+  }
+  

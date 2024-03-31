@@ -1,3 +1,4 @@
+import { t } from "i18next";
 import { Outlet } from "react-router-dom";
 
 
@@ -10,8 +11,7 @@ export default function AuthLayout() {
                 <div className="relative h-full w-full flex">
                     <img src={'/LoginMobile.svg'} alt="AuthLogo"/>
                 </div>
-                <h1 className="text-purple-600 text-center lg:max-w-sm font-semibold">Monetize seu servidor de jogos com nossa plataforma avançada de comércio eletrônico</h1>
-                
+                <h1 className="text-purple-600 text-center lg:max-w-sm font-semibold">{t("auth.description")}</h1>
             </div>
             <Outlet/>
         </div>

@@ -1,0 +1,81 @@
+{
+    "translation": {
+        "auth": {
+            "description": "Monetisera din spelserver med vår avancerade e-handelsplattform",
+            "noAccount": "Har du inget konto än?",
+            "createOne": "Skapa ett nu",
+            "loginPage": {
+                "welcomeback": "Välkommen tillbaka!",
+                "description": "Logga in för att komma åt instrumentpanelen",
+                "forgot": "Glömt lösenordet?",
+                "rememberMe": "Kom ihåg mig",
+                "login": "Logga in"
+            },
+            "registerPage": {
+                "welcome": "Välkommen",
+                "description": "Registrera dig för att komma åt instrumentpanelen",
+                "terms": "villkor",
+                "createAccount": "Skapa ett konto",
+                "haveAccount": "Har du redan ett konto?",
+                "login": "Logga in"
+            }
+        },
+        "dashboardPage": {
+            "dailyEarnings": "Dagliga intäkter",
+            "dailySales": "Dagliga försäljning",
+            "monthlyEarnings": "Månadsintäkter",
+            "monthlySales": "Månadsförsäljning"
+        },
+        "settingsPage": {
+            "integrationSection": {
+                "integration": "Integrationer",
+                "description": "Anslut din butik till olika applikationer",
+                "configureMinecraft": {
+                    "description": "Anslut butiken till din Minecraft-server och konfigurera automatiska aktiveringar av produkter"
+                },
+                "configureDiscord": {
+                    "description": "Anslut butiken till din Discord-server för att konfigurera meddelanden om nya köp"
+                },
+                "configureSlack": {
+                    "description": "Anslut butiken till din Slack-server för att konfigurera meddelanden om nya köp"
+                }
+            },
+            "domainSection": {
+                "domain": "Domän",
+                "description": "Hantera din domän här",
+                "configureDomain": {
+                    "title": "Konfigurera din domän",
+                    "description": "Använd ditt eget domännamn i din onlinebutik för att matcha ditt eget varumärke"
+                },
+                "configureHttps": {
+                    "description": "Din butik är skyddad med ett SSL-certifikat för att hålla all personlig information säker",
+                    "footer": "Säker och krypterad"
+                },
+                "configureSubDomain": {
+                    "title": "Konfigurera underdomän",
+                    "description": "Adressen för varumärket PloudStore som används för att komma åt din onlinebutik"
+                }
+            }
+        },
+        "setup": {
+            "name": "Namn",
+            "email": "E-post",
+            "password": "Lösenord",
+            "idiom": "Språk",
+            "currency": "Valuta",
+            "timezone": "Tidszon"
+        },
+        "dashboard": "Instrumentpanel",
+        "statistics": "Statistik",
+        "engagement": "Engagemang",
+        "products": "Produkter",
+        "save": "Spara",
+        "accepted": "Accepterad",
+        "confirm": "Bekräfta",
+        "configure": "Konfigurera",
+        "payments": "Betalningar",
+        "settings": "Inställningar",
+        "update": "Uppdatera",
+        "change": "Ändra"
+    }
+}

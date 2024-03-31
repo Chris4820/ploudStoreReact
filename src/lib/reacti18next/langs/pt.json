@@ -1,0 +1,81 @@
+{
+    "translation": {
+        "auth": {
+            "description": "Monetize seu servidor de jogos com nossa plataforma avançada de comércio eletrônico",
+            "noAccount": "Ainda não tem uma conta?",
+            "createOne": "Crie uma agora",
+            "loginPage": {
+                "welcomeback": "Bem-vindo de volta!",
+                "description": "Faça login para acessar o painel",
+                "forgot": "Esqueceu a senha?",
+                "rememberMe": "Lembrar de mim",
+                "login": "Iniciar sessão"
+            },
+            "registerPage": {
+                "welcome": "Bem-vindo",
+                "description": "Faça registro para acessar o painel",
+                "terms": "terms and conditions",
+                "createAccount": "Criar conta",
+                "haveAccount": "Já tem uma conta?",
+                "login": "Faça login"
+            }
+        },
+        "dashboardPage": {
+            "dailyEarnings": "Ganhos diários",
+            "dailySales": "Vendas diárias",
+            "monthlyEarnings": "Ganhos Mensais",
+            "monthlySales": "Vendas Mensais"
+        },
+        "settingsPage": {
+            "integrationSection": {
+                "integration": "Integrações",
+                "description": "Conecte sua loja com diversas aplicações",
+                "configureMinecraft": {
+                    "description": "Conecte a loja ao seu servidor de Minecraft e configure as ativações automáticas dos produtos!"
+                },
+                "configureDiscord": {
+                    "description": "Conecte a loja ao seu servidor Discord, para configurar avisos de novas compras..."
+                },
+                "configureSlack": {
+                    "description": "Conecte a loja ao seu servidor Slack, para configurar avisos de novas compras..."
+                }
+            },
+            "domainSection": {
+                "domain": "Domínio",
+                "description": "Gerencie aqui o seu domínio",
+                "configureDomain": {
+                    "title": "Configure o seu domínio",
+                    "description": "Use seu próprio nome de domínio em sua loja virtual para combinar com sua própria marca."
+                },
+                "configureHttps": {
+                    "description": "Sua loja está protegida por um certificado SSL para manter todos os dados pessoais seguros.",
+                    "footer": "Seguro e criptografado"
+                },
+                "configureSubDomain": {
+                    "title": "Configure o sub-domínio",
+                    "description": "O endereço da marca PloudStore usado para acessar sua loja virtual."
+                }
+            }
+        },
+        "setup": {
+            "name": "Nome",
+            "email": "Email",
+            "password": "Palavra Passe",
+            "idiom": "Idioma",
+            "currency": "Moeda",
+            "timezone": "Fuso horário"
+        },
+        "dashboard": "Painel",
+        "statistics": "Estatística",
+        "engagement": "Engajamento",
+        "products": "Produtos",
+        "save": "Salvar",
+        "accepted": "Aceito",
+        "confirm": "Confirmar",
+        "configure": "Configurar",
+        "payments": "Pagamentos",
+        "settings": "Definições",
+        "update": "Atualizar",
+        "change": "Alterar"
+    }
+  }

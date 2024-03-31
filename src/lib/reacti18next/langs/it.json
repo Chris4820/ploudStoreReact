@@ -1,0 +1,81 @@
+{
+    "translation": {
+        "auth": {
+            "description": "Monetizza il tuo server di giochi con la nostra avanzata piattaforma di commercio elettronico",
+            "noAccount": "Non hai ancora un account?",
+            "createOne": "Crea uno adesso",
+            "loginPage": {
+                "welcomeback": "Bentornato!",
+                "description": "Effettua l'accesso per accedere al pannello",
+                "forgot": "Hai dimenticato la password?",
+                "rememberMe": "Ricordami",
+                "login": "Accedi"
+            },
+            "registerPage": {
+                "welcome": "Benvenuto",
+                "description": "Registrati per accedere al pannello",
+                "terms": "termini e condizioni",
+                "createAccount": "Crea un account",
+                "haveAccount": "Hai già un account?",
+                "login": "Accedi"
+            }
+        },
+        "dashboardPage": {
+            "dailyEarnings": "Guadagni giornalieri",
+            "dailySales": "Vendite giornaliere",
+            "monthlyEarnings": "Guadagni mensili",
+            "monthlySales": "Vendite mensili"
+        },
+        "settingsPage": {
+            "integrationSection": {
+                "integration": "Integrazioni",
+                "description": "Collega il tuo negozio a diverse applicazioni",
+                "configureMinecraft": {
+                    "description": "Collega il negozio al tuo server Minecraft e configura le attivazioni automatiche dei prodotti"
+                },
+                "configureDiscord": {
+                    "description": "Collega il negozio al tuo server Discord, per configurare le notifiche di nuovi acquisti"
+                },
+                "configureSlack": {
+                    "description": "Collega il negozio al tuo server Slack, per configurare le notifiche di nuovi acquisti"
+                }
+            },
+            "domainSection": {
+                "domain": "Dominio",
+                "description": "Gestisci il tuo dominio qui",
+                "configureDomain": {
+                    "title": "Configura il tuo dominio",
+                    "description": "Utilizza il tuo nome di dominio nel tuo negozio online per corrispondere al tuo marchio"
+                },
+                "configureHttps": {
+                    "description": "Il tuo negozio è protetto da un certificato SSL per mantenere al sicuro tutti i dati personali",
+                    "footer": "Sicuro e crittografato"
+                },
+                "configureSubDomain": {
+                    "title": "Configura il sottodominio",
+                    "description": "L'indirizzo del marchio PloudStore utilizzato per accedere al tuo negozio online"
+                }
+            }
+        },
+        "setup": {
+            "name": "Nome",
+            "email": "E-mail",
+            "password": "Password",
+            "idiom": "Lingua",
+            "currency": "Valuta",
+            "timezone": "Fuso orario"
+        },
+        "dashboard": "Dashboard",
+        "statistics": "Statistiche",
+        "engagement": "Coinvolgimento",
+        "products": "Prodotti",
+        "save": "Salva",
+        "accepted": "Accettato",
+        "confirm": "Conferma",
+        "configure": "Configura",
+        "payments": "Pagamenti",
+        "settings": "Impostazioni",
+        "update": "Aggiorna",
+        "change": "Modifica"
+    }
+}

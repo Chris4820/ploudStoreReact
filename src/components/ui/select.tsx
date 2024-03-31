@@ -24,13 +24,7 @@ const SelectTrigger = React.forwardRef<
     )}
     {...props}
   >
-    <div className="flex items-center gap-2">
-    <SelectPrimitive.Icon asChild>
-      <MdFilterCenterFocus className="h-4 w-4 opacity-50" />
-    </SelectPrimitive.Icon>
-    <h1 className="text-muted-foreground">|</h1>
     {children}
-    </div>
     <SelectPrimitive.Icon asChild>
       <ChevronDown className="h-4 w-4 opacity-50" />
     </SelectPrimitive.Icon>

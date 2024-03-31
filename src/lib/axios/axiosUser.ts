@@ -28,16 +28,12 @@ axiosUser.interceptors.request.use(
 
 // Response interceptor
 axiosUser.interceptors.response.use(
-    (response) => {
-      if(response.status === 403) {
-        removeAuthCookie();
-        redirect('/auth/login');
-      }
-      return response;
-    },
-    (error) => {
-      return Promise.reject(error);
+  response => response,
+  error => {
+    if(error.response.status === 403) {
+      removeAuthCookie();
+      return window.location.href = '/auth/login';
     }
-  );
+  })
 
 export default axiosUser;

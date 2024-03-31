@@ -1,15 +1,16 @@
-import { useSearchParams } from "react-router-dom";
 import HeaderSection from "../../../components/commons/Header";
 import { Button } from "../../../components/ui/button";
 import { Input } from "../../../components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../components/ui/select";
 import { DatePickerWithRange } from "../../../components/ui/datepicker";
+import { MdFilterCenterFocus } from "react-icons/md";
 
 
 
 
 export default function PaymentsPage() {
-    const [searchParams, setSearchParams] = useSearchParams();
+
+    /*const [searchParams, setSearchParams] = useSearchParams();
 
 
     async function setNewParams() {
@@ -17,7 +18,7 @@ export default function PaymentsPage() {
             searchParams.set("c", "4");
             return searchParams;
           });
-    }
+    }*/
     
     
     return(
@@ -35,7 +36,11 @@ export default function PaymentsPage() {
 
                 <Select defaultValue="recent">
                     <SelectTrigger  className="h-8 w-[180px]">
+                        <div className="flex items-center gap-2">
+                        <MdFilterCenterFocus className="h-4 w-4 opacity-50" />
+                        <h1 className="text-muted-foreground">|</h1>
                         <SelectValue/>
+                        </div>
                     </SelectTrigger>
                 <SelectContent>
                         <SelectItem value="recent">Mais recente</SelectItem>
@@ -72,9 +77,10 @@ export default function PaymentsPage() {
                 <DatePickerWithRange/>
                 <Button>Pesquisar</Button>
             </div>
-            <h1>Filter: {searchParams.get('filter')}</h1>
+            {/*<h1>Filter: {searchParams.get('filter')}</h1>
             <h1>Filter por paymentID: {searchParams.get('paymentID')}</h1>
             <h1>Filter por page: {searchParams.get('page')}</h1>
+            */}
         </>
     )
 }

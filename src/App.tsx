@@ -1,7 +1,7 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom"
 import DashboardLayout from "./layouts/dashboard/SlideMenu"
-import Home from "./pages/Home"
-import SettingsLayout from "./layouts/dashboard/SettingsLayout"
+import Home from "./pages/dashboard/Home"
+import SettingsLayout from "./layouts/dashboard/NavBarLayout/SettingsLayout"
 import SettingsPage from "./pages/Settings/settings"
 import DomainPage from "./pages/Settings/domain"
 import IntegrationPage from "./pages/Settings/integration/integration"
@@ -17,6 +17,16 @@ import ResetPasswordPage from "./pages/auth/recovery-password/[token]/ResetPassw
 import ConfirmEmailPage from "./pages/auth/confirm-email/[token]/confirmEmailPage"
 import PaymentsPage from "./pages/dashboard/payments/paymentPage"
 import SetupPage from "./pages/setup/setupPage"
+import EngagamentLayout from "./layouts/dashboard/NavBarLayout/EngagamentLayout"
+import DiscountPage from "./pages/dashboard/engagament/discount/discounts"
+import CategoriePage from "./pages/dashboard/categories/categoriePage"
+import CategoryIdPage from "./pages/dashboard/categories/[categoryId]/CategoryIdPage"
+import ProductIdPage from "./pages/dashboard/categories/[categoryId]/[productId]/productIdPage"
+import GoalPage from "./pages/dashboard/engagament/goalPage"
+import CreateDiscountPage from "./pages/dashboard/engagament/discount/createDiscount/createDiscountPage"
+import DesignPage from "./pages/dashboard/design/DesignPage"
+import CheckoutPage from "./pages/Settings/checkout/CheckoutPage"
+import StatisticPage from "./pages/dashboard/statistic/statistic"
 
 function App() {
  return (
@@ -36,9 +46,23 @@ function App() {
         </Route>
          <Route path="dashboard" element={<DashboardLayout />} >
            <Route path="/dashboard" element={<Home />} />
+           <Route path="/dashboard/statistic" element={<StatisticPage />} />
            <Route path="/dashboard/payments" element={<PaymentsPage/>} />
+           <Route path="/dashboard/design" element={<DesignPage/>} />
+           <Route path="/dashboard/categorie" element={<CategoriePage/>} />
+           <Route path="/dashboard/categorie/:categoryId" element={<CategoryIdPage/>} />
+           <Route path="/dashboard/categorie/:categoryId/:productId" element={<ProductIdPage/>} />
+
+           <Route path="engagement" element={<EngagamentLayout/>}>
+           <Route path="/dashboard/engagement" element={<DiscountPage/>}/>
+              <Route path="/dashboard/engagement/discount" element={<DiscountPage/>}/>
+              <Route path="/dashboard/engagement/discount/create" element={<CreateDiscountPage/>}/>
+              <Route path="/dashboard/engagement/goal" element={<GoalPage/>}/>
+           </Route>
+
            <Route path="settings" element={<SettingsLayout/>}>
               <Route path="/dashboard/settings" element={<SettingsPage/>}/>
+              <Route path="/dashboard/settings/checkout" element={<CheckoutPage/>}/>
               <Route path="/dashboard/settings/integration" element={<IntegrationPage/>}/>
               <Route path="/dashboard/settings/integration/:type" element={<IntegrationTypePage/>}/>
               <Route path="/dashboard/settings/widgets" element={<WidgetsPage/>}/>

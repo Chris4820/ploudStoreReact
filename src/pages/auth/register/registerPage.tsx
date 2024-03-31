@@ -9,6 +9,8 @@ import { Input } from '../../../components/ui/input';
 import { Button } from '../../../components/ui/button';
 import { Link } from 'react-router-dom';
 import { UserRegisterProps, postRegisterUser } from '../../../api/req/auth';
+import { t } from 'i18next';
+import FormLayoutAuth from '../../../layouts/auth/formLayout';
 
 
 export default function RegisterPage() {
@@ -53,34 +55,33 @@ export default function RegisterPage() {
     };
 
     return (
-        <section className="h-full flex flex-col gap-5">
-            <div className="text-center">
-                <h1 className="font-bold text-3xl">Bem-vindo</h1>
-                <p className="text-[15px]">Faça registro para acessar o painel</p>
-            </div>
+            <FormLayoutAuth 
+                title={t("auth.registerPage.welcome")}
+                description={t("auth.registerPage.description")}>
+
                 <motion.form className="space-y-4 mt-5"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
                 onSubmit={handleSubmit(createUser)}>
                 <div>
-                    <label htmlFor='name' className='block font-semibold text-[14px]'>Nome:</label>
+                    <label htmlFor='name' className='block font-semibold text-[14px]'>{t("setup.name")}:</label>
                     <Input {...register('name')} id='name' className='mt-2' placeholder='Chris Moreira' />
                     {errors.name && <span className='text-destructive text-[12px]'>{errors.name.message}</span>}
                 </div>
                 <div>
-                    <label htmlFor='email' className='block font-semibold text-[14px]'>Email:</label>
+                    <label htmlFor='email' className='block font-semibold text-[14px]'>{t("setup.email")}:</label>
                     <Input {...register('email')} id='email' className='mt-2' placeholder='chrismoreiraa02@gmail.com' />
                     {errors.email && <span className='text-destructive text-[12px]'>{errors.email.message}</span>}
                     
                 </div>
                 <div className='mt-5'>
-                    <label htmlFor='password' className="block font-semibold text-[14px]">Password:</label>
+                    <label htmlFor='password' className="block font-semibold text-[14px]">{t("setup.password")}:</label>
                     <Input {...register('password')} type='password' id='password' placeholder='Coloque sua password' className="mt-2"/>
                     {errors.password && <span className='text-destructive text-[12px]'>{errors.password.message}</span>}
                 </div>
                 <div className='mt-5'>
-                    <label htmlFor='confirmpassword' className="block font-semibold text-[14px]">Confirmar Password:</label>
+                    <label htmlFor='confirmpassword' className="block font-semibold text-[14px]">{t("confirm")} {t("setup.password")}:</label>
                     <Input {...register('confirmPassword')} type='password' id='confirmpassword' placeholder='Coloque sua password' className="mt-2"/>
                     {errors.confirmPassword && <span className='text-destructive text-[12px]'>{errors.confirmPassword.message}</span>}
 
@@ -92,7 +93,7 @@ export default function RegisterPage() {
                     <label htmlFor="terms"
                         className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                     >
-                    Accept terms and conditions
+                    {t("accepted")} {t("auth.registerPage.terms")}
                     </label>
                 </div>
                 {errors.terms && <span className='text-destructive text-[12px] absolute'>{errors.terms.message}</span>}
@@ -102,14 +103,14 @@ export default function RegisterPage() {
                         {loading ? (
                             <CgSpinner className='animate-spin' size={24}/>
                         ) : (
-                            'Criar conta'
+                            t("auth.registerPage.createAccount")
                         )}
                         </Button>
                 </div>
             </motion.form>
             <div className='w-full text-center'>
-                <p>Já tem uma conta? <Link className='hover:underline text-blue-500' to={'../login'}>Faça login</Link>.</p>
+                <p>{t("auth.registerPage.haveAccount")} <Link className='hover:underline text-blue-500' to={'../login'}>{t("auth.registerPage.login")}</Link>.</p>
             </div>
-        </section>
+            </FormLayoutAuth>
     );
 }

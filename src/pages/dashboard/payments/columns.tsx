@@ -1,5 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table"
-import { PaymentProps } from "../../../api/req/store"
+import { PaymentProps } from "../../../api/req/store/payment"
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.

@@ -7,8 +7,17 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { ThemeProvider } from './layouts/providers/Theme.tsx';
 import { Toaster } from 'sonner';
 
+import "./lib/reacti18next/i18n.ts";
 
-const queryClient = new QueryClient();
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 2, //2 minutos
+      refetchOnWindowFocus: false,
+    },
+  }
+});
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { InviteStoreProps, acceptInviteStore } from "../../api/req/user";
 import { Button } from "../../components/ui/button";
-import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../../components/ui/dialog";
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../../components/ui/dialog";
 import { toast } from "sonner";
+import { InviteStoreProps, acceptInviteStore } from "../../api/req/store";
 
 export function DialogDemo({ children, inviteStore }: { children: React.ReactNode, inviteStore: InviteStoreProps }) {
     const queryClient = useQueryClient();
@@ -15,15 +15,6 @@ export function DialogDemo({ children, inviteStore }: { children: React.ReactNod
             toast('Convite aceito com sucesso!');
         }
     });
-
-    async function deleteInvite(storeId: number) {
-        try {
-            
-        } catch (error) {
-            
-        }
-    }
-
 
     return (
         <Dialog>

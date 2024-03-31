@@ -1,7 +1,5 @@
-"use client"
-
 import * as React from "react"
-import { addDays, format } from "date-fns"
+import { addDays } from "date-fns"
 import { DateRange } from "react-day-picker"
 
 import { Button } from "./button"

@@ -3,25 +3,21 @@ import { CgAdd, CgSpinner } from "react-icons/cg";
 import { Input } from "../../components/ui/input";
 import { Button } from "../../components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../components/ui/select";
-import { IoIosAddCircleOutline } from "react-icons/io";
+import { IoIosAddCircleOutline, IoMdArrowRoundBack } from "react-icons/io";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { StoreProps, createStore, createStoreProps } from "../../api/req/user";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import { createStore } from "../../api/req/store";
 
 
 export default function SetupPage() {
     const queryClient = useQueryClient();
     const navigate = useNavigate();
-
-    async function createStoree(data: createStoreProps, e:any) {
-        e.preventDefault();
-        createNewStore(data);
-    }
     
+
     const { mutate: createNewStore, isPending } = useMutation({
         mutationFn: createStore,
         onSuccess: (data) => {
@@ -44,7 +40,7 @@ export default function SetupPage() {
         subDomain: z.string().min(3, "Insira pelo menos 3 caracteres")
                 .regex(/^[a-zA-Z0-9-_]+$/, "O subdomínio deve conter apenas letras, números, hífens e sublinhados"),
         current: z.string().default('eur'),
-        gameType: z.string().default("MINECRAFT"),
+        gameType: z.enum(['MINECRAFT', 'FIVEM', 'REDDEAD']).default("MINECRAFT"),
     })
     type loginUserFormData = z.infer<typeof createStoreSchema>
     const { handleSubmit, register, formState: { errors }, setValue} = useForm<loginUserFormData>({
@@ -54,7 +50,7 @@ export default function SetupPage() {
     function CardSuggestGame() {
         const discordInviteLink = "https://discord.gg/Ntd2g4e6V6"; //Convite para sala de new-games
         return(
-            <div className="relative rounded-xl h-40 border-dashed border-2 border-primary overflow-hidden focus:outline-none sm:mx-0 mx-10">
+            <div className="relative rounded-xl h-40 border-dashed border-2 border-primary overflow-hidden focus:outline-none">
                 <a href={discordInviteLink} target="_blank" rel="noopener noreferrer" className="absolute inset-0 flex justify-center items-center text-center text-muted-foreground hover:text-purple-600 cursor-pointer">
                   <div className="flex gap-2">
                     <CgAdd size={26} />
@@ -90,13 +86,18 @@ export default function SetupPage() {
 
   const [selectGameId, setSelectGameId] = useState("MINECRAFT");
 
-  const handleGameType = (gameType: string) => {
+const handleGameType = (gameType: 'MINECRAFT'| 'FIVEM' | 'REDDEAD') => {
     setSelectGameId(gameType);
     setValue('gameType', gameType);
   };
 
   return (
     <section className="container flex justify-center items-center min-h-screen">
+        <div>
+        <Button className="gap-1 items-center text-base" onClick={() => navigate('/')} variant={"link"}>
+            <IoMdArrowRoundBack className="mt-[2px]" size={18}/>
+            Voltar
+            </Button>
         <form
         onSubmit={handleSubmit(createNewStore)} 
         className="p-5 border rounded-lg w-full h-auto">
@@ -178,6 +179,7 @@ export default function SetupPage() {
             </div>
             
         </form>
+        </div>
     </section>
   );
 }

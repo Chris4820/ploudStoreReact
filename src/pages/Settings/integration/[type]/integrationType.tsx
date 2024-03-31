@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { CgArrowLeft } from "react-icons/cg";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import MinecraftIntegrationForm from "../../../../components/dashboard/forms/MinecraftIntegrationForm";
+import BackComponent from "../../../../components/commons/BackComponent";
 
 
 export default function IntegrationTypePage() {
@@ -20,10 +21,7 @@ export default function IntegrationTypePage() {
 
      return(
         <>
-        <Link className="flex gap-2 items-center text-lg hover:underline mb-5" to={'../integration'}>
-            <CgArrowLeft size={20}/>
-            Voltar
-        </Link>
+        <BackComponent text="Voltar" toLink="../integration"/>
         {integrationType === "minecraft" && <MinecraftIntegrationForm/>}
         </>
      )
