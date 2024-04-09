@@ -41,7 +41,7 @@ export default function CategoryIdPage() {
             </Button>
         </div>
         <section className="container border rounded-lg space-y-1 py-5 mt-5">
-            <ProductSection categoryId={categoryId}/>
+            <ProductSection categoryId={categoryId || "A"}/>
         </section>
 
         <div className="flex justify-end w-full">
