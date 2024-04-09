@@ -16,6 +16,15 @@ import { createStore } from "../../api/req/store";
 export default function SetupPage() {
     const queryClient = useQueryClient();
     const navigate = useNavigate();
+    const [selectGameId, setSelectGameId] = useState("MINECRAFT");
+
+    const handleGameType = (gameType: string) => {
+        if(gameType === "MINECRAFT" || gameType === "FIVEM" || gameType === "REDDEAD") {
+            setSelectGameId(gameType);
+            setValue('gameType', gameType);
+        }
+        
+      }; 
     
 
     const { mutate: createNewStore, isPending } = useMutation({
@@ -25,9 +34,6 @@ export default function SetupPage() {
             navigate('/');
             toast(data?.data.message);
         },
-        onError: (data) => {
-            toast(data?.response?.data.message)
-        }
     });
 
     async function showSelect(value: string) {
@@ -42,10 +48,14 @@ export default function SetupPage() {
         current: z.string().default('eur'),
         gameType: z.enum(['MINECRAFT', 'FIVEM', 'REDDEAD']).default("MINECRAFT"),
     })
-    type loginUserFormData = z.infer<typeof createStoreSchema>
-    const { handleSubmit, register, formState: { errors }, setValue} = useForm<loginUserFormData>({
+    type storeCreateFormData = z.infer<typeof createStoreSchema>
+    const { handleSubmit, register, formState: { errors }, setValue} = useForm<storeCreateFormData>({
         resolver: zodResolver(createStoreSchema),
     })
+
+    async function sendStoreCreate(data: storeCreateFormData) {
+        createNewStore(data);
+    }
 
     function CardSuggestGame() {
         const discordInviteLink = "https://discord.gg/Ntd2g4e6V6"; //Convite para sala de new-games
@@ -84,13 +94,6 @@ export default function SetupPage() {
         )
       }
 
-  const [selectGameId, setSelectGameId] = useState("MINECRAFT");
-
-const handleGameType = (gameType: 'MINECRAFT'| 'FIVEM' | 'REDDEAD') => {
-    setSelectGameId(gameType);
-    setValue('gameType', gameType);
-  };
-
   return (
     <section className="container flex justify-center items-center min-h-screen">
         <div>
@@ -99,7 +102,7 @@ const handleGameType = (gameType: 'MINECRAFT'| 'FIVEM' | 'REDDEAD') => {
             Voltar
             </Button>
         <form
-        onSubmit={handleSubmit(createNewStore)} 
+        onSubmit={handleSubmit(sendStoreCreate)} 
         className="p-5 border rounded-lg w-full h-auto">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
 

@@ -40,7 +40,7 @@ export default function ProfilePage() {
                             <p>{t("setup.name")}</p>
                             <div className="flex items-center gap-5 mt-1">
                                 <Input defaultValue={user?.name} disabled/>
-                                <ChangeNameModal name={user?.name}>
+                                <ChangeNameModal name={user?.name || ""}>
                                     <Button>{t("change")} {t("setup.name")}</Button>
                                 </ChangeNameModal>
                             </div>

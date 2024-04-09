@@ -18,12 +18,11 @@ export default function PageTestDesignComponent({primaryColor, secondaryColor, l
     const secondaryColorStyle = {
         backgroundColor: secondaryColor // Define a cor de fundo com base na cor selecionada
     };
-    console.log(backgroundSize);
     return(
     <div className="rounded-md p-5 border">
         <header style={primaryColorStyle} className="h-20 rounded-t-md relative">
             {backgroundImage && (
-                <img src={backgroundImage} alt="Background" style={{ objectFit: backgroundSize}} className="absolute w-full h-full"/>
+                <img src={backgroundImage} alt="Background" style={{ backgroundSize}} className="absolute w-full h-full"/>
             )}
             <div className="container w-full h-full flex justify-between items-center absolute">
                 <div className={`h-10 w-10 rounded-md ${!logoImage && 'bg-muted'}`}>

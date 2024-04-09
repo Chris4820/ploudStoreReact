@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { FaCss3Alt } from "react-icons/fa";
 import { IoLogoHtml5, IoLogoJavascript } from "react-icons/io";
 

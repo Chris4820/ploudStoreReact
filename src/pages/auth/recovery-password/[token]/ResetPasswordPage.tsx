@@ -35,16 +35,14 @@ export default function ResetPasswordPage() {
         resolver: zodResolver(registerSchema),
     })
 
-    async function resetPassword(password: string, e: any) {
-        e.preventDefault();
-
+    async function resetPassword(data : registerUserFormData) {
         setLoading(true);
         if(!passwordToken) {
             toast("Sem passwordToken!");
             return;
         }
         try {
-            const response = await passwordRecoveryUser(passwordToken, password);
+            const response = await passwordRecoveryUser(passwordToken, data.password);
             if(response.status === 200) {
                 toast("Password alterada com sucesso!");
                 setLoading(false);
@@ -67,7 +65,8 @@ export default function ResetPasswordPage() {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                onSubmit={handleSubmit(resetPassword)}>
+                onSubmit={handleSubmit(resetPassword)}
+                noValidate>
                 <div>
                     <label htmlFor='password' className='block font-semibold text-[14px]'>Password:</label>
                     <Input {...register('password')} type='password' id='password' className='mt-2' placeholder='chrismoreiraa02@gmail.com' />

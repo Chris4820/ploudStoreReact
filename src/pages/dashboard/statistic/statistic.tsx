@@ -1,8 +1,6 @@
 import { GiMoneyStack } from "react-icons/gi";
 import HeaderSection from "../../../components/commons/Header";
 import Cards from "../../../components/dashboard/DashboardCard";
-import CardEmptyComponent from "../../../components/commons/CardEmpty";
-import NextComponent from "../../../components/commons/NextComponent";
 import CardSection from "../../../components/commons/CardSections";
 import BestCategorieTable from "../../../components/tables/bestCategorie/bestCategorieTable";
 import BestCostumerTable from "../../../components/tables/bestCostumer/bestCostumer";

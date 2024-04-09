@@ -2,7 +2,6 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import HeaderSection from "../../components/commons/Header";
-import ImageUpload from "../../components/imageUploadTest";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import { toast } from 'sonner';
@@ -21,7 +20,7 @@ export default function SettingsPage() {
     })
 
     type settingsFormData = z.infer<typeof settingsSchema>
-    const { handleSubmit, register, formState: { errors }, getValues, setValue} = useForm<settingsFormData>({
+    const { handleSubmit, register, formState: { errors }, getValues} = useForm<settingsFormData>({
         resolver: zodResolver(settingsSchema),
     })
 

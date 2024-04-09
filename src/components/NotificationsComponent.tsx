@@ -1,5 +1,4 @@
 import CardSection from "./commons/CardSections"
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
 import { GrCompliance } from "react-icons/gr";
 
   

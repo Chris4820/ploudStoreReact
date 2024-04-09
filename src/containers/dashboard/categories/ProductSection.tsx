@@ -5,12 +5,12 @@ import { ProductProps, getCategories, getProducts } from "../../../api/req/store
 import { CgSpinner } from "react-icons/cg";
 import CardEmptyComponent from "../../../components/commons/CardEmpty";
 import { IoSettingsOutline } from "react-icons/io5";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from "../../../components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from "../../../components/ui/dropdown-menu";
 import { useNavigate } from "react-router-dom";
 
 
 type AAA = {
-    categoryId?: string,
+    categoryId: string,
 }
 
 export function ProductSection(categoryId : AAA) {

@@ -21,21 +21,20 @@ export function ChangeNameModal({ children, name }: { children: React.ReactNode,
         resolver: zodResolver(changeNameSchema),
     })
 
-    async function sendChangeName(name: string, e : any) {
-            e.preventDefault();
+    async function sendChangeName(data: loginUserFormData) {
             try {
-                await mutateAsync(name);
+                changeName(data.name);
             } catch (error) {
                 console.log(error);
             }
         
     }
 
-     const { mutate: changeName, mutateAsync } = useMutation({
+    const { mutate: changeName } = useMutation({
         mutationFn: changeNameUser,
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['userInfo'] });
-            toast('Nome mudado com sucesso!');
+            toast('Convite aceito com sucesso!');
         }
     });
 

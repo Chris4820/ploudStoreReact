@@ -16,11 +16,13 @@ export default function DesignPage() {
     const [primaryColor, setPrimaryColor] = useState('#ffffff')
     const [secondaryColor, setSecondaryColor] = useState('#c2c2c2')
 
-    const handleColorChange = (updatedColor : any) => {
-        console.log(updatedColor.target.value);
-        setPrimaryColor(updatedColor.target.value); // Update state with HEX code
-      };
+    async function checkBakcgroundTeste(size: string) {
+        if(size === "cover" || size === "fill") {
+            setSizeBackground(size);
+        }
+    }
 
+    console.log(faviconImage);
     return(
         <>
         <HeaderSection title="Design" description="Modifique o design de sua loja!"/>
@@ -36,7 +38,7 @@ export default function DesignPage() {
                                 onImageChange={(imageUrl) => setBackgroundImage(imageUrl)} 
                                 MAX_SIZE_IMAGE={5 * 1024 * 1024 /* 5MB*/}
                                 fillOrCover={sizeBackground}
-                                onFillChange={(value) => setSizeBackground(value)}/>
+                                onFillChange={(value) => checkBakcgroundTeste(value)}/>
                         </div>
                         <div>
                             <label className="block font-medium mb-1">Favicon da loja <span className="text-sm text-muted-foreground">Max:1MB, JPEG, PNG only</span></label>

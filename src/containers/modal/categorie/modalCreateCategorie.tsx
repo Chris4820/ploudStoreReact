@@ -15,10 +15,18 @@ export function DialogCreateCategorie({ children }: { children: React.ReactNode 
         name: z.string().min(3, "Mínimo de 3 caracteres"),
         description: z.string().min(6, 'Mínimo de 6 caracteres'),
     })
-    type loginUserFormData = z.infer<typeof createCategorieSchema>
-    const { handleSubmit, register, formState: { errors }, getValues} = useForm<loginUserFormData>({
+    type createCategorieFormData = z.infer<typeof createCategorieSchema>
+    const { handleSubmit, register, formState: { errors }, getValues} = useForm<createCategorieFormData>({
         resolver: zodResolver(createCategorieSchema),
     })
+
+    async function sendCreateCategorie(data: createCategorieFormData) {
+        try {
+            categorieCreate(data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
 
     const { mutate: categorieCreate } = useMutation({
@@ -29,6 +37,7 @@ export function DialogCreateCategorie({ children }: { children: React.ReactNode 
         }
     });
 
+
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -38,7 +47,7 @@ export function DialogCreateCategorie({ children }: { children: React.ReactNode 
                 <DialogHeader>
                     <DialogTitle>Eliminar categoria</DialogTitle>
                 </DialogHeader>
-                <div className="space-y-4">
+                <form className="space-y-4" onSubmit={handleSubmit(sendCreateCategorie)}>
                     <div className="space-y-2">
                         <Input {...register('name')} placeholder="Name"/>
                         {errors.name && <span className='text-destructive text-[12px]'>{errors.name.message}</span>}
@@ -49,13 +58,11 @@ export function DialogCreateCategorie({ children }: { children: React.ReactNode 
                         <div className="flex items-center justify-end">
                                 <DialogClose className="flex gap-4">
                                     <Button variant={"outline"}>Fechar</Button>
-                                    <Button 
-                                    onClick={() => handleSubmit(categorieCreate(getValues('name'), "Desc Teste"))}>
-                                        Criar</Button>
+                                    <Button>Criar</Button>
                                 </DialogClose>
                         </div>
                     </DialogFooter>
-                </div>
+                </form>
             </DialogContent>
         </Dialog>
     );

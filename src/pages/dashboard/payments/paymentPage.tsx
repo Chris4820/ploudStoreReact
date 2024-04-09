@@ -4,14 +4,11 @@ import { Input } from "../../../components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../components/ui/select";
 import { DatePickerWithRange } from "../../../components/ui/datepicker";
 import { MdFilterCenterFocus } from "react-icons/md";
-import { useState } from "react";
-import CodeEditor from "../../../components/codeEditor";
 
 
 
 
 export default function PaymentsPage() {
-    const [code, setCode] = useState('');
 
     /*const [searchParams, setSearchParams] = useSearchParams();
 

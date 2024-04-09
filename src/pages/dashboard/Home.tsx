@@ -6,7 +6,6 @@ import CardSection from "../../components/commons/CardSections";
 import SalesChart from "../../containers/graphicLast7Days";
 import { useTranslation } from "react-i18next";
 import { useGetRevenueSummary } from "../../api/store/store";
-import DemoTable from "../../components/tables/payments/PaymentsTable";
 import NotificationComponentHome from "../../components/NotificationsComponent";
 import RecentPaymentTable from "../../components/tables/payments/PaymentsTable";
 

@@ -19,10 +19,14 @@ export async function getCategories(): Promise<CategorieProps[]> {
     return response.data.categories; // Obtemos o primeiro item do array
 }
 
-export async function createCategorie(name: string, description: string) {
+type CreateCategorieProps = {
+    name: string,
+    description: string,
+}
+export async function createCategorie(data: CreateCategorieProps) {
     const response = await axiosStore.post("categorie", {
-        name: name,
-        desc: description,
+        name: data.name,
+        desc: data.description,
     })
     return response;
 }
