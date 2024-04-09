@@ -16,7 +16,7 @@ export function DialogCreateCategorie({ children }: { children: React.ReactNode 
         description: z.string().min(6, 'Mínimo de 6 caracteres'),
     })
     type createCategorieFormData = z.infer<typeof createCategorieSchema>
-    const { handleSubmit, register, formState: { errors }, getValues} = useForm<createCategorieFormData>({
+    const { handleSubmit, register, formState: { errors }} = useForm<createCategorieFormData>({
         resolver: zodResolver(createCategorieSchema),
     })
 
