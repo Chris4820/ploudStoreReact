@@ -7,11 +7,10 @@ type BackComponentProps = {
 }
 
 export default function BackComponent({ text, toLink} : BackComponentProps) {
-    console.log(toLink)
     return(
         <>
         {toLink ? (
-            <Link className="flex gap-1 items-center text-base hover:underline" to={toLink}>
+            <Link className="flex gap-1 items-center text-base hover:underline max-w-max" to={toLink}>
                 <CgArrowLeft className="font-bold mt-0.5" size={22}/>
                 {text}
             </Link>

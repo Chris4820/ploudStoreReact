@@ -27,6 +27,9 @@ import CreateDiscountPage from "./pages/dashboard/engagament/discount/createDisc
 import DesignPage from "./pages/dashboard/design/DesignPage"
 import CheckoutPage from "./pages/Settings/checkout/CheckoutPage"
 import StatisticPage from "./pages/dashboard/statistic/statistic"
+import EditorPage from "./pages/editor/EditorPage"
+import DesignLayout from "./layouts/dashboard/NavBarLayout/DesignLayout"
+import TemplatePage from "./pages/dashboard/design/template/TemplatePage"
 
 function App() {
  return (
@@ -36,6 +39,7 @@ function App() {
         <Route path="/" element={<ShopsIndexPage/>}/>
         <Route path="/setup" element={<SetupPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/editor" element={<EditorPage />} />
 
         <Route path="auth" element={<AuthLayout/>}>
           <Route path="/auth/login" element={<LoginPage/>}/>
@@ -48,10 +52,14 @@ function App() {
            <Route path="/dashboard" element={<Home />} />
            <Route path="/dashboard/statistic" element={<StatisticPage />} />
            <Route path="/dashboard/payments" element={<PaymentsPage/>} />
-           <Route path="/dashboard/design" element={<DesignPage/>} />
            <Route path="/dashboard/categorie" element={<CategoriePage/>} />
            <Route path="/dashboard/categorie/:categoryId" element={<CategoryIdPage/>} />
            <Route path="/dashboard/categorie/:categoryId/:productId" element={<ProductIdPage/>} />
+
+           <Route path="design" element={<DesignLayout/>}>
+            <Route path="/dashboard/design" element={<DesignPage/>}/>
+            <Route path="/dashboard/design/templates" element={<TemplatePage/>}/>
+           </Route>
 
            <Route path="engagement" element={<EngagamentLayout/>}>
            <Route path="/dashboard/engagement" element={<DiscountPage/>}/>

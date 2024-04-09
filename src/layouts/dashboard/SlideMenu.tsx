@@ -10,6 +10,7 @@ import { LiaUserFriendsSolid } from "react-icons/lia";
 import { t } from "i18next";
 import { LuBox } from "react-icons/lu";
 import { MdOutlineDesignServices } from "react-icons/md";
+import { useEffect } from "react";
 
 
 
@@ -18,6 +19,10 @@ import { MdOutlineDesignServices } from "react-icons/md";
 
 
 export default function Layout() {
+
+  useEffect(() => {
+    console.log("A LAYOUTSLIDEMENU CARREGOU");
+  }, []);
 
   const { data: store } = useGetStoreInformation();
 

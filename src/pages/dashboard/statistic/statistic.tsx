@@ -3,6 +3,11 @@ import HeaderSection from "../../../components/commons/Header";
 import Cards from "../../../components/dashboard/DashboardCard";
 import CardEmptyComponent from "../../../components/commons/CardEmpty";
 import NextComponent from "../../../components/commons/NextComponent";
+import CardSection from "../../../components/commons/CardSections";
+import BestCategorieTable from "../../../components/tables/bestCategorie/bestCategorieTable";
+import BestCostumerTable from "../../../components/tables/bestCostumer/bestCostumer";
+import BestProductTable from "../../../components/tables/bestProduct/bestProduct";
+import BestServerTable from "../../../components/tables/bestServer/bestServer";
 
 
 
@@ -39,79 +44,23 @@ export default function StatisticPage() {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5">
-                <div>
-                    <div className="flex items-center justify-between">
-                        <label className="block font-medium mb-1">Categoria mais popular</label>
-                        <NextComponent text="Ver mais" toLink="#"/>
-                    </div>
-                    <div className="bg-muted rounded-t-md flex justify-between items-center p-2">
-                        <h1>Categoria</h1>
-                        <h1>Compras</h1>
-                        <h1>Valor</h1>
-                    </div>
-                    <div className="border rounded-b-md py-4">
-                        <CardEmptyComponent title="Sem categorias" desc="Não existe dados suficientes para exibir esta estatística."/>
-                    </div>
-                    <div>
+                <CardSection title="Top categorias" hAuto link="#">
+                    <BestCategorieTable/>
+                </CardSection>
 
-                    </div>
-                </div>
-
-                <div>
-                    <div className="flex items-center justify-between">
-                        <label className="block font-medium mb-1">Cliente mais popular</label>
-                        <NextComponent text="Ver mais" toLink="#"/>
-                    </div>
-                    <div className="bg-muted rounded-t-md flex justify-between items-center p-2">
-                        <h1>Cliente</h1>
-                        <h1>Compras</h1>
-                        <h1>Valor</h1>
-                    </div>
-                    <div className="border rounded-b-md py-4">
-                        <CardEmptyComponent title="Sem Clientes" desc="Não existe dados suficientes para exibir esta estatística."/>
-                    </div>
-                    <div>
-
-                    </div>
-                </div>
+                <CardSection title="Top costumer" hAuto link="#">
+                    <BestCostumerTable/>
+                </CardSection>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5">
-                <div>
-                    <div className="flex items-center justify-between">
-                        <label className="block font-medium mb-1">Produtos mais popular</label>
-                        <NextComponent text="Ver mais" toLink="#"/>
-                    </div>
-                    <div className="bg-muted rounded-t-md flex justify-between items-center p-2">
-                        <h1>Produto</h1>
-                        <h1>Compras</h1>
-                        <h1>Valor</h1>
-                    </div>
-                    <div className="border rounded-b-md py-4">
-                        <CardEmptyComponent title="Sem Produtos" desc="Não existe dados suficientes para exibir esta estatística."/>
-                    </div>
-                    <div>
+                <CardSection title="Top Product" hAuto link="#">
+                    <BestProductTable/>
+                </CardSection>
 
-                    </div>
-                </div>
-
-                <div>
-                    <div className="flex items-center justify-between">
-                        <label className="block font-medium mb-1">Servidores mais popular</label>
-                        <NextComponent text="Ver mais" toLink="#"/>
-                    </div>
-                    <div className="bg-muted rounded-t-md flex justify-between items-center p-2">
-                        <h1>Servidor</h1>
-                        <h1>Compras</h1>
-                        <h1>Valor</h1>
-                    </div>
-                    <div className="border rounded-b-md py-4">
-                        <CardEmptyComponent title="Sem Servidores" desc="Não existe dados suficientes para exibir esta estatística."/>
-                    </div>
-                    <div>
-
-                    </div>
-                </div>
+                <CardSection title="Top Server" hAuto link="#">
+                    <BestServerTable/>
+                </CardSection>
             </div>
         </>
     )

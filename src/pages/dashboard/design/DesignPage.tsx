@@ -1,8 +1,6 @@
 import HeaderSection from "../../../components/commons/Header";
 import ImageUpload from "../../../components/imageUploadTest";
 import { useState } from "react";
-import { Input } from "../../../components/ui/input";
-import { ChromePicker, AlphaPicker, CirclePicker } from "react-color";
 import ColorPickerComponent from "../../../components/colorPickerComponent";
 import PageTestDesignComponent from "../../../components/PageTestDesignComponent";
 
@@ -64,6 +62,10 @@ export default function DesignPage() {
                         backgroundImage={backgroundImage}
                         backgroundSize={sizeBackground}/>
                 </div>
+            </div>
+
+            <div>
+                <label className="block font-medium mb-1">Templates</label>
             </div>
 
                     

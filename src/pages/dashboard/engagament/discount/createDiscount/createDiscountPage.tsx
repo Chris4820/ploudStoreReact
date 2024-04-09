@@ -43,7 +43,7 @@ export default function CreateDiscountPage() {
                     <div>
                         <label htmlFor="couponCode" className="block font-medium mb-1">Código do Cupom <span className="text-sm text-muted-foreground">(Único)</span></label>
                         <div className="flex items-center">
-                            <Input id="couponCode" value={couponCode} className="rounded-r-none" />
+                            <Input id="couponCode" value={couponCode} onChange={(e) => setCouponCode(e.target.value)} className="rounded-r-none" />
                             <div className="h-10 flex items-center justify-center border bg-muted px-2 rounded-r-md">
                                 <FiRefreshCcw onClick={handleGenerateDiscount} className="cursor-pointer" />
                             </div>

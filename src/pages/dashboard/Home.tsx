@@ -6,12 +6,13 @@ import CardSection from "../../components/commons/CardSections";
 import SalesChart from "../../containers/graphicLast7Days";
 import { useTranslation } from "react-i18next";
 import { useGetRevenueSummary } from "../../api/store/store";
-import { LuPartyPopper } from "react-icons/lu";
-import { IoWarningOutline } from "react-icons/io5";
-import NotificationComponent from "../../components/dashboard/NotificationComponent";
+import DemoTable from "../../components/tables/payments/PaymentsTable";
+import NotificationComponentHome from "../../components/NotificationsComponent";
+import RecentPaymentTable from "../../components/tables/payments/PaymentsTable";
+
+
 
 export default function Home() {
-
   const { t } = useTranslation();
 
     const { data : revenueSummary, isLoading } = useGetRevenueSummary();
@@ -51,26 +52,13 @@ export default function Home() {
                 </CardSection>
                 </div>
                 <div>
-                  <CardSection title="Notificações sobre a loja">
-                    <div className="space-y-2 max-h-full overflow-y-auto">
-                      <NotificationComponent
-                          icon={LuPartyPopper} 
-                          text="Meta de 1000€ concluída!"/>
-
-                        <NotificationComponent
-                          icon={IoWarningOutline} 
-                          text="O cupom CHRIS25PT esgotou!"/>
-
-                        <NotificationComponent
-                          icon={IoWarningOutline} 
-                          text="O cupom CHRIS25PT esgotou!"/>
-
-                        <NotificationComponent
-                          icon={LuPartyPopper} 
-                          text="Meta de 1000€ concluída!"/>
-                      </div>
-                  </CardSection>
+                  <NotificationComponentHome/>
                 </div>
+            </div>
+            <div className="mt-5">
+              <CardSection title="Pagamentos recentes" hAuto link="#">
+                <RecentPaymentTable/>
+              </CardSection>
             </div>
         </>
     )
