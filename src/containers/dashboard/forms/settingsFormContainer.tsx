@@ -1,7 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useForm, useWatch } from "react-hook-form";
-import { toast } from "sonner";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useGetStoreInformation } from "../../../api/store/store";
 import LoadingComponent from "../../LoadingComponent";
@@ -12,12 +10,11 @@ import { Switch } from "../../../components/ui/switch";
 import { Button } from "../../../components/ui/button";
 import { Textarea } from "../../../components/ui/textarea";
 import { IoIosHelpCircle } from "react-icons/io";
-import { saveStoreInformation } from "../../../api/req/store";
 
 
 export default function SettingsFormContainer() {
 
-    const queryClient = useQueryClient();
+    //const queryClient = useQueryClient();
 
     const {data: store, isLoading} = useGetStoreInformation();
 
@@ -30,43 +27,29 @@ export default function SettingsFormContainer() {
     })
 
     type settingsFormData = z.infer<typeof settingsSchema>
-    const { handleSubmit, register, formState: { errors, },control, setValue, getValues} = useForm<settingsFormData>({
+    const { handleSubmit, register, formState: { errors, }, setValue} = useForm<settingsFormData>({
         mode: 'onChange',
         resolver: zodResolver(settingsSchema),
     })
 
-    const watchedValues = useWatch({ control });
-
-    const isFormDirty = () => {
-        const currentValues = getValues();
-        return Object.keys(currentValues).some((key) => currentValues[key] !== watchedValues[key]);
-    };
-
-    async function Testeeee(data: settingsFormData) {
-        console.log('Form submission triggered with data:', data); // Log para depuração
-        toast("OALAAAAAAA");
-        try {
-            console.log('Olaaa');
-        } catch (error) {
-            console.log('Deu erro');
-            console.log(error);
-        }
+    async function SendForm(data: settingsFormData) {
+        console.log(data);
     }
     
-    const { mutate: updateStore } = useMutation({
+    /*const { mutate: updateStore } = useMutation({
         mutationFn: saveStoreInformation,
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['store']  });
             toast('Atualizado com sucesso');
             }
-    });
+    });*/
 
     if(isLoading) {
         return <LoadingComponent/>
     }
 
     return(
-                <form onSubmit={handleSubmit(updateStore)}>
+                <form onSubmit={handleSubmit(SendForm)}>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
                         <div>
                             <div>
@@ -159,7 +142,7 @@ export default function SettingsFormContainer() {
                     </div>
 
                     <div className="flex justify-end mt-5">
-                        <Button disabled={!isFormDirty()} type="submit">Guardar</Button>
+                        <Button type="submit">Guardar</Button>
                     </div>
                 </form>
     );

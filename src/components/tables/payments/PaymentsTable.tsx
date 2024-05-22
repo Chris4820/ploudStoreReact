@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { DataTable } from "../../ui/datatable"
-import { Payment, columns } from "./columns"
+import { Payment } from "./columns"
 
 async function getData(): Promise<Payment[]> {
   // Fetch data from your API here.
@@ -60,6 +59,7 @@ export default function RecentPaymentTable() {
         async function fetchData() {
           const fetchedData = await getData();
           setData(fetchedData);
+          console.log(data);
         }
     
         fetchData();
