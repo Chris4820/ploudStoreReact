@@ -12,13 +12,5 @@ export const columns: ColumnDef<VariableProps>[] = [
     {
       accessorKey: "variable",
       header: "Variável",
-      cell: ({ row }) => {
-          const variable = row.getValue("variable");
-          return (
-              <div className="bg-purple-500 bg-opacity-30 text-purple-700 rounded-lg inline-flex items-center justify-center px-1.5">
-                  {variable}
-              </div>
-          );
-      }
   }
 ]

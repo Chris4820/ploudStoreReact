@@ -16,8 +16,8 @@ export default function PaymentsPage() {
     const [filter, setFilter] = useState('recent');
     const [email, setEmail] = useState('');
     const [paymentId, setPaymentId] = useState('');
-    const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
+    const [startDate] = useState(null);
+    const [endDate] = useState(null);
 
 
     async function fetchPaymentTable() {

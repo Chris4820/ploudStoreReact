@@ -56,7 +56,7 @@ export function ProductSection({categoryId} : {categoryId: number }) {
 
   async function updateOrderProducts() {
     const products = items.map((item) => {
-      return { productId: item.productId}
+      return item.productId
     })
     updateOrder(products);
     setIsMove(false);

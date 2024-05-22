@@ -8,7 +8,7 @@ import CreateCategoryForm from "../../../../containers/dashboard/categories/form
 
 export default function CreateCategoryPage() {
 
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
     const parent = searchParams.get("parent");
 
 

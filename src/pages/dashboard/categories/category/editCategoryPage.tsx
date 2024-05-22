@@ -12,7 +12,7 @@ export default function EditCategoryPage() {
 
     const { categoryId } = useParams();
 
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
     const parentId = searchParams.get("parent");
 
     const {data: category, isLoading} = useGetCategory(Number(categoryId));

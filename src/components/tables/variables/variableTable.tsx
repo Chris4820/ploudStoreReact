@@ -1,10 +1,8 @@
-import { DataTable } from "../../ui/datatable"
-import { columns } from "./columns"
-import { VariableProps } from "../../../api/req/store/variable";
 
-
-export default function VariableTable({data}: VariableProps[]) {
+export default function VariableTable() {
   return (
-        <DataTable columns={columns} data={data}/>
+    <>
+        {/*<DataTable columns={columns} data={data}/>*/}
+        </>
   )
 }

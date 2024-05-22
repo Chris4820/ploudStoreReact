@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 
 
 const axiosStore = axios.create({
-  baseURL: 'http://localhost:3000/api/store',
+  baseURL: import.meta.env.BASE_URL + '/api/store',
   headers: {
     'Content-Type': 'application/json',
   }

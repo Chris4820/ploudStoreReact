@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import HeaderSection from "../../../../components/commons/Header";
-import { useGetCategorie, useGetCategory } from "../../../../api/store/store/categorie";
+import { useGetCategory } from "../../../../api/store/store/categorie";
 import NotFoundComponent from "../../../../containers/404Component";
 import { Button } from "../../../../components/ui/button";
 import { Switch } from "../../../../components/ui/switch";

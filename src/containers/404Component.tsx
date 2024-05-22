@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button } from '../components/ui/button';
 import { TbBoxOff } from 'react-icons/tb';
 import { useNavigate } from 'react-router-dom';

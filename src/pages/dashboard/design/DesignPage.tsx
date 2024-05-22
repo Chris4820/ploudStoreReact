@@ -3,9 +3,6 @@ import ImageUpload from "../../../components/imageUploadTest";
 import { useEffect, useState } from "react";
 import ColorPickerComponent from "../../../components/colorPickerComponent";
 import PageTestDesignComponent from "../../../components/PageTestDesignComponent";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import { useGetDesign } from "../../../api/store/store";
 import { Button } from "../../../components/ui/button";
 import { postDesign } from "../../../api/req/store/design";
@@ -28,8 +25,8 @@ export default function DesignPage() {
     
     
     useEffect(() => {
-        if(!isLoading) {
-            setPrimaryColor(design?.primaryColor);
+        if(!isLoading && design) {
+            setPrimaryColor(design?.secondaryColor);
             setSecondaryColor(design?.secondaryColor);
         }
     }, [isLoading])

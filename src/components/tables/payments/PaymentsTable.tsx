@@ -66,6 +66,9 @@ export default function RecentPaymentTable() {
       }, []);
 
   return (
-        <DataTable columns={columns} data={data}/>
+        <>
+          <h1>Tabela aqui!</h1>
+          {/*<DataTable columns={columns} data={data}/>*/}
+        </>
   )
 }

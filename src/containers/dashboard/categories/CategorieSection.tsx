@@ -46,7 +46,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 
   async function updateOrderCategories() {
     const categories = items.map((item) => {
-      return { categoryId: item.categoryId}
+      return item.categoryId;
     })
     updateOrder(categories);
     setIsMove(false);

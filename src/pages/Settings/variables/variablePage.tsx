@@ -1,6 +1,5 @@
 import { useGetVariables } from "../../../api/store/store/variables";
 import HeaderSection from "../../../components/commons/Header";
-import VariableTable from "../../../components/tables/variables/variableTable";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../../../components/ui/table";
 import LoadingComponent from "../../../containers/LoadingComponent";
 
@@ -25,7 +24,7 @@ export default function VariablePage() {
         </TableRow>
         </TableHeader>
         <TableBody>
-            {variables?.length > 0 ? (
+            {variables && variables?.length > 0 ? (
                 variables.map((variable) => (
             <TableRow key={variable.variableId}>
             <TableCell className="font-medium">{variable.name}</TableCell>

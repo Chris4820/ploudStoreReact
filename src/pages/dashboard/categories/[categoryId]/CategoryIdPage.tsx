@@ -1,8 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { ProductSection } from "../../../../containers/dashboard/categories/ProductSection";
-import { Button } from "../../../../components/ui/button";
-import { MdOutlineAddCircle } from "react-icons/md";
-import BackComponent from "../../../../components/commons/BackComponent";
 import { useGetCategory } from "../../../../api/store/store/categorie";
 import NotFoundComponent from "../../../../containers/404Component";
 import { CategorieSection } from "../../../../containers/dashboard/categories/CategorieSection";
