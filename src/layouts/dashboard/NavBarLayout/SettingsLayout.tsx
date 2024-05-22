@@ -14,6 +14,10 @@ const SettingsTabs = [
         link: '/dashboard/settings/integration'
     },
     {
+        name: 'Variaveis',
+        link: '/dashboard/settings/variable'
+    },
+    {
         name: 'Widgets',
         link: '/dashboard/settings/widgets'
     },

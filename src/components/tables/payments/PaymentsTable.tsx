@@ -12,6 +12,7 @@ async function getData(): Promise<Payment[]> {
       amount: 100,
       status: "pending",
       email: "m@example.com",
+      createdAt: "25/03/2002",
     },
     {
         id: "728efff",
@@ -20,6 +21,7 @@ async function getData(): Promise<Payment[]> {
         amount: 100,
         status: "pending",
         email: "m@example.com",
+        createdAt: "25/03/2002",
       },
       {
         id: "728efff",
@@ -28,6 +30,7 @@ async function getData(): Promise<Payment[]> {
         amount: 100,
         status: "pending",
         email: "m@example.com",
+        createdAt: "25/03/2002",
       },
       {
         id: "728efff",
@@ -36,6 +39,7 @@ async function getData(): Promise<Payment[]> {
         amount: 100,
         status: "pending",
         email: "m@example.com",
+        createdAt: "25/03/2002",
       },
       {
         id: "728efff",
@@ -44,6 +48,7 @@ async function getData(): Promise<Payment[]> {
         amount: 100,
         status: "pending",
         email: "m@example.com",
+        createdAt: "25/03/2002",
       },
     // ...
   ]

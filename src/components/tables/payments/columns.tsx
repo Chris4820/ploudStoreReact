@@ -1,5 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { BsCart4 } from "react-icons/bs"
+import { PaymentProps } from "../../../api/req/store/payment"
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -10,9 +11,10 @@ export type Payment = {
   cupom: string,
   amount: number,
   status: "pending" | "processing" | "success" | "failed"
+  createdAt: string,
 }
 
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<PaymentProps>[] = [
     {
         accessorKey: "name",
         header: "Name",
@@ -50,5 +52,9 @@ export const columns: ColumnDef<Payment>[] = [
     {
         accessorKey: "status",
         header: "Status",
+    },
+    {
+        accessorKey: "createdAt",
+        header: "Data",
     },
 ]

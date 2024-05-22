@@ -1,24 +1,54 @@
 import HeaderSection from "../../../components/commons/Header";
 import ImageUpload from "../../../components/imageUploadTest";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ColorPickerComponent from "../../../components/colorPickerComponent";
 import PageTestDesignComponent from "../../../components/PageTestDesignComponent";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { useGetDesign } from "../../../api/store/store";
+import { Button } from "../../../components/ui/button";
+import { postDesign } from "../../../api/req/store/design";
+import { toast } from "sonner";
 
 
 
 export default function DesignPage() {
+    const { data: design, isLoading } = useGetDesign();
+
+    const [primaryColor, setPrimaryColor] = useState("")
+    const [secondaryColor, setSecondaryColor] = useState("");
+
     const [logoImage, setLogoImage] = useState('');
     const [backgroundImage, setBackgroundImage] = useState('');
     const [faviconImage, setFaviconImage] = useState('');
 
     const [sizeBackground, setSizeBackground] = useState<'cover' | 'fill'>('fill');
 
-    const [primaryColor, setPrimaryColor] = useState('#ffffff')
-    const [secondaryColor, setSecondaryColor] = useState('#c2c2c2')
-
+    
+    
+    useEffect(() => {
+        if(!isLoading) {
+            setPrimaryColor(design?.primaryColor);
+            setSecondaryColor(design?.secondaryColor);
+        }
+    }, [isLoading])
     async function checkBakcgroundTeste(size: string) {
         if(size === "cover" || size === "fill") {
             setSizeBackground(size);
+        }
+    }
+
+    async function saveDesign() {
+        try {
+            const response = await postDesign(primaryColor, secondaryColor);
+            const responseData = response.data;
+            console.log(response);
+            const message = responseData.message;
+            toast(message);
+        } catch (error) {
+            toast("Erro");
+            console.log(error);
         }
     }
 
@@ -65,6 +95,7 @@ export default function DesignPage() {
                         backgroundSize={sizeBackground}/>
                 </div>
             </div>
+            <Button onClick={() => saveDesign()}>Guardar</Button>
 
             <div>
                 <label className="block font-medium mb-1">Templates</label>

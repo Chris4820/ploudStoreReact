@@ -11,6 +11,8 @@ export type StoreInformationProps = {
     currency: string,
     locale: string,
     createdAt: string,
+    maintenance: boolean
+    keywords: string
 }
 
 export type StoreProps = {
@@ -45,6 +47,17 @@ export type InviteStoreProps = {
 export async function getStoreInformation(): Promise<StoreInformationProps> {
     const response = await axiosStore.get<{store: StoreInformationProps}>('store');
     return response.data.store; // Obtemos o primeiro item do array
+}
+
+export async function saveStoreInformation({name, description, keywords, currency,maintenance} : StoreInformationProps) {
+    const response = await axiosStore.put('/store', {
+        name: name,
+        description: description,
+        keywords: keywords,
+        currency: currency,
+        maintenance: maintenance,
+    })
+    return response.data;
 }
 export async function getStores() {
     const response = await axiosUser.get<{ stores: StoreProps[] }>('stores');

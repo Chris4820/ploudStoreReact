@@ -11,6 +11,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { createStore } from "../../api/req/store";
+import { Textarea } from "../../components/ui/textarea";
 
 
 export default function SetupPage() {
@@ -115,10 +116,8 @@ export default function SetupPage() {
                         {errors.name && <span className='text-destructive text-[12px]'>{errors.name.message}</span>}
                     </div>
                     <div>
-                        <label htmlFor="storeDescription" className="block text-sm font-medium text-gray-700">Descrição da loja
-                        <span className="text-[13px] text-muted-foreground"> (Descrição que irá aparecer nas buscas)</span></label>
-                        <textarea {...register("description")} id="storeDescription" rows={4} placeholder="Digite uma breve descrição da sua loja" 
-                                    className="resize-none text-sm block w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500" />
+                        <label htmlFor="storeDescription" className="block text-sm font-medium text-gray-700">Descrição da loja</label>
+                        <Textarea className="resize-none"/>
                         {errors.description && <span className='text-destructive text-[12px]'>{errors.description.message}</span>}
                     </div>
                     <div>

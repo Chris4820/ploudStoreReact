@@ -3,6 +3,7 @@ import { getRevenueSummary } from "../req/store/statistic";
 import { getStoreInformation } from "../req/store";
 import { getStoreWidgets } from "../req/store/widgets";
 import { getPayments } from "../req/store/payment";
+import { getDesign } from "../req/store/design";
 
 
 
@@ -31,5 +32,12 @@ export function useGetStoreInformation() {
     return useQuery({
       queryKey: ['paymentss'],
       queryFn: getPayments,
+    })
+  }
+
+  export function useGetDesign() {
+    return useQuery({
+      queryKey: ['design'],
+      queryFn: getDesign,
     })
   }

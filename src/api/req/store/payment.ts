@@ -12,7 +12,7 @@ export type PaymentProps = {
 }
 
 
-export async function getPayments(): Promise<PaymentProps> {
-    const response = await axiosStore.get<{payments: PaymentProps}>('payments');
-    return response.data.payments; // Obtemos o primeiro item do array
+export async function getPayments(): Promise<PaymentProps[]> {
+    const response = await axiosStore.get<{payments: PaymentProps[]}>('payments');
+    return response.data.payments || [];
 }

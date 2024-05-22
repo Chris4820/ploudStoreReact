@@ -6,13 +6,14 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 type ImageUploadProps = {
     id: string,
     onImageChange: (imageUrl: string) => void,
+    defaultImage?: string,
     MAX_SIZE_IMAGE: number,
     fillOrCover?: 'fill' | 'cover'
     onFillChange?: (fillOrCover: string) => void,
 }
 
-export default function ImageUpload({ id, onImageChange, MAX_SIZE_IMAGE, fillOrCover, onFillChange } : ImageUploadProps) {
-    const [imageUrl, setImageUrl] = useState('');
+export default function ImageUpload({ id, onImageChange,defaultImage, MAX_SIZE_IMAGE, fillOrCover, onFillChange } : ImageUploadProps) {
+    const [imageUrl, setImageUrl] = useState(defaultImage ? defaultImage : "");
     const [fileInputKey, setFileInputKey] = useState(Date.now());
 
     const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
@@ -23,27 +24,19 @@ export default function ImageUpload({ id, onImageChange, MAX_SIZE_IMAGE, fillOrC
             return;
         }
         const fileType = file.name.split(".").pop();
-        if (fileType !== "png" && fileType === "jpeg"){
+        if (fileType !== "png" && fileType !== "jpeg"){
             toast('Apenas são permitidos imagens!') 
             return;
         } 
         
-        const reader = new FileReader();
-
-        reader.onload = function(e: ProgressEvent<FileReader>) {
-            if (e.target) {
-                setImageUrl(e.target.result as string);
-                onImageChange(e.target.result as string);
-            }
-        }
-
-        reader.readAsDataURL(file);
+        setImageUrl(URL.createObjectURL(file)); // Armazena o URL da imagem
+        onImageChange(URL.createObjectURL(file)); // Chama a função com o URL da imagem
     };
 
     const resetImage = () => {
         setImageUrl('');
-        setFileInputKey(Date.now()); // Reset file input to clear the previously selected file
-        onImageChange('');
+        setFileInputKey(Date.now());
+        onImageChange(''); // Chama a função com uma string vazia
     };
 
     const handleImageClick = () => {
@@ -57,7 +50,7 @@ export default function ImageUpload({ id, onImageChange, MAX_SIZE_IMAGE, fillOrC
         <div className='w-full sm:w-auto h-auto p-5 flex justify-start gap-5 border rounded-md'>
             <div onClick={() => handleImageClick()} className="cursor-pointer w-20 h-20 p-0.5 relative">
                 {imageUrl ? (
-                    <img src={imageUrl ? imageUrl : '/games/FiveM-Logo.png'} alt='Uploaded Image' className="object-fill w-full h-full rounded-md" />
+                    <img src={imageUrl} alt='Uploaded Image' className="object-fill w-full h-full rounded-md" />
                 ) : (
                     <div className='border-dashed border-2 flex justify-center items-center rounded-md w-full h-full'>
                         <MdImageNotSupported size={36}/>
@@ -78,6 +71,7 @@ export default function ImageUpload({ id, onImageChange, MAX_SIZE_IMAGE, fillOrC
                     <div className='space-y-1'>
                         <h1>Nome da imagem</h1>
                         <label onClick={() => resetImage()} className='text-sm cursor-pointer text-destructive'>Remover imagem</label>
+                        {fillOrCover && (
                         <Select defaultValue={fillOrCover || 'cover'} onValueChange={onFillChange}>
                             <SelectTrigger className="min-w-[100px] h-8">
                                 <SelectValue/>
@@ -87,6 +81,7 @@ export default function ImageUpload({ id, onImageChange, MAX_SIZE_IMAGE, fillOrC
                                 <SelectItem value="fill">Fill</SelectItem>
                             </SelectContent>
                         </Select>
+                        )}
                     </div>
                 ) : (
                     <>

@@ -21,7 +21,6 @@ import EngagamentLayout from "./layouts/dashboard/NavBarLayout/EngagamentLayout"
 import DiscountPage from "./pages/dashboard/engagament/discount/discounts"
 import CategoriePage from "./pages/dashboard/categories/categoriePage"
 import CategoryIdPage from "./pages/dashboard/categories/[categoryId]/CategoryIdPage"
-import ProductIdPage from "./pages/dashboard/categories/[categoryId]/[productId]/productIdPage"
 import GoalPage from "./pages/dashboard/engagament/goalPage"
 import CreateDiscountPage from "./pages/dashboard/engagament/discount/createDiscount/createDiscountPage"
 import DesignPage from "./pages/dashboard/design/DesignPage"
@@ -30,6 +29,14 @@ import StatisticPage from "./pages/dashboard/statistic/statistic"
 import EditorPage from "./pages/editor/EditorPage"
 import DesignLayout from "./layouts/dashboard/NavBarLayout/DesignLayout"
 import TemplatePage from "./pages/dashboard/design/template/TemplatePage"
+import EditPackagePage from "./pages/dashboard/categories/product/editPackage"
+import CreatePackagePage from "./pages/dashboard/categories/product/createPackage"
+import CreateCategoryPage from "./pages/dashboard/categories/category/createCategoryPage"
+import EditCategoryPage from "./pages/dashboard/categories/category/editCategoryPage"
+import SubCategoryIdPage from "./pages/dashboard/categories/[categoryId]/[subCategoryId]/SubCategoryPage"
+import TestePage from "./pages/TestePage"
+import VariablePage from "./pages/Settings/variables/variablePage"
+import CreateVariablePage from "./pages/Settings/variables/createVariablePage"
 
 function App() {
  return (
@@ -52,9 +59,19 @@ function App() {
            <Route path="/dashboard" element={<Home />} />
            <Route path="/dashboard/statistic" element={<StatisticPage />} />
            <Route path="/dashboard/payments" element={<PaymentsPage/>} />
-           <Route path="/dashboard/categorie" element={<CategoriePage/>} />
+
+
+          //CATEGORY
+           <Route path="/dashboard/categorie" element={<CategoriePage/>}/>
            <Route path="/dashboard/categorie/:categoryId" element={<CategoryIdPage/>} />
-           <Route path="/dashboard/categorie/:categoryId/:productId" element={<ProductIdPage/>} />
+           <Route path="/dashboard/categorie/:categoryId/:subCategoryId" element={<SubCategoryIdPage/>} />
+           <Route path="/dashboard/category/create" element={<CreateCategoryPage/>} />
+           <Route path="/dashboard/category/edit/:categoryId" element={<EditCategoryPage/>} />
+
+          //PRODUCTS
+           <Route path="/dashboard/product/edit/:productId" element={<EditPackagePage/>}/>
+           <Route path="/dashboard/product/create/:categoryId" element={<CreatePackagePage/>}/>
+
 
            <Route path="design" element={<DesignLayout/>}>
             <Route path="/dashboard/design" element={<DesignPage/>}/>
@@ -74,9 +91,14 @@ function App() {
               <Route path="/dashboard/settings/integration" element={<IntegrationPage/>}/>
               <Route path="/dashboard/settings/integration/:type" element={<IntegrationTypePage/>}/>
               <Route path="/dashboard/settings/widgets" element={<WidgetsPage/>}/>
+              
+              <Route path="/dashboard/settings/variable" element={<VariablePage/>}/>
+              <Route path="/dashboard/settings/createvariable" element={<CreateVariablePage/>}/>
               <Route path="/dashboard/settings/domain" element={<DomainPage/>}/>
            </Route>
          </Route>
+
+         <Route path="/dashboard/test" element={<TestePage/>}/>
        </Routes>
      </BrowserRouter>
    </div>
