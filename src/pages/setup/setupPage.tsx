@@ -117,7 +117,7 @@ export default function SetupPage() {
                     </div>
                     <div>
                         <label htmlFor="storeDescription" className="block text-sm font-medium text-gray-700">Descrição da loja</label>
-                        <Textarea className="resize-none"/>
+                        <Textarea {...register("description")} className="resize-none"/>
                         {errors.description && <span className='text-destructive text-[12px]'>{errors.description.message}</span>}
                     </div>
                     <div>
