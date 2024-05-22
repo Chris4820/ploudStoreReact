@@ -2,8 +2,9 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 
+const baseURL = import.meta.env.VITE_URL + "/api/store" || 'http://localhost:3000/api/store'; // Default fallback
 const axiosStore = axios.create({
-  baseURL: import.meta.env.BASE_URL + '/api/store',
+  baseURL: baseURL,
   headers: {
     'Content-Type': 'application/json',
   }

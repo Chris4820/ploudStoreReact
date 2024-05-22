@@ -2,8 +2,11 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { getAuthTokenFromCookie, removeAuthCookie } from "../utils";
 
+
+const baseURL = import.meta.env.VITE_URL + "/api/user" || 'http://localhost:3000/api/user'; // Default fallback
+
 const axiosUser = axios.create({
-  baseURL: import.meta.env.BASE_URL + '/api/user',
+  baseURL: baseURL,
   headers: {
     'Content-Type': 'application/json',
   }
