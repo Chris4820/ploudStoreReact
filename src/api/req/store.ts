@@ -60,8 +60,9 @@ export async function saveStoreInformation({name, description, keywords, currenc
     return response.data;
 }
 export async function getStores() {
+    console.log("Chamouuu");
     const response = await axiosUser.get<{ stores: StoreProps[] }>('stores');
-    console.log(response.data.stores);
+    console.log("Response: " + response);
     return response.data.stores; // Retorna apenas a array de lojas
 }
 

@@ -1,14 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs";
 import StoreSection from "../containers/dashboard/storeSection";
 import SubStoreSection from "../containers/dashboard/subStoreSection";
 import InviteStoreSection from "../containers/dashboard/inviteStoreSection";
 import { useGetUserInformation } from "../api/store/user";
+import UserMenu from "../layouts/dashboard/UserMenu";
 
 
 export default function ShopsIndexPage() {
-  const { data:user } = useGetUserInformation(); 
+  const { data: user } = useGetUserInformation(); 
 
     return(
         <section className='w-screen h-screen bg-gradient-to-r from-black to-purple-600 flex justify-center items-center'>
@@ -27,6 +28,7 @@ export default function ShopsIndexPage() {
           <Link to={'setup'}>
             <Button>Criar loja</Button>
           </Link>
+          <UserMenu/>
         </div>
 
         <div className="w-full">

@@ -52,9 +52,21 @@ export async function confirmEmailUser(emailToken: string) {
     }
 }
 
-export async function passwordRecoveryUser(passwordToken: string, password: string) {
+export async function recoveryPassword(email: string) {
     try {
-        const response = await axiosAuth.post(`confirmEmail/${passwordToken}`, {
+        const response = await axiosAuth.post('recoveryPassword', {
+            email: email,
+        });
+        return response;
+    } catch (error) {
+        console.log('Erro');
+        throw error;
+    }
+}
+
+export async function passwordResetPassword(passwordToken: string, password: string) {
+    try {
+        const response = await axiosAuth.post(`recoveryPassword/${passwordToken}`, {
             password: password,
         });
         return response;

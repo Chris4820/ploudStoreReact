@@ -9,6 +9,7 @@ import StoreCardComponent from "../../components/dashboard/store/storeCard";
 
 export default function StoreSection() {
     const { data: store, isLoading } = useGetStores();
+    console.log(store);
     const navigate = useNavigate();
 
     async function openStore(storeId: number) {

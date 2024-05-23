@@ -8,7 +8,7 @@ import { toast } from 'sonner';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Input } from '../../../../components/ui/input';
 import { Button } from '../../../../components/ui/button';
-import { passwordRecoveryUser } from '../../../../api/req/auth';
+import { passwordResetPassword } from '../../../../api/req/auth';
 
 
 export default function ResetPasswordPage() {
@@ -42,11 +42,14 @@ export default function ResetPasswordPage() {
             return;
         }
         try {
-            const response = await passwordRecoveryUser(passwordToken, data.password);
+            const response = await passwordResetPassword(passwordToken, data.password);
             if(response.status === 200) {
                 toast("Password alterada com sucesso!");
                 setLoading(false);
                 return navigate('/auth/login');
+            }else if(response.status < 500) {
+                const message = response.data.message;
+                toast(message);
             }
         } catch (error) {
             toast("Parece que o seu token não é válido, crie outro!");

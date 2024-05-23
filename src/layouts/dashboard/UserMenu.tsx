@@ -6,6 +6,7 @@ import { useGetUserInformation } from "../../api/store/user";
 import { useTheme } from "../providers/Theme";
 import { PopoverClose } from "@radix-ui/react-popover";
 import { IoSunnyOutline, IoMoonOutline } from "react-icons/io5";
+import Cookies from 'js-cookie'
 
 
 
@@ -16,6 +17,12 @@ export default function UserMenu() {
 
     const {data: userInformation} = useGetUserInformation();
     console.log("userInformation: " + userInformation);
+
+    async function logoutUser() {
+      Cookies.remove("authToken");
+      Cookies.remove("storeToken");
+      return navigate("/auth/login")
+    }
 
 
     function changeTheme() {
@@ -62,7 +69,7 @@ export default function UserMenu() {
                         </PopoverClose>
                       </li>
                       <li>
-                          <Button className="w-full" variant={"ghost"}>Sair da conta</Button>
+                          <Button onClick={() => logoutUser()} className="w-full" variant={"ghost"}>Sair da conta</Button>
                       </li>
                     </ul>
                     </div>

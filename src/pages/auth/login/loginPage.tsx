@@ -30,16 +30,12 @@ export default function LoginPage() {
 
 
     async function loginUser(data : UserLoginProps, e: any) {
-        console.log("Chamado");
         setLoading(true);
         e.preventDefault();
         try {
             const response = await postLoginUser(data);
             const responseData = response.data;
             const message = responseData.message;
-
-            console.log("1")
-            console.log(response);
             if(response.status === 200) {
                 const authToken = responseData.authToken;
                 await createAuthToken(authToken);
@@ -47,8 +43,6 @@ export default function LoginPage() {
                 toast(message);
                 return navigate('/');
             }
-            console.log("2")
-            setLoading(false);
             toast(message);
         } catch (error : any) {
             setLoading(false);
@@ -56,6 +50,7 @@ export default function LoginPage() {
             const errorMessage = error.response.data.message;
             toast(errorMessage);
         }
+        setLoading(false);
     }
 
     return (
@@ -95,7 +90,7 @@ export default function LoginPage() {
                 <Link className='hover:underline' to={'../recovery-password'}>{t("auth.loginPage.forgot")}</Link>
                 </div>
                 <div className='w-full mt-10'>
-                    <Button type="submit" className='text-base w-full mt-5'>
+                    <Button disabled={loading} type="submit" className='text-base w-full mt-5'>
                         {loading ? (
                             <CgSpinner className='animate-spin' size={24}/>
                         ) : (

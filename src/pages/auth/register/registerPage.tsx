@@ -40,7 +40,6 @@ export default function RegisterPage() {
     const createUser = async (data : UserRegisterProps, e:any) => {
         e.preventDefault();
         setLoading(true);
-        console.log('Submetendo formulário...');
         try {
             const response = await postRegisterUser(data);
             const errorMessage = response.data.message;
@@ -99,7 +98,7 @@ export default function RegisterPage() {
                 {errors.terms && <span className='text-destructive text-[12px] absolute'>{errors.terms.message}</span>}
                 </div>
                 <div className='w-full mt-10'>
-                    <Button type='submit' className='text-base w-full mt-5'>
+                    <Button disabled={loading} type='submit' className='text-base w-full mt-5'>
                         {loading ? (
                             <CgSpinner className='animate-spin' size={24}/>
                         ) : (
