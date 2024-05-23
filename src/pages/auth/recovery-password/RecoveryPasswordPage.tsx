@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form';
 import { recoveryPassword } from '../../../api/req/auth';
 import { toast } from 'sonner';
 import { useState } from 'react';
+import { CgSpinner } from 'react-icons/cg';
 
 
 export default function RecoveryPasswordPage() {
@@ -30,7 +31,7 @@ export default function RecoveryPasswordPage() {
             const responseData = response.data;
             const message = responseData.message;
             if(response.status === 200) {
-                toast("Verifique seu email");
+                toast(message);
             }
         } catch (error) {
             console.log(error);
@@ -54,8 +55,12 @@ export default function RecoveryPasswordPage() {
                     {errors.email && <span className='text-destructive text-[12px]'>{errors.email.message}</span>}
                 </div>
                 <div className='w-full mt-10'>
-                    <Button className='text-base w-full mt-5'>Recuperar password
-                    </Button>
+                    <Button type='submit' disabled={loading} className='text-base items-center flex gap-1 w-full mt-5'>
+                        {loading && (
+                            <CgSpinner className='animate-spin' size={20}/>
+                        )}
+                        Recuperar password
+                        </Button>
                 </div>
             </motion.form>
             <div className='w-full text-center flex flex-col gap-3'>

@@ -99,11 +99,10 @@ export default function RegisterPage() {
                 </div>
                 <div className='w-full mt-10'>
                     <Button disabled={loading} type='submit' className='text-base w-full mt-5'>
-                        {loading ? (
-                            <CgSpinner className='animate-spin' size={24}/>
-                        ) : (
-                            t("auth.registerPage.createAccount")
+                        {loading && (
+                            <CgSpinner className='animate-spin' size={20}/>
                         )}
+                            Register
                         </Button>
                 </div>
             </motion.form>

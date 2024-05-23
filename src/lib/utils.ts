@@ -4,7 +4,6 @@ import { format } from "date-fns";
 import { pt, enUS } from "date-fns/locale";
 import { useGetUserInformation } from "../api/store/user";
 import Cookies from 'js-cookie'
-import { useNavigate } from "react-router-dom";
  
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))

@@ -1,6 +1,5 @@
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { getAuthTokenFromCookie, removeAuthCookie } from "../utils";
+import { getAuthTokenFromCookie } from "../utils";
 import Cookies from "js-cookie";
 
 
