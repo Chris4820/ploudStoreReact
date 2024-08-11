@@ -7,14 +7,18 @@ import SalesChart from "../../containers/graphicLast7Days";
 import { useTranslation } from "react-i18next";
 import { useGetRevenueSummary } from "../../api/store/store";
 import NotificationComponentHome from "../../components/NotificationsComponent";
-import RecentPaymentTable from "../../components/tables/payments/PaymentsTable";
+import PaymentTable from "../../components/tables/payments/PaymentsTable";
+import { useGetPayments } from "../../api/store/store/payments";
 
 
 
 export default function Home() {
   const { t } = useTranslation();
 
-    const { data : revenueSummary, isLoading } = useGetRevenueSummary();
+    const { data : revenueSummary, isLoading: revenueLoading } = useGetRevenueSummary();
+
+    const {data: payments, isLoading: paymentsLoading } = useGetPayments();
+
     return(
         <>
         <HeaderSection title={t("dashboard")} description="Description"/>
@@ -22,27 +26,28 @@ export default function Home() {
         <Cards
             title={t("dashboardPage.dailyEarnings")}
             symbol="€"
-            price={isLoading ? <CgSpinner className="animate-spin"/> : revenueSummary?.dailyRevenue || 0}
+            price={revenueLoading ? <CgSpinner className="animate-spin"/> : revenueSummary?.dailyRevenue || 0}
             icon={GiMoneyStack}
           />
           <Cards
             title={t("dashboardPage.monthlyEarnings")}
             symbol="€"
-            price={isLoading ? <CgSpinner className="animate-spin"/> : revenueSummary?.monthlyRevenue || 0}
+            price={revenueLoading ? <CgSpinner className="animate-spin"/> : revenueSummary?.monthlyRevenue || 0}
             icon={GiMoneyStack}
           />
           <Cards
             title={t("dashboardPage.dailySales")}
             symbol=""
-            price={isLoading ? <CgSpinner className="animate-spin"/> : revenueSummary?.dailySales || 0}
+            price={revenueLoading ? <CgSpinner className="animate-spin"/> : revenueSummary?.dailySales || 0}
             icon={GiMoneyStack}
           />
           <Cards
             title={t("dashboardPage.monthlySales")}
             symbol=""
-            price={isLoading ? <CgSpinner className="animate-spin"/> : revenueSummary?.monthlySales || 0}
+            price={revenueLoading ? <CgSpinner className="animate-spin"/> : revenueSummary?.monthlySales || 0}
             icon={GiMoneyStack}
           />
+          
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-5">
                 <div className="col-span-2">
@@ -55,8 +60,8 @@ export default function Home() {
                 </div>
             </div>
             <div className="mt-5">
-              <CardSection title="Pagamentos recentes" hAuto link="#">
-                <RecentPaymentTable/>
+              <CardSection title="Pagamentos recentes" hAuto link="payments">
+                <PaymentTable payments={payments?.payments || []} isLoading={paymentsLoading}/>
               </CardSection>
             </div>
         </>

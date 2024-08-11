@@ -37,6 +37,8 @@ import SubCategoryIdPage from "./pages/dashboard/categories/[categoryId]/[subCat
 import TestePage from "./pages/TestePage"
 import VariablePage from "./pages/Settings/variables/variablePage"
 import CreateVariablePage from "./pages/Settings/variables/createVariablePage"
+import CategoriesPage from "./pages/dashboard/statistic/Categorie/CategoriePage"
+import CustomersPage from "./pages/dashboard/statistic/Customers/customersPage"
 
 function App() {
  return (
@@ -58,6 +60,8 @@ function App() {
          <Route path="dashboard" element={<DashboardLayout />} >
            <Route path="/dashboard" element={<Home />} />
            <Route path="/dashboard/statistic" element={<StatisticPage />} />
+           <Route path="/dashboard/statistic/categories" element={<CategoriesPage />} />
+           <Route path="/dashboard/statistic/customers" element={<CustomersPage />} />
            <Route path="/dashboard/payments" element={<PaymentsPage/>} />
 
 

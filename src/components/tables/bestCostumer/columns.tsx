@@ -1,28 +1,20 @@
 import { ColumnDef } from "@tanstack/react-table"
+import { CustomersData } from "../../../api/req/store/statistic"
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
-export type BestCostumer = {
-  id: string,
-  name: string,
-  purchase: number,
-  amount: number,
-}
-
-export const columns: ColumnDef<BestCostumer>[] = [
+export const columns: ColumnDef<CustomersData>[] = [
     {
         accessorKey: "name",
         header: "Name",
     },
     {
-        accessorKey: "purchase",
+        accessorKey: "totalSells",
         header: "Purchase",
     },
     {
-        accessorKey: "amount",
+        accessorKey: "totalAmount",
         header: "Amount",
         cell: ({ row }) => {
-          const amount = parseFloat(row.getValue("amount"))
+          const amount = parseFloat(row.getValue("totalAmount"))
           const formatted = new Intl.NumberFormat("en-US", {
             style: "currency",
             currency: "USD",

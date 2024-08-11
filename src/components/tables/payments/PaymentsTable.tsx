@@ -1,74 +1,36 @@
-import { useEffect, useState } from "react";
-import { Payment } from "./columns"
+import { useSearchParams } from "react-router-dom";
+import { PaymentProps } from "../../../api/req/store/payment";
+import { MetaProps } from "../../../api/req/store/statistic";
+import { DataTable } from "../../ui/datatable";
+import { columns } from "./columns";
+import Pagination from "../../ui/pagination";
 
-async function getData(): Promise<Payment[]> {
-  // Fetch data from your API here.
-  return [
-    {
-      id: "728ed52f",
-      name: "Christophe",
-      cupom: "Nenhum",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
-      createdAt: "25/03/2002",
-    },
-    {
-        id: "728efff",
-        name: "Beatrix",
-        cupom: "CHRIS25",
-        amount: 100,
-        status: "pending",
-        email: "m@example.com",
-        createdAt: "25/03/2002",
-      },
-      {
-        id: "728efff",
-        name: "Beatrix",
-        cupom: "CHRIS25",
-        amount: 100,
-        status: "pending",
-        email: "m@example.com",
-        createdAt: "25/03/2002",
-      },
-      {
-        id: "728efff",
-        name: "Beatrix",
-        cupom: "CHRIS25",
-        amount: 100,
-        status: "pending",
-        email: "m@example.com",
-        createdAt: "25/03/2002",
-      },
-      {
-        id: "728efff",
-        name: "Beatrix",
-        cupom: "CHRIS25",
-        amount: 100,
-        status: "pending",
-        email: "m@example.com",
-        createdAt: "25/03/2002",
-      },
-    // ...
-  ]
+
+
+
+
+type PaymentTableProps = {
+  meta?: MetaProps,
+  payments: PaymentProps[],
+  isLoading: boolean,
 }
 
-export default function RecentPaymentTable() {
-    const [data, setData] = useState<Payment[]>([]);
-    useEffect(() => {
-        async function fetchData() {
-          const fetchedData = await getData();
-          setData(fetchedData);
-          console.log(data);
-        }
-    
-        fetchData();
-      }, []);
+
+export default function PaymentTable({meta, payments, isLoading} : PaymentTableProps) {
+
+  const [searchParams] = useSearchParams();
+
+  const page = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
+  const email = searchParams.get('email') ? Number(searchParams.get('email')) : null;
+  const filter = searchParams.get('filter') ? Number(searchParams.get('filter')) : null;
+  const status = searchParams.get('status') ? Number(searchParams.get('status')) : null;
 
   return (
         <>
-          <h1>Tabela aqui!</h1>
-          {/*<DataTable columns={columns} data={data}/>*/}
+          <DataTable columns={columns} data={payments} loading={isLoading}/>
+          {meta && (
+            <Pagination items={meta.items} pages={meta.pages} page={page}/>
+          )}
         </>
   )
 }

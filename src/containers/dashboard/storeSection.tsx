@@ -17,12 +17,12 @@ export default function StoreSection() {
             const response = await getTokenStore(storeId);
             const responseData = response.data;
             if(response.status === 200) {
-                const storeToken = responseData.storeToken;
+                /*const storeToken = responseData.storeToken;
                 if(!storeToken) {
                     toast('Ocorreu um erro ao ler o storeToken');
                     return;
-                }
-                await createStoreToken(storeToken);
+                }*/
+                //await createStoreToken(storeToken);
                 return navigate('/dashboard');
             }
         } catch (error) {
@@ -41,7 +41,7 @@ export default function StoreSection() {
     return (
         <>
             {store.map((store : StoreProps) => (
-                <StoreCardComponent store={store} color="pink" onClick={() => openStore(store.storeId)}/>
+                <StoreCardComponent key={store.storeId} store={store} color="pink" onClick={() => openStore(store.storeId)}/>
             ))}
         </>
     );

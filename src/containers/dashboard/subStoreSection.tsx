@@ -41,7 +41,7 @@ export default function StoreSection() {
     return (
         <>
             {subStore.map((subStore : SubStoreProps) => (
-                <StoreCardComponent store={subStore.store} color="blue" onClick={() => openStore(subStore.store.storeId)}/>
+                <StoreCardComponent key={subStore.store.storeId} store={subStore.store} color="blue" onClick={() => openStore(subStore.store.storeId)}/>
             ))}
         </>
     );

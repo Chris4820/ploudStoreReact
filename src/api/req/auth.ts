@@ -64,6 +64,16 @@ export async function recoveryPassword(email: string) {
     }
 }
 
+export async function logout() {
+    try {
+        const response = await axiosAuth.get('logout');
+        return response;
+    } catch (error) {
+        console.log('Erro');
+        throw error;
+    }
+}
+
 export async function passwordResetPassword(passwordToken: string, password: string) {
     try {
         const response = await axiosAuth.post(`recoveryPassword/${passwordToken}`, {

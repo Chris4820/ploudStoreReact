@@ -49,8 +49,9 @@ export default function RegisterPage() {
             console.error('Erro ao fazer login:', error.response.data);
             const errorMessage = error.response.data.message;
             toast(errorMessage);
+        }finally {
+            setLoading(false)
         }
-        setLoading(false);
     };
 
     return (

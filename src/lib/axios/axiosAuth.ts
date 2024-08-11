@@ -6,7 +6,8 @@ const axiosAuth = axios.create({
   baseURL: baseURL,
   headers: {
     'Content-Type': 'application/json',
-  }
+  },
+  withCredentials: true,
 });
 
 export default axiosAuth;

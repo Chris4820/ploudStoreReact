@@ -6,11 +6,17 @@ import BestCategorieTable from "../../../components/tables/bestCategorie/bestCat
 import BestCostumerTable from "../../../components/tables/bestCostumer/bestCostumer";
 import BestProductTable from "../../../components/tables/bestProduct/bestProduct";
 import BestServerTable from "../../../components/tables/bestServer/bestServer";
+import { useGetCategoryData, useGetTopCustomersData } from "../../../api/store/store/statistic";
 
 
 
 
 export default function StatisticPage() {
+
+    const {data: categoriesData, isLoading: categoriesLoading} = useGetCategoryData(1);
+
+    const {data: customersData, isLoading: customersLoading} = useGetTopCustomersData(1);
+
     return(
         <>
         <HeaderSection title={'Estatística'} description="Veja detalhadamente o caminho de sua loja"/>
@@ -42,21 +48,21 @@ export default function StatisticPage() {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5">
-                <CardSection title="Top categorias" hAuto link="#">
-                    <BestCategorieTable/>
+                <CardSection title="Categorias mais vendidas" hAuto link="categories">
+                    <BestCategorieTable categories={categoriesData?.categories || []} isLoading={categoriesLoading}/>
                 </CardSection>
 
-                <CardSection title="Top costumer" hAuto link="#">
-                    <BestCostumerTable/>
+                <CardSection title="Melhores clientes" hAuto link="customers">
+                    <BestCostumerTable customers={customersData?.customers || []} isLoading={customersLoading}/>
                 </CardSection>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5">
-                <CardSection title="Top Product" hAuto link="#">
+                <CardSection title="Melhores produtos" hAuto link="#">
                     <BestProductTable/>
                 </CardSection>
 
-                <CardSection title="Top Server" hAuto link="#">
+                <CardSection title="Melhores servidores" hAuto link="#">
                     <BestServerTable/>
                 </CardSection>
             </div>

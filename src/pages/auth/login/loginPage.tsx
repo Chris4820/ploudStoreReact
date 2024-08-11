@@ -38,7 +38,7 @@ export default function LoginPage() {
             const message = responseData.message;
             if(response.status === 200) {
                 const authToken = responseData.authToken;
-                await createAuthToken(authToken);
+                //await createAuthToken(authToken);
                 setLoading(false);
                 toast(message);
                 return navigate('/');

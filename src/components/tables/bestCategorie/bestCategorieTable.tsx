@@ -1,56 +1,29 @@
-import { useEffect, useState } from "react";
 import { DataTable } from "../../ui/datatable"
-import { BestCategorie, columns } from "./columns"
+import Pagination from "../../ui/pagination";
+import {  columns } from "./columns"
+import { CategoryData, MetaProps } from "../../../api/req/store/statistic";
+import { useSearchParams } from "react-router-dom";
 
-async function getData(): Promise<BestCategorie[]> {
-  // Fetch data from your API here.
-  return [
-    {
-      id: "728ed52f",
-      name: "VIPS",
-      purchase: 45,
-      amount: 65.54
-    },
-    {
-        id: "728ed52f",
-        name: "VIPS",
-        purchase: 45,
-        amount: 65.54
-      },
-      {
-        id: "728ed52f",
-        name: "VIPS",
-        purchase: 45,
-        amount: 65.54
-      },
-      {
-        id: "728ed52f",
-        name: "VIPS",
-        purchase: 45,
-        amount: 65.54
-      },
-      {
-        id: "728ed52f",
-        name: "VIPS",
-        purchase: 45,
-        amount: 65.54
-      },
-    // ...
-  ]
+
+
+
+type BestCategoriesTable = {
+  meta?: MetaProps,
+  categories: CategoryData[],
+  isLoading: boolean,
 }
 
-export default function BestCategorieTable() {
-    const [data, setData] = useState<BestCategorie[]>([]);
-    useEffect(() => {
-        async function fetchData() {
-          const fetchedData = await getData();
-          setData(fetchedData);
-        }
+export default function BestCategorieTable({meta, categories, isLoading} : BestCategoriesTable) {
     
-        fetchData();
-      }, []);
-
+  
+  const [searchParams] = useSearchParams();
+  const page = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
   return (
-        <DataTable columns={columns} data={data}/>
+    <>
+        <DataTable columns={columns} data={categories} loading={isLoading}/>
+        {meta && (
+        <Pagination items={meta.items} pages={meta.pages} page={page} />
+      )}
+    </>
   )
 }

@@ -5,47 +5,55 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { DatePickerWithRange } from "../../../components/ui/datepicker";
 import { MdFilterCenterFocus } from "react-icons/md";
 import { useState } from "react";
-import PaymentTableBig from "../../../components/tables/payments/PaymentTableBig";
-
-
+import { useGetPayments } from "../../../api/store/store/payments";
+import { useSearchParams } from "react-router-dom";
+import PaymentTable from "../../../components/tables/payments/PaymentsTable";
 
 
 export default function PaymentsPage() {
 
-    const [status, setStatus] = useState('success');
-    const [filter, setFilter] = useState('recent');
+    const [searchParams] = useSearchParams();
+
+    const page = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
+
+
     const [email, setEmail] = useState('');
-    const [paymentId, setPaymentId] = useState('');
-    const [startDate] = useState(null);
-    const [endDate] = useState(null);
+    const [currentEmail, setCurrentEmail] = useState('');
+
+    const [filter, setFilter] = useState('recent');
+    const [currentFilter, setCurrentFilter] = useState('recent');
+
+    const [status, setStatus] = useState('none');
+    const [currentStatus, setCurrentStatus] = useState('none');
+
+    const [startDate, setStartDate] = useState();
+    const [currentStartDate,] = useState();
+    const [endDate, setEndDate] = useState();
+    const [currentEndDate,] = useState();
+
+    const {data: payments, isLoading} = useGetPayments(email, filter, status === 'none' ? '' : status, startDate, endDate, page);
 
 
-    async function fetchPaymentTable() {
-        console.log([{
-            "Status" : status,
-            "Filter" : filter,
-            "Email:" : email,
-            "PaymentId": paymentId,
-            "startDate" : startDate,
-            "endDate" : endDate,
-        }]);
+    async function handleFilter() {
+        setEmail(currentEmail);
+        setFilter(currentFilter);
+        setStatus(currentStatus);
+        setStartDate(currentStartDate)
+        setEndDate(currentEndDate);
     }
-    
-    
+
+    function EnableButtonSearch() {
+        return email === currentEmail && filter === currentFilter && status === currentStatus && startDate === currentStartDate && endDate === currentEndDate;
+    }
     return(
         <>
             <HeaderSection title="Pedidos" description="Consulte os pedidos de sua loja!"/>
             <div className="flex gap-5 items-center flex-wrap">
                 <div className="space-y-1">
-                <Input onChange={(e) => setEmail(e.target.value)} placeholder="Search by Email" className="max-w-[250px] h-8"/>
+                <Input onChange={(e) => setCurrentEmail(e.target.value)} placeholder="Search by Email" className="max-w-[250px] h-8"/>
                 </div>
 
-                <div className="inline-flex rounded-l-md">
-                    <div className="h-8 p-3 bg-muted flex items-center rounded-l-lg font-semibold">#</div>
-                    <Input onChange={(e) => setPaymentId(e.target.value)} type="number" placeholder="Number Payment" className="rounded-l-none max-w-[250px] h-8"/>
-                </div>
-
-                <Select defaultValue={filter} onValueChange={(value) => setFilter(value)}>
+                <Select defaultValue={filter} onValueChange={(value) => setCurrentFilter(value)}>
                     <SelectTrigger  className="h-8 w-[180px]">
                         <div className="flex items-center gap-2">
                         <MdFilterCenterFocus className="h-4 w-4 opacity-50" />
@@ -60,7 +68,7 @@ export default function PaymentsPage() {
                 </SelectContent>
                 </Select>
 
-                <Select defaultValue={status} onValueChange={(value) => setStatus(value)}>
+                <Select defaultValue={status} onValueChange={(value) => setCurrentStatus(value)}>
                     <SelectTrigger className="h-8 w-[180px]">
                         <SelectValue/>
                     </SelectTrigger>
@@ -83,15 +91,21 @@ export default function PaymentsPage() {
                                 <h1>Failed</h1>
                             </div>
                             </SelectItem>
+                            <SelectItem value="none">
+                            <div className="flex gap-2 items-center">
+                                <div className="bg-purple-600 h-[9px] w-[9px] rounded-full"/>
+                                <h1>Todos</h1>
+                            </div>
+                            </SelectItem>
                 </SelectContent>
                 </Select>
 
                 <DatePickerWithRange/>
 
-                <Button onClick={() => fetchPaymentTable()}>Pesquisar</Button>
+                <Button disabled={EnableButtonSearch()} onClick={() => handleFilter()}>Pesquisar</Button>
             </div>
             <div className="mt-5">
-                <PaymentTableBig/>
+                <PaymentTable payments={payments?.payments || []} isLoading={isLoading} meta={payments?.meta}/>
             </div>
 
         </>

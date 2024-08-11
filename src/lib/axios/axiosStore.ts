@@ -7,26 +7,15 @@ const axiosStore = axios.create({
   baseURL: baseURL,
   headers: {
     'Content-Type': 'application/json',
-  }
+  },
+  withCredentials: true,
 });
 
 axiosStore.interceptors.request.use(
   async (config) => {
-    const authToken = Cookies.get('authToken');
     const storeToken = Cookies.get('storeToken');
-    if (!authToken) {
-      Cookies.remove("authToken");
-      Cookies.remove("storeToken");
-      window.location.href = '/auth/login';
-      return Promise.reject("Redirecting to login...");
-    }
-    if (!storeToken) {
-      Cookies.remove("storeToken");
-      window.location.href = '/';
-      return Promise.reject("Redirecting to store...");
-    }
-    config.headers.Authorization = `Bearer ${authToken}`;
-    config.headers['Store-Token'] = `Bearer ${storeToken}`;
+    //config.headers.Authorization = `Bearer ${authToken}`;
+    config.headers['store-token'] = `${storeToken}`;
     return config;
   },
   (error) => {
@@ -40,6 +29,7 @@ axiosStore.interceptors.response.use(
     error => {
       if(error.response.status === 403) {
         Cookies.remove("storeToken");
+        console.log("123")
         return window.location.href = '/';
       }
     })

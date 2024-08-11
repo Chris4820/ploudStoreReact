@@ -1,60 +1,42 @@
 import { ColumnDef } from "@tanstack/react-table"
-import { BsCart4 } from "react-icons/bs"
 import { PaymentProps } from "../../../api/req/store/payment"
-
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
-export type Payment = {
-  id: string,
-  name: string,
-  email: string,
-  cupom: string,
-  amount: number,
-  status: "pending" | "processing" | "success" | "failed"
-  createdAt: string,
-}
+import { format } from "date-fns";
 
 export const columns: ColumnDef<PaymentProps>[] = [
     {
-        accessorKey: "name",
-        header: "Name",
+      accessorKey: "clientIdentifier",
+      header: "Cliente",
     },
     {
-        accessorKey: "email",
+        accessorKey: "clientEmail",
         header: "Email",
     },
     {
-        accessorKey: "cupom",
-        header: "Cupom",
+      accessorKey: "value",
+      header: "Preço",
+      cell: ({ row }) => {
+        const value = row.original.value;
+        return value + "€";
+      },
     },
     {
-        id: "actions",
-        header: "Cart",
-        cell: () => {
-            return(
-                <BsCart4 className="cursor-pointer" size={22}/>
-            )
-        }
-    },
-    {
-        accessorKey: "amount",
-        header: "Amount",
-        cell: ({ row }) => {
-          const amount = parseFloat(row.getValue("amount"))
-          const formatted = new Intl.NumberFormat("en-US", {
-            style: "currency",
-            currency: "USD",
-          }).format(amount)
-     
-          return <div>{formatted}</div>
-        },
+      accessorKey: "coupon",
+      header: "Cupom",
+      cell: ({ row }) => {
+        const cupon = row.original.coupon;
+        return cupon ? cupon : "Não utilizado";
+      },
     },
     {
         accessorKey: "status",
         header: "Status",
     },
     {
-        accessorKey: "createdAt",
-        header: "Data",
-    },
-]
+      accessorKey: "created_at",
+      header: "Data",
+      cell: ({ row }) => {
+        const date = new Date(row.original.created_at);
+        return format(date, "dd/MM/yyyy HH:mm");
+      },
+    }
+  ]

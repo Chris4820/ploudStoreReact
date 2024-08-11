@@ -9,20 +9,24 @@ const axiosUser = axios.create({
   baseURL: baseURL,
   headers: {
     'Content-Type': 'application/json',
-  }
+  },
+  withCredentials: true,
 });
 
 
 axiosUser.interceptors.request.use(
   async (config) => {
+    console.log("1")
     const authToken = await getAuthTokenFromCookie();
-    if (!authToken) {
+    /*if (!authToken) {
+      console.log("2")
       Cookies.remove("storeToken");
       Cookies.remove("authToken");
       window.location.href = '/auth/login';
       console.log('Token de autenticação não encontrado! Redirecionando para a página de login...');
-    }
-    config.headers.Authorization = `Bearer ${authToken}`;
+    }*/
+    console.log("4")
+    //config.headers.Authorization = `Bearer ${authToken}`;
     return config;
   },
   (error) => {
@@ -34,11 +38,12 @@ axiosUser.interceptors.request.use(
 axiosUser.interceptors.response.use(
   response => response,
   error => {
-    if(error.response.status === 403) {
-      Cookies.remove("authToken");
-      Cookies.remove("storeToken");
-      return window.location.href = '/auth/login';
+    if (error.response && error.response.status === 401) {
+      Cookies.remove("authToken", { path: "/" }); // Remover o cookie authToken
+      window.location.href = '/auth/login';
     }
-  })
+    return Promise.reject(error);
+  }
+);
 
 export default axiosUser;

@@ -21,7 +21,7 @@ export default function InviteStoreSection() {
         <>
             {inviteStore.map((inviteStore : InviteStoreProps) => (
                 <DialogDemo inviteStore={inviteStore}>
-                    <StoreCardComponent store={inviteStore.store} color="yellow"/>
+                    <StoreCardComponent key={inviteStore.store.storeId} store={inviteStore.store} color="yellow"/>
                 </DialogDemo>
             ))}
         </>

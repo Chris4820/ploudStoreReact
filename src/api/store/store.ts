@@ -28,13 +28,6 @@ export function useGetStoreInformation() {
     })
   }
 
-  export function useGetPayments() {
-    return useQuery({
-      queryKey: ['paymentss'],
-      queryFn: getPayments,
-    })
-  }
-
   export function useGetDesign() {
     return useQuery({
       queryKey: ['design'],

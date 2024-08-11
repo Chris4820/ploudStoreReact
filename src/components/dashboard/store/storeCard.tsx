@@ -9,7 +9,7 @@ interface StoreCardComponentProps extends LiHTMLAttributes<HTMLLIElement> {
 
 const StoreCardComponent: FC<StoreCardComponentProps> = ({ store, color, ...otherProps }) => {
     return(
-        <li {...otherProps} key={store.storeId} className="w-full group p-3 border rounded-md flex justify-between items-center hover:bg-gray-200 duration-700 cursor-pointer">
+        <li {...otherProps} className="w-full group p-3 border rounded-md flex justify-between items-center hover:bg-gray-200 duration-700 cursor-pointer">
             <div className="flex gap-2">
                 <div className={`w-10 h-10 rounded-md flex items-center justify-center bg-${color}-500`}>
                     {store.shortName}

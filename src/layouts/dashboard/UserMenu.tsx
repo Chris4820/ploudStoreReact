@@ -6,7 +6,7 @@ import { useGetUserInformation } from "../../api/store/user";
 import { useTheme } from "../providers/Theme";
 import { PopoverClose } from "@radix-ui/react-popover";
 import { IoSunnyOutline, IoMoonOutline } from "react-icons/io5";
-import Cookies from 'js-cookie'
+import { logout } from "../../api/req/auth";
 
 
 
@@ -18,9 +18,9 @@ export default function UserMenu() {
     const {data: userInformation} = useGetUserInformation();
     console.log("userInformation: " + userInformation);
 
+
     async function logoutUser() {
-      Cookies.remove("authToken");
-      Cookies.remove("storeToken");
+      await logout();
       return navigate("/auth/login")
     }
 
