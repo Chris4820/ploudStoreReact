@@ -25,7 +25,7 @@ export default function GoalPage() {
                     <p className="font-semibold">Metas de comunidade</p>
                 </div>
                 <div className="mt-3">
-                    <CardEmptyComponent title="Sem metas" desc="Parece que não existe nenhuma meta ativa!"/>
+                    <CardEmptyComponent title="Sem metas" description="Parece que não existe nenhuma meta ativa!"/>
                 </div>
             </div>
             </div>

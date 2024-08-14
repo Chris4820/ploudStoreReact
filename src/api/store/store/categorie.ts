@@ -10,10 +10,10 @@ export function useGetCategorie(parentCategoryId: number | null) {
 })
 }
 
-export function useGetCategory(parentId: number) {
+export function useGetCategory(categoryId: number) {
     return useQuery({
-    queryKey: ['category', parentId],
-    queryFn: () => getCategory(parentId),
+    queryKey: ['category', categoryId],
+    queryFn: () => getCategory(categoryId),
 })
 }
 

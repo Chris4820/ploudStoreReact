@@ -2,11 +2,11 @@ import { GiMoneyStack } from "react-icons/gi";
 import HeaderSection from "../../../components/commons/Header";
 import Cards from "../../../components/dashboard/DashboardCard";
 import CardSection from "../../../components/commons/CardSections";
-import BestCategorieTable from "../../../components/tables/bestCategorie/bestCategorieTable";
-import BestCostumerTable from "../../../components/tables/bestCostumer/bestCostumer";
-import BestProductTable from "../../../components/tables/bestProduct/bestProduct";
-import BestServerTable from "../../../components/tables/bestServer/bestServer";
-import { useGetCategoryData, useGetTopCustomersData } from "../../../api/store/store/statistic";
+import { useGetCategoryData, useGetTopCouponData, useGetTopCustomersData } from "../../../api/store/store/statistic";
+import { DataTable } from "../../../components/ui/datatable";
+import { columnsCategories } from "./Categorie/columnsCategorie";
+import { columnsCustomer } from "./Customers/columnsCustomer";
+import { columnsCupon } from "./Coupon/columnsCupon";
 
 
 
@@ -16,6 +16,8 @@ export default function StatisticPage() {
     const {data: categoriesData, isLoading: categoriesLoading} = useGetCategoryData(1);
 
     const {data: customersData, isLoading: customersLoading} = useGetTopCustomersData(1);
+
+    const {data: couponData, isLoading: couponLoading} = useGetTopCouponData(1);
 
     return(
         <>
@@ -49,21 +51,17 @@ export default function StatisticPage() {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5">
                 <CardSection title="Categorias mais vendidas" hAuto link="categories">
-                    <BestCategorieTable categories={categoriesData?.categories || []} isLoading={categoriesLoading}/>
+                    <DataTable data={categoriesData?.categories || []} loading={categoriesLoading} columns={columnsCategories}/>
                 </CardSection>
 
                 <CardSection title="Melhores clientes" hAuto link="customers">
-                    <BestCostumerTable customers={customersData?.customers || []} isLoading={customersLoading}/>
+                    <DataTable data={customersData?.customers || []} loading={customersLoading} columns={columnsCustomer}/>
                 </CardSection>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5">
-                <CardSection title="Melhores produtos" hAuto link="#">
-                    <BestProductTable/>
-                </CardSection>
-
-                <CardSection title="Melhores servidores" hAuto link="#">
-                    <BestServerTable/>
+                <CardSection title="Melhores coupons" hAuto link="#">
+                    <DataTable data={couponData?.coupons || []} loading={couponLoading} columns={columnsCupon}/>
                 </CardSection>
             </div>
         </>

@@ -4,7 +4,8 @@ import HeaderSection from "../../../../components/commons/Header";
 import { Button } from "../../../../components/ui/button";
 import { DatePickerWithRange } from "../../../../components/ui/datepicker";
 import { useSearchParams } from "react-router-dom";
-import BestCategorieTable from "../../../../components/tables/bestCategorie/bestCategorieTable";
+import { DataTable } from "../../../../components/ui/datatable";
+import { columnsCategories } from "./columnsCategorie";
 
 
 
@@ -39,7 +40,7 @@ export default function CategoriesPage() {
                 <Button disabled={EnableButtonSearch()} onClick={() => handleFilter()}>Pesquisar</Button>
             </div>
             <div className="mt-5">
-                <BestCategorieTable categories={data?.categories || []} isLoading={isLoading} meta={data?.meta}/>
+                <DataTable data={data?.categories || []} loading={isLoading} meta={data?.meta} columns={columnsCategories}/>
             </div>
 
         </>

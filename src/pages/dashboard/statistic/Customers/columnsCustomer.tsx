@@ -1,7 +1,7 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { CustomersData } from "../../../api/req/store/statistic"
 
-export const columns: ColumnDef<CustomersData>[] = [
+export const columnsCustomer: ColumnDef<CustomersData>[] = [
     {
         accessorKey: "name",
         header: "Name",

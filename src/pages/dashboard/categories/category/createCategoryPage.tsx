@@ -3,18 +3,18 @@ import HeaderSection from "../../../../components/commons/Header";
 import { useGetCategory } from "../../../../api/store/store/categorie";
 import NotFoundComponent from "../../../../containers/404Component";
 import CreateCategoryForm from "../../../../containers/dashboard/categories/form/createCategoryForm";
+import LoadingComponent from "../../../../containers/LoadingComponent";
 
 
 
 export default function CreateCategoryPage() {
 
     const [searchParams] = useSearchParams();
-    const parent = searchParams.get("parent");
+    const parentId = parseInt(searchParams.get("parent") as string) || null;
 
 
     //Se não for uma subcategoria
-    if(!parent) {
-        console.log("Não existe")
+    if(!parentId) {
         return(
             <>
             <HeaderSection title="Criar categoria" description="Crie uma nova categoria"/>
@@ -25,15 +25,15 @@ export default function CreateCategoryPage() {
     }
 
     //Se for uma subcategoria
-    const {data: category, isLoading} = useGetCategory(Number(parent));
+    const {data: category, isLoading} = useGetCategory(parentId);
 
 
     if(isLoading) {
-        return <h1>Aguarde...</h1>
+        return <LoadingComponent/>
     }
 
     if(!category) {
-        return <NotFoundComponent title="Categoria não encontrada" description="AAAAA"/>
+        return <NotFoundComponent title="Categoria não encontrada" description="Esta categoria não foi encontrada!"/>
     }
 
     return(

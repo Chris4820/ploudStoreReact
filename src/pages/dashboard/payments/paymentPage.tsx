@@ -7,7 +7,8 @@ import { MdFilterCenterFocus } from "react-icons/md";
 import { useState } from "react";
 import { useGetPayments } from "../../../api/store/store/payments";
 import { useSearchParams } from "react-router-dom";
-import PaymentTable from "../../../components/tables/payments/PaymentsTable";
+import { DataTable } from "../../../components/ui/datatable";
+import { columnsPayment } from "../statistic/Payment/columnsPayment";
 
 
 export default function PaymentsPage() {
@@ -105,7 +106,7 @@ export default function PaymentsPage() {
                 <Button disabled={EnableButtonSearch()} onClick={() => handleFilter()}>Pesquisar</Button>
             </div>
             <div className="mt-5">
-                <PaymentTable payments={payments?.payments || []} isLoading={isLoading} meta={payments?.meta}/>
+                <DataTable data={payments?.payments || []} loading={isLoading} meta={payments?.meta} columns={columnsPayment}/>
             </div>
 
         </>

@@ -7,8 +7,9 @@ import SalesChart from "../../containers/graphicLast7Days";
 import { useTranslation } from "react-i18next";
 import { useGetRevenueSummary } from "../../api/store/store";
 import NotificationComponentHome from "../../components/NotificationsComponent";
-import PaymentTable from "../../components/tables/payments/PaymentsTable";
 import { useGetPayments } from "../../api/store/store/payments";
+import { DataTable } from "../../components/ui/datatable";
+import { columnsPayment } from "./statistic/Payment/columnsPayment";
 
 
 
@@ -61,7 +62,7 @@ export default function Home() {
             </div>
             <div className="mt-5">
               <CardSection title="Pagamentos recentes" hAuto link="payments">
-                <PaymentTable payments={payments?.payments || []} isLoading={paymentsLoading}/>
+                <DataTable data={payments?.payments || []} loading={paymentsLoading} columns={columnsPayment}/>
               </CardSection>
             </div>
         </>

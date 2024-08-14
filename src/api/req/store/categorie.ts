@@ -5,6 +5,7 @@ export type CategorieProps = {
     categoryId: number,
     name: string,
     description: string,
+    enable: boolean,
     slug: string
     imageUrl: string,
 }
@@ -21,10 +22,18 @@ export async function getCategories(parentCategoryId: number | null): Promise<Ca
     return response.data.categories || []; // Obtemos o primeiro item do array
 }
 
-export async function orderCategories(categories: number[]) {
-    const response = await axiosStore.post("ordercategories", {
-        categories: categories,
-    })
+export async function orderCategories(categories: number[], parentId?: number) {
+    // Construa a URL com o parentId, se fornecido
+    let url = 'ordercategories';
+    if (parentId !== undefined) {
+        url += `?parentId=${parentId}`;
+    }
+
+    // Faça a requisição POST
+    const response = await axiosStore.post(url, {
+        categories,
+    });
+
     return response;
 }
 
@@ -33,25 +42,32 @@ export async function getCategorie(categoryId : number): Promise<CategorieProps>
     return response.data.categorie; // Obtemos o primeiro item do array
 }
 
+// Função para criar a categoria
 type CreateCategorieProps = {
     name: string,
     description: string,
     categoryParentId: number | null,
     slug: string,
-    imageUrl: string,
-}
-export async function createCategorie(data: CreateCategorieProps) {
-    console.log(data.imageUrl);
-    const response = await axiosStore.post("category", {
-        name: data.name,
-        description: data.description,
-        categoryParentId: data.categoryParentId,
-        slug: data.slug,
-        imageUrl: data.imageUrl
-    })
-    return response;
+    imageUrl?: string,
 }
 
+export async function createCategorie(data: CreateCategorieProps) {
+    try {
+        const response = await axiosStore.post("category", data);
+        console.log("Response:", response);
+        return response.data;
+    } catch (error: any) {
+        // Se o erro for devido à resposta da API (erro HTTP)
+        if (error.response) {
+            console.log("Erro na resposta da API:", error.response.data);
+            // Você pode lançar o erro novamente para ser tratado na mutação
+            throw new Error(error.response.data.message || 'Erro ao criar a categoria');
+        } else {
+            console.error("Erro desconhecido:", error);
+            throw new Error('Erro desconhecido ao criar a categoria');
+        }
+    }
+}
 export async function deleteCategorie(categoryId: number) {
     const response = await axiosStore.delete(`category/${categoryId}`)
     return response;

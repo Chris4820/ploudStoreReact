@@ -7,9 +7,14 @@ export type PaymentProps = {
     clientName: string,
     clientEmail: string,
     value: number,
-    coupon: string | null,
     status: "pending" | "success" | "failed"
     created_at: string,
+    coupon?: CouponProps,
+}
+
+export type CouponProps = {
+    couponId: number,
+    name: string,
 }
 
 interface PaymentsResponse {

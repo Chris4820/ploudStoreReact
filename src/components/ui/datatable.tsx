@@ -8,13 +8,16 @@ import {
 } from "@tanstack/react-table";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./table";
 import { CgSpinner } from "react-icons/cg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import CardEmptyComponent from "../commons/CardEmpty";
+import Pagination from "./pagination";
+import { MetaProps } from "../../api/req/store/statistic";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   loading: boolean;
+  meta?: MetaProps
   link?: string
 }
 
@@ -22,7 +25,8 @@ export function DataTable<TData, TValue>({
   columns,
   data,
   loading,
-  link,
+  meta,
+  link
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
@@ -31,8 +35,11 @@ export function DataTable<TData, TValue>({
   });
 
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const page = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
 
   return (
+    <>
     <div className="rounded-md border">
       <Table>
         <TableHeader className="bg-secondary">
@@ -98,5 +105,9 @@ export function DataTable<TData, TValue>({
         </TableBody>
       </Table>
     </div>
+    {meta && data.length > 0 && (
+        <Pagination items={meta.items} pages={meta.pages} page={page} />
+      )}
+    </>
   );
 }

@@ -1,8 +1,8 @@
 import { ColumnDef } from "@tanstack/react-table"
-import { PaymentProps } from "../../../api/req/store/payment"
 import { format } from "date-fns";
+import { PaymentProps } from "../../../../api/req/store/payment";
 
-export const columns: ColumnDef<PaymentProps>[] = [
+export const columnsPayment: ColumnDef<PaymentProps>[] = [
     {
       accessorKey: "clientIdentifier",
       header: "Cliente",
@@ -24,7 +24,7 @@ export const columns: ColumnDef<PaymentProps>[] = [
       header: "Cupom",
       cell: ({ row }) => {
         const cupon = row.original.coupon;
-        return cupon ? cupon : "Não utilizado";
+        return cupon ? cupon.name : "Não utilizado";
       },
     },
     {

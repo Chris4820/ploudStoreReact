@@ -75,3 +75,33 @@
   }
 }
 
+
+
+
+
+
+
+
+
+
+
+/*RICH TEXT*/
+
+/* Estilizando a borda do editor Quill */
+.ql-toolbar {
+  border: 1px solid hsl(217.2, 32.6%, 17.5%) !important;
+  border-top-left-radius: 5px; /* Arredondamento da borda, se necessário */
+  border-top-right-radius: 5px; /* Arredondamento da borda, se necessário */
+  
+}
+
+/* Estilizando a borda do editor quando em foco */
+.ql-editor {
+  min-height: 200px !important;
+}
+
+.ql-container {
+  border: 1px solid hsl(217.2, 32.6%, 17.5%) !important;
+  border-top: none !important;
+}
+

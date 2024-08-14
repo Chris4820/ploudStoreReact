@@ -11,13 +11,15 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createCategorie } from "../../../../api/req/store/categorie";
 import { toast } from "sonner";
 import { Textarea } from "../../../../components/ui/textarea";
-import axiosStore from "../../../../lib/axios/axiosStore";
+import { useState } from "react";
+import { CgSpinner } from "react-icons/cg";
 
 export default function CreateCategoryForm({ parentId }: { parentId?: number | null }) {
 
     const queryClient = useQueryClient();
     const { data: store } = useGetStoreInformation();
     const navigate = useNavigate();
+    const [loading, setIsLoading] = useState(false);
 
     const createCategorieSchema = z.object({
         name: z.string().min(3, "Mínimo de 3 caracteres"),
@@ -33,6 +35,11 @@ export default function CreateCategoryForm({ parentId }: { parentId?: number | n
         resolver: zodResolver(createCategorieSchema),
     });
 
+    async function CreateCategoryHandler(data: CreateCategorieFormData) {
+        setIsLoading(true);
+        categorieCreate(data);
+    }
+
     const { mutate: categorieCreate } = useMutation({
         mutationFn: createCategorie,
         onSuccess: () => {
@@ -43,10 +50,17 @@ export default function CreateCategoryForm({ parentId }: { parentId?: number | n
             } else {
                 navigate('/dashboard/categorie');
             }
+        },
+        onError: (error: any) => {
+            const errorMessage = error?.message || 'Erro ao criar a categoria. Tente novamente.';
+            toast.error(errorMessage);
+        },
+        onSettled: () => { // Funciona como o "finally"
+            setIsLoading(false); // Finaliza o estado de carregamento
         }
     });
 
-    async function sendCreateCategorie(data: CreateCategorieFormData) {
+    /*async function sendCreateCategorie(data: CreateCategorieFormData) {
         try {
             const imageFile = getValues("imageUrl");
     
@@ -94,12 +108,12 @@ export default function CreateCategoryForm({ parentId }: { parentId?: number | n
         } catch (error) {
             console.error('Erro ao criar a categoria:', error);
         }
-    }
+    }*/
     
     
 
     return (
-        <form className="grid grid-cols-1 lg:grid-cols-5 gap-5" onSubmit={handleSubmit(sendCreateCategorie)}>
+        <form className="grid grid-cols-1 lg:grid-cols-5 gap-5" onSubmit={handleSubmit(CreateCategoryHandler)}>
             <div className="col-span-3 space-y-5">
                 <div>
                     <label>Nome</label>
@@ -142,7 +156,12 @@ export default function CreateCategoryForm({ parentId }: { parentId?: number | n
                     <Switch defaultChecked={true} id="enable-product" />
                 </div>
                 <div className="mt-5 flex justify-end">
-                    <Button type="submit">Criar categoria</Button>
+                    <Button type="submit" disabled={loading}>
+                        {loading ? <span className="flex gap-2 items-center justify-center"> <CgSpinner className="w-2 h-2 animate-spin"/> <span>Criando...</span></span> 
+                        
+                        : 
+                        "Criar categoria"}
+                    </Button>
                 </div>
             </div>
         </form>

@@ -78,3 +78,33 @@ export async function getCustomersData(page?: number | undefined): Promise<Custo
         throw new Error('Failed to fetch categories data');
     }
 }
+
+export type CouponData = {
+    name: string;
+    totalSells: number;
+    totalAmount: number;
+}
+
+interface CouponResponse {
+    coupons: CouponData[];
+    meta: MetaProps;
+}
+
+
+export async function getCouponData(page?: number | undefined): Promise<CouponResponse> {
+    try {
+        let query = "";
+        if (page) {
+            query += `page=${page}&`;
+        }
+        // Envie a solicitação GET para obter os dados das categorias
+        const response = await axiosStore.get<CouponResponse>(`couponsstat?${query}`); // Substitua 'categoriesstat' pela URL real
+
+        // Retorne diretamente a resposta no formato esperado
+        return response.data;
+    } catch (error) {
+        // Lide com erros de solicitação
+        console.error('Error fetching categories data:', error);
+        throw new Error('Failed to fetch categories data');
+    }
+}

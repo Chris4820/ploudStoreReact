@@ -57,7 +57,9 @@ export default function Pagination({page, items, pages}: PaginationProps) {
 
   return(
     <div className="flex text-sm items-center justify-between text-zinc-500 mt-5">
-       <span>Mostrando {startItem} a {endItem} de {items} itens</span>
+
+      
+        <span>Mostrando {startItem} a {endItem} de {items} itens</span>
 
       <div className="flex items-center gap-5">
 

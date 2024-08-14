@@ -5,12 +5,12 @@ import { Button } from "../../../../components/ui/button";
 import { DatePickerWithRange } from "../../../../components/ui/datepicker";
 import { useSearchParams } from "react-router-dom";
 import { DataTable } from "../../../../components/ui/datatable";
-import { columnsCustomer } from "./columnsCustomer";
+import { columnsCupon } from "./columnsCupon";
 
 
 
 
-export default function CustomersPage() {
+export default function CouponPage() {
 
     const [searchParams] = useSearchParams();
 
@@ -42,7 +42,7 @@ export default function CustomersPage() {
                 <Button disabled={EnableButtonSearch()} onClick={() => handleFilter()}>Pesquisar</Button>
             </div>
             <div className="mt-5">
-                <DataTable data={data?.customers || []} loading={isLoading} meta={data?.meta} columns={columnsCustomer}/>
+                <DataTable data={data?.customers || []} loading={isLoading} meta={data?.meta} columns={columnsCupon}/>
             </div>
 
         </>

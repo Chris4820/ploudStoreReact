@@ -32,6 +32,8 @@ axiosStore.interceptors.response.use(
         console.log("123")
         return window.location.href = '/';
       }
+      // Adicione isto para garantir que outros erros sejam propagados corretamente
+    return Promise.reject(error);
     })
   
 export default axiosStore;
