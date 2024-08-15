@@ -47,7 +47,7 @@ export default function CreateCategoryPage() {
             </div>
         )}
 
-            <CreateCategoryForm parentId={category?.categoryId}/>
+            <CreateCategoryForm parentId={category?.id}/>
         </>
     )
 }

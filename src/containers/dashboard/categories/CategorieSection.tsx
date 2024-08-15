@@ -27,8 +27,8 @@ export function CategorieSection({ parentCategoryId }: { parentCategoryId: numbe
 
     const handleDragEnd = ({ active, over }: { active: any; over: any }) => {
         if (active.id !== over.id) {
-            const oldIndex = items.findIndex((item) => item.categoryId === active.id);
-            const newIndex = items.findIndex((item) => item.categoryId === over.id);
+            const oldIndex = items.findIndex((item) => item.id === active.id);
+            const newIndex = items.findIndex((item) => item.id === over.id);
             const newItems = Array.from(items);
             const [movedItem] = newItems.splice(oldIndex, 1);
             newItems.splice(newIndex, 0, movedItem);
@@ -36,7 +36,7 @@ export function CategorieSection({ parentCategoryId }: { parentCategoryId: numbe
             setItems(newItems);
 
             // Get the new order of category IDs
-            const newOrder = newItems.map((item) => item.categoryId);
+            const newOrder = newItems.map((item) => item.id);
 
             // Update the order by sending all categories
             updateOrder(newOrder);
@@ -52,10 +52,10 @@ export function CategorieSection({ parentCategoryId }: { parentCategoryId: numbe
 
                 // Cria um mapeamento dos IDs para as categorias
                 const categoryMap = new Map<number, CategorieProps>();
-                oldData.forEach(item => categoryMap.set(item.categoryId, item));
+                oldData.forEach(item => categoryMap.set(item.id, item));
 
                 // Reordena os itens com base na nova ordem
-                const newData = items.map(item => categoryMap.get(item.categoryId)!).filter(item => item !== undefined) as CategorieProps[];
+                const newData = items.map(item => categoryMap.get(item.id)!).filter(item => item !== undefined) as CategorieProps[];
 
                 return newData;
             });
@@ -77,12 +77,12 @@ export function CategorieSection({ parentCategoryId }: { parentCategoryId: numbe
                 onDragEnd={handleDragEnd}
             >
                 <SortableContext
-                    items={items.map((item) => item.categoryId)}
+                    items={items.map((item) => item.id)}
                     strategy={verticalListSortingStrategy}
                 >
                     <ul className="space-y-1">
                         {items.map((item) => (
-                            <DraggableItem item={item} key={item.categoryId} parentId={parentCategoryId} />
+                            <DraggableItem item={item} key={item.id} parentId={parentCategoryId} />
                         ))}
                     </ul>
                 </SortableContext>
@@ -101,7 +101,7 @@ const DraggableItem = ({ item, parentId }: { item: CategorieProps; parentId: num
         transform,
         transition,
     } = useSortable({
-        id: item.categoryId,
+        id: item.id,
     });
 
     const style = {
@@ -112,8 +112,8 @@ const DraggableItem = ({ item, parentId }: { item: CategorieProps; parentId: num
 
     return (
         <li
-            key={item.categoryId}
-            data-dnd-id={item.categoryId}
+            key={item.id}
+            data-dnd-id={item.id}
             ref={setNodeRef}
             style={style}
             className={`flex justify-between p-3 w-full bg-muted items-center rounded-md ${
@@ -137,7 +137,7 @@ const DraggableItem = ({ item, parentId }: { item: CategorieProps; parentId: num
                 </div>
             </div>
             <div className="flex gap-2 items-center">
-                <Button onClick={() => navigate(`${item.categoryId}`)}>Abrir</Button>
+                <Button onClick={() => navigate(`${item.id}`)}>Abrir</Button>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant={"ghost"} size={"icon"}>
@@ -149,7 +149,7 @@ const DraggableItem = ({ item, parentId }: { item: CategorieProps; parentId: num
                         <DropdownMenuSeparator />
                         <DropdownMenuGroup>
                             <DropdownMenuItem 
-                                onSelect={() => navigate(parentId ? `/dashboard/category/edit/${item.categoryId}?parent=${parentId}` : `/dashboard/category/edit/${item.categoryId}`)}>
+                                onSelect={() => navigate(parentId ? `/dashboard/category/edit/${item.id}?parent=${parentId}` : `/dashboard/category/edit/${item.id}`)}>
                                 Editar
                             </DropdownMenuItem>
                         </DropdownMenuGroup>

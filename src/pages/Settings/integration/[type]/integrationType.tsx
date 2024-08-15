@@ -7,7 +7,6 @@ import BackComponent from "../../../../components/commons/BackComponent";
 export default function IntegrationTypePage() {
     const params = useParams();
     const integrationType = params.type;
-    console.log(integrationType);
     const navigate = useNavigate();
 
     const allowedIntegrations = ['minecraft', 'slack', 'discord'];

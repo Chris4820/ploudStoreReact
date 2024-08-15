@@ -2,7 +2,7 @@ import axiosStore from "../../../lib/axios/axiosStore";
 
 
 export type VariableProps = {
-    variableId: number,
+    id: number,
     name: string,
     title: string,
     variable: string,

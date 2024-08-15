@@ -2,8 +2,6 @@ import { CgSpinner } from "react-icons/cg";
 import CardEmptyComponent from "../../components/commons/CardEmpty";
 import { useNavigate } from "react-router-dom";
 import { useGetStores } from "../../api/store/user";
-import { toast } from "sonner";
-import { createStoreToken } from "../../lib/utils";
 import { StoreProps, getTokenStore } from "../../api/req/store";
 import StoreCardComponent from "../../components/dashboard/store/storeCard";
 
@@ -35,13 +33,13 @@ export default function StoreSection() {
     }
 
     if (!store || store.length <= 0) {
-        return <CardEmptyComponent title="Nenhuma loja encontrada" desc="Você ainda não tem uma loja!" />;
+        return <CardEmptyComponent title="Nenhuma loja encontrada" description="Você ainda não tem uma loja!" />;
     }
 
     return (
         <>
             {store.map((store : StoreProps) => (
-                <StoreCardComponent key={store.storeId} store={store} color="pink" onClick={() => openStore(store.storeId)}/>
+                <StoreCardComponent key={store.id} store={store} color="pink" onClick={() => openStore(store.id)}/>
             ))}
         </>
     );

@@ -4,7 +4,7 @@ import axiosStore from "../../../lib/axios/axiosStore";
 
 
 export type ProductProps = {
-    productId: number,
+    id: number,
     name: string,
     description: string,
     price: number,

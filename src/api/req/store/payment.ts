@@ -13,7 +13,7 @@ export type PaymentProps = {
 }
 
 export type CouponProps = {
-    couponId: number,
+    id: number,
     name: string,
 }
 

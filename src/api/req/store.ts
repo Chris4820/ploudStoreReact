@@ -16,7 +16,7 @@ export type StoreInformationProps = {
 }
 
 export type StoreProps = {
-    storeId: number,
+    id: number,
     name: string,
     subdomain: string,
     gametype: "MINECRAFT" | "FIVEM" | "REDM",

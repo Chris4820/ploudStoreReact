@@ -8,10 +8,10 @@ import { Input } from "../../../../components/ui/input";
 import { useGetStoreInformation } from "../../../../api/store/store";
 import { Switch } from "../../../../components/ui/switch";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { CategorieProps, updateCategory } from "../../../../api/req/store/categorie";
+import { CategorieProps, deleteCategorie, updateCategory } from "../../../../api/req/store/categorie";
 import { toast } from "sonner";
 import { Textarea } from "../../../../components/ui/textarea";
-import { ModalDeleteCategorie } from "../../../modal/categorie/modalDeleteCategorie";
+import DeleteModal from "../../../../components/modal/deleteModal";
 
 
 
@@ -21,12 +21,10 @@ export default function EditCategoryForm({category, parentId }: { category: Cate
     const {data: store} = useGetStoreInformation();
     const navigate = useNavigate();
 
-    console.log("PARENT ANTES::" + parentId);
-
     const editCategorieSchema = z.object({
         name: z.string().min(3, "Mínimo de 3 caracteres").default(category.name),
         description: z.string().min(6, 'Mínimo de 6 caracteres').default(category.description),
-        categoryId: z.number().default(category.categoryId),
+        id: z.number().default(category.id),
         slug: z.string().default(() => category.slug ?? ""),
         imageUrl: z.string().default(category.imageUrl),
     })
@@ -37,6 +35,15 @@ export default function EditCategoryForm({category, parentId }: { category: Cate
     })
 
 
+
+    async function EditCategoryHandler(data: editCategorieFormData) {
+        try {
+            categorieEdit(data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     const { mutate: categorieEdit } = useMutation({
         mutationFn: updateCategory,
         onSuccess: () => {
@@ -45,19 +52,21 @@ export default function EditCategoryForm({category, parentId }: { category: Cate
                 return navigate('/dashboard/categorie')
         }
     });
-
-    async function sendEditCategorie(data: editCategorieFormData) {
-        try {
-            categorieEdit(data);
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    
+    const { mutate: categorieDelete } = useMutation({
+        mutationFn: deleteCategorie,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['categories', parentId] });
+            toast('Categoria Eliminada com sucesso!');
+            
+            return navigate(-1);
+            }
+    });
 
     return(
         <form 
         className="grid grid-cols-1 lg:grid-cols-5 gap-5"
-        onSubmit={handleSubmit(sendEditCategorie)}>
+        onSubmit={handleSubmit(EditCategoryHandler)}>
             <div className="col-span-3 space-y-5">
                 <div>
                     <label>Nome</label>
@@ -66,7 +75,7 @@ export default function EditCategoryForm({category, parentId }: { category: Cate
                 </div>
                 <div>
                     <label>Descrição</label>
-                    <Textarea {...register("description")} className="mt-1 h-32 resize-none"/>
+                    <Textarea {...register("description")} className="mt-1 h-32 resize-none" defaultValue={category.description}/>
                     {errors.name && <span className='text-destructive text-[12px]'>{errors.name.message}</span>}
                 </div>
                 <div>
@@ -101,9 +110,14 @@ export default function EditCategoryForm({category, parentId }: { category: Cate
                         <p className="text-muted-foreground">Elimine permanentemente a categoria</p>
                         <p className="text-destructive text-sm mt-1">*Esta ação não tem volta</p>
                     </div>
-                    <ModalDeleteCategorie category={category} parentId={parentId ? Number(parentId) : null}>
+                    <DeleteModal 
+                    title="Eliminar categoria" 
+                    description="Todos os produtos associados a esta categoria serão eliminados permanentemente!"
+                    important="Esta ação não tem volta"
+                    onConfirm={() => categorieDelete(category.id)}>
                         <Button type="button" variant={"destructive"}>Eliminar</Button>
-                    </ModalDeleteCategorie>
+                    </DeleteModal>
+                    
                 </div>
                 <div className="mt-5 flex justify-end">
                 <Button type="submit">Guardar alterações</Button>

@@ -2,7 +2,7 @@ import axiosStore from "../../../lib/axios/axiosStore";
 
 
 export type CategorieProps = {
-    categoryId: number,
+    id: number,
     name: string,
     description: string,
     enable: boolean,
@@ -11,7 +11,7 @@ export type CategorieProps = {
 }
 
 export type ProductProps = {
-    productId: number,
+    id: number,
     name: string,
     description: string,
     price: number,
@@ -84,14 +84,14 @@ export async function getCategory(categoryId: number) {
 }
 
 type UpdateCategorieProps = {
-    categoryId: number,
+    id: number,
     name: string,
     description: string,
     slug: string,
 }
 export async function updateCategory(data: UpdateCategorieProps) {
-    const response = await axiosStore.put(`category/${data.categoryId}`, {
-        categoryId: data.categoryId,
+    const response = await axiosStore.put(`category/${data.id}`, {
+        categoryId: data.id,
         name: data.name,
         description: data.description,
         slug: data.slug,

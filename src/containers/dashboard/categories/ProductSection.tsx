@@ -46,8 +46,8 @@ export function ProductSection({categoryId} : {categoryId: number }) {
         setIsMove(true);
       } 
       const newItems = Array.from(items);
-      const oldIndex = items.findIndex((item) => item.productId === active.id);
-      const newIndex = items.findIndex((item) => item.productId === over.id);
+      const oldIndex = items.findIndex((item) => item.id === active.id);
+      const newIndex = items.findIndex((item) => item.id === over.id);
       const [movedItem] = newItems.splice(oldIndex, 1);
       newItems.splice(newIndex, 0, movedItem);
       setItems(newItems);
@@ -56,7 +56,7 @@ export function ProductSection({categoryId} : {categoryId: number }) {
 
   async function updateOrderProducts() {
     const products = items.map((item) => {
-      return item.productId
+      return item.id
     })
     updateOrder(products);
     setIsMove(false);
@@ -74,7 +74,7 @@ export function ProductSection({categoryId} : {categoryId: number }) {
     return <h1>Aguarde...</h1>
   }
   if(!products || products.length === 0) {
-    return <CardEmptyComponent title="Sem produtos" desc="Parece que não existe produtos"/>
+    return <CardEmptyComponent title="Sem produtos" description="Parece que não existe produtos"/>
   }
 
   return (
@@ -85,12 +85,12 @@ export function ProductSection({categoryId} : {categoryId: number }) {
         onDragEnd={handleDragEnd}
       >
         <SortableContext
-          items={items.map((item) => item.productId)}
+          items={items.map((item) => item.id)}
           strategy={verticalListSortingStrategy}
         >
           <ul className="space-y-1">
             {items.map((item) => (
-              <DraggableItem item={item} key={item.productId} categoryId={categoryId}/>
+              <DraggableItem item={item} key={item.id} categoryId={categoryId}/>
             ))}
           </ul>
         </SortableContext>
@@ -115,7 +115,7 @@ const DraggableItem = ({ item, categoryId }: { item: ProductProps, categoryId: n
     transform,
     transition,
   } = useSortable({
-    id: item.productId,
+    id: item.id,
   });
 
   const style = {
@@ -126,8 +126,8 @@ const DraggableItem = ({ item, categoryId }: { item: ProductProps, categoryId: n
 
   return (
     <li
-      key={item.productId}
-      data-dnd-id={item.productId}
+      key={item.id}
+      data-dnd-id={item.id}
       ref={setNodeRef}
       style={style}
       className={`flex justify-between p-3 w-full bg-muted items-center rounded-md ${
@@ -158,7 +158,7 @@ const DraggableItem = ({ item, categoryId }: { item: ProductProps, categoryId: n
         <label className="p-2 font-semibold text-base">Opções</label>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem onSelect={() => navigate(`/dashboard/product/edit/${item.productId}`)}>Editar</DropdownMenuItem>
+          <DropdownMenuItem onSelect={() => navigate(`/dashboard/product/edit/${item.id}`)}>Editar</DropdownMenuItem>
           <DeleteProductModal categoryId={categoryId} product={item}>
             <DropdownMenuItem onSelect={(e) => e.preventDefault()}>Eliminar</DropdownMenuItem>
           </DeleteProductModal>

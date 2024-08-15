@@ -39,6 +39,8 @@ import VariablePage from "./pages/Settings/variables/variablePage"
 import CreateVariablePage from "./pages/Settings/variables/createVariablePage"
 import CategoriesPage from "./pages/dashboard/statistic/Categorie/CategoriePage"
 import CustomersPage from "./pages/dashboard/statistic/Customers/customersPage"
+import EditServerPage from "./pages/Settings/integration/server/edit/editServerPage"
+import HistoryGoalPage from "./pages/dashboard/engagament/goals/historyGoal"
 
 function App() {
  return (
@@ -87,13 +89,16 @@ function App() {
               <Route path="/dashboard/engagement/discount" element={<DiscountPage/>}/>
               <Route path="/dashboard/engagement/discount/create" element={<CreateDiscountPage/>}/>
               <Route path="/dashboard/engagement/goal" element={<GoalPage/>}/>
+              <Route path="/dashboard/engagement/goal/history" element={<HistoryGoalPage/>}/>
            </Route>
 
            <Route path="settings" element={<SettingsLayout/>}>
               <Route path="/dashboard/settings" element={<SettingsPage/>}/>
               <Route path="/dashboard/settings/checkout" element={<CheckoutPage/>}/>
               <Route path="/dashboard/settings/integration" element={<IntegrationPage/>}/>
+              <Route path="/dashboard/settings/integration" element={<IntegrationPage/>}/>
               <Route path="/dashboard/settings/integration/:type" element={<IntegrationTypePage/>}/>
+              <Route path="/dashboard/settings/integration/:type/edit/:id" element={<EditServerPage/>}/>
               <Route path="/dashboard/settings/widgets" element={<WidgetsPage/>}/>
               
               <Route path="/dashboard/settings/variable" element={<VariablePage/>}/>

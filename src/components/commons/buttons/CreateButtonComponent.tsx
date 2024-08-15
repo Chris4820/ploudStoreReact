@@ -11,7 +11,7 @@ export default function CreateButtonComponent({title, ...rest} : CreateButtonPro
     return(
         <Button {...rest} className="gap-1 items-center">
                 <MdOutlineAddCircle size={18}/>
-                <span className="mb-0.5">{title}</span>
+                <span className="mb-[1px]">{title}</span>
         </Button>
     )
 }

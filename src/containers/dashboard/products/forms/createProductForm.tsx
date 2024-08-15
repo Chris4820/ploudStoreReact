@@ -70,12 +70,24 @@ const { mutate: productCreate } = useMutation({
 
 
   return(
-    <form className="grid grid-cols-1 lg:grid-cols-5 gap-5" onSubmit={handleSubmit(CreateProductHandler)}>
+    <form className="grid grid-cols-1 lg:grid-cols-5 gap-5 mt-5" onSubmit={handleSubmit(CreateProductHandler)}>
             <div className="col-span-3 space-y-5">
+            <div className="rounded-lg p-5 shadow-md border space-y-5">
+                <div className="grid grid-cols-2 gap-5 items-center">
                 <div>
                     <label>Nome</label>
                     <Input {...register("name")} className="mt-1" />
                     {errors.name && <span className='text-destructive text-[12px]'>{errors.name.message}</span>}
+                </div>
+                <div>
+                    <label>Preço</label>
+                        <Input
+                            {...register("price")}
+                            type="number"
+                            className="mt-1"
+                            placeholder="Preço do produto" />
+                    {errors.price && <span className='text-destructive text-[12px]'>{errors.price.message}</span>}
+                </div>
                 </div>
                 <div>
                     <label>Descrição</label>
@@ -84,18 +96,12 @@ const { mutate: productCreate } = useMutation({
                       onEditorChange={(content) => setValue('description', content)}
                     />
                 </div>
-                <div>
-                    <label>Preço</label>
-                        <Input
-                            {...register("price")}
-                            type="number"
-                            className="rounded-l-none"
-                            placeholder="Preço do produto" />
-                    {errors.price && <span className='text-destructive text-[12px]'>{errors.slug.message}</span>}
-                </div>
             </div>
+            </div>
+
+
             <div className="col-span-2 space-y-5">
-                <div className="mt-5">
+                <div>
                     <ImageUpload 
                         id="productId" 
                         defaultImage={getValues("imageUrl")} 
@@ -119,6 +125,8 @@ const { mutate: productCreate } = useMutation({
                     </Button>
                 </div>
             </div>
+
+
         </form>
   )
 }
