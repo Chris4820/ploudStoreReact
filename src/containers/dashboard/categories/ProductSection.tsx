@@ -17,12 +17,12 @@ import { RxDragHandleHorizontal } from "react-icons/rx";
 import { useGetProducts } from "../../../api/store/store/product";
 import { ProductProps } from "../../../api/req/store/categorie";
 import { useNavigate } from "react-router-dom";
-import { DeleteProductModal } from "../../modal/product/DeleteProductModal";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "../../../components/ui/dropdown-menu";
 import { IoSettingsOutline } from "react-icons/io5";
 import CardEmptyComponent from "../../../components/commons/CardEmpty";
 import { orderProducts } from "../../../api/req/store/products";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import DeleteModal from "../../../components/modal/deleteModal";
 
 export function ProductSection({categoryId} : {categoryId: number }) {
   const [items, setItems] = useState<ProductProps[]>([]);
@@ -159,9 +159,6 @@ const DraggableItem = ({ item, categoryId }: { item: ProductProps, categoryId: n
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem onSelect={() => navigate(`/dashboard/product/edit/${item.id}`)}>Editar</DropdownMenuItem>
-          <DeleteProductModal categoryId={categoryId} product={item}>
-            <DropdownMenuItem onSelect={(e) => e.preventDefault()}>Eliminar</DropdownMenuItem>
-          </DeleteProductModal>
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>

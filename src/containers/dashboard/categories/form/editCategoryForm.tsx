@@ -6,12 +6,13 @@ import { Button } from "../../../../components/ui/button";
 import ImageUpload from "../../../../components/imageUploadTest";
 import { Input } from "../../../../components/ui/input";
 import { useGetStoreInformation } from "../../../../api/store/store";
-import { Switch } from "../../../../components/ui/switch";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CategorieProps, deleteCategorie, updateCategory } from "../../../../api/req/store/categorie";
 import { toast } from "sonner";
 import { Textarea } from "../../../../components/ui/textarea";
 import DeleteModal from "../../../../components/modal/deleteModal";
+import SubmitButton from "../../../../components/commons/buttons/SubmitButtonComponent";
+import { useState } from "react";
 
 
 
@@ -27,19 +28,29 @@ export default function EditCategoryForm({category, parentId }: { category: Cate
         id: z.number(),
         slug: z.string().min(3, "Minimo de 3 caracters").regex(/^[a-z0-9-]+$/, "Slug deve conter apenas letras minúsculas, números e hifens"),
         imageUrl: z.string(),
+        enable: z.boolean(),
     })
 
+    
+
     type editCategorieFormData = z.infer<typeof editCategorieSchema>
-    const { handleSubmit, register, formState: { errors }, setValue, getValues} = useForm<editCategorieFormData>({
+    const { handleSubmit, register, formState: { errors }, setValue, getValues, watch} = useForm<editCategorieFormData>({
         resolver: zodResolver(editCategorieSchema),
         defaultValues: {
             name: category.name,
             description: category.description,
             slug: category.slug,
             imageUrl: category.imageUrl,
-            id: category.id
+            id: category.id,
+            enable: category.enable,
         }
     })
+
+    // Store initial form values in a state
+    const [initialValues,] = useState(getValues());
+
+    // Check if the form has changed
+    const isFormChanged = JSON.stringify(watch()) !== JSON.stringify(initialValues);
 
 
     async function EditCategoryHandler(data: editCategorieFormData) {
@@ -50,22 +61,42 @@ export default function EditCategoryForm({category, parentId }: { category: Cate
         }
     }
 
-    const { mutate: categorieEdit } = useMutation({
+    const { mutate: categorieEdit, isPending } = useMutation({
         mutationFn: updateCategory,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['categories']  });
+            const updatedCategory = getValues();
+            // Atualiza o cache da categoria específica
+            queryClient.setQueryData(['category', updatedCategory.id], updatedCategory);
+            // Atualiza o cache das categorias, encontrando a que tem o ID específico e substituindo
+                queryClient.setQueryData(['categories', parentId], (oldCategories: CategorieProps[] | undefined) => {
+                    return oldCategories?.map(cat => 
+                        cat.id === updatedCategory.id ? updatedCategory : cat
+                    );
+                });
             toast('Categoria atualizada com sucesso!');
+            if(!parentId) {
                 return navigate('/dashboard/categorie')
+            }
+            return navigate(`/dashboard/categorie/${parentId}`)
+            
         }
     });
     
     const { mutate: categorieDelete } = useMutation({
         mutationFn: deleteCategorie,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['categories', parentId] });
-            toast('Categoria Eliminada com sucesso!');
+            // Remove a categoria do cache sem recarregar todos os dados
+            queryClient.setQueryData(['categories', parentId], (oldCategories: CategorieProps[] | undefined) => {
+                return oldCategories?.filter(cat => cat.id !== category.id);
+            });
+            // Remove o cache do servidor específico pelo ID
+            queryClient.removeQueries({ queryKey: ['category', category.id] });
+            toast('Categoria Eliminada com sucesso!!!');
             
-            return navigate(-1);
+            if(!parentId) {
+                return navigate('/dashboard/categorie')
+            }
+            return navigate(`/dashboard/categorie/${parentId}`)
             }
     });
 
@@ -96,7 +127,7 @@ export default function EditCategoryForm({category, parentId }: { category: Cate
                         className="rounded-l-none"  
                         placeholder="URL bonito para esta categoria (apenas letras, números e travessões)"/>
                     </div>
-                    {errors.name && <span className='text-destructive text-[12px]'>{errors.name.message}</span>}
+                    {errors.slug && <span className='text-destructive text-[12px]'>{errors.slug.message}</span>}
                 </div>
             </div>
             <div className="col-span-2 space-y-5">
@@ -108,7 +139,8 @@ export default function EditCategoryForm({category, parentId }: { category: Cate
                         <h1 className="font-semibold text-lg">Visibilidade</h1>
                         <p>Altere a visibilidade da categoria</p>
                     </div>
-                    <Switch defaultChecked={true} id="enable-product" />
+                    <Input className='w-4 h-4 accent-primary' 
+                        type='checkbox' {...register('enable')} id="remember" defaultChecked={category.enable}/>
                 </div>
                 <div className="p-5 border rounded-lg flex justify-between items-center">
                     <div>
@@ -126,7 +158,7 @@ export default function EditCategoryForm({category, parentId }: { category: Cate
                     
                 </div>
                 <div className="mt-5 flex justify-end">
-                <Button type="submit">Guardar alterações</Button>
+                <SubmitButton isLoading={isPending} text="Guardar alterações" enable={isFormChanged}/>
             </div>
             </div>
         </form>

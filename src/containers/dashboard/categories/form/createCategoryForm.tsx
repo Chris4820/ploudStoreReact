@@ -27,6 +27,7 @@ export default function CreateCategoryForm({ parentId }: { parentId?: number | n
         categoryParentId: z.number().nullable().default(parentId ?? null),
         slug: z.string(),
         imageUrl: z.any().optional(),  // Changed from string to any to accept File
+        enable: z.boolean(),
     });
 
     type CreateCategorieFormData = z.infer<typeof createCategorieSchema>;

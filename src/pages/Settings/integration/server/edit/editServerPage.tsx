@@ -6,7 +6,6 @@ import { Input } from "../../../../../components/ui/input";
 import { Button } from "../../../../../components/ui/button";
 import { Copy, Eye, EyeOff, RefreshCcw } from "lucide-react";
 import LoadingComponent from "../../../../../containers/LoadingComponent";
-import CreateButtonComponent from "../../../../../components/commons/buttons/CreateButtonComponent";
 import DeleteModal from "../../../../../components/modal/deleteModal";
 import ConfirmModal from "../../../../../components/modal/confirmModal";
 import { deleteServer, ServerProps, ServersProps, updateTokenServer } from "../../../../../api/req/store/server";
@@ -53,6 +52,7 @@ export default function EditServerPage() {
   function handleDelete() {
     deleteServerHandler(serverId);
   }
+  
   const { mutate: deleteServerHandler } = useMutation({
     mutationFn: deleteServer,
     onSuccess: () => {

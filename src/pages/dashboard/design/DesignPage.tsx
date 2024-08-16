@@ -2,7 +2,6 @@ import HeaderSection from "../../../components/commons/Header";
 import ImageUpload from "../../../components/imageUploadTest";
 import { useEffect, useState } from "react";
 import ColorPickerComponent from "../../../components/colorPickerComponent";
-import PageTestDesignComponent from "../../../components/PageTestDesignComponent";
 import { useGetDesign } from "../../../api/store/store";
 import { Button } from "../../../components/ui/button";
 import { postDesign } from "../../../api/req/store/design";
@@ -84,12 +83,6 @@ export default function DesignPage() {
                 </div>
                 <div>
                     <label className="block font-medium mb-1">Pré Visualização</label>
-                    <PageTestDesignComponent 
-                        primaryColor={primaryColor} 
-                        secondaryColor={secondaryColor} 
-                        logoImage={logoImage} 
-                        backgroundImage={backgroundImage}
-                        backgroundSize={sizeBackground}/>
                 </div>
             </div>
             <Button onClick={() => saveDesign()}>Guardar</Button>

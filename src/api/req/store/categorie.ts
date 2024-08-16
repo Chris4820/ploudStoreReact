@@ -83,18 +83,13 @@ export async function getCategory(categoryId: number) {
     return response.data.category;
 }
 
-type UpdateCategorieProps = {
-    id: number,
-    name: string,
-    description: string,
-    slug: string,
-}
-export async function updateCategory(data: UpdateCategorieProps) {
+export async function updateCategory(data: CategorieProps) {
     const response = await axiosStore.put(`category/${data.id}`, {
         categoryId: data.id,
         name: data.name,
         description: data.description,
         slug: data.slug,
+        enable: data.enable
     });
     return response;
 }
