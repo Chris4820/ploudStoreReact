@@ -5,9 +5,12 @@ import { Button } from "../../../components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../components/ui/select";
 import { useTranslation } from "react-i18next";
 import { changeLanguage } from "i18next";
-import { ChangeNameModal } from "../../../containers/modal/changeNameModal";
 import { timezones } from "../../../lib/timezones/timezones";
 import BackComponent from "../../../components/commons/BackComponent";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { changeNameUser } from "../../../api/req/user";
+import { toast } from "sonner";
+import EditModal from "../../../components/modal/editModal";
 
 
 
@@ -16,6 +19,23 @@ export default function ProfilePage() {
     const {data: user} = useGetUserInformation();
 
     const { i18n, t} = useTranslation();
+
+    const queryClient = useQueryClient();
+
+    function changeNameHandler(name: string) {
+        if(!name || name.length < 5) {
+            return toast("O nome precisa ter no mínimo 5 caracters");
+        }
+        changeName(name);
+    }
+
+    const { mutate: changeName } = useMutation({
+        mutationFn: changeNameUser,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['userInfo'] });
+            toast('Convite aceito com sucesso!');
+        }
+    });
 
     return(
         <section className="m-5 lg:m-20">
@@ -40,9 +60,14 @@ export default function ProfilePage() {
                             <p>{t("setup.name")}</p>
                             <div className="flex items-center gap-5 mt-1">
                                 <Input defaultValue={user?.name} disabled/>
-                                <ChangeNameModal name={user?.name || ""}>
+                                <EditModal
+                                title="Mudar nome"
+                                description="Mude seu nome!"
+                                onConfirm={changeNameHandler}
+                                defaultValue={user?.name}
+                                >
                                     <Button>{t("change")} {t("setup.name")}</Button>
-                                </ChangeNameModal>
+                                </EditModal>
                             </div>
                         </div>
                         <div className="mt-4">

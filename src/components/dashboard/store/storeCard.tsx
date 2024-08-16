@@ -1,13 +1,13 @@
 import { CgArrowRight } from "react-icons/cg";
 import { StoreProps } from "../../../api/req/store";
-import { FC, LiHTMLAttributes } from "react";
+import { LiHTMLAttributes } from "react";
 
 interface StoreCardComponentProps extends LiHTMLAttributes<HTMLLIElement> {
     store: StoreProps
     color: 'yellow' | 'blue' | 'pink'
 }
 
-const StoreCardComponent: FC<StoreCardComponentProps> = ({ store, color, ...otherProps }) => {
+export default function StoreCardComponent({ store, color, ...otherProps } : StoreCardComponentProps) {
     return(
         <li {...otherProps} className="w-full group p-3 border rounded-md flex justify-between items-center hover:bg-gray-200 duration-700 cursor-pointer">
             <div className="flex gap-2">
@@ -27,4 +27,3 @@ const StoreCardComponent: FC<StoreCardComponentProps> = ({ store, color, ...othe
         </li>
     )
 }
-export default StoreCardComponent;

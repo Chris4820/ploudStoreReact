@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import HeaderSection from "../../../../components/commons/Header";
 import { useGetProduct } from "../../../../api/store/store/product";
 import NotFoundComponent from "../../../../containers/404Component";
@@ -7,11 +7,13 @@ import ImageUpload from "../../../../components/imageUploadTest";
 import { Switch } from "../../../../components/ui/switch";
 import { Button } from "../../../../components/ui/button";
 import { useGetAllCategorie } from "../../../../api/store/store/categorie";
-import { CloneProductModal } from "../../../../containers/modal/product/CloneProductModal";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "../../../../components/ui/select";
-import { useState } from "react";
 import { toast } from "sonner";
 import { Textarea } from "../../../../components/ui/textarea";
+import { createProduct } from "../../../../api/req/store/products";
+import { useMutation } from "@tanstack/react-query";
+import ConfirmModal from "../../../../components/modal/confirmModal";
+import LoadingComponent from "../../../../containers/LoadingComponent";
 
 
 
@@ -20,31 +22,33 @@ import { Textarea } from "../../../../components/ui/textarea";
 export default function EditPackagePage() {
 
     const { productId } = useParams();
-
+    //const queryClient = useQueryClient();
+    const navigate = useNavigate();
 
     const {data: categories} = useGetAllCategorie();
 
     const {data: product, isLoading} = useGetProduct(Number(productId));
 
-    const [newCategoryId, setNewCategoryId] = useState<number>(0);
+
+    const { mutate: cloneProduct } = useMutation({
+        mutationFn: createProduct, // Passando os parâmetros corretamente
+        onSuccess: () => {
+            //queryClient.invalidateQueries({ queryKey: ['products', categoryId.toString()] });
+            toast('Produto clonado com sucesso!');
+            return navigate(-1);
+        },
+    });
 
     if(isLoading) {
-        return <h1>Aguarde</h1>
+        return <LoadingComponent/>
     }
+
     if (!product) {
         return <NotFoundComponent
         title="Produto não encontrado" 
         description="O produto que você está procurando não foi encontrado. Por favor, verifique se o ID do produto está correto ou entre em contato conosco para obter assistência."
         link="/dashboard/categorie" />
-    }
-
-    async function handleModalCloneProduct(e: any) {
-        if(newCategoryId === 0) {
-            e.preventDefault();
-            return toast("Selecione uma categoria!");
-        }
-    }
-      
+    } 
 
 
     return(
@@ -81,24 +85,25 @@ export default function EditPackagePage() {
                         <h1 className="font-semibold text-lg mb-2">Clonar produto</h1>
                     </div>
                     <div className="flex justify-between w-full">
-                        <Select onValueChange={(value) => setNewCategoryId(parseInt(value))}>
+                        <Select>
                         <SelectTrigger className="w-[280px]">
                             <SelectValue placeholder="Selecione uma categoria" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
                             {categories?.map((category) => (
-                                <SelectItem key={category.categoryId} value={category.categoryId.toString()}>
-                                {category.name}
-                            </SelectItem>
+                                <ConfirmModal
+                                title="Clonar Produto"
+                                description={`Tem a certeza que pretende clonar este produto na categoria ${category.id}`}
+                                onConfirm={() => cloneProduct({ ...product, name: product.name + " - Copy", categoryId: category.id })}>
+                                    <SelectItem key={category.id} value={category.id.toString()}>
+                                    {category.name}
+                                </SelectItem>
+                            </ConfirmModal>
                         ))}
                             </SelectGroup>
                         </SelectContent>
                         </Select>
-
-                        <CloneProductModal product={product} categoryId={newCategoryId}>
-                            <Button onClick={(e) => handleModalCloneProduct(e)}>Clonar</Button>
-                        </CloneProductModal>
                     </div>
                     
                 </div>

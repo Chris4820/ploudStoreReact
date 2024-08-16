@@ -10,6 +10,7 @@ import UserMenu from "../layouts/dashboard/UserMenu";
 
 export default function ShopsIndexPage() {
   const { data: user } = useGetUserInformation(); 
+  
 
     return(
         <section className='w-screen h-screen bg-gradient-to-r from-black to-purple-600 flex justify-center items-center'>

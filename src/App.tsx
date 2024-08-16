@@ -34,7 +34,6 @@ import CreatePackagePage from "./pages/dashboard/categories/product/createPackag
 import CreateCategoryPage from "./pages/dashboard/categories/category/createCategoryPage"
 import EditCategoryPage from "./pages/dashboard/categories/category/editCategoryPage"
 import SubCategoryIdPage from "./pages/dashboard/categories/[categoryId]/[subCategoryId]/SubCategoryPage"
-import TestePage from "./pages/TestePage"
 import VariablePage from "./pages/Settings/variables/variablePage"
 import CreateVariablePage from "./pages/Settings/variables/createVariablePage"
 import CategoriesPage from "./pages/dashboard/statistic/Categorie/CategoriePage"
@@ -107,7 +106,6 @@ function App() {
            </Route>
          </Route>
 
-         <Route path="/dashboard/test" element={<TestePage/>}/>
        </Routes>
      </BrowserRouter>
    </div>

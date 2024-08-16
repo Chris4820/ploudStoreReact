@@ -22,18 +22,24 @@ export default function EditCategoryForm({category, parentId }: { category: Cate
     const navigate = useNavigate();
 
     const editCategorieSchema = z.object({
-        name: z.string().min(3, "Mínimo de 3 caracteres").default(category.name),
-        description: z.string().min(6, 'Mínimo de 6 caracteres').default(category.description),
-        id: z.number().default(category.id),
-        slug: z.string().default(() => category.slug ?? ""),
-        imageUrl: z.string().default(category.imageUrl),
+        name: z.string().min(3, "Mínimo de 3 caracteres"),
+        description: z.string().min(6, 'Mínimo de 6 caracteres'),
+        id: z.number(),
+        slug: z.string().min(3, "Minimo de 3 caracters").regex(/^[a-z0-9-]+$/, "Slug deve conter apenas letras minúsculas, números e hifens"),
+        imageUrl: z.string(),
     })
 
     type editCategorieFormData = z.infer<typeof editCategorieSchema>
     const { handleSubmit, register, formState: { errors }, setValue, getValues} = useForm<editCategorieFormData>({
         resolver: zodResolver(editCategorieSchema),
+        defaultValues: {
+            name: category.name,
+            description: category.description,
+            slug: category.slug,
+            imageUrl: category.imageUrl,
+            id: category.id
+        }
     })
-
 
 
     async function EditCategoryHandler(data: editCategorieFormData) {
