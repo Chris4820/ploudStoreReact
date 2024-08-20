@@ -1,5 +1,4 @@
 import axios from "axios";
-import { getAuthTokenFromCookie } from "../utils";
 import Cookies from "js-cookie";
 
 
@@ -16,17 +15,6 @@ const axiosUser = axios.create({
 
 axiosUser.interceptors.request.use(
   async (config) => {
-    console.log("1")
-    const authToken = await getAuthTokenFromCookie();
-    /*if (!authToken) {
-      console.log("2")
-      Cookies.remove("storeToken");
-      Cookies.remove("authToken");
-      window.location.href = '/auth/login';
-      console.log('Token de autenticação não encontrado! Redirecionando para a página de login...');
-    }*/
-    console.log("4")
-    //config.headers.Authorization = `Bearer ${authToken}`;
     return config;
   },
   (error) => {

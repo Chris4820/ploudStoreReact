@@ -42,14 +42,14 @@ export default function Layout() {
         return false; // Evita que o item "Dashboard" seja selecionado quando estiver em uma sub-rota de "/dashboard"
     }
     return location.pathname === href || location.pathname.startsWith(href);
-};
+}
   
   
   const menuItems = [
     { href: '/dashboard', title: t("dashboard"), icon: RxDashboard, key: "Dashboard" },
     { href: '/dashboard/statistic', title: t("statistics"), icon: BsClipboard2Data, key: "Statistic" },
     { href: '/dashboard/payments', title: t("payments"), icon: CiCreditCard1 , key: "Payments"},
-    { href: '/dashboard/categorie', title: t("products"), icon: LuBox, key: "Products"},
+    { href: '/dashboard/categories', title: t("products"), icon: LuBox, key: "Products"},
     { href: '/dashboard/engagement', title: t("engagement"), icon: LiaUserFriendsSolid, key: "Engagement"},
     { href: '/dashboard/design', title: 'Design', icon: MdOutlineDesignServices, key: "Design"},
     { href: '/dashboard/settings', title: t("settings"), icon: IoSettingsOutline, key: "Settings"},

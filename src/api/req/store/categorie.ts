@@ -1,13 +1,21 @@
+import type { CreateCategoryFormData } from "../../../features/categories/schema/CreateCategorySchema";
+import type { EditCategoryFormData } from "../../../features/categories/schema/EditCategorySchema";
 import axiosStore from "../../../lib/axios/axiosStore";
 
 
 export type CategorieProps = {
     id: number,
     name: string,
+    visible: boolean,
+}
+
+export type CategoryProps = {
+    id: number,
+    name: string,
     description: string,
-    enable: boolean,
+    visible: boolean,
     slug: string
-    imageUrl: string,
+    parentId: number,
 }
 
 export type ProductProps = {
@@ -37,38 +45,22 @@ export async function orderCategories(categories: number[], parentId?: number) {
     return response;
 }
 
-export async function getCategorie(categoryId : number): Promise<CategorieProps> {
-    const response = await axiosStore.get<{categorie: CategorieProps}>(`category/${categoryId}`);
+export async function getCategorie(categoryId : number): Promise<CategoryProps> {
+    const response = await axiosStore.get<{categorie: CategoryProps}>(`category/${categoryId}`);
     return response.data.categorie; // Obtemos o primeiro item do array
 }
 
-// Função para criar a categoria
-type CreateCategorieProps = {
-    name: string,
-    description: string,
-    categoryParentId: number | null,
-    slug: string,
-    imageUrl?: string,
+
+
+export async function createCategorie(data: CreateCategoryFormData) {
+    console.log("Visible: " + data.visible)
+    const response = await axiosStore.post("category", data);
+    return response.data;
+    
 }
 
-export async function createCategorie(data: CreateCategorieProps) {
-    try {
-        const response = await axiosStore.post("category", data);
-        console.log("Response:", response);
-        return response.data;
-    } catch (error: any) {
-        // Se o erro for devido à resposta da API (erro HTTP)
-        if (error.response) {
-            console.log("Erro na resposta da API:", error.response.data);
-            // Você pode lançar o erro novamente para ser tratado na mutação
-            throw new Error(error.response.data.message || 'Erro ao criar a categoria');
-        } else {
-            console.error("Erro desconhecido:", error);
-            throw new Error('Erro desconhecido ao criar a categoria');
-        }
-    }
-}
-export async function deleteCategorie(categoryId: number) {
+
+export async function deleteCategory(categoryId: number) {
     const response = await axiosStore.delete(`category/${categoryId}`)
     return response;
 }
@@ -79,17 +71,17 @@ export async function getProducts(categoryId: number): Promise<ProductProps[]> {
 }
 
 export async function getCategory(categoryId: number) {
-    const response = await axiosStore.get<{category: CategorieProps}>(`category/${categoryId}`);
+    const response = await axiosStore.get<{category: CategoryProps}>(`category/${categoryId}`);
     return response.data.category;
 }
 
-export async function updateCategory(data: CategorieProps) {
-    const response = await axiosStore.put(`category/${data.id}`, {
-        categoryId: data.id,
+export async function updateCategory(data: EditCategoryFormData) {
+    console.log(data.visible);
+    const response = await axiosStore.put(`category/${data.categoryId}`, {
         name: data.name,
         description: data.description,
         slug: data.slug,
-        enable: data.enable
+        visible: data.visible
     });
     return response;
 }

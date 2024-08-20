@@ -4,6 +4,9 @@ import { Button } from "../../../../components/ui/button";
 import { useNavigate } from "react-router-dom";
 import EditorComponent from "../../../../components/ui/editor";
 import { useState } from "react";
+import axiosStore from "../../../../lib/axios/axiosStore";
+import PaymentModal from "../../../../components/modal/renovPlanModal";
+import PaymentDialog from "../../../../components/modal/renovPlanModal";
 
 
 
@@ -11,6 +14,22 @@ export default function DiscountPage() {
     const navigate = useNavigate();
 
     const [editorContent, setEditorContent] = useState<string>('');
+
+
+    async function createPayment() {
+      try {
+        const response = await axiosStore.post('/create-stripe')
+
+        const { url } = await response.data;
+
+            if (url) {
+                window.location.href = url; // Redireciona para o Stripe
+            }
+
+      } catch (error) {
+        console.log(error);
+      }
+    }
 
   const handleEditorChange = (content: string) => {
     setEditorContent(content);
@@ -25,6 +44,8 @@ export default function DiscountPage() {
                 Desconto
             </Button>
         </div>
+        <PaymentDialog key={1}/>
+          <Button>Criar pagamento</Button>
 
         <div>
       <h1>Editor TinyMCE em React</h1>

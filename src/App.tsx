@@ -1,45 +1,46 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom"
 import DashboardLayout from "./layouts/dashboard/SlideMenu"
-import Home from "./pages/dashboard/Home"
 import SettingsLayout from "./layouts/dashboard/NavBarLayout/SettingsLayout"
 import SettingsPage from "./pages/Settings/settings"
 import DomainPage from "./pages/Settings/domain"
 import IntegrationPage from "./pages/Settings/integration/integration"
 import IntegrationTypePage from "./pages/Settings/integration/[type]/integrationType"
-import ProfilePage from "./pages/dashboard/Profile/ProfilePage"
 import WidgetsPage from "./pages/Settings/widgets/WidgetsPage"
-import ShopsIndexPage from "./pages/ShopsIndex"
-import LoginPage from "./pages/auth/login/loginPage"
-import AuthLayout from "./layouts/auth/authLayout"
-import RegisterPage from "./pages/auth/register/registerPage"
-import RecoveryPasswordPage from "./pages/auth/recovery-password/RecoveryPasswordPage"
-import ResetPasswordPage from "./pages/auth/recovery-password/[token]/ResetPasswordPage"
-import ConfirmEmailPage from "./pages/auth/confirm-email/[token]/confirmEmailPage"
-import PaymentsPage from "./pages/dashboard/payments/paymentPage"
-import SetupPage from "./pages/setup/setupPage"
+import ShopsIndexPage from "./features/stores/pages/StoresIndexPage"
+import SetupPage from "./features/stores/pages/CreateStorePage"
 import EngagamentLayout from "./layouts/dashboard/NavBarLayout/EngagamentLayout"
 import DiscountPage from "./pages/dashboard/engagament/discount/discounts"
-import CategoriePage from "./pages/dashboard/categories/categoriePage"
-import CategoryIdPage from "./pages/dashboard/categories/[categoryId]/CategoryIdPage"
 import GoalPage from "./pages/dashboard/engagament/goalPage"
 import CreateDiscountPage from "./pages/dashboard/engagament/discount/createDiscount/createDiscountPage"
 import DesignPage from "./pages/dashboard/design/DesignPage"
 import CheckoutPage from "./pages/Settings/checkout/CheckoutPage"
-import StatisticPage from "./pages/dashboard/statistic/statistic"
 import EditorPage from "./pages/editor/EditorPage"
 import DesignLayout from "./layouts/dashboard/NavBarLayout/DesignLayout"
 import TemplatePage from "./pages/dashboard/design/template/TemplatePage"
-import EditPackagePage from "./pages/dashboard/categories/product/editPackage"
-import CreatePackagePage from "./pages/dashboard/categories/product/createPackage"
-import CreateCategoryPage from "./pages/dashboard/categories/category/createCategoryPage"
-import EditCategoryPage from "./pages/dashboard/categories/category/editCategoryPage"
-import SubCategoryIdPage from "./pages/dashboard/categories/[categoryId]/[subCategoryId]/SubCategoryPage"
+import SubCategoryIdPage from "./features/products/pages/ProductsSubCategoriePage"
 import VariablePage from "./pages/Settings/variables/variablePage"
 import CreateVariablePage from "./pages/Settings/variables/createVariablePage"
-import CategoriesPage from "./pages/dashboard/statistic/Categorie/CategoriePage"
-import CustomersPage from "./pages/dashboard/statistic/Customers/customersPage"
 import EditServerPage from "./pages/Settings/integration/server/edit/editServerPage"
 import HistoryGoalPage from "./pages/dashboard/engagament/goals/historyGoal"
+import AuthLayout from "./features/auth/components/authLayout"
+import LoginPage from "./features/auth/pages/loginPage"
+import RegisterPage from "./features/auth/pages/registerPage"
+import RecoveryPasswordPage from "./features/auth/pages/RecoveryPasswordPage"
+import ResetPasswordPage from "./features/auth/pages/ResetPasswordPage"
+import ConfirmEmailPage from "./features/auth/pages/confirmEmailPage"
+import StatisticPage from "./features/statistic/pages/statisticPage"
+import CategoriesPage from "./features/statistic/pages/CategoriePage"
+import CustomersPage from "./features/statistic/pages/customersPage"
+import PaymentsPage from "./features/payments/pages/paymentPage"
+import CategoriePage from "./features/categories/pages/categoriesPage"
+import CategoryIdPage from "./features/categories/pages/SubCategoriesPage"
+import CreateCategoryPage from "./features/categories/pages/createCategoryPage"
+import EditCategoryPage from "./features/categories/pages/editCategoryPage"
+import EditPackagePage from "./features/products/pages/editProductPage"
+import CreatePackagePage from "./features/products/pages/createProduct"
+import ProfilePage from "./features/profile/pages/ProfilePage"
+import DashboardHomePage from "./features/home/pages/DashboardHomePage"
+
 
 function App() {
  return (
@@ -59,22 +60,25 @@ function App() {
           <Route path="/auth/confirm-email/:emailToken" element={<ConfirmEmailPage/>}/>
         </Route>
          <Route path="dashboard" element={<DashboardLayout />} >
-           <Route path="/dashboard" element={<Home />} />
+           <Route path="/dashboard" element={<DashboardHomePage />} />
            <Route path="/dashboard/statistic" element={<StatisticPage />} />
-           <Route path="/dashboard/statistic/categories" element={<CategoriesPage />} />
-           <Route path="/dashboard/statistic/customers" element={<CustomersPage />} />
+           <Route path="/dashboard/statistic/categories" element={<CategoriesPage />}/>
+           <Route path="/dashboard/statistic/customers" element={<CustomersPage />}/>
            <Route path="/dashboard/payments" element={<PaymentsPage/>} />
 
 
+
           //CATEGORY
-           <Route path="/dashboard/categorie" element={<CategoriePage/>}/>
-           <Route path="/dashboard/categorie/:categoryId" element={<CategoryIdPage/>} />
-           <Route path="/dashboard/categorie/:categoryId/:subCategoryId" element={<SubCategoryIdPage/>} />
-           <Route path="/dashboard/category/create" element={<CreateCategoryPage/>} />
-           <Route path="/dashboard/category/edit/:categoryId" element={<EditCategoryPage/>} />
+           <Route path="/dashboard/categories" element={<CategoriePage/>}/>
+           <Route path="/dashboard/categories/:categoryId" element={<CategoryIdPage/>} />
+
+           <Route path="/dashboard/categories/:categoryId/:subCategoryId" element={<SubCategoryIdPage/>} />
+
+           <Route path="/dashboard/categories/create" element={<CreateCategoryPage/>} />
+           <Route path="/dashboard/categories/edit/:categoryId" element={<EditCategoryPage/>} />
 
           //PRODUCTS
-           <Route path="/dashboard/product/edit/:productId" element={<EditPackagePage/>}/>
+           <Route path="/dashboard/products/edit/:productId" element={<EditPackagePage />} />
            <Route path="/dashboard/product/create/:categoryId" element={<CreatePackagePage/>}/>
 
 

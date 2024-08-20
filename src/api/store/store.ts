@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import { getRevenueSummary } from "../req/store/statistic";
 import { getStoreInformation } from "../req/store";
 import { getStoreWidgets } from "../req/store/widgets";
-import { getPayments } from "../req/store/payment";
 import { getDesign } from "../req/store/design";
 
 

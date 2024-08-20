@@ -1,3 +1,4 @@
+import type { OpenStoreProps } from "../../features/stores/mutations/openStoreMutation";
 import axiosStore from "../../lib/axios/axiosStore";
 import axiosUser from "../../lib/axios/axiosUser";
 
@@ -77,8 +78,12 @@ export async function createStore({name, description, subDomain, current, gameTy
     return response;
 }
 
-export async function getTokenStore(storeId : number) {
-    const response = await axiosUser.get(`openStore/${storeId}`);
+export async function getTokenStore(data: OpenStoreProps) {
+    const response = await axiosUser.get(`openStore/${data.storeId}`, {
+        params: {
+            isOwner: data.isOwner,
+        }
+    })
     return response;
 }
 

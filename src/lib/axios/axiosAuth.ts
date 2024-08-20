@@ -10,4 +10,15 @@ const axiosAuth = axios.create({
   withCredentials: true,
 });
 
+
+
+// Response interceptor
+axiosAuth.interceptors.response.use(
+  response => response,
+  error => {
+
+  return Promise.reject(error.response);
+  })
+
+
 export default axiosAuth;
