@@ -1,38 +1,29 @@
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom"
+import { Button } from "../ui/button";
 
 type HeaderSectionProps = {
     title: string,
     description?: string,
-    toLink?: string,
     backLink?: boolean
 }
 
 
-export default function HeaderSection({title, description, toLink, backLink = false} : HeaderSectionProps) {
+export default function HeaderSection({title, description, backLink = false} : HeaderSectionProps) {
 
     const navigate = useNavigate();
     return(
         <div className="mb-5">
-            <div className="flex gap-3 items-center">
-                {toLink && (
-                    <button 
-                    onClick={() => navigate(toLink)}
-                    className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-muted shadow-sm hover:bg-muted/90 hover:text-accent-foreground h-7 w-7">
-                        <IoIosArrowBack size={18}/>
-                    </button>
-                )}
+
+            <div className="flex gap-5 items-center">
                 {backLink && (
-                    <button 
-                    onClick={() => navigate(-1)}
-                    className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-muted shadow-sm hover:bg-muted/90 hover:text-accent-foreground h-7 w-7">
-                        <IoIosArrowBack size={18}/>
-                    </button>
+                    <Button size={'icon'} variant={'ghost'} onClick={() => navigate(-1)}><IoIosArrowBack size={25}/></Button>
                 )}
+            <div>
                 <h1 className="whitespace-nowrap text-2xl mb-1 font-semibold">{title}</h1>
+                <p className={`text-muted-foreground text-sm`}>{description}</p>
             </div>
-            
-            <p className={`text-muted-foreground text-sm ${backLink && 'pl-10'}`}>{description}</p>
+            </div>
         </div>
     )
 }

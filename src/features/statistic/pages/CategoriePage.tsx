@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useGetCategoryData } from "../../../api/store/store/statistic";
 import HeaderSection from "../../../components/commons/Header";
-import { DatePickerWithRange } from "../../../components/ui/datepicker";
+import { DatePickerWithRange } from "../../../components/ui/datepickerWithRange";
 import { Button } from "../../../components/ui/button";
 import { columnsCategories } from "./CategorieColumns";
 import { DataTable } from "../../../components/ui/datatable";
@@ -32,7 +32,7 @@ export default function CategoriesPage() {
     }
     return(
         <>
-            <HeaderSection title="Categorias mais usadas" description="Consulte aqui as categorias mais populares de sua loja!!"/>
+            <HeaderSection title="Categorias mais usadas" description="Consulte aqui as categorias mais populares de sua loja!!" backLink/>
             <div className="flex gap-5 items-center flex-wrap">
 
                 <DatePickerWithRange/>

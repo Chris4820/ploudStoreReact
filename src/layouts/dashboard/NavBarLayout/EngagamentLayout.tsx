@@ -7,7 +7,7 @@ const EnganamentTabs = [
     },
     {
         name: 'Descontos',
-        link: '/dashboard/engagement/discount'
+        link: '/dashboard/engagement/coupons'
     },
     {
         name: 'Meta',

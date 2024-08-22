@@ -1,6 +1,7 @@
 import type { CreateCategoryFormData } from "../../../features/categories/schema/CreateCategorySchema";
 import type { EditCategoryFormData } from "../../../features/categories/schema/EditCategorySchema";
 import axiosStore from "../../../lib/axios/axiosStore";
+import { ProductsProps } from "./products";
 
 
 export type CategorieProps = {
@@ -88,6 +89,16 @@ export async function updateCategory(data: EditCategoryFormData) {
 
 export async function getAllCategories() {
     const response = await axiosStore.get<{categories: CategorieProps[]}>('categorie');
+    return response.data.categories;
+}
+
+export type ProductsWithCategoryProps = {
+    name: string,
+    products: ProductsProps[]
+}
+
+export async function getProductsWithCategories() {
+    const response = await axiosStore.get<{categories: ProductsWithCategoryProps[]}>('/categories/products');
     return response.data.categories;
 }
 

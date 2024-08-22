@@ -9,7 +9,6 @@ interface SubmitButtonProps extends ButtonProps {
 }
 
 export default function SubmitButton({text, isLoading, enable = true, ...rest}: SubmitButtonProps) {
-  console.log(enable);
   return(
     <Button {...rest} type="submit" disabled={isLoading || !enable}>
       {isLoading ? (

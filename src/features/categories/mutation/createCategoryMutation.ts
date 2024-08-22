@@ -40,11 +40,10 @@ export const useCreateCategory = () => {
           return updatedData;
         });
       }
+      toast.success("Categoria criada com sucesso!")
       if(parent) {
-        console.log("!«2");
         return navigate(`/dashboard/categories/${parent}`)
       }
-      console.log("!«3");
         return navigate(`/dashboard/categories`);
     },
   }

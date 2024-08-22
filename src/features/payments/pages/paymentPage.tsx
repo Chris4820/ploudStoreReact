@@ -6,7 +6,7 @@ import { useGetPayments } from "../../../api/store/store/payments";
 import HeaderSection from "../../../components/commons/Header";
 import { Input } from "../../../components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../components/ui/select";
-import { DatePickerWithRange } from "../../../components/ui/datepicker";
+import { DatePickerWithRange } from "../../../components/ui/datepickerWithRange";
 import { Button } from "../../../components/ui/button";
 import { DataTable } from "../../../components/ui/datatable";
 

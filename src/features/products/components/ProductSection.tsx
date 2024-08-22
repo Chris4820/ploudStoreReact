@@ -20,12 +20,12 @@ import { useNavigate } from "react-router-dom";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "../../../components/ui/dropdown-menu";
 import { IoSettingsOutline } from "react-icons/io5";
 import CardEmptyComponent from "../../../components/commons/CardEmpty";
-import { orderProducts } from "../../../api/req/store/products";
+import { orderProducts, ProductsProps } from "../../../api/req/store/products";
 import { useMutation } from "@tanstack/react-query";
 import queryClient from "../../../lib/reactquery/reactquery";
 
 export function ProductSection({categoryId} : {categoryId: number }) {
-  const [items, setItems] = useState<ProductProps[]>([]);
+  const [items, setItems] = useState<ProductsProps[]>([]);
 
   const [isMove, setIsMove] = useState(false);
   const sensors = useSensors(useSensor(PointerSensor));
@@ -103,7 +103,7 @@ export function ProductSection({categoryId} : {categoryId: number }) {
   );
 }
 
-const DraggableItem = ({ item }: { item: ProductProps, categoryId: number }) => {
+const DraggableItem = ({ item }: { item: ProductsProps, categoryId: number }) => {
   const navigate = useNavigate();
   const {
     attributes,
@@ -136,7 +136,11 @@ const DraggableItem = ({ item }: { item: ProductProps, categoryId: number }) => 
         <div className="w-auto flex items-center gap-2">
           <RxDragHandleHorizontal {...listeners} {...attributes} className={`cursor-grab ${isDragging && "cursor-grabbing"}`} size={26} />
           <div className="flex items-center justify-center rounded-md">
-            <h1 className="px-1.5 mb-0.5 text-sm py-0.5 border border-green-700 text-green-700 font-semibold rounded-md">Ativado</h1>
+          {item.visible ? (
+                            <h1 className="px-1.5 mb-0.5 text-sm py-0.5 border border-green-700 text-green-700 font-semibold rounded-md">Ativado</h1>
+                        ) : (
+                            <h1 className="px-1.5 mb-0.5 text-sm py-0.5 border border-red-700 text-red-700 font-semibold rounded-md">Desativado</h1>
+                        )}
           </div>
         </div>
         <div className="w-full flex justify-start items-center">

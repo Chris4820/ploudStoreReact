@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getAllCategories, getCategories, getCategory } from "../../req/store/categorie";
+import { getAllCategories, getCategories, getCategory, getProductsWithCategories } from "../../req/store/categorie";
 
 
 
@@ -21,5 +21,12 @@ export function useGetAllCategorie() {
     return useQuery({
     queryKey: ['categorie'],
     queryFn: getAllCategories,
+})
+}
+
+export function useGetProductsWithCategory() {
+    return useQuery({
+    queryKey: ['categorie/products'],
+    queryFn: getProductsWithCategories,
 })
 }

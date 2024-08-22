@@ -5,7 +5,7 @@ const createProductSchema = z.object({
     name: z.string().min(3, "Mínimo de 3 caracteres"),
     description: z.string().min(6, 'Mínimo de 6 caracteres'),
     categoryId: z.number(),
-    price: z.number(),
+    price: z.preprocess((val) => parseFloat(val as string), z.number().positive("O preço deve ser um número positivo")),
     imageUrl: z.any().optional(),  // Changed from string to any to accept File
     visible: z.boolean(),
 });

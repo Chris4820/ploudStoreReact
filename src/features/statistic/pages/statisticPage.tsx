@@ -60,7 +60,7 @@ export default function StatisticPage() {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5">
-                <CardSection title="Melhores coupons" hAuto link="#">
+                <CardSection title="Melhores coupons" hAuto link="coupons">
                     <DataTable data={couponData?.coupons || []} loading={couponLoading} columns={columnsCupon}/>
                 </CardSection>
             </div>

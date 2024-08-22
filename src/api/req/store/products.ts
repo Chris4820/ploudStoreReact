@@ -22,8 +22,8 @@ export type ProductProps = {
 }
 
 
-export async function getProducts(categoryId: number): Promise<ProductProps[] | []> {
-    const response = await axiosStore.get<{products: ProductProps[] | []}>(`products?categoryId=${categoryId}`);
+export async function getProducts(categoryId: number): Promise<ProductsProps[] | []> {
+    const response = await axiosStore.get<{products: ProductsProps[] | []}>(`products?categoryId=${categoryId}`);
     return response.data.products || []; 
 }
 
@@ -40,6 +40,7 @@ export async function createProduct(data: CreateProductFormData) {
         price: data.price,
         categoryId: data.categoryId,
         imageUrl: data.imageUrl,
+        visible: data.visible,
     })
     return response.data;
 }

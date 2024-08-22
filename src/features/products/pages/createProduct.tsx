@@ -8,11 +8,10 @@ import HeaderSection from "../../../components/commons/Header";
 import EditorComponent from "../../../components/ui/editor";
 import ImageUpload from "../../../components/imageUploadTest";
 import { Switch } from "../../../components/ui/switch";
-import { Button } from "../../../components/ui/button";
 import { useGetCategory } from "../../../api/store/store/categorie";
 import { useCreateProduct } from "../mutation/CreateProductMutation";
 import { toast } from "sonner";
-import { CgSpinner } from "react-icons/cg";
+import SubmitButton from "../../../components/commons/buttons/SubmitButtonComponent";
 
 
 
@@ -26,10 +25,11 @@ export default function CreatePackagePage() {
         resolver: zodResolver(createProductSchema),
         defaultValues: {
             categoryId: parseInt(categoryId as string),
+            visible: true, // Valor padrão inicial
         }
     });
 
-    const {mutate: createProduct, isPending, isSuccess} = useCreateProduct();
+    const {mutate: createProduct, isPending} = useCreateProduct(getValues("imageUrl"));
 
     function onSubmitCreateProductForm(data: CreateProductFormData) {
         if(!data.categoryId) {
@@ -127,15 +127,14 @@ export default function CreatePackagePage() {
                         <h1 className="font-semibold text-lg">Visibilidade</h1>
                         <p>Altere a visibilidade da categoria</p>
                     </div>
-                    <Switch {...register("visible")} defaultChecked={true} id="enable-product" />
+                    <Switch
+                        defaultChecked={true}
+                        onCheckedChange={(checked) => setValue("visible", checked)} // Atualiza o valor de 'visible'
+                        className="accent-primary"
+                    />
                 </div>
                 <div className="mt-5 flex justify-end">
-                    <Button type="submit" disabled={isPending || isSuccess}>
-                        {isPending ? <span className="flex gap-2 items-center justify-center"> <CgSpinner className="w-2 h-2 animate-spin"/> <span>Criando...</span></span> 
-                        
-                        : 
-                        "Criar categoria"}
-                    </Button>
+                <SubmitButton isLoading={isPending} text="Criar categoria"/>
                 </div>
             </div>
 

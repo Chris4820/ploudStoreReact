@@ -9,9 +9,8 @@ import WidgetsPage from "./pages/Settings/widgets/WidgetsPage"
 import ShopsIndexPage from "./features/stores/pages/StoresIndexPage"
 import SetupPage from "./features/stores/pages/CreateStorePage"
 import EngagamentLayout from "./layouts/dashboard/NavBarLayout/EngagamentLayout"
-import DiscountPage from "./pages/dashboard/engagament/discount/discounts"
 import GoalPage from "./pages/dashboard/engagament/goalPage"
-import CreateDiscountPage from "./pages/dashboard/engagament/discount/createDiscount/createDiscountPage"
+import CreateDiscountPage from "./features/coupons/pages/createCouponPage"
 import DesignPage from "./pages/dashboard/design/DesignPage"
 import CheckoutPage from "./pages/Settings/checkout/CheckoutPage"
 import EditorPage from "./pages/editor/EditorPage"
@@ -40,6 +39,9 @@ import EditPackagePage from "./features/products/pages/editProductPage"
 import CreatePackagePage from "./features/products/pages/createProduct"
 import ProfilePage from "./features/profile/pages/ProfilePage"
 import DashboardHomePage from "./features/home/pages/DashboardHomePage"
+import CouponReportPage from "./features/statistic/pages/CouponReportPage"
+import CouponPage from "./features/coupons/pages/couponsPage"
+import EditCouponPage from "./features/coupons/pages/editCouponPage"
 
 
 function App() {
@@ -64,6 +66,7 @@ function App() {
            <Route path="/dashboard/statistic" element={<StatisticPage />} />
            <Route path="/dashboard/statistic/categories" element={<CategoriesPage />}/>
            <Route path="/dashboard/statistic/customers" element={<CustomersPage />}/>
+           <Route path="/dashboard/statistic/coupons" element={<CouponReportPage />}/>
            <Route path="/dashboard/payments" element={<PaymentsPage/>} />
 
 
@@ -88,9 +91,10 @@ function App() {
            </Route>
 
            <Route path="engagement" element={<EngagamentLayout/>}>
-           <Route path="/dashboard/engagement" element={<DiscountPage/>}/>
-              <Route path="/dashboard/engagement/discount" element={<DiscountPage/>}/>
-              <Route path="/dashboard/engagement/discount/create" element={<CreateDiscountPage/>}/>
+           <Route path="/dashboard/engagement" element={<EngagamentLayout/>}/>
+              <Route path="/dashboard/engagement/coupons" element={<CouponPage/>}/>
+              <Route path="/dashboard/engagement/coupons/edit/:couponId" element={<EditCouponPage/>}/>
+              <Route path="/dashboard/engagement/coupons/create" element={<CreateDiscountPage/>}/>
               <Route path="/dashboard/engagement/goal" element={<GoalPage/>}/>
               <Route path="/dashboard/engagement/goal/history" element={<HistoryGoalPage/>}/>
            </Route>
