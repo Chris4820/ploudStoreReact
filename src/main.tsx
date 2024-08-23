@@ -11,13 +11,11 @@ import "./lib/reacti18next/i18n.ts";
 import queryClient from './lib/reactquery/reactquery.ts';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
     <QueryClientProvider client={queryClient}>
     <App/>
     <ReactQueryDevtools initialIsOpen={false} />
     <Toaster />
     </QueryClientProvider>
-    </ThemeProvider>
-  </React.StrictMode>,
+    </ThemeProvider>,
 )

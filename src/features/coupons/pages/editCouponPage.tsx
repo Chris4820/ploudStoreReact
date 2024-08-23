@@ -2,11 +2,10 @@ import { useNavigate, useParams } from "react-router-dom"
 import { useGetCoupon } from "../../../api/store/store/coupons";
 import HeaderSection from "../../../components/commons/Header";
 import CouponForm from "../components/CouponForm";
-import SubmitButton from "../../../components/commons/buttons/SubmitButtonComponent";
 import LoadingComponent from "../../../containers/LoadingComponent";
 import { CreateCouponFormData } from "../schema/CouponsSchema";
-import { useEffect } from "react";
-import { toast } from "sonner";
+import { useEditCoupon } from "../mutations/EditCouponMutation";
+import { Profiler } from "react";
 
 
 
@@ -18,9 +17,24 @@ export default function EditCouponPage() {
 
   const {data: coupon, isLoading} = useGetCoupon(couponId)
 
-  function onSubmitFormEditCoupon(data: CreateCouponFormData) {
-    console.log(data);
+  const { mutate: editCoupon} = useEditCoupon();
+
+  async function onSubmitFormEditCoupon(data: CreateCouponFormData) {
+   editCoupon(data);
   }
+
+  function onRenderCallback(
+    id, // ID do componente Profiler
+    phase, // "mount" ou "update"
+    actualDuration, // Tempo gasto na renderização
+    baseDuration, // Tempo médio para renderizar sem otimizações
+    startTime, // Quando a renderização começou
+    commitTime, // Quando a renderização foi confirmada
+    interactions // Conjunto de interações que foram rastreadas durante a renderização
+  ) {
+    console.log(`${id} renderizou na fase ${phase} e levou ${actualDuration}ms`);
+  }
+
   if(isLoading) {
     return <LoadingComponent/>
   }
@@ -31,11 +45,14 @@ export default function EditCouponPage() {
   }
 
   console.log(coupon);
+  
 
   return(
     <>
             <HeaderSection title="Edite seu cupom!" description="Edite o seu coupon aqui!" backLink />
-            <CouponForm initialData={coupon} onSubmit={onSubmitFormEditCoupon} mode="edit"/>
+            <Profiler id="Form" onRender={onRenderCallback}>
+              <CouponForm initialData={coupon} onSubmit={onSubmitFormEditCoupon} mode="edit"/>
+            </Profiler>
         </>
   )
 }

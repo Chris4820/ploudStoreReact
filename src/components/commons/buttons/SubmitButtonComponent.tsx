@@ -10,7 +10,7 @@ interface SubmitButtonProps extends ButtonProps {
 
 export default function SubmitButton({text, isLoading, enable = true, ...rest}: SubmitButtonProps) {
   return(
-    <Button {...rest} type="submit" disabled={isLoading || !enable}>
+    <Button {...rest} type="submit" disabled={isLoading || enable}>
       {isLoading ? (
         <span className="flex gap-1 items-center">
           Carregando

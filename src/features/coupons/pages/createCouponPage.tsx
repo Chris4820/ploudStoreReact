@@ -14,7 +14,7 @@ export default function CreateCouponPage() {
     return (
         <>
             <HeaderSection title="Crie seu cupom!" description="Aumente as vendas de sua loja!" backLink />
-            <CouponForm onSubmit={onSubmitFormCreateCoupon} mode="create"/>
+            <CouponForm onSubmit={onSubmitFormCreateCoupon} mode="create" isLoading={isPending}/>
         </>
     );
 }

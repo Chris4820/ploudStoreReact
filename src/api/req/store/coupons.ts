@@ -41,9 +41,12 @@ export async function getCoupon(couponId: string) {
   return response.data.coupon
 }
 
-
-
 export async function createCoupons(data: CreateCouponFormData) {
   const response = await axiosStore.post('coupons', data)
+  return response.data;
+}
+
+export async function editCoupons(data: CreateCouponFormData) {
+  const response = await axiosStore.put('coupons', { data })
   return response.data;
 }

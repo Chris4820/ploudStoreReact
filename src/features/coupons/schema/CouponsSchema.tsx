@@ -3,9 +3,10 @@ import { z } from 'zod';
 // Definindo o esquema Zod
 // Esquema de validação usando Zod
 const createCouponSchema = z.object({
+  id: z.number().optional(),
   code: z.string().min(3,"O código do cupom é obrigatório"),
   limit: z.preprocess((val) => parseFloat(val as string), z.number().min(0, "O limite deve ser um numero positivo")),
-  type: z.enum(["percentage", "value"]),
+  type: z.enum(["PERCENTAGE", "VALUE"]),
   value: z.preprocess((val) => parseFloat(val as string), z.number().positive("O valor deve ser um número positivo")),
   minValue: z.preprocess((val) => parseFloat(val as string), z.number().min(0, "O valor minimo deve ser um número positivo")),
   start_at: z.string().datetime({precision: 3}).nullable(),
@@ -13,12 +14,12 @@ const createCouponSchema = z.object({
   isUsableInAllStores: z.boolean(),
   productIds: z.array(z.number()).optional(),
 }).refine((data) => {
-  if (!data.isUsableInAllStores && (!data.selectedProducts || data.selectedProducts.length === 0)) {
+  if (!data.isUsableInAllStores && (!data.productIds || data.productIds.length === 0)) {
     return false;
   }
   return true;
 }, {
-  path: ['selectedProducts'],
+  path: ['productIds'],
   message: "Selecione pelo menos 1 produto",
 });
 

@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import createCouponSchema, { CreateCouponFormData } from '../schema/CouponsSchema';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -12,44 +11,41 @@ import { Checkbox } from '../../../components/ui/checkbox';
 import SubHeaderSection from '../../../components/commons/subHeader';
 import { useGetProductsWithCategory } from '../../../api/store/store/categorie';
 import SubmitButton from '../../../components/commons/buttons/SubmitButtonComponent';
-import { toast } from 'sonner';
+import { useEffect, useMemo, useState } from 'react';
+import isEqual from 'lodash.isequal';
 
 type CouponFormProps = {
   initialData?: CreateCouponFormData;
   onSubmit: (data: CreateCouponFormData) => void;
   mode: 'create' | 'edit';
+  isLoading: boolean,
 };
 
-export default function CouponForm({ initialData, onSubmit, mode }: CouponFormProps) {
-  const { handleSubmit, register, formState: { errors, isValid }, getValues, setValue, watch } = useForm<CreateCouponFormData>({
-    resolver: zodResolver(createCouponSchema),
-    defaultValues: {
-      limit: initialData?.limit || 0,
-      isUsableInAllStores: initialData?.isUsableInAllStores ?? true,
-      productIds: initialData?.productIds || [],
-      type: initialData?.type || 'percentage',
-      start_at: initialData?.start_at || null,
-      expire_at: initialData?.expire_at || null,
-      code: initialData?.code || "", // empty by default for creation
-      minValue: initialData?.minValue || 0,
-      value: initialData?.value || 0,
-    },
+export default function CouponForm({ initialData, onSubmit, mode, isLoading }: CouponFormProps) {
+
+  console.count("contador")
+  const [isFormChanged, setIsFormChanged] = useState(false);
+
+  const { handleSubmit, register, formState: { errors }, getValues, setValue, watch } = useForm<CreateCouponFormData>({
+    defaultValues: useMemo(() => initialData || {
+      id: undefined,
+      limit: 0,
+      isUsableInAllStores: true,
+      productIds: [],
+      type: 'PERCENTAGE',
+      start_at: null,
+      expire_at: null,
+      code: "",
+      minValue: 0,
+      value: 0,
+    }, [initialData]),
     mode: 'onChange',
   });
 
-  // Atualiza valores no modo de edição
-  useEffect(() => {
-    if (mode === 'edit' && initialData) {
-      Object.keys(initialData).forEach((key) => {
-        setValue(key as keyof CreateCouponFormData, initialData[key as keyof CreateCouponFormData]);
-      });
-    }
-  }, [mode, initialData, setValue]);
+  console.log(errors);
 
   const { data: products = [] } = useGetProductsWithCategory();
 
-  const isUsableInAllStores = watch("isUsableInAllStores");
-  const selectedProducts = watch("productIds");
 
   function handleGenerateDiscount() {
     const randomCoupon = nanoid(12);
@@ -57,26 +53,19 @@ export default function CouponForm({ initialData, onSubmit, mode }: CouponFormPr
   }
 
   function handleProductSelection(productId: number, isChecked: boolean) {
-    const currentSelectedProducts = selectedProducts ?? [];
+    const currentSelectedProducts = getValues("productIds") || []; // Garante que currentSelectedProducts seja um array
     const updatedSelectedProducts = isChecked 
       ? [...currentSelectedProducts, productId]
       : currentSelectedProducts.filter(p => p !== productId);
-    
+  
     setValue("productIds", updatedSelectedProducts, { shouldValidate: true });
   }
 
-  // Verifica se houve alterações
-  function hasChanges(): boolean {
-    return Object.keys(initialData || {}).some(key => {
-      const currentValue = getValues(key as keyof CreateCouponFormData);
-      return currentValue !== initialData?.[key as keyof CreateCouponFormData];
-    });
-  }
 
-  // Log para depuração
   useEffect(() => {
-    console.log("Alterações detectadas:", hasChanges());
-  }, [getValues, initialData]);
+    const isChanged = !isEqual(initialData, getValues());
+    setIsFormChanged(isChanged);
+  }, [initialData, getValues]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="border rounded-lg p-5">
@@ -110,7 +99,7 @@ export default function CouponForm({ initialData, onSubmit, mode }: CouponFormPr
           <label htmlFor="discountType" className="block font-medium mb-1">Tipo de Desconto</label>
           <Select
             defaultValue="percentage"
-            onValueChange={(value: "percentage" | "value") => setValue("type", value)}
+            onValueChange={(value: "PERCENTAGE" | "VALUE") => setValue("type", value)}
           >
             <SelectTrigger className="min-w-[180px] w-full">
               <SelectValue />
@@ -124,11 +113,11 @@ export default function CouponForm({ initialData, onSubmit, mode }: CouponFormPr
 
         <div>
           <label htmlFor="discountAmount" className="block font-medium mb-1">
-            Desconto <span className="text-muted-foreground text-sm">{watch("type") === "percentage" ? "(em percentagem)" : "(em valor)"}</span>
+            Desconto <span className="text-muted-foreground text-sm">{watch("type") === "PERCENTAGE" ? "(em percentagem)" : "(em valor)"}</span>
           </label>
           <Input
             type="number"
-            placeholder={`Exemplo ${watch("type") === "percentage" ? "15" : "15,99"}`}
+            placeholder={`Exemplo ${watch("type") === "PERCENTAGE" ? "15" : "15,99"}`}
             {...register("value", { valueAsNumber: true })}
           />
           {errors.value && <p className="text-red-500 text-sm mt-1">{errors.value.message}</p>}
@@ -155,6 +144,7 @@ export default function CouponForm({ initialData, onSubmit, mode }: CouponFormPr
         <div>
           <label htmlFor="applyCoupon" className="block font-medium mb-1">Aplicar cupom em toda a loja:</label>
           <Switch
+           {...register("isUsableInAllStores")}
             defaultChecked={initialData?.isUsableInAllStores ?? true}
             onCheckedChange={(checked) => setValue("isUsableInAllStores", checked)}
             className="accent-primary"
@@ -162,7 +152,7 @@ export default function CouponForm({ initialData, onSubmit, mode }: CouponFormPr
         </div>
       </div>
 
-      {!isUsableInAllStores && (
+      {!watch("isUsableInAllStores") && (
         <div className="w-full p-5 border rounded-md h-auto mt-5">
           <SubHeaderSection title="Produtos" description="Selecione os produtos que o cupom tem efeito" />
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mt-5">
@@ -174,7 +164,7 @@ export default function CouponForm({ initialData, onSubmit, mode }: CouponFormPr
                     <div key={item.id} className="flex items-center space-x-2">
                       <Checkbox
                         id={`product-${item.id}`}
-                        checked={selectedProducts?.includes(item.id) ?? false}
+                        checked={getValues("productIds")?.includes(item.id) ?? false}
                         value={item.id}
                         onCheckedChange={(checked) => handleProductSelection(item.id, checked === true)}
                       />
@@ -195,9 +185,7 @@ export default function CouponForm({ initialData, onSubmit, mode }: CouponFormPr
       )}
 
       <div className="flex justify-end w-full mt-5">
-        <button type="submit" disabled={!isValid || !hasChanges()} className="mt-5">
-          Criar
-        </button>
+        <SubmitButton text={mode === 'create' ? 'Criar' : 'Salvar Alterações'} enable={mode === 'edit' && !isFormChanged} isLoading={isLoading}/>
       </div>
     </form>
   );
