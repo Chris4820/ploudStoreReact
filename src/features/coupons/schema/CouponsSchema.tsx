@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 // Definindo o esquema Zod
 // Esquema de validação usando Zod
-const createCouponSchema = z.object({
+const CouponSchema = z.object({
   id: z.number().optional(),
   code: z.string().min(3,"O código do cupom é obrigatório"),
   limit: z.preprocess((val) => parseFloat(val as string), z.number().min(0, "O limite deve ser um numero positivo")),
@@ -24,5 +24,5 @@ const createCouponSchema = z.object({
 });
 
 // Exportando o tipo inferido
-export type CreateCouponFormData = z.infer<typeof createCouponSchema>;
-export default createCouponSchema;
+export type CouponFormData = z.infer<typeof CouponSchema>;
+export default CouponSchema;

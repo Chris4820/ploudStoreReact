@@ -1,5 +1,6 @@
-import { CreateCouponFormData } from "../../../features/coupons/schema/CouponsSchema";
+import { CouponFormData } from "../../../features/coupons/schema/CouponsSchema";
 import axiosStore from "../../../lib/axios/axiosStore";
+import { MetaProps } from "./statistic";
 
 
 export enum CouponType {
@@ -17,9 +18,21 @@ export type CouponsProps = {
   limit: number | null
 }
 
-export async function getCoupons(): Promise<CouponsProps[] | []> {
-  const response = await axiosStore.get<{coupons: CouponsProps[] | []}>('coupons');
-  return response.data.coupons || []; // Obtemos o primeiro item do array
+
+interface CouponsResponse {
+  coupons: CouponsProps[];
+  meta: MetaProps;
+}
+
+export async function getCoupons(page?: number | undefined): Promise<CouponsResponse> {
+
+        let query = "";
+        if (page) {
+            query += `?page=${page}&`;
+        }
+
+  const response = await axiosStore.get<CouponsResponse>(`coupons${query}`);
+  return response.data; // Obtemos o primeiro item do array
 }
 
 
@@ -37,16 +50,16 @@ export type CouponProps = {
 }
 
 export async function getCoupon(couponId: string) {
-  const response = await axiosStore.get<{coupon: CreateCouponFormData}>(`coupons/${couponId}`);
+  const response = await axiosStore.get<{coupon: CouponFormData}>(`coupons/${couponId}`);
   return response.data.coupon
 }
 
-export async function createCoupons(data: CreateCouponFormData) {
+export async function createCoupons(data: CouponFormData) {
   const response = await axiosStore.post('coupons', data)
   return response.data;
 }
 
-export async function editCoupons(data: CreateCouponFormData) {
+export async function editCoupons(data: CouponFormData) {
   const response = await axiosStore.put('coupons', { data })
   return response.data;
 }

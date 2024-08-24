@@ -2,35 +2,42 @@
 
 
 import { useMutation } from "@tanstack/react-query";
-import { toast } from "sonner";
-import { updateCategory } from "../../../api/req/store/categorie";
+import { CategorieProps, updateCategory } from "../../../api/req/store/categorie";
 import { useNavigate } from "react-router-dom";
+import { CategoryFormData } from "../schema/CategorySchema";
 import queryClient from "../../../lib/reactquery/reactquery";
-import type { CategoryData } from "../../../api/req/store/statistic";
-import type { EditCategoryFormData } from "../schema/EditCategorySchema";
+import { toast } from "sonner";
 
 export const useEditCategory = () => {
 
   const navigate = useNavigate();
 
   return useMutation({
-    mutationFn: (data: EditCategoryFormData) => updateCategory(data),
-    onSuccess: (response) => {
-      const category = response.data.category;
-      if(!category) {
-        queryClient.invalidateQueries({ queryKey: ['categories', parent] });
-      }else {
-        queryClient.setQueryData<CategoryData[] | undefined>(['categories', parent], (oldData) => {
-          // Se oldData for undefined, inicialize como um array vazio
-          const updatedData = oldData ? [...oldData, category] : [category];
-          return updatedData;
-        });
+    mutationFn: (data: CategoryFormData) => updateCategory(data),
+    onSuccess: (_, variables) => {
+      // Atualizando o cache da query 'categories'
+
+      queryClient.setQueryData(['categories', variables.parentId], (oldData: CategorieProps[] | undefined) => {
+        if(!oldData) return [];
+
+        return oldData.map((category: CategorieProps) =>
+          category.id === variables.id 
+            ? {
+                ...category,
+                name: variables.name !== undefined ? variables.name : category.name,
+                visible: variables.visible !== undefined ? variables.visible : category.visible,
+              }
+            : category
+        );
+      });
+      //Invalida a categoria editada do cache
+      queryClient.removeQueries({queryKey: ['category', variables.id]}); // Invalida todas as queries de cupons
+
+      toast.success("Categoria editada com sucesso")
+      if(variables.parentId) {
+        return navigate(`/dashboard/categories/${variables.parentId}`)
       }
-      toast.success("Categoria Criada com sucesso");
-      if(parent) {
-        return navigate(`/dashboard/categories/${parent}`)
-      }
-      return navigate(`/dashboard/categories`);
+        return navigate(`/dashboard/categories`);
       
     }
   }

@@ -9,6 +9,7 @@ export type StoreInformationProps = {
     category: string,
     domain: string,
     subdomain: string,
+    activedomain: string,
     currency: string,
     locale: string,
     createdAt: string,

@@ -17,7 +17,7 @@ export default function EditCouponPage() {
 
   const {data: coupon, isLoading} = useGetCoupon(couponId)
 
-  const { mutate: editCoupon} = useEditCoupon();
+  const { mutate: editCoupon, isPending} = useEditCoupon();
 
   async function onSubmitFormEditCoupon(data: CreateCouponFormData) {
    editCoupon(data);
@@ -51,7 +51,7 @@ export default function EditCouponPage() {
     <>
             <HeaderSection title="Edite seu cupom!" description="Edite o seu coupon aqui!" backLink />
             <Profiler id="Form" onRender={onRenderCallback}>
-              <CouponForm initialData={coupon} onSubmit={onSubmitFormEditCoupon} mode="edit"/>
+              <CouponForm initialData={coupon} onSubmit={onSubmitFormEditCoupon} mode="edit" isLoading={isPending}/>
             </Profiler>
         </>
   )

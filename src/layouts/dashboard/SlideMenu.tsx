@@ -86,7 +86,7 @@ export default function Layout() {
             {menuItems.map(({ href, title, icon: Icon, key }) => (
                 <NavLink key={key} to={href} 
                 onClick={() => handleOpenMenu()}
-                className={`${isMenuItemSelected(href) && 'border-r-4'} w-full group relative hover:bg-muted hover:cursor-pointer duration-300 font-semibold border-purple-600 p-3 flex items-center gap-2 text-base`}>
+                className={`${isMenuItemSelected(href) && 'border-r-4'} w-full group relative hover:bg-secondary hover:cursor-pointer duration-300 font-semibold border-purple-600 p-3 flex items-center gap-2 text-base`}>
                   {Icon && <Icon size={21} className="group-hover:text-purple-600 ml-5" />} {/* Renderizar o ícone se estiver disponível */}
                   {title}
                 </NavLink>

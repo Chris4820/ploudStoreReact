@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { columnsCupon } from "./CouponColumns";
 import { useSearchParams } from "react-router-dom";
-import { useGetTopCustomersData } from "../../../api/store/store/statistic";
+import { useGetTopCouponData, useGetTopCustomersData } from "../../../api/store/store/statistic";
 import { DatePickerWithRange } from "../../../components/ui/datepickerWithRange";
 import HeaderSection from "../../../components/commons/Header";
 import { Button } from "../../../components/ui/button";
@@ -22,7 +22,7 @@ export default function CouponReportPage() {
     const [endDate, setEndDate] = useState();
     const [currentEndDate,] = useState();
 
-    const {data, isLoading} = useGetTopCustomersData(page);
+    const {data, isLoading} = useGetTopCouponData(page);
 
     async function handleFilter() {
         setStartDate(currentStartDate)
@@ -42,7 +42,7 @@ export default function CouponReportPage() {
                 <Button disabled={EnableButtonSearch()} onClick={() => handleFilter()}>Pesquisar</Button>
             </div>
             <div className="mt-5">
-                <DataTable data={data?.customers || []} loading={isLoading} meta={data?.meta} columns={columnsCupon}/>
+                <DataTable data={data?.coupons || []} loading={isLoading} meta={data?.meta} columns={columnsCupon}/>
             </div>
 
         </>

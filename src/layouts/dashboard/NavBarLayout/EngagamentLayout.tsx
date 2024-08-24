@@ -2,12 +2,8 @@ import { NavLink, Outlet, useLocation } from "react-router-dom";
 
 const EnganamentTabs = [
     {
-        name: 'Geral',
-        link: '/dashboard/engagement',
-    },
-    {
         name: 'Descontos',
-        link: '/dashboard/engagement/coupons'
+        link: '/dashboard/engagement'
     },
     {
         name: 'Meta',
@@ -32,7 +28,7 @@ export default function EngagamentLayout() {
         <section className="w-full flex flex-wrap  justify-center lg:justify-start mb-10">
                 {EnganamentTabs.map((tab, index) => (
                         <NavLink key={index} to={tab.link} 
-                        className={`${isMenuItemSelected(tab.link) && 'bg-muted/60'} p-3 
+                        className={`${isMenuItemSelected(tab.link) && 'bg-secondary'} p-3 
                                     border hover:bg-muted/60 
                                     lg:first:rounded-l-lg 
                                     lg:last:rounded-r-md duration-300`}>

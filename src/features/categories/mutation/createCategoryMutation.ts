@@ -3,46 +3,35 @@
 
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
-import type { CreateCategoryFormData } from "../schema/CreateCategorySchema";
-import { createCategorie, type CategorieProps } from "../../../api/req/store/categorie";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { createCategorie } from "../../../api/req/store/categorie";
+import { useNavigate } from "react-router-dom";
 import queryClient from "../../../lib/reactquery/reactquery";
+import { CategoryFormData } from "../schema/CategorySchema";
 
 export const useCreateCategory = () => {
 
-  const [searchParams] = useSearchParams();
-
-  const parent = parseInt(searchParams.get("parent") as string) || null
   const navigate = useNavigate();
 
   return useMutation({
-    mutationFn: (data: CreateCategoryFormData) => createCategorie(data),
-    onSuccess: (data) => {
+    mutationFn: (data: CategoryFormData) => createCategorie(data),
+    onSuccess: (data, variables) => {
       console.log("Sucesso");
       // Verifique se response e response.data existem antes de acessar response.data.category
-      if (!data) {
-        console.error("Resposta inesperada da API:", data);
-        toast.error("Resposta inesperada da API.");
-        return;
-      }
+      if (variables && data.id) {
+        // Extrair o ID do cupom criado
+        const newCategory = {
+          id: data.id, // ID do novo cupom
+          name: variables.name, // Código do cupom que foi enviado
+          visible: variables.visible, // Data de expiração
+        };
 
-      const category = data.category;
-
-      // Se a categoria não existir, invalide as queries
-      if (!category) {
-        console.log("2");
-        queryClient.invalidateQueries({ queryKey: ['categories', parent] });
-      } else {
-        console.log(category)
-        // Se a categoria existir, atualize o cache
-        queryClient.setQueryData<CategorieProps[] | undefined>(['categories', parent], (oldData) => {
-          const updatedData = oldData ? [...oldData, category] : [category];
-          return updatedData;
+        queryClient.setQueryData(['categories', variables.parentId], (oldData: any) => {
+          return oldData ? [newCategory, ...oldData] : [newCategory];
         });
       }
       toast.success("Categoria criada com sucesso!")
-      if(parent) {
-        return navigate(`/dashboard/categories/${parent}`)
+      if(variables.parentId) {
+        return navigate(`/dashboard/categories/${variables.parentId}`)
       }
         return navigate(`/dashboard/categories`);
     },

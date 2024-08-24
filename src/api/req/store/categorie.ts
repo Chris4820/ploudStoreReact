@@ -1,5 +1,4 @@
-import type { CreateCategoryFormData } from "../../../features/categories/schema/CreateCategorySchema";
-import type { EditCategoryFormData } from "../../../features/categories/schema/EditCategorySchema";
+import { CategoryFormData } from "../../../features/categories/schema/CategorySchema";
 import axiosStore from "../../../lib/axios/axiosStore";
 import { ProductsProps } from "./products";
 
@@ -16,7 +15,7 @@ export type CategoryProps = {
     description: string,
     visible: boolean,
     slug: string
-    parentId: number,
+    parentId: number | undefined,
 }
 
 export type ProductProps = {
@@ -53,8 +52,7 @@ export async function getCategorie(categoryId : number): Promise<CategoryProps> 
 
 
 
-export async function createCategorie(data: CreateCategoryFormData) {
-    console.log("Visible: " + data.visible)
+export async function createCategorie(data: CategoryFormData) {
     const response = await axiosStore.post("category", data);
     return response.data;
     
@@ -76,14 +74,8 @@ export async function getCategory(categoryId: number) {
     return response.data.category;
 }
 
-export async function updateCategory(data: EditCategoryFormData) {
-    console.log(data.visible);
-    const response = await axiosStore.put(`category/${data.categoryId}`, {
-        name: data.name,
-        description: data.description,
-        slug: data.slug,
-        visible: data.visible
-    });
+export async function updateCategory(data: CategoryFormData) {
+    const response = await axiosStore.put(`category/${data.id}`, { data });
     return response;
 }
 

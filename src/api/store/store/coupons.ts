@@ -1,14 +1,16 @@
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { getCoupon, getCoupons } from "../../req/store/coupons";
 
 
 
 
 
-export function useGetCoupons() {
+export function useGetCoupons(page ?: number | undefined) {
   return useQuery({
-  queryKey: ['coupons'],
-  queryFn: () => getCoupons(),
+  queryKey: ['coupons', page],
+  queryFn: () => getCoupons(page),
+  placeholderData: keepPreviousData,
+  
 })
 }
 

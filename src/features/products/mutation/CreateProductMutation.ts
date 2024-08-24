@@ -8,7 +8,7 @@ import queryClient from "../../../lib/reactquery/reactquery";
 import { uploadImage } from "../../../lib/images";
 
 
-export const useCreateProduct = (image: File) => {
+export const useCreateProduct = () => {
   const navigate = useNavigate();
   const { categoryId } = useParams();
 

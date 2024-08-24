@@ -6,8 +6,8 @@ import type { CouponData } from "../../../api/req/store/statistic"
 
 export const columnsCupon: ColumnDef<CouponData>[] = [
     {
-        accessorKey: "name",
-        header: "Name",
+        accessorKey: "code",
+        header: "Código",
     },
     {
         accessorKey: "totalSells",

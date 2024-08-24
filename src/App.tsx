@@ -78,7 +78,7 @@ function App() {
            <Route path="/dashboard/categories/:categoryId/:subCategoryId" element={<SubCategoryIdPage/>} />
 
            <Route path="/dashboard/categories/create" element={<CreateCategoryPage/>} />
-           <Route path="/dashboard/categories/edit/:categoryId" element={<EditCategoryPage/>} />
+           <Route path="/dashboard/categories/edit/:id" element={<EditCategoryPage/>} />
 
           //PRODUCTS
            <Route path="/dashboard/products/edit/:productId" element={<EditPackagePage />} />
@@ -91,8 +91,7 @@ function App() {
            </Route>
 
            <Route path="engagement" element={<EngagamentLayout/>}>
-           <Route path="/dashboard/engagement" element={<EngagamentLayout/>}/>
-              <Route path="/dashboard/engagement/coupons" element={<CouponPage/>}/>
+              <Route path="/dashboard/engagement" element={<CouponPage/>}/>
               <Route path="/dashboard/engagement/coupons/edit/:couponId" element={<EditCouponPage/>}/>
               <Route path="/dashboard/engagement/coupons/create" element={<CreateDiscountPage/>}/>
               <Route path="/dashboard/engagement/goal" element={<GoalPage/>}/>

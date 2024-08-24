@@ -63,6 +63,7 @@ export default function LoginPage() {
                     <SubmitButton
                     isLoading={isPending}
                     text={t("auth.loginPage.login")}
+                    enable={false}
                     className="w-full"/>
 
                 </div>
