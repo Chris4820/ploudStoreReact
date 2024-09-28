@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getGoalsHistory } from "../../req/store/goal";
+import { getActiveGoals, getGoalsHistory } from "../../req/store/goal";
 
 
 
@@ -12,4 +12,11 @@ export function useGetHistoryGoals(page ?: number | undefined) {
   queryKey: ['goals', page],
   queryFn: () => getGoalsHistory(),
 })
+}
+
+export function useGetActiveGoals() {
+  return useQuery({
+    queryKey: ['goals', 'success'],
+    queryFn: () => getActiveGoals(),
+  })
 }

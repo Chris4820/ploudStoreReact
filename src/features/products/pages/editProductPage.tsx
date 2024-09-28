@@ -1,38 +1,45 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import { useCloneProduct } from "../mutation/CloneProductMutation";
-import type { CategorieProps } from "../../../api/req/store/categorie";
+import type { CategorieProps } from "../../categories/api/req/categorie";
 import { useParams } from "react-router-dom";
-import { useGetAllCategorie } from "../../../api/store/store/categorie";
-import { useGetProduct } from "../../../api/store/store/product";
-import createProductSchema from "../schema/CreateProductSchema";
+import { useGetAllCategorie } from "../../categories/api/store/categorie";
+import { useGetProduct } from "../api/store/product";
 import NotFoundComponent from "../../../containers/404Component";
-import LoadingComponent from "../../../containers/LoadingComponent";
-import ImageUpload from "../../../components/imageUploadTest";
-import { Input } from "../../../components/ui/input";
-import EditorComponent from "../../../components/ui/editor";
-import HeaderSection from "../../../components/commons/Header";
-import { Switch } from "../../../components/ui/switch";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "../../../components/ui/select";
-import type { editProductFormData } from "../schema/EditProductSchema";
 import { useEditProduct } from "../mutation/EditProductMutation";
 import ConfirmModal from "../../../components/modal/confirmModal";
-import SubmitButton from "../../../components/commons/buttons/SubmitButtonComponent";
+import ProductForm from "../components/ProductForm";
+import type { ProductFormData } from "../schema/ProductSchema";
+import LoadingComponent from "../../../containers/LoadingComponent";
+import HeaderSection from "../../../components/commons/Header";
+import { useState } from "react";
+import DeleteModal from "../../../components/modal/deleteModal";
+import { Button } from "../../../components/ui/button";
+import { useDeleteProduct } from "../mutation/DeleteProductMutation";
 
 
 
 
 
-export default function EditPackagePage() {
+export default function EditProductPage() {
 
     const { productId } = useParams();
     //const queryClient = useQueryClient();
 
     const {data: categories} = useGetAllCategorie();
 
+    const [image, setImage] = useState<File | null>(null)
+
     const {data: product, isLoading} = useGetProduct(Number(productId));
 
     const {mutate: CloneProduct} = useCloneProduct();
+
+    const { mutate: DeleteProduct, isPending: DeletePending} = useDeleteProduct();
+
+    function handleDelete() {
+        if (product && product.id && product?.categoryId) {
+            DeleteProduct({ productId: product.id, categoryId: product.categoryId });
+        }
+    }
 
     function onCloneSubmit(categoryId: number) {
         if(product) {
@@ -40,20 +47,15 @@ export default function EditPackagePage() {
             CloneProduct(product);
         }
     }
-    const { handleSubmit, register, formState: { errors }, setValue } = useForm<editProductFormData>({
-        resolver: zodResolver(createProductSchema),
-        defaultValues: {
-            productId: parseInt(productId as string),
-            name: product?.name,
-            description: product?.description,
-            imageUrl: product?.imageUrl,
-        }
-    });
 
-    const { mutate: updateProduct, isPending} = useEditProduct();
+    const { mutate: updateProduct, isPending} = useEditProduct(image);
 
-    function onSubmitFormEdit(data: editProductFormData) {
+    function onSubmitFormEdit(data: ProductFormData) {
         updateProduct(data);
+    }
+
+    function ImageUpload(image: File | null) {
+        setImage(image);
     }
 
     if(isLoading) {
@@ -66,44 +68,15 @@ export default function EditPackagePage() {
         description="O produto que você está procurando não foi encontrado. Por favor, verifique se o ID do produto está correto ou entre em contato conosco para obter assistência."
         link="/dashboard/categorie" />
     } 
+    
 
 
     return(
-        <>
-        <HeaderSection title="Editar produto"/>
-        <form onSubmit={handleSubmit(onSubmitFormEdit)} className="grid grid-cols-1 lg:grid-cols-5 gap-5">
-            <div className="col-span-3 space-y-5">
-                <div>
-                    <label>Nome</label>
-                    <Input className="mt-1" defaultValue={product.name}/>
-                    {errors.name && <span className='text-destructive text-[12px]'>{errors.name.message}</span>}
-                </div>
-                <div>
-                    <label>Descrição</label>
-                    <EditorComponent {...register("description")}
-                      value={product.description}
-                      onEditorChange={(content) => setValue('description', content)}
-                    />
-                    {errors.description && <span className='text-destructive text-[12px]'>{errors.description.message}</span>}
-                </div>
-                <div>
-                    <label>Preço</label>
-                    <Input className="mt-1" type="number" defaultValue={product.price}/>
-                    {errors.price && <span className='text-destructive text-[12px]'>{errors.price.message}</span>}
-                </div>
-            </div>
-            <div className="col-span-2 space-y-5">
-                <div className="mt-5">
-                    <ImageUpload id="productId" MAX_SIZE_IMAGE={5} defaultImage={product.imageUrl} onImageChange={() => console.log("Mudou")}/>
-                </div>
-                <div className="p-5 border rounded-lg flex justify-between items-center">
-                    <div>
-                        <h1 className="font-semibold text-lg">Desativar produto</h1>
-                        <p>Ative a visibilidade do produto</p>
-                    </div>
-                    <Switch defaultChecked={true} id="enable-product" />
-                </div>
-                <div className="p-5 border rounded-lg">
+        <section className="relative w-full overflow-y-auto overflow-x-hidden">
+        <HeaderSection backLink="../" title="Editar produto" description="Edite seu produto aqui!"/>
+        <ProductForm onImageUpload={((image: File | null) => ImageUpload(image))} isLoading={isPending} onSubmit={onSubmitFormEdit} mode="edit" initialData={product}>
+            <>
+            <div className="p-5 border rounded-lg">
                     <div>
                         <h1 className="font-semibold text-lg mb-2">Clonar produto</h1>
                     </div>
@@ -123,26 +96,29 @@ export default function EditPackagePage() {
                                     {category.name}
                                 </SelectItem>
                             </ConfirmModal>
-                        ))}
+                            ))}
                             </SelectGroup>
                         </SelectContent>
                         </Select>
                     </div>
-                    
-                </div>
-                <div className="p-5 border rounded-lg flex justify-between items-center">
-                    <div>
-                        <h1 className="font-semibold text-lg">Quantidade</h1>
-                        <p>Ative a quantidade do produto</p>
-                    </div>
-                    <Switch defaultChecked={true} id="enable-quantity" />
-                </div>
             </div>
-            <div className="mt-5 flex justify-end">
-            <SubmitButton isLoading={isPending} text="Guardar alterações"/>
+            <div className="p-5 border rounded-lg flex justify-between items-center">
+                <div>
+                    <h1 className="font-semibold text-destructive text-lg">Eliminar Produto</h1>
+                    <p className="text-muted-foreground">Elimine permanentemente o produto</p>
+                    <p className="text-destructive text-sm mt-1">*Esta ação não tem volta</p>
+                </div>
+                <DeleteModal
+                title="Eliminar produto" 
+                description="Este produto será apagado permanentemente, tem a certeza?"
+                important="Esta ação não tem volta"
+                onConfirm={() => handleDelete()}>
+                    <Button type="button" disabled={DeletePending} variant={"destructive"}>Eliminar</Button>
+                </DeleteModal>
+                  
             </div>
-        </form>
-        
-        </>
+            </>
+        </ProductForm>
+        </section>
     )
 }

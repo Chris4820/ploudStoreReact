@@ -7,7 +7,7 @@ import { DatePickerDemo } from '../../../components/ui/datapicker';
 import { Switch } from '../../../components/ui/switch';
 import { Checkbox } from '../../../components/ui/checkbox';
 import SubHeaderSection from '../../../components/commons/subHeader';
-import { useGetProductsWithCategory } from '../../../api/store/store/categorie';
+import { useGetProductsWithCategory } from '../../categories/api/store/categorie';
 import SubmitButton from '../../../components/commons/buttons/SubmitButtonComponent';
 import { useCallback, useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -58,10 +58,7 @@ export default function CouponForm({ initialData, onSubmit, mode, isLoading }: C
       setValue("productIds", []);
     }
   }, [setValue]);
-
-  console.log(getValues());
-
-  console.log(errors);
+  
 
   // Função para selecionar/desselecionar produtos usando useCallback
   const handleProductSelection = useCallback((productId: number, isChecked: boolean) => {
@@ -83,7 +80,7 @@ export default function CouponForm({ initialData, onSubmit, mode, isLoading }: C
   
       return () => subscription.unsubscribe();
     }
-  }, [initialData, watch]);
+  }, [initialData, watch, mode]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="border rounded-lg p-5">

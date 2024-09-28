@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { columnsCupon } from "./CouponColumns";
 import { useSearchParams } from "react-router-dom";
-import { useGetTopCouponData, useGetTopCustomersData } from "../../../api/store/store/statistic";
+import { useGetTopCouponData } from "../api/store/statistic";
 import { DatePickerWithRange } from "../../../components/ui/datepickerWithRange";
 import HeaderSection from "../../../components/commons/Header";
 import { Button } from "../../../components/ui/button";

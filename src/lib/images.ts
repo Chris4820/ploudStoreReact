@@ -4,6 +4,7 @@
   // Função para fazer o upload da imagem
   export async function uploadImage(signedUrl: string, file: File, type: string) {
     try {
+      console.log(type);
       const uploadResponse = await fetch(signedUrl, {
         method: 'PUT',
         headers: {
@@ -24,4 +25,4 @@
       console.log(error);
     }
     
-  };
+  }

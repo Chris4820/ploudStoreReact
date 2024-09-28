@@ -2,7 +2,7 @@
 
 
 import { useMutation } from "@tanstack/react-query";
-import { getTokenStore } from "../../../api/req/store";
+import { getTokenStore } from "../api/req/store";
 import { useNavigate } from "react-router-dom";
 
 

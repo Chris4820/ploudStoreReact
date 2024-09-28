@@ -3,7 +3,7 @@
 
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { deleteCategory, type CategorieProps } from "../../../api/req/store/categorie";
+import { deleteCategory, type CategorieProps } from "../api/req/categorie";
 import { useNavigate } from "react-router-dom";
 import queryClient from "../../../lib/reactquery/reactquery"
 

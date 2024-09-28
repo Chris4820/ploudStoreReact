@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useGetTopCustomersData } from "../../../api/store/store/statistic";
+import { useGetTopCustomersData } from "../api/store/statistic";
 import { columnsCustomer } from "./customersColumns";
 import { DatePickerWithRange } from "../../../components/ui/datepickerWithRange";
 import HeaderSection from "../../../components/commons/Header";

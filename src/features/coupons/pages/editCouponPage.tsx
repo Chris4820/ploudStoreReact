@@ -1,11 +1,10 @@
 import { useNavigate, useParams } from "react-router-dom"
-import { useGetCoupon } from "../../../api/store/store/coupons";
+import { useGetCoupon } from "../api/store/coupons";
 import HeaderSection from "../../../components/commons/Header";
 import CouponForm from "../components/CouponForm";
 import LoadingComponent from "../../../containers/LoadingComponent";
-import { CreateCouponFormData } from "../schema/CouponsSchema";
 import { useEditCoupon } from "../mutations/EditCouponMutation";
-import { Profiler } from "react";
+import type { CouponFormData } from "../schema/CouponsSchema";
 
 
 
@@ -15,24 +14,12 @@ export default function EditCouponPage() {
   const { couponId } = useParams(); // Especifica que couponId pode ser uma string ou undefined
   const navigate = useNavigate();
 
-  const {data: coupon, isLoading} = useGetCoupon(couponId)
+  const {data: coupon, isLoading} = useGetCoupon(couponId as string)
 
   const { mutate: editCoupon, isPending} = useEditCoupon();
 
-  async function onSubmitFormEditCoupon(data: CreateCouponFormData) {
+  async function onSubmitFormEditCoupon(data: CouponFormData) {
    editCoupon(data);
-  }
-
-  function onRenderCallback(
-    id, // ID do componente Profiler
-    phase, // "mount" ou "update"
-    actualDuration, // Tempo gasto na renderização
-    baseDuration, // Tempo médio para renderizar sem otimizações
-    startTime, // Quando a renderização começou
-    commitTime, // Quando a renderização foi confirmada
-    interactions // Conjunto de interações que foram rastreadas durante a renderização
-  ) {
-    console.log(`${id} renderizou na fase ${phase} e levou ${actualDuration}ms`);
   }
 
   if(isLoading) {
@@ -43,16 +30,12 @@ export default function EditCouponPage() {
     navigate(-1);
     return null;
   }
-
-  console.log(coupon);
   
 
   return(
     <>
-            <HeaderSection title="Edite seu cupom!" description="Edite o seu coupon aqui!" backLink />
-            <Profiler id="Form" onRender={onRenderCallback}>
+            <HeaderSection title="Edite seu cupom!" description="Edite o seu coupon aqui!" backLink="../" />
               <CouponForm initialData={coupon} onSubmit={onSubmitFormEditCoupon} mode="edit" isLoading={isPending}/>
-            </Profiler>
         </>
   )
 }

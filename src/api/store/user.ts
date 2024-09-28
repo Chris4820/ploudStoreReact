@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getUserInformation } from "../req/user";
-import { getInviteStores, getStores, getSubStores } from "../req/store";
+import { getInviteStores, getStores, getSubStores } from "../../features/stores/api/req/store";
 
 
 

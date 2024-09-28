@@ -5,11 +5,11 @@ import { Button } from "../ui/button";
 type HeaderSectionProps = {
     title: string,
     description?: string,
-    backLink?: boolean
+    backLink?: string
 }
 
 
-export default function HeaderSection({title, description, backLink = false} : HeaderSectionProps) {
+export default function HeaderSection({title, description, backLink} : HeaderSectionProps) {
 
     const navigate = useNavigate();
     return(

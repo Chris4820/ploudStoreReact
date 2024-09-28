@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { resetPassword } from "../../../api/req/auth";
+import { resetPassword } from "../api/req/auth";
 import { toast } from "sonner";
 import type { AxiosResponse } from "axios";
 import type { resetPasswordSchemaFormData } from "../schemas/ResetPasswordSchema";

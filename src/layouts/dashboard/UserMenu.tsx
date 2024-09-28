@@ -6,7 +6,7 @@ import { useGetUserInformation } from "../../api/store/user";
 import { useTheme } from "../providers/Theme";
 import { PopoverClose } from "@radix-ui/react-popover";
 import { IoSunnyOutline, IoMoonOutline } from "react-icons/io5";
-import { logout } from "../../api/req/auth";
+import { logout } from "../../features/auth/api/req/auth";
 
 
 

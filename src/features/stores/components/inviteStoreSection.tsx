@@ -1,7 +1,7 @@
 import { CgSpinner } from "react-icons/cg";
 import CardEmptyComponent from "../../../components/commons/CardEmpty";
 import ConfirmModal from "../../../components/modal/confirmModal";
-import type { InviteStoreProps } from "../../../api/req/store";
+import type { InviteStoreProps } from "../api/req/store";
 import StoreCardComponent from "../components/storeCard";
 import { useGetInviteStores } from "../../../api/store/user";
 import { useAcceptInviteStore } from "../mutations/acceptInviteMutation";

@@ -1,5 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table"
-import { CouponsProps, CouponType } from "../../../api/req/store/coupons"
+import { CouponsProps, CouponType } from "../api/req/coupons"
 import { format } from "date-fns";
 
 // This type is used to define the shape of our data.

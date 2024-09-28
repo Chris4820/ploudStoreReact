@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import HeaderSection from "../../../components/commons/Header";
 import NotFoundComponent from "../../../containers/404Component";
 import LoadingComponent from "../../../containers/LoadingComponent";
-import { useGetCategory } from "../../../api/store/store/categorie";
+import { useGetCategory } from "../api/store/categorie";
 import CreateButtonComponent from "../../../components/commons/buttons/CreateButtonComponent";
 import { ProductSection } from "../../products/components/ProductSection";
 import { CategorieSection } from "../components/CategorieSection";
@@ -29,7 +29,7 @@ export default function CategoryIdPage() {
         <>
         <HeaderSection 
             title={category.name} 
-            backLink
+            backLink="../"
             description={`Todos os items criados aqui, serão adicionados na categoria: ${category.name}`}/>
         <div className="flex justify-between">
             <h1 className="text-xl mt-2">Produtos</h1>

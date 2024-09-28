@@ -1,5 +1,5 @@
 import axiosStore from "../../../lib/axios/axiosStore";
-import { MetaProps } from "./statistic";
+import { MetaProps } from "../../../features/statistic/api/req/statistic";
 
 
 
@@ -9,14 +9,7 @@ export enum GoalStatus {
   COMPLETED,
   FAILED,
   CANCELLED,
-}
-
-export type GoalProps = {
-    title: string;
-    description: string;
-    createdAt: string;
-    completedAt: string;
-    status: GoalStatus;
+  ACTIVE,
 }
 
 interface GoalsResponse {
@@ -40,4 +33,19 @@ export async function getGoalsHistory(page?: number | undefined): Promise<GoalsR
       console.error('Error fetching categories data:', error);
       throw new Error('Failed to fetch categories data');
   }
+}
+
+
+export type GoalProps = {
+  id: number,
+  title: string;
+  description: string;
+  createdAt: string;
+  completedAt: string;
+  status: 'ACTIVE';
+}
+
+export async function getActiveGoals(): Promise<GoalProps[]> {
+    const response = await axiosStore.get<{goals: GoalProps[]}>(`goal?status=ACTIVE`);
+    return response.data.goals;
 }

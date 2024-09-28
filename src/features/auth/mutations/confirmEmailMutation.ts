@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom"
-import { confirmEmailUser } from "../../../api/req/auth";
 import { toast } from "sonner";
 import type { AxiosResponse } from "axios";
+import { confirmEmailUser } from "../api/req/auth";
 
 
 

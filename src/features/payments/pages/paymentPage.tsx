@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { MdFilterCenterFocus } from "react-icons/md";
 import { columnsPayment } from "./paymentColumns";
-import { useGetPayments } from "../../../api/store/store/payments";
+import { useGetPayments } from "../api/store/payments";
 import HeaderSection from "../../../components/commons/Header";
 import { Input } from "../../../components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../components/ui/select";

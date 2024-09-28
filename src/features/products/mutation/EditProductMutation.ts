@@ -1,42 +1,47 @@
 import { useMutation } from "@tanstack/react-query";
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { toast } from "sonner";
-import { updateProduct } from "../../../api/req/store/products";
-import type { ProductProps } from "../../../api/req/store/categorie";
+import { updateProduct, type ProductsProps } from "../api/req/products";
 import queryClient from "../../../lib/reactquery/reactquery";
-import type { editProductFormData } from "../schema/EditProductSchema";
+import type { ProductFormData } from "../schema/ProductSchema";
+import { uploadImage } from "../../../lib/images";
 
 
-export const useEditProduct = () => {
+export const useEditProduct = (image: File | null) => {
   const navigate = useNavigate();
-  const { categoryId } = useParams();
 
 
   return useMutation({
-    mutationFn: (data: editProductFormData) => updateProduct(data),
-    onSuccess: (data) => {
-      if(!data.product) {
-        //Se o productId nao vier, renovar a cache toda
-        queryClient.invalidateQueries({ queryKey: ['products', parseInt(categoryId as string) || null] });
-      }else {
-        // Exemplo de como adicionar o produto à cache
-          queryClient.setQueryData(['products', categoryId], (oldData: ProductProps[] = []) => {
-            // Adicione o novo produto à lista existente
-            return [
-              ...oldData,
-              {
-                id: product.id,
-                name: product.name,
-                visible: product.visible
-              },
-            ];
-          });
+    mutationFn: (data: ProductFormData) => updateProduct(data),
+    onSuccess: async (data, variables) => {
+      const { signedUrl } = data;
+      queryClient.setQueryData(['products', variables.categoryId], (oldData: ProductsProps[] | undefined) => {
+        if(!oldData) {
+          return queryClient.removeQueries({queryKey: ['products', variables.categoryId]}); // Invalida todas as queries de cupons
+          //Se nao tiver cache, é atualizado tudo
+          //return queryClient.invalidateQueries({ queryKey: ['products', variables.categoryId]});
         }
-      toast.success('Produto criado com sucesso!');
-      if(categoryId) {
-        return navigate(`/dashboard/categorie/${categoryId}`)
+        return oldData.map((product: ProductsProps) =>
+          product.id === variables.id 
+            ? {
+                ...product,
+                name: variables.name !== undefined ? variables.name : product.name,
+                visible: variables.visible !== undefined ? variables.visible : product.visible,
+              }
+            : product
+        );
+      });
+      //Invalida a produto editada do cache
+      queryClient.removeQueries({queryKey: ['product', variables.id]});
+      if (image && signedUrl) {
+        console.log("Fez o upload");
+        await uploadImage(signedUrl, image as File, image.type);
       }
-      return navigate(`/dashboard/categorie/${categoryId}`)
+      toast.success('Produto editado com sucesso!');
+      if(variables.categoryId) {
+        return navigate(`/dashboard/categories/${variables.categoryId}`)
+      }
+      return navigate(`/dashboard/categories`)
     }
   }
   )

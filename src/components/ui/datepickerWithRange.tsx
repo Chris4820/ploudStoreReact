@@ -1,5 +1,5 @@
 import * as React from "react"
-import { addDays } from "date-fns"
+import { addDays, format } from "date-fns"
 import { DateRange } from "react-day-picker"
 
 import { Button } from "./button"
@@ -9,7 +9,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "./popover"
-import { cn, formatDate } from "../../lib/utils"
+import { cn } from "../../lib/utils"
 import { CalendarIcon } from "lucide-react"
 
 export function DatePickerWithRange({
@@ -19,6 +19,11 @@ export function DatePickerWithRange({
     from: new Date(2022, 0, 20),
     to: addDays(new Date(2022, 0, 20), 20),
   })
+
+  // Função para formatar a data com date-fns (ou usar toLocaleDateString, se preferir)
+  const formatDate = (date: Date | undefined) => {
+    return date ? format(date, 'dd/MM/yyyy') : ''
+  }
 
   return (
     <div className={cn("grid gap-2", className)}>
@@ -36,8 +41,7 @@ export function DatePickerWithRange({
             {date?.from ? (
               date.to ? (
                 <>
-                  {formatDate(date.from)} -{" "}
-                  {formatDate(date.to)}
+                  {formatDate(date.from)} - {formatDate(date.to)}
                 </>
               ) : (
                 formatDate(date.from)

@@ -1,6 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { format } from "date-fns";
-import type { PaymentProps } from "../../../src/api/req/store/payment";
+import type { PaymentProps } from "../api/req/payment";
 
 export const columnsPayment: ColumnDef<PaymentProps>[] = [
     {

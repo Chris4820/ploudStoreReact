@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { acceptInviteStore } from "../../../api/req/store";
+import { acceptInviteStore } from "../api/req/store";
 import { useNavigate } from "react-router-dom";
 import queryClient from "../../../lib/reactquery/reactquery";
 

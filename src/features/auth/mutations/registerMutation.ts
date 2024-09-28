@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { postRegisterUser } from "../../../api/req/auth";
+import { postRegisterUser } from "../api/req/auth";
 import { toast } from "sonner";
 import type { AxiosResponse } from "axios";
 import type { registerSchemaFormData } from "../schemas/RegisterSchema";

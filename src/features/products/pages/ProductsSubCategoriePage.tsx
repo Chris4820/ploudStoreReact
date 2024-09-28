@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useGetCategory } from "../../../api/store/store/categorie";
+import { useGetCategory } from "../../categories/api/store/categorie";
 import LoadingComponent from "../../../containers/LoadingComponent";
 import NotFoundComponent from "../../../containers/404Component";
 import HeaderSection from "../../../components/commons/Header";
@@ -28,7 +28,7 @@ export default function SubCategoryIdPage() {
         <>
         <HeaderSection
             title={category.name} 
-            backLink 
+            backLink="../" 
             description={`Todos os items criados aqui, serão adicionados na categoria: ${category.name}`}/>
         <div className="flex justify-between">
             <h1 className="text-xl mt-2">Produtos</h1>

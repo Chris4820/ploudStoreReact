@@ -1,7 +1,7 @@
 import { CgSpinner } from "react-icons/cg";
 import CardEmptyComponent from "../../../components/commons/CardEmpty";
 import StoreCardComponent from "../components/storeCard";
-import type { SubStoreProps } from "../../../api/req/store";
+import type { SubStoreProps } from "../api/req/store";
 import { useGetSubStores } from "../../../api/store/user";
 import { useOpenStore } from "../mutations/openStoreMutation";
 

@@ -2,7 +2,7 @@
 
 
 import { useMutation } from "@tanstack/react-query";
-import { CategorieProps, updateCategory } from "../../../api/req/store/categorie";
+import { CategorieProps, updateCategory } from "../api/req/categorie";
 import { useNavigate } from "react-router-dom";
 import { CategoryFormData } from "../schema/CategorySchema";
 import queryClient from "../../../lib/reactquery/reactquery";

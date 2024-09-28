@@ -1,53 +1,172 @@
+import { useState } from "react";
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogClose, DialogFooter } from "../ui/dialog";
+import { Button } from "../ui/button";
+import { RadioGroup } from "../ui/radioGroup";
+import { CreditCard } from "lucide-react";
+import { BsPaypal } from "react-icons/bs";
+import { FaStripe } from "react-icons/fa";
 
-import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '../ui/dialog';
-import { Button } from '../ui/button';
-import { RadioGroup, RadioGroupItem } from '../ui/radioGroup';
-import { CreditCard } from 'lucide-react';
-import { BsPaypal } from 'react-icons/bs';
-import { FaStripe } from 'react-icons/fa';
+type PaymentDialogProps = {
+  children: React.ReactNode;
+  plan: string;
+  price: number;
+  onConfirm: (time: string, totalPrice: number) => void;
+};
 
-export default function PaymentDialog() {
-    return (
-        <Dialog>
-            <DialogTrigger asChild>
-                <Button className="mt-4">Assine Agora</Button>
-            </DialogTrigger>
-            <DialogContent>
-                <DialogHeader>
-                    <DialogTitle className="text-xl font-semibold">Escolha seu Plano</DialogTitle>
-                </DialogHeader>
-                <h1>Metodo de pagamento</h1>
-                <RadioGroup defaultValue="card" className="grid grid-cols-3 gap-4">
-                <label
-                    htmlFor="card"
-                    className="flex cursor-pointer flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground [&:has([data-state=checked])]:border-primary"
-                  >
-                    <RadioGroupItem value="card" id="card" className="sr-only" />
-                    <CreditCard className="mb-3 h-6 w-6" />
-                    Card
-                  </label>
-                  <label
-                        htmlFor="stripe"
-                        className="flex cursor-pointer flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground [&:has([data-state=checked])]:border-primary"
-                      >
-        <RadioGroupItem value="stripe" id="stripe" className="sr-only" />
-        <FaStripe className="mb-3 h-6 w-6" />
-        Stripe
-      </label>
-      <label
-        htmlFor="apple"
-        className="flex cursor-pointer flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground [&:has([data-state=checked])]:border-primary"
-      >
-        <RadioGroupItem value="apple" id="apple" className="sr-only" />
-        <BsPaypal className="mb-3 h-6 w-6" />
-        PayPal
-      </label>
-                </RadioGroup>
+export default function PaymentDialog({ children, plan, price, onConfirm }: PaymentDialogProps) {
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("card");
+  const [selectedRecurrence, setSelectedRecurrence] = useState("monthly");
+  const [subTotal, setSubTotal] = useState(price);
+  const [discount, setDiscount] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(price);
+  const [time, setTime] = useState("1 mês"); // Variável para armazenar o tempo
 
-                <DialogFooter>
-                    <Button>Pagar</Button>
-                </DialogFooter>
-            </DialogContent>
-        </Dialog>
-    );
+  const handleRecurrenceChange = (recurrence: string) => {
+    setSelectedRecurrence(recurrence);
+
+    let newSubTotal = price;
+    let newDiscount = 0;
+    let newTime = ""; // Nova variável para armazenar o tempo
+
+    // Cálculo do subtotal e desconto com base na recorrência
+    if (recurrence === "quarterly") {
+      newSubTotal = price * 3; // Trimestral: 3 meses
+      newDiscount = 0.15 * newSubTotal; // 15% de desconto
+      newTime = "3 meses"; // Define o tempo correspondente
+    } else if (recurrence === "annual") {
+      newSubTotal = price * 12; // Anual: 12 meses
+      newDiscount = 0.25 * newSubTotal; // 25% de desconto
+      newTime = "12 meses"; // Define o tempo correspondente
+    } else {
+      newSubTotal = price; // Mensal
+      newDiscount = 0; // Sem desconto
+      newTime = "1 mês"; // Define o tempo correspondente
+    }
+
+    // Atualiza o subtotal, desconto e total
+    const newTotalPrice = newSubTotal - newDiscount;
+    setSubTotal(newSubTotal);
+    setDiscount(newDiscount);
+    setTotalPrice(newTotalPrice);
+    setTime(newTime); // Atualiza o tempo
+  };
+
+  return (
+    <Dialog>
+      <DialogTrigger asChild>{children}</DialogTrigger>
+      <DialogContent className="max-w-lg p-6 rounded-lg shadow-lg">
+        <DialogHeader>
+          <DialogTitle className="text-2xl font-bold">{plan}</DialogTitle>
+        </DialogHeader>
+
+        <section className="mt-3">
+          <h1 className="font-semibold text-lg">Método de pagamento</h1>
+          <RadioGroup defaultValue="card" className="grid grid-cols-3 gap-5 mt-3">
+            <label
+              htmlFor="card"
+              className={`flex cursor-pointer flex-col items-center justify-between rounded-md p-4 border-2 ${
+                selectedPaymentMethod === "card" ? "border-primary bg-accent" : "border-muted bg-popover"
+              }`}
+              onClick={() => setSelectedPaymentMethod("card")}
+            >
+              <CreditCard className="mb-3 h-6 w-6" />
+              <span className="text-sm">Cartão</span>
+            </label>
+            <label
+              htmlFor="stripe"
+              className={`flex cursor-pointer flex-col items-center justify-between rounded-md p-4 border-2 ${
+                selectedPaymentMethod === "stripe" ? "border-primary bg-accent" : "border-muted bg-popover"
+              }`}
+              onClick={() => setSelectedPaymentMethod("stripe")}
+            >
+              <FaStripe className="mb-3 h-6 w-6 " />
+              <span className="text-sm">Stripe</span>
+            </label>
+            <label
+              htmlFor="paypal"
+              className={`flex cursor-pointer flex-col items-center justify-between rounded-md p-4 border-2 ${
+                selectedPaymentMethod === "paypal" ? "border-primary bg-accent" : "border-muted bg-popover"
+              }`}
+              onClick={() => setSelectedPaymentMethod("paypal")}
+            >
+              <BsPaypal className="mb-3 h-6 w-6" />
+              <span className="text-sm">PayPal</span>
+            </label>
+          </RadioGroup>
+        </section>
+
+        <section className="mt-3">
+          <h1 className="font-semibold text-lg">Recorrência de pagamento</h1>
+          <RadioGroup className="grid grid-cols-3 gap-4 mt-3" onValueChange={handleRecurrenceChange}>
+            <label
+              className={`flex cursor-pointer flex-col items-center justify-between rounded-md p-4 border-2 ${
+                selectedRecurrence === "monthly" ? "border-primary bg-accent" : "border-muted bg-popover"
+              }`}
+              onClick={() => handleRecurrenceChange("monthly")}
+            >
+              <div className="flex gap-1 items-end">
+                <h1 className="text-base font-semibold">Mensal</h1>
+              </div>
+              <p className="text-sm text-muted-foreground">A cada mês</p>
+            </label>
+
+            <label
+              className={`flex cursor-pointer flex-col items-center justify-between rounded-md p-4 border-2 ${
+                selectedRecurrence === "quarterly" ? "border-primary bg-accent" : "border-muted bg-popover"
+              }`}
+              onClick={() => handleRecurrenceChange("quarterly")}
+            >
+              <div className="flex gap-1 items-end">
+                <h1 className="text-base font-semibold">Trimestral</h1>
+                <span className="text-violet-600 font-bold text-sm mb-0.5">(-15%)</span>
+              </div>
+              <p className="text-sm text-muted-foreground">A cada 3 meses</p>
+            </label>
+
+            <label
+              className={`flex cursor-pointer flex-col items-center justify-between rounded-md p-4 border-2 ${
+                selectedRecurrence === "annual" ? "border-primary bg-accent" : "border-muted bg-popover"
+              }`}
+              onClick={() => handleRecurrenceChange("annual")}
+            >
+              <div className="flex gap-1 items-end">
+                <h1 className="text-base font-semibold">Anual</h1>
+                <span className="text-violet-600 font-bold text-sm mb-0.5">(-25%)</span>
+              </div>
+              <p className="text-sm text-muted-foreground">A cada 12 meses</p>
+            </label>
+          </RadioGroup>
+        </section>
+
+        <section className="mt-3">
+          <h1 className="font-semibold text-lg">Detalhes do checkout</h1>
+          <div className="flex justify-between items-center">
+            <h1 className="text-base font-medium">Subtotal:</h1>
+            <p>{subTotal.toFixed(2)}€</p>
+          </div>
+          <div className="flex justify-between items-center">
+            <h1 className="text-base font-medium">Desconto:</h1>
+            <p>{discount.toFixed(2)}€</p>
+          </div>
+        </section>
+
+        <hr />
+
+        <div className="flex justify-between items-center">
+          <h1 className="text-lg font-semibold">Valor total</h1>
+          <p>{totalPrice.toFixed(2)}€</p>
+        </div>
+        <DialogFooter>
+          <div className="grid grid-cols-2 gap-5">
+            <DialogClose asChild>
+              <Button variant={"outline"}>Fechar</Button>
+            </DialogClose>
+            <DialogClose asChild>
+              <Button onClick={() => onConfirm(time, totalPrice)}>Pagar {totalPrice.toFixed(2)}€</Button>
+            </DialogClose>
+          </div>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
 }

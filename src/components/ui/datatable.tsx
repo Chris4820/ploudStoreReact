@@ -11,7 +11,7 @@ import { CgSpinner } from "react-icons/cg";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import CardEmptyComponent from "../commons/CardEmpty";
 import Pagination from "./pagination";
-import { MetaProps } from "../../api/req/store/statistic";
+import { MetaProps } from "../../features/statistic/api/req/statistic";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -74,6 +74,7 @@ export function DataTable<TData, TValue>({
                 onClick={() => {
                     if (link) {
                       // Replace {id} in link with row.original.id
+                      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                       //@ts-expect-error
                       const updatedLink = link.replace('{id}', `${row.original.id}`);
                       navigate(updatedLink);

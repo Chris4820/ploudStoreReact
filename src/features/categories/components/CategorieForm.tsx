@@ -5,7 +5,7 @@ import CategorySchema, { CategoryFormData } from "../schema/CategorySchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSearchParams } from "react-router-dom";
 import { Textarea } from "../../../components/ui/textarea";
-import { useGetStoreInformation } from "../../../api/store/store";
+import { useGetStoreInformation } from "../../stores/api/store/store";
 import React, { useEffect, useMemo, useState } from "react";
 import { Switch } from "../../../components/ui/switch";
 
@@ -54,7 +54,7 @@ export default function CategoryForm({ initialData, onSubmit, mode, isLoading, c
   
       return () => subscription.unsubscribe();
     }
-  }, [initialData, watch]);
+  }, [initialData, watch, mode]);
 
 
   console.log(getValues());
@@ -107,7 +107,7 @@ export default function CategoryForm({ initialData, onSubmit, mode, isLoading, c
                 <div className="mt-5 flex justify-end">
                 {useMemo(() => {
                   return <SubmitButton isLoading={isLoading} text="Guardar alterações" enable={mode === "edit" && !isFormChanged} />;
-                }, [isLoading, isFormChanged])}
+                }, [isLoading, isFormChanged, mode])}
                 
             </div>
             </div>

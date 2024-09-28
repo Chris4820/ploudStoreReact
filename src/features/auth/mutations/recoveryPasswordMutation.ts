@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom"
-import { recoveryPassword } from "../../../api/req/auth";
+import { recoveryPassword } from "../api/req/auth";
 import { toast } from "sonner";
 import type { AxiosResponse } from "axios";
 import type { recoveryPasswordSchemaFormData } from "../schemas/RecoveryPasswordSchema";

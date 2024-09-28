@@ -3,7 +3,7 @@
 
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { createCategorie } from "../../../api/req/store/categorie";
+import { createCategorie, type CategorieProps } from "../api/req/categorie";
 import { useNavigate } from "react-router-dom";
 import queryClient from "../../../lib/reactquery/reactquery";
 import { CategoryFormData } from "../schema/CategorySchema";
@@ -25,7 +25,7 @@ export const useCreateCategory = () => {
           visible: variables.visible, // Data de expiração
         };
 
-        queryClient.setQueryData(['categories', variables.parentId], (oldData: any) => {
+        queryClient.setQueryData(['categories', variables.parentId], (oldData: CategorieProps[]) => {
           return oldData ? [newCategory, ...oldData] : [newCategory];
         });
       }

@@ -5,31 +5,30 @@ import {
   PointerSensor,
   useSensor,
   useSensors,
+  type Active,
+  type Over,
 } from "@dnd-kit/core";
 import {
-  useSortable,
   SortableContext,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
-import { Button } from "../../../components/ui/button";
-import { RxDragHandleHorizontal } from "react-icons/rx";
-import { useGetProducts } from "../../../api/store/store/product";
-import { ProductProps } from "../../../api/req/store/categorie";
+import { useGetProducts } from "../api/store/product";
 import { useNavigate } from "react-router-dom";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "../../../components/ui/dropdown-menu";
-import { IoSettingsOutline } from "react-icons/io5";
 import CardEmptyComponent from "../../../components/commons/CardEmpty";
-import { orderProducts, ProductsProps } from "../../../api/req/store/products";
-import { useMutation } from "@tanstack/react-query";
+import { useUpdateOrderProduct } from "../mutation/UpdateOrderProductMutation";
+import LoadingComponent from "../../../containers/LoadingComponent";
+import type { ProductsProps } from "../api/req/products";
 import queryClient from "../../../lib/reactquery/reactquery";
+import DraggableComponent from "../../../components/DraggableComponent";
 
 export function ProductSection({categoryId} : {categoryId: number }) {
   const [items, setItems] = useState<ProductsProps[]>([]);
-
-  const [isMove, setIsMove] = useState(false);
   const sensors = useSensors(useSensor(PointerSensor));
   const { data: products, isLoading } = useGetProducts(categoryId);
+
+  const { mutate: updateOrderProduct } = useUpdateOrderProduct();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (products && products.length > 0) {
@@ -38,41 +37,34 @@ export function ProductSection({categoryId} : {categoryId: number }) {
     
   }, [products]);
 
-  const handleDragEnd = ({ active, over }: any) => {
-    if (active.id !== over.id) {
-      if(!isMove) {
-        setIsMove(true);
-      } 
-      const newItems = Array.from(items);
-      const oldIndex = items.findIndex((item) => item.id === active.id);
-      const newIndex = items.findIndex((item) => item.id === over.id);
-      const [movedItem] = newItems.splice(oldIndex, 1);
-      newItems.splice(newIndex, 0, movedItem);
-      setItems(newItems);
+  const handleDragEnd = ({ active, over }: { active: Active | null; over: Over | null }) => {
+    if(active && over) {
+      if (active.id !== over.id) {
+        const newItems = Array.from(items);
+        const oldIndex = items.findIndex((item) => item.id === active.id);
+        const newIndex = items.findIndex((item) => item.id === over.id);
+        const [movedItem] = newItems.splice(oldIndex, 1);
+        newItems.splice(newIndex, 0, movedItem);
+        setItems(newItems);
+        queryClient.setQueryData(['products', categoryId], newItems);
+        
+
+        const productsOrder = newItems.map((item) => item.id);
+        updateOrderProduct(productsOrder);
+      }
     }
   };
 
-  async function updateOrderProducts() {
-    const products = items.map((item) => {
-      return item.id
-    })
-    updateOrder(products);
-    setIsMove(false);
-
-  }
-
-  const { mutate: updateOrder } = useMutation({
-    mutationFn: orderProducts,
-    onSuccess: () => {
-      queryClient.invalidateQueries({queryKey: ['products', categoryId]})
-    }
-  });
-
   if(isLoading) {
-    return <h1>Aguarde...</h1>
+    return <LoadingComponent/>
   }
+  
   if(!products || products.length === 0) {
     return <CardEmptyComponent title="Sem produtos" description="Parece que não existe produtos"/>
+  }
+
+  function goEditPage(id: number) {
+    return navigate(`/dashboard/product/edit/${id}`)
   }
 
   return (
@@ -88,83 +80,12 @@ export function ProductSection({categoryId} : {categoryId: number }) {
         >
           <ul className="space-y-1">
             {items.map((item) => (
-              <DraggableItem item={item} key={item.id} categoryId={categoryId}/>
+              <DraggableComponent item={item} key={item.id} onClickEdit={(id: number) => goEditPage(id)}/>
             ))}
           </ul>
         </SortableContext>
       </DndContext>
-      {isMove && (
-        <div className="mt-4 flex w-full justify-end items-center">
-          <Button onClick={() => updateOrderProducts()}>Salvar posições</Button>
-        </div>
-      )}
       
     </section>
   );
 }
-
-const DraggableItem = ({ item }: { item: ProductsProps, categoryId: number }) => {
-  const navigate = useNavigate();
-  const {
-    attributes,
-    isDragging,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-  } = useSortable({
-    id: item.id,
-  });
-
-  const style = {
-    transform: CSS.Translate.toString(transform),
-    opacity: isDragging ? 0.4 : 1,
-    transition
-  };
-
-  return (
-    <li
-      key={item.id}
-      data-dnd-id={item.id}
-      ref={setNodeRef}
-      style={style}
-      className={`flex justify-between p-3 w-full bg-muted items-center rounded-md ${
-        isDragging && "shadow-lg"
-      }`}
-    >
-      <div className="flex gap-2 w-[80%] items-center">
-        <div className="w-auto flex items-center gap-2">
-          <RxDragHandleHorizontal {...listeners} {...attributes} className={`cursor-grab ${isDragging && "cursor-grabbing"}`} size={26} />
-          <div className="flex items-center justify-center rounded-md">
-          {item.visible ? (
-                            <h1 className="px-1.5 mb-0.5 text-sm py-0.5 border border-green-700 text-green-700 font-semibold rounded-md">Ativado</h1>
-                        ) : (
-                            <h1 className="px-1.5 mb-0.5 text-sm py-0.5 border border-red-700 text-red-700 font-semibold rounded-md">Desativado</h1>
-                        )}
-          </div>
-        </div>
-        <div className="w-full flex justify-start items-center">
-              <span className="ml-1 mb-">{item.name}</span>
-            </div>
-      </div>
-      
-      <div className="flex gap-2 items-center">
-      <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant={"ghost"} size={"icon"}>
-          <IoSettingsOutline size={26}/>
-        </Button>
-        
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56">
-        <label className="p-2 font-semibold text-base">Opções</label>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem onSelect={() => navigate(`/dashboard/product/edit/${item.id}`)}>Editar</DropdownMenuItem>
-        </DropdownMenuGroup>
-      </DropdownMenuContent>
-    </DropdownMenu>
-      </div>
-    </li>
-  );
-};

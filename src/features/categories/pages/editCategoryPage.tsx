@@ -1,9 +1,7 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { useGetCategory } from "../../../api/store/store/categorie";
+import { useParams } from "react-router-dom";
+import { useGetCategory } from "../api/store/categorie";
 import NotFoundComponent from "../../../containers/404Component";
 import HeaderSection from "../../../components/commons/Header";
-import { useEffect } from "react";
-import { toast } from "sonner";
 import LoadingComponent from "../../../containers/LoadingComponent";
 import { useEditCategory } from "../mutation/editCategoryMutation";
 import { useDeleteCategory } from "../mutation/deleteCategoryMutation";
@@ -19,16 +17,6 @@ import { Button } from "../../../components/ui/button";
 export default function EditCategoryPage() {
 
     const { id } = useParams();
-    const navigate = useNavigate();
-
-
-    useEffect(() => {
-        // Valida se o categoryId é um número inteiro válido
-        if (!categoryId || !/^\d+$/.test(id)) {
-            toast.error("ID inválido!")
-            navigate("/dashboard/categories");
-        }
-      }, [id, navigate]);
 
       const categoryId = parseInt(id as string, 10);
     
@@ -43,7 +31,7 @@ export default function EditCategoryPage() {
 
     const parentId = category?.parentId ?? undefined;
 
-    const { mutate: deleteCategory, isPending: deletePending } = useDeleteCategory(parentId, categoryId);
+    const { mutate: deleteCategory, isPending: deletePending } = useDeleteCategory(Number(parentId), categoryId);
 
     if(isLoading) {
         return <LoadingComponent/>
@@ -57,7 +45,7 @@ export default function EditCategoryPage() {
 
     return(
         <>
-        <HeaderSection title="Editar categoria"/>
+        <HeaderSection backLink="../" title="Editar categoria" description="Edite a categoria aqui!"/>
         <CategoryForm mode="edit" isLoading={isPending} onSubmit={onSubmitEditCategory} initialData={category}>
             <div className="p-5 border rounded-lg flex justify-between items-center">
                 <div>

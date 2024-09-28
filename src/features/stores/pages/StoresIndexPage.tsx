@@ -6,10 +6,19 @@ import UserMenu from "../../../layouts/dashboard/UserMenu";
 import StoreSection from "../components/storeSection";
 import InviteStoreSection from "../components/inviteStoreSection";
 import SubStoreSection from "../components/subStoreSection";
+import { useEffect } from "react";
+import queryClient from "../../../lib/reactquery/reactquery";
 
 
 export default function StoresIndexPage() {
   const { data: user } = useGetUserInformation(); 
+
+
+
+  useEffect(() => {
+    console.log("Limpo");
+    queryClient.invalidateQueries();
+  }, [])
   
 
     return(
@@ -54,7 +63,6 @@ export default function StoresIndexPage() {
                 </Tabs>
             </div>
         </div>
-
       </div>
     </section>
     )

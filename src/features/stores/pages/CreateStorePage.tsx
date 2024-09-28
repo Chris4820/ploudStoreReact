@@ -6,7 +6,7 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
-import { type createStoreProps } from "../../../api/req/store";
+import { type createStoreProps } from "../api/req/store";
 import { Textarea } from "../../../components/ui/textarea";
 import createStoreSchema, { type CreateStoreFormData } from "../schema/createStoreSchema";
 import { useCreateStore } from "../mutations/createStoreMutation";
@@ -122,7 +122,7 @@ export default function CreateStorePage() {
             </div>
 
             <div className="flex justify-end items-center">
-                <SubmitButton isLoading={isPending} text="Criar loja"/>
+                <SubmitButton isLoading={isPending} enable={false} text="Criar loja"/>
             </div>
             
         </form>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { useGetCategoryData } from "../../../api/store/store/statistic";
+import { useGetCategoryData } from "../api/store/statistic";
 import HeaderSection from "../../../components/commons/Header";
 import { DatePickerWithRange } from "../../../components/ui/datepickerWithRange";
 import { Button } from "../../../components/ui/button";
@@ -32,7 +32,7 @@ export default function CategoriesPage() {
     }
     return(
         <>
-            <HeaderSection title="Categorias mais usadas" description="Consulte aqui as categorias mais populares de sua loja!!" backLink/>
+            <HeaderSection title="Categorias mais usadas" description="Consulte aqui as categorias mais populares de sua loja!!" backLink="../"/>
             <div className="flex gap-5 items-center flex-wrap">
 
                 <DatePickerWithRange/>

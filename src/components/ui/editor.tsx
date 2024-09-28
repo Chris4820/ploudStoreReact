@@ -1,13 +1,13 @@
-import React, { useRef, useCallback } from "react";
+import { useRef, useCallback, forwardRef } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 interface EditorComponentProps {
-  value: string;
-  onEditorChange: (content: string) => void;
+  value?: string;
+  onEditorChange?: (content: string) => void;
 }
 
-const EditorComponent: React.FC<EditorComponentProps> = ({ value, onEditorChange }) => {
+const EditorComponent = forwardRef<ReactQuill, EditorComponentProps>(({ value, onEditorChange }, ref) => {
   const quillRef = useRef<ReactQuill | null>(null);
 
   const insertImage = useCallback(() => {
@@ -15,7 +15,7 @@ const EditorComponent: React.FC<EditorComponentProps> = ({ value, onEditorChange
     if (url && quillRef.current) {
       const editor = quillRef.current.getEditor();
       const range = editor.getSelection();
-      
+
       if (range) {
         // Adiciona a imagem na posição da seleção ou no final do editor
         editor.insertEmbed(range.index, "image", url);
@@ -32,7 +32,7 @@ const EditorComponent: React.FC<EditorComponentProps> = ({ value, onEditorChange
     if (url && quillRef.current) {
       const editor = quillRef.current.getEditor();
       const range = editor.getSelection();
-      
+
       if (range) {
         // Adiciona o link na posição da seleção ou no final do editor
         editor.formatText(range.index, range.length, "link", url);
@@ -61,7 +61,14 @@ const EditorComponent: React.FC<EditorComponentProps> = ({ value, onEditorChange
 
   return (
     <ReactQuill
-      ref={quillRef}
+      ref={(instance) => {
+        quillRef.current = instance;
+        if (typeof ref === "function") {
+          ref(instance);
+        } else if (ref) {
+          ref.current = instance;
+        }
+      }}
       value={value}
       onChange={onEditorChange}
       modules={modules}
@@ -78,6 +85,8 @@ const EditorComponent: React.FC<EditorComponentProps> = ({ value, onEditorChange
       placeholder="Write something awesome..."
     />
   );
-};
+});
+
+EditorComponent.displayName = 'EditorComponent';
 
 export default EditorComponent;

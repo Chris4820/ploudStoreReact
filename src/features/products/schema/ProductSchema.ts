@@ -1,5 +1,14 @@
 import { z } from 'zod';
 
+
+
+// Define o esquema para os metadados do arquivo
+const FileMetadataSchema = z.object({
+    size: z.number().positive("O tamanho deve ser positivo"),
+    type: z.string().min(1, "O tipo deve ser uma string não vazia")
+  });
+
+
 // Definindo o esquema Zod
 const ProductSchema = z.object({
     id: z.number().optional(),
@@ -7,8 +16,18 @@ const ProductSchema = z.object({
     description: z.string().min(6, 'Mínimo de 6 caracteres'),
     categoryId: z.number(),
     price: z.preprocess((val) => parseFloat(val as string), z.number().positive("O preço deve ser um número positivo")),
-    imageUrl: z.any().optional(),  // Changed from string to any to accept File
+    stock: z.preprocess((val) => parseFloat(val as string), z.number()),
+    imageUrl: z.union([
+        z.string().nullable(),  // Para a URL da imagem
+        FileMetadataSchema // Para os metadados do arquivo
+      ]).nullable(), 
     visible: z.boolean(),
+    expire_days: z.preprocess((val) => parseFloat(val as string), z.number().min(0, "No minimo 0")),
+    commands: z.array(z.object( {
+      command: z.string().min(3, "O comando é obrigatório"),
+      type: z.enum(['EXPIRE', 'PURCHASE']),
+      offline_execute: z.boolean(),
+    })), // Corrigido para aceitar um array de strings
 });
 
 // Exportando o tipo inferido

@@ -8,7 +8,7 @@ import { Calendar } from "./calendar";
 import { Checkbox } from "./checkbox";
 
 type DatePickerComponentProps = {
-  initialDate?: string | null; // Adicione a prop inicial
+  initialDate: string | null; // Adicione a prop inicial
   onChange: (date: string | null) => void;
 };
 

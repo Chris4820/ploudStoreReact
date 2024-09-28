@@ -1,5 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table"
-import type { CustomersData } from "../../../api/req/store/statistic"
+import type { CustomersData } from "../api/req/statistic"
 
 export const columnsCustomer: ColumnDef<CustomersData>[] = [
     {

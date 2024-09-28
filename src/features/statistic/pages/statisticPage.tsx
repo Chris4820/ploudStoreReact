@@ -1,5 +1,5 @@
 import { GiMoneyStack } from "react-icons/gi";
-import { useGetCategoryData, useGetTopCouponData, useGetTopCustomersData } from "../../../api/store/store/statistic";
+import { useGetCategoryData, useGetTopCouponData, useGetTopCustomersData } from "../api/store/statistic";
 import HeaderSection from "../../../components/commons/Header";
 import Cards from "../../../components/dashboard/DashboardCard";
 import CardSection from "../../../components/commons/CardSections";

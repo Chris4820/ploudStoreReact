@@ -10,7 +10,7 @@ export const useChangeNameUser = () => {
 
   return useMutation({
     mutationFn: (name: string) => changeNameUser(name),
-    onSuccess: (data) => {
+    onSuccess: () => {
       toast.success("Clonado com sucesso");
     }
   }

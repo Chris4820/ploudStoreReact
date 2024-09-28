@@ -5,20 +5,28 @@ import HeaderSection from "../../../components/commons/Header";
 import Cards from "../../../components/dashboard/DashboardCard";
 import { CgSpinner } from "react-icons/cg";
 import CardSection from "../../../components/commons/CardSections";
-import SalesAreaChart from "../components/graphicLast7Days";
-import NotificationComponentHome from "../../../components/NotificationsComponent";
 import { DataTable } from "../../../components/ui/datatable";
-import { useGetRevenueSummary } from "../../../api/store/store";
-import { useGetPayments } from "../../../api/store/store/payments";
+import { useGetRevenueSummary } from "../../stores/api/store/store";
+import { useGetPayments } from "../../payments/api/store/payments";
+import { useGetGraphData, useGetNotifications } from "../api/store/store";
+import LoadingComponent from "../../../containers/LoadingComponent";
+import CardEmptyComponent from "../../../components/commons/CardEmpty";
+import { Coins, Goal } from "lucide-react";
+import ChartComponent from "../../../components/ui/ChartComponent";
 
 
 
 export default function DashboardHomePage() {
   const { t } = useTranslation();
 
+
+    const { data: graph = [], isLoading: graphLoading} = useGetGraphData();
+
     const { data : revenueSummary, isLoading: revenueLoading } = useGetRevenueSummary();
 
     const {data: payments, isLoading: paymentsLoading } = useGetPayments();
+
+    const { data: notifications = [], isLoading: notificationsLoading } = useGetNotifications(); 
 
     return(
         <>
@@ -50,14 +58,48 @@ export default function DashboardHomePage() {
           />
           
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-5">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mt-5">
                 <div className="col-span-2">
-                <CardSection title="Vendas dos últimos 7 dias">
-                    <SalesAreaChart/>
+                <CardSection title="Vendas dos últimos 7 dias" className="h-[250px]">
+                  {graphLoading ? (
+                    <LoadingComponent/>
+                  ) : graph && graph.length > 0 ? (
+                      <ChartComponent graph={graph}/>
+                  ) : (
+                      <CardEmptyComponent title="Sem dados" description="Não foram encontrados dados"/>
+                  )}
+                  
                 </CardSection>
                 </div>
-                <div>
-                  <NotificationComponentHome/>
+                <div className="col-span-1">
+                  <CardSection title="Notificações Gerais">
+                  {notificationsLoading ? (
+                      <LoadingComponent />
+                    ) : notifications && notifications.length > 0 ? (
+                      <ul className="mt-[-10px] space-y-1">
+                        {notifications.map((notification, index) => (
+                          <>
+                          <li key={index} className="flex justify-start gap-5 items-center">
+                            {notification.type === "GOAL" ? (
+                              <Goal size={26} className="text-violet-600"/>
+                            ) : (
+                              <Coins/>
+                            )}
+                            <div className="text-start">
+                              <h1 className="font-semibold text-base">{notification.title}</h1>
+                              <p className="text-sm">{notification.description}</p>
+                            </div>
+                          </li>
+                          <hr/>
+                          </>
+                        ))}
+                      </ul>
+                    ) : (
+                      <CardEmptyComponent 
+                        title="Sem notificações"
+                        description="Parece que ainda não tem nenhuma notificação"/>
+                    )}
+                  </CardSection>
                 </div>
             </div>
             <div className="mt-5">
