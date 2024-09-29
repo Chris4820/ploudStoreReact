@@ -65,10 +65,14 @@ export default function PaymentDialog({ children, plan, price }: PaymentDialogPr
         plan,
         totalPrice,
       })
-      if(response) {
-        toast("Sucesso");
-        console.log(response);
-      }
+      // Verifica se obteve uma resposta com o approvalLink
+        if (response.data.approvalLink) {
+          // Exibe uma notificação de sucesso
+          toast.success("Redirecionando para o PayPal...");
+
+          // Redireciona o cliente para o link de aprovação do PayPal
+          window.location.href = response.data.approvalLink;
+        }
     } catch (error) {
       console.log("Erro no front: ", error)
     } finally {

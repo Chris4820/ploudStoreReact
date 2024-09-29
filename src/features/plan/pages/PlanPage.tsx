@@ -37,7 +37,7 @@ const [daysLeft, setDaysLeft] = useState<number | null>();
   }, [plan]);
 
 
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams(); // Agora usamos setSearchParams para atualizar os parâmetros
 
   useEffect(() => {
     // Obtém o parâmetro 'paymentStatus' da URL
@@ -49,9 +49,11 @@ const [daysLeft, setDaysLeft] = useState<number | null>();
       } else if (paymentStatus === 'error') {
         toast.error('Houve um problema com o pagamento. Tente novamente.');
       }        
-      searchParams.delete("paymentStatus");
+      // Remover o parâmetro 'paymentStatus' da URL
+      searchParams.delete('paymentStatus'); 
+      setSearchParams(searchParams); // Atualiza a URL sem o parâmetro 'paymentStatus'
     }
-  }, [searchParams]);
+  }, [searchParams, setSearchParams]);
 
 
   if(planLoading) {
