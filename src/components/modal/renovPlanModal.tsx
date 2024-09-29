@@ -10,7 +10,7 @@ type PaymentDialogProps = {
   children: React.ReactNode;
   plan: string;
   price: number;
-  onConfirm: (time: string, totalPrice: number) => void;
+  onConfirm: (plan: string, time: string, totalPrice: number) => void;
 };
 
 export default function PaymentDialog({ children, plan, price, onConfirm }: PaymentDialogProps) {
@@ -162,7 +162,7 @@ export default function PaymentDialog({ children, plan, price, onConfirm }: Paym
               <Button variant={"outline"}>Fechar</Button>
             </DialogClose>
             <DialogClose asChild>
-              <Button onClick={() => onConfirm(time, totalPrice)}>Pagar {totalPrice.toFixed(2)}€</Button>
+              <Button onClick={() => onConfirm(plan,time, totalPrice)}>Pagar {totalPrice.toFixed(2)}€</Button>
             </DialogClose>
           </div>
         </DialogFooter>

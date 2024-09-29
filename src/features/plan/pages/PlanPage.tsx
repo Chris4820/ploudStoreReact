@@ -39,10 +39,11 @@ const [daysLeft, setDaysLeft] = useState<number | null>();
 
 
 
-  async function createOrder(time: string, totalPrice: number) {
+  async function createOrder(time: string, plan: string, totalPrice: number) {
     try {
       const response = await axiosStore.post("/order", {
         time,
+        plan,
         totalPrice,
       })
       if(response) {
@@ -296,7 +297,6 @@ const [daysLeft, setDaysLeft] = useState<number | null>();
                   <Button className="px-10">{plan?.plan === "premium" ? "Renovar" : "Atualizar"}</Button>
                 </PaymentDialog>
               </div>
-
           </div>
       </section>
     </>
