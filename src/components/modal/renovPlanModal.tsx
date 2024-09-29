@@ -193,7 +193,7 @@ export default function PaymentDialog({ children, plan, price }: PaymentDialogPr
               <SubmitButton
                isLoading={loading}
                enable={false}
-               text={`Pagar {totalPrice.toFixed(2)}€`} 
+               text={`Pagar ${totalPrice.toFixed(2)}€`} 
                onClick={() => createOrder(plan,time, totalPrice)}>
               </SubmitButton>
           </div>
