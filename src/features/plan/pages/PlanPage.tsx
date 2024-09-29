@@ -6,7 +6,7 @@ import { Button } from "../../../components/ui/button";
 import { useEffect, useState } from "react";
 import PaymentDialog from "../../../components/modal/renovPlanModal";
 import { toast } from "sonner";
-import axiosStore from "../../../lib/axios/axiosStore";
+import { useSearchParams } from "react-router-dom";
 
 
 
@@ -37,23 +37,21 @@ const [daysLeft, setDaysLeft] = useState<number | null>();
   }, [plan]);
 
 
+  const [searchParams] = useSearchParams();
 
-
-  async function createOrder(time: string, plan: string, totalPrice: number) {
-    try {
-      const response = await axiosStore.post("/order", {
-        time,
-        plan,
-        totalPrice,
-      })
-      if(response) {
-        toast("Sucesso");
-        console.log(response);
-      }
-    } catch (error) {
-      console.log("Erro no front: ", error)
+  useEffect(() => {
+    // Obtém o parâmetro 'paymentStatus' da URL
+    const paymentStatus = searchParams.get('paymentStatus');
+      if(paymentStatus) {
+      // Verifica se o pagamento foi bem-sucedido e exibe um toast
+      if (paymentStatus === 'success') {
+        toast.success('Pagamento concluído com sucesso! O plano será aplicado em alguns minutos.');
+      } else if (paymentStatus === 'error') {
+        toast.error('Houve um problema com o pagamento. Tente novamente.');
+      }        
+      searchParams.delete("paymentStatus");
     }
-  }
+  }, [searchParams]);
 
 
   if(planLoading) {
@@ -217,7 +215,7 @@ const [daysLeft, setDaysLeft] = useState<number | null>();
                 </li>
               </ul>
               <div className="mt-10 flex justify-center">
-              <PaymentDialog key={"standard"} plan="Plano Premium" price={3.99} onConfirm={() => toast("Confirmado")}>
+              <PaymentDialog key={"standard"} plan="Plano Premium" price={3.99}>
                 <Button className="px-10" variant={"outline"}>{plan?.plan === "standard" ? "Renovar" : "Atualizar"}</Button>
               </PaymentDialog>
               </div>
@@ -293,7 +291,7 @@ const [daysLeft, setDaysLeft] = useState<number | null>();
               </ul>
 
               <div className="mt-10 flex justify-center">
-                <PaymentDialog key={"premium"} plan="Plano Premium" price={9.99} onConfirm={createOrder}>
+                <PaymentDialog key={"premium"} plan="Plano Premium" price={9.99}>
                   <Button className="px-10">{plan?.plan === "premium" ? "Renovar" : "Atualizar"}</Button>
                 </PaymentDialog>
               </div>

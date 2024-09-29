@@ -5,21 +5,26 @@ import { RadioGroup } from "../ui/radioGroup";
 import { CreditCard } from "lucide-react";
 import { BsPaypal } from "react-icons/bs";
 import { FaStripe } from "react-icons/fa";
+import axiosStore from "../../lib/axios/axiosStore";
+import { toast } from "sonner";
+import SubmitButton from "../commons/buttons/SubmitButtonComponent";
 
 type PaymentDialogProps = {
   children: React.ReactNode;
   plan: string;
   price: number;
-  onConfirm: (plan: string, time: string, totalPrice: number) => void;
 };
 
-export default function PaymentDialog({ children, plan, price, onConfirm }: PaymentDialogProps) {
+export default function PaymentDialog({ children, plan, price }: PaymentDialogProps) {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("card");
   const [selectedRecurrence, setSelectedRecurrence] = useState("monthly");
   const [subTotal, setSubTotal] = useState(price);
   const [discount, setDiscount] = useState(0);
   const [totalPrice, setTotalPrice] = useState(price);
   const [time, setTime] = useState("1 mês"); // Variável para armazenar o tempo
+
+
+  const [loading, setLoading] = useState(false);
 
   const handleRecurrenceChange = (recurrence: string) => {
     setSelectedRecurrence(recurrence);
@@ -50,6 +55,26 @@ export default function PaymentDialog({ children, plan, price, onConfirm }: Paym
     setTotalPrice(newTotalPrice);
     setTime(newTime); // Atualiza o tempo
   };
+
+
+  async function createOrder(time: string, plan: string, totalPrice: number) {
+    try {
+      setLoading(true);
+      const response = await axiosStore.post("/order", {
+        time,
+        plan,
+        totalPrice,
+      })
+      if(response) {
+        toast("Sucesso");
+        console.log(response);
+      }
+    } catch (error) {
+      console.log("Erro no front: ", error)
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <Dialog>
@@ -161,9 +186,11 @@ export default function PaymentDialog({ children, plan, price, onConfirm }: Paym
             <DialogClose asChild>
               <Button variant={"outline"}>Fechar</Button>
             </DialogClose>
-            <DialogClose asChild>
-              <Button onClick={() => onConfirm(plan,time, totalPrice)}>Pagar {totalPrice.toFixed(2)}€</Button>
-            </DialogClose>
+              <SubmitButton
+               isLoading={loading} 
+               text={`Pagar {totalPrice.toFixed(2)}€`} 
+               onClick={() => createOrder(plan,time, totalPrice)}>
+              </SubmitButton>
           </div>
         </DialogFooter>
       </DialogContent>
