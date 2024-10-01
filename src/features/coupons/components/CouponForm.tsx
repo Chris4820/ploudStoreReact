@@ -47,7 +47,7 @@ export default function CouponForm({ initialData, onSubmit, mode, isLoading }: C
   const handleGenerateDiscount = useCallback(() => {
     const randomCoupon = nanoid(12);
     setValue("code", randomCoupon);
-  }, []);
+  }, [setValue]);
 
   const handleEnableProducts = useCallback((value: boolean) => {
     // Define o valor para "isUsableInAllStores" com base no valor passado
@@ -81,6 +81,9 @@ export default function CouponForm({ initialData, onSubmit, mode, isLoading }: C
       return () => subscription.unsubscribe();
     }
   }, [initialData, watch, mode]);
+
+
+  
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="border rounded-lg p-5">
