@@ -217,7 +217,7 @@ const [daysLeft, setDaysLeft] = useState<number | null>();
                 </li>
               </ul>
               <div className="mt-10 flex justify-center">
-              <PaymentDialog key={"standard"} plan="Plano Premium" price={3.99}>
+              <PaymentDialog key={"standard"} plan="Standard" planKey="standard" price={3.99}>
                 <Button className="px-10" variant={"outline"}>{plan?.plan === "standard" ? "Renovar" : "Atualizar"}</Button>
               </PaymentDialog>
               </div>
@@ -293,7 +293,7 @@ const [daysLeft, setDaysLeft] = useState<number | null>();
               </ul>
 
               <div className="mt-10 flex justify-center">
-                <PaymentDialog key={"premium"} plan="Plano Premium" price={9.99}>
+                <PaymentDialog key={"premium"} plan="Premium" planKey="premium" price={9.99}>
                   <Button className="px-10">{plan?.plan === "premium" ? "Renovar" : "Atualizar"}</Button>
                 </PaymentDialog>
               </div>

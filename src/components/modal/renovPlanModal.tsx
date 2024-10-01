@@ -13,9 +13,10 @@ type PaymentDialogProps = {
   children: React.ReactNode;
   plan: string;
   price: number;
+  planKey: string
 };
 
-export default function PaymentDialog({ children, plan, price }: PaymentDialogProps) {
+export default function PaymentDialog({ children, plan, price, planKey }: PaymentDialogProps) {
   const [selectedGateway, setSelectedGateway] = useState("card");
   const [selectedPeriod, setSelectedPeriod] = useState("monthly");
   const [subTotal, setSubTotal] = useState(price);
@@ -79,7 +80,7 @@ export default function PaymentDialog({ children, plan, price }: PaymentDialogPr
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="max-w-lg p-6 rounded-lg shadow-lg">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold">{plan}</DialogTitle>
+          <DialogTitle className="text-2xl font-bold">Plano {plan}</DialogTitle>
         </DialogHeader>
 
         <section className="mt-3">
@@ -188,7 +189,7 @@ export default function PaymentDialog({ children, plan, price }: PaymentDialogPr
                isLoading={loading}
                enable={false}
                text={`Pagar ${totalPrice.toFixed(2)}€`} 
-               onClick={() => createOrder(plan, selectedPeriod, selectedGateway)}>
+               onClick={() => createOrder(planKey, selectedPeriod, selectedGateway)}>
               </SubmitButton>
           </div>
         </DialogFooter>
