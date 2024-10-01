@@ -36,7 +36,7 @@ export default function PaymentDialog({ children, plan, price, planKey }: Paymen
     if (recurrence === "quarterly") {
       newSubTotal = price * 3; // Trimestral: 3 meses
       newDiscount = 0.15 * newSubTotal; // 15% de desconto
-    } else if (recurrence === "annual") {
+    } else if (recurrence === "yearly") {
       newSubTotal = price * 12; // Anual: 12 meses
       newDiscount = 0.25 * newSubTotal; // 25% de desconto
     } else {
