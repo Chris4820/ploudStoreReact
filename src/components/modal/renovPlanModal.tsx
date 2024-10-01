@@ -16,36 +16,31 @@ type PaymentDialogProps = {
 };
 
 export default function PaymentDialog({ children, plan, price }: PaymentDialogProps) {
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("card");
-  const [selectedRecurrence, setSelectedRecurrence] = useState("monthly");
+  const [selectedGateway, setSelectedGateway] = useState("card");
+  const [selectedPeriod, setSelectedPeriod] = useState("monthly");
   const [subTotal, setSubTotal] = useState(price);
   const [discount, setDiscount] = useState(0);
   const [totalPrice, setTotalPrice] = useState(price);
-  const [time, setTime] = useState("1 mês"); // Variável para armazenar o tempo
 
 
   const [loading, setLoading] = useState(false);
 
   const handleRecurrenceChange = (recurrence: string) => {
-    setSelectedRecurrence(recurrence);
+    setSelectedPeriod(recurrence);
 
     let newSubTotal = price;
     let newDiscount = 0;
-    let newTime = ""; // Nova variável para armazenar o tempo
 
     // Cálculo do subtotal e desconto com base na recorrência
     if (recurrence === "quarterly") {
       newSubTotal = price * 3; // Trimestral: 3 meses
       newDiscount = 0.15 * newSubTotal; // 15% de desconto
-      newTime = "3 meses"; // Define o tempo correspondente
     } else if (recurrence === "annual") {
       newSubTotal = price * 12; // Anual: 12 meses
       newDiscount = 0.25 * newSubTotal; // 25% de desconto
-      newTime = "12 meses"; // Define o tempo correspondente
     } else {
       newSubTotal = price; // Mensal
       newDiscount = 0; // Sem desconto
-      newTime = "1 mês"; // Define o tempo correspondente
     }
 
     // Atualiza o subtotal, desconto e total
@@ -53,17 +48,16 @@ export default function PaymentDialog({ children, plan, price }: PaymentDialogPr
     setSubTotal(newSubTotal);
     setDiscount(newDiscount);
     setTotalPrice(newTotalPrice);
-    setTime(newTime); // Atualiza o tempo
   };
 
 
-  async function createOrder(time: string, plan: string, totalPrice: number) {
+  async function createOrder(plan: string, period: string, gateway: string) {
     try {
       setLoading(true);
       const response = await axiosStore.post("/order", {
-        time,
+        period,
         plan,
-        totalPrice,
+        gateway,
       })
       // Verifica se obteve uma resposta com o approvalLink
         if (response.data.approvalLink) {
@@ -94,9 +88,9 @@ export default function PaymentDialog({ children, plan, price }: PaymentDialogPr
             <label
               htmlFor="card"
               className={`flex cursor-pointer flex-col items-center justify-between rounded-md p-4 border-2 ${
-                selectedPaymentMethod === "card" ? "border-primary bg-accent" : "border-muted bg-popover"
+                selectedGateway === "card" ? "border-primary bg-accent" : "border-muted bg-popover"
               }`}
-              onClick={() => setSelectedPaymentMethod("card")}
+              onClick={() => setSelectedGateway("card")}
             >
               <CreditCard className="mb-3 h-6 w-6" />
               <span className="text-sm">Cartão</span>
@@ -104,9 +98,9 @@ export default function PaymentDialog({ children, plan, price }: PaymentDialogPr
             <label
               htmlFor="stripe"
               className={`flex cursor-pointer flex-col items-center justify-between rounded-md p-4 border-2 ${
-                selectedPaymentMethod === "stripe" ? "border-primary bg-accent" : "border-muted bg-popover"
+                selectedGateway === "stripe" ? "border-primary bg-accent" : "border-muted bg-popover"
               }`}
-              onClick={() => setSelectedPaymentMethod("stripe")}
+              onClick={() => setSelectedGateway("stripe")}
             >
               <FaStripe className="mb-3 h-6 w-6 " />
               <span className="text-sm">Stripe</span>
@@ -114,9 +108,9 @@ export default function PaymentDialog({ children, plan, price }: PaymentDialogPr
             <label
               htmlFor="paypal"
               className={`flex cursor-pointer flex-col items-center justify-between rounded-md p-4 border-2 ${
-                selectedPaymentMethod === "paypal" ? "border-primary bg-accent" : "border-muted bg-popover"
+                selectedGateway === "paypal" ? "border-primary bg-accent" : "border-muted bg-popover"
               }`}
-              onClick={() => setSelectedPaymentMethod("paypal")}
+              onClick={() => setSelectedGateway("paypal")}
             >
               <BsPaypal className="mb-3 h-6 w-6" />
               <span className="text-sm">PayPal</span>
@@ -129,7 +123,7 @@ export default function PaymentDialog({ children, plan, price }: PaymentDialogPr
           <RadioGroup className="grid grid-cols-3 gap-4 mt-3" onValueChange={handleRecurrenceChange}>
             <label
               className={`flex cursor-pointer flex-col items-center justify-between rounded-md p-4 border-2 ${
-                selectedRecurrence === "monthly" ? "border-primary bg-accent" : "border-muted bg-popover"
+                selectedPeriod === "monthly" ? "border-primary bg-accent" : "border-muted bg-popover"
               }`}
               onClick={() => handleRecurrenceChange("monthly")}
             >
@@ -141,7 +135,7 @@ export default function PaymentDialog({ children, plan, price }: PaymentDialogPr
 
             <label
               className={`flex cursor-pointer flex-col items-center justify-between rounded-md p-4 border-2 ${
-                selectedRecurrence === "quarterly" ? "border-primary bg-accent" : "border-muted bg-popover"
+                selectedPeriod === "quarterly" ? "border-primary bg-accent" : "border-muted bg-popover"
               }`}
               onClick={() => handleRecurrenceChange("quarterly")}
             >
@@ -154,9 +148,9 @@ export default function PaymentDialog({ children, plan, price }: PaymentDialogPr
 
             <label
               className={`flex cursor-pointer flex-col items-center justify-between rounded-md p-4 border-2 ${
-                selectedRecurrence === "annual" ? "border-primary bg-accent" : "border-muted bg-popover"
+                selectedPeriod === "yearly" ? "border-primary bg-accent" : "border-muted bg-popover"
               }`}
-              onClick={() => handleRecurrenceChange("annual")}
+              onClick={() => handleRecurrenceChange("yearly")}
             >
               <div className="flex gap-1 items-end">
                 <h1 className="text-base font-semibold">Anual</h1>
@@ -194,7 +188,7 @@ export default function PaymentDialog({ children, plan, price }: PaymentDialogPr
                isLoading={loading}
                enable={false}
                text={`Pagar ${totalPrice.toFixed(2)}€`} 
-               onClick={() => createOrder(plan,time, totalPrice)}>
+               onClick={() => createOrder(plan, selectedPeriod, selectedGateway)}>
               </SubmitButton>
           </div>
         </DialogFooter>
