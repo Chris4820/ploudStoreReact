@@ -55,7 +55,7 @@ export default function DashboardLayout() {
 
   return (
     <AuthProvider>
-      <div className="slidemenu flex flex-col h-screen">
+      <div className="flex flex-col h-screen">
         {/* Top Navigation */}
         <nav className="h-[70px] sticky bg-secondary border-b z-20 flex items-center justify-between px-5">
           <div className="flex items-center gap-4">
@@ -64,10 +64,10 @@ export default function DashboardLayout() {
             ) : (
               <IoMdMenu onClick={handletoggleMobileMenu} size={26} className="text-primary lg:hidden cursor-pointer" />
             )}
-            <h1 onClick={() => navigate("/")} className="text-purple-600 text-xl font-bold cursor-pointer">
+            <h1 onClick={() => navigate("/")} className="text-purple-600 hidden lg:flex text-xl font-bold cursor-pointer">
               &lt;PloudStore/&gt;
             </h1>
-            <a href="http://localhost:3000/api/auth/renderstore" target="_blank" className="text-blue-600 truncate">
+            <a href="http://localhost:3000/api/auth/renderstore" target="_blank" className="text-blue-600 hidden lg:flex truncate">
               {store?.subdomain}.ploudstore.com
             </a>
           </div>
