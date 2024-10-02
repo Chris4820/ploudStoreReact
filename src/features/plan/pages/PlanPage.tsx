@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import PaymentDialog from "../../../components/modal/renovPlanModal";
 import { toast } from "sonner";
 import { useSearchParams } from "react-router-dom";
+import queryClient from "../../../lib/reactquery/reactquery";
 
 
 
@@ -45,7 +46,11 @@ const [daysLeft, setDaysLeft] = useState<number | null>();
       if(paymentStatus) {
       // Verifica se o pagamento foi bem-sucedido e exibe um toast
       if (paymentStatus === 'success') {
-        toast.success('Pagamento concluído com sucesso! O plano será aplicado em alguns minutos.');
+        toast.success('Pagamento concluído com sucesso! Aguarde alguns segundos...');
+        // Aguarda 10 segundos e invalida o cache da query 'plan'
+        setTimeout(() => {
+          queryClient.invalidateQueries({ queryKey: ['plan']});
+        }, 10000); // 10 segundos
       } else if (paymentStatus === 'error') {
         toast.error('Houve um problema com o pagamento. Tente novamente.');
       }        
