@@ -49,6 +49,7 @@ const [daysLeft, setDaysLeft] = useState<number | null>();
         toast.success('Pagamento concluído com sucesso! Aguarde alguns segundos...');
         // Aguarda 10 segundos e invalida o cache da query 'plan'
         setTimeout(() => {
+          toast.success("Plano atualizado com sucesso!");
           queryClient.invalidateQueries({ queryKey: ['plan']});
         }, 10000); // 10 segundos
       } else if (paymentStatus === 'error') {
