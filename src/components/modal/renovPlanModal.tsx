@@ -18,7 +18,7 @@ type PaymentDialogProps = {
 
 export default function PaymentDialog({ children, plan, price, planKey }: PaymentDialogProps) {
   const [selectedGateway, setSelectedGateway] = useState("card");
-  const [selectedPeriod, setSelectedPeriod] = useState("MONTHlY");
+  const [selectedPeriod, setSelectedPeriod] = useState("MONTHLY");
   const [subTotal, setSubTotal] = useState(price);
   const [discount, setDiscount] = useState(0);
   const [totalPrice, setTotalPrice] = useState(price);
@@ -123,9 +123,9 @@ export default function PaymentDialog({ children, plan, price, planKey }: Paymen
           <RadioGroup className="grid grid-cols-3 gap-4 mt-3" onValueChange={handleRecurrenceChange}>
             <label
               className={`flex cursor-pointer flex-col items-center justify-between rounded-md p-4 border-2 ${
-                selectedPeriod === "MONTHlY" ? "border-primary bg-accent" : "border-muted bg-popover"
+                selectedPeriod === "MONTHLY" ? "border-primary bg-accent" : "border-muted bg-popover"
               }`}
-              onClick={() => handleRecurrenceChange("MONTHlY")}
+              onClick={() => handleRecurrenceChange("MONTHLY")}
             >
               <div className="flex gap-1 items-end">
                 <h1 className="text-base font-semibold">Mensal</h1>
