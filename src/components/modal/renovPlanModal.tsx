@@ -61,12 +61,11 @@ export default function PaymentDialog({ children, plan, price, planKey }: Paymen
         gateway,
       })
       // Verifica se obteve uma resposta com o approvalLink
-        if (response.data.approvalLink) {
+        if (response.data.paymentURL) {
           // Exibe uma notificação de sucesso
           toast.success("Redirecionando para o PayPal...");
-
           // Redireciona o cliente para o link de aprovação do PayPal
-          window.location.href = response.data.approvalLink;
+          window.location.href = response.data.paymentURL;
         }
     } catch (error) {
       console.log("Erro no front: ", error)
