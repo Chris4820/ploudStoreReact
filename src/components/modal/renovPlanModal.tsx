@@ -18,7 +18,7 @@ type PaymentDialogProps = {
 
 export default function PaymentDialog({ children, plan, price, planKey }: PaymentDialogProps) {
   const [selectedGateway, setSelectedGateway] = useState("card");
-  const [selectedPeriod, setSelectedPeriod] = useState("monthly");
+  const [selectedPeriod, setSelectedPeriod] = useState("MONTHlY");
   const [subTotal, setSubTotal] = useState(price);
   const [discount, setDiscount] = useState(0);
   const [totalPrice, setTotalPrice] = useState(price);
@@ -63,7 +63,7 @@ export default function PaymentDialog({ children, plan, price, planKey }: Paymen
       // Verifica se obteve uma resposta com o approvalLink
         if (response.data.paymentURL) {
           // Exibe uma notificação de sucesso
-          toast.success("Redirecionando para o PayPal...");
+          toast.success("Redirecionando para a página de pagamento...");
           // Redireciona o cliente para o link de aprovação do PayPal
           window.location.href = response.data.paymentURL;
         }
@@ -123,9 +123,9 @@ export default function PaymentDialog({ children, plan, price, planKey }: Paymen
           <RadioGroup className="grid grid-cols-3 gap-4 mt-3" onValueChange={handleRecurrenceChange}>
             <label
               className={`flex cursor-pointer flex-col items-center justify-between rounded-md p-4 border-2 ${
-                selectedPeriod === "monthly" ? "border-primary bg-accent" : "border-muted bg-popover"
+                selectedPeriod === "MONTHlY" ? "border-primary bg-accent" : "border-muted bg-popover"
               }`}
-              onClick={() => handleRecurrenceChange("monthly")}
+              onClick={() => handleRecurrenceChange("MONTHlY")}
             >
               <div className="flex gap-1 items-end">
                 <h1 className="text-base font-semibold">Mensal</h1>
@@ -148,9 +148,9 @@ export default function PaymentDialog({ children, plan, price, planKey }: Paymen
 
             <label
               className={`flex cursor-pointer flex-col items-center justify-between rounded-md p-4 border-2 ${
-                selectedPeriod === "yearly" ? "border-primary bg-accent" : "border-muted bg-popover"
+                selectedPeriod === "YEARLY" ? "border-primary bg-accent" : "border-muted bg-popover"
               }`}
-              onClick={() => handleRecurrenceChange("yearly")}
+              onClick={() => handleRecurrenceChange("YEARLY")}
             >
               <div className="flex gap-1 items-end">
                 <h1 className="text-base font-semibold">Anual</h1>
