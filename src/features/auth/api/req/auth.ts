@@ -18,11 +18,7 @@ export type UserRegisterProps = {
 
 export async function postLoginUser(data : UserLoginProps) {
     try {
-        const response = await axiosAuth.post('login', {
-            email: data.email,
-            password: data.password,
-            remember: data.remember
-        });
+        const response = await axiosAuth.post('login', { data });
         return response.data;
     } catch (error) {
         console.error('Erro ao obter informações do usuário:', error);

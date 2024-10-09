@@ -7,12 +7,12 @@ import type { ProductFormData } from "../schema/ProductSchema";
 import { uploadImage } from "../../../lib/images";
 
 
-export const useEditProduct = (image: File | null) => {
+export const useEditProduct = (productId: number, image: File | null) => {
   const navigate = useNavigate();
 
 
   return useMutation({
-    mutationFn: (data: ProductFormData) => updateProduct(data),
+    mutationFn: (data: ProductFormData) => updateProduct(productId, data),
     onSuccess: async (data, variables) => {
       const { signedUrl } = data;
       queryClient.setQueryData(['products', variables.categoryId], (oldData: ProductsProps[] | undefined) => {

@@ -52,7 +52,6 @@ export async function getCategorie(categoryId : number): Promise<CategoryProps> 
 }
 
 
-
 export async function createCategorie(data: CategoryFormData) {
     const response = await axiosStore.post("category", {data});
     return response.data;

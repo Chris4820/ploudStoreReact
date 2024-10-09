@@ -32,8 +32,8 @@ export async function getProducts(categoryId: number | undefined): Promise<Produ
     return response.data.products || []; 
 }
 
-export async function updateProduct(data: ProductFormData) {
-    const response = await axiosStore.put('product', {
+export async function updateProduct(productId: number, data: ProductFormData) {
+    const response = await axiosStore.put(`product/${productId}`, {
         data,
     })
     return response.data;

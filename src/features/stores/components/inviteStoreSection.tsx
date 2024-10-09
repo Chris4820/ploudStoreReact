@@ -7,7 +7,7 @@ import { useGetInviteStores } from "../../../api/store/user";
 import { useAcceptInviteStore } from "../mutations/acceptInviteMutation";
 
 export default function InviteStoreSection() {
-    const { data: inviteStore, isLoading } = useGetInviteStores();
+    const { data: invitestore, isLoading } = useGetInviteStores();
 
 
     const { mutate: acceptInviteStore} = useAcceptInviteStore();
@@ -17,14 +17,14 @@ export default function InviteStoreSection() {
         return <div className="flex justify-center items-center w-full h-full"><CgSpinner className="animate-spin" size={20}/></div>;
     }
 
-    if (!inviteStore || inviteStore.length <= 0) {
+    if (!invitestore || invitestore.length <= 0) {
         return <CardEmptyComponent title="Nenhuma loja encontrada" description="Você não tem nenhum convite pendente!" />;
     }
 
 
     return (
         <>
-            {inviteStore.map((inviteStore : InviteStoreProps) => (
+            {invitestore.map((inviteStore : InviteStoreProps) => (
                 <ConfirmModal
                 title="Aceitar convite"
                 description={`Ao aceitar, você se tornará membro da loja ${inviteStore.store.name}`}

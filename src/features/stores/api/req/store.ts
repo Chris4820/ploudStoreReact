@@ -1,5 +1,4 @@
 import type { SettingsFormData } from "../../../settings/schema/SettingsSchema";
-import type { OpenStoreProps } from "../../mutations/openStoreMutation";
 import axiosStore from "../../../../lib/axios/axiosStore";
 import axiosUser from "../../../../lib/axios/axiosUser";
 
@@ -34,11 +33,6 @@ export type createStoreProps = {
     subDomain: string,
     current: string,
     gameType: 'MINECRAFT' | 'FIVEM' | 'REDDEAD',
-}
-
-export type SubStoreProps = {
-    store: StoreProps;
-    role: string,
 }
 
 export type InviteStoreProps = {
@@ -81,27 +75,35 @@ export async function createStore({name, description, subDomain, current, gameTy
     return response;
 }
 
-export async function getTokenStore(data: OpenStoreProps) {
-    const response = await axiosUser.get(`openStore/${data.storeId}`, {
+export async function getTokenStore(storeId: number, isOwner: boolean | undefined) {
+    const response = await axiosUser.get(`openStore/${storeId}`, {
         params: {
-            isOwner: data.isOwner,
+            isOwner: isOwner,
         }
     })
     return response;
 }
 
-export async function getSubStores() {
-    const response = await axiosUser.get<{ subStores: SubStoreProps[]}>('substores');
-    return response.data.subStores;
+
+
+export type SubStoreProps = {
+    store: StoreProps;
+    role: string,
 }
+
+export async function getSubStores() : Promise<SubStoreProps[]> {
+    const response = await axiosUser.get<{ substores: SubStoreProps[]}>('substores');
+    return response.data.substores;
+}
+
 export async function createNewStore(store: StoreProps) {
     const response = await axiosUser.post('store', store);
     return response.data;
 }
 
-export async function getInviteStores() {
-    const response = await axiosUser.get<{ inviteStores: InviteStoreProps[]}>('inviteStores');
-    return response.data.inviteStores;
+export async function getInviteStores() : Promise<InviteStoreProps[]> {
+    const response = await axiosUser.get<{ invitestore: InviteStoreProps[]}>('inviteStores');
+    return response.data.invitestore;
 }
 
 export async function acceptInviteStore(storeId: number) {

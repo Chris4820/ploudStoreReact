@@ -48,7 +48,7 @@ export default function EditProductPage() {
         }
     }
 
-    const { mutate: updateProduct, isPending} = useEditProduct(image);
+    const { mutate: updateProduct, isPending} = useEditProduct(Number(productId), image);
 
     function onSubmitFormEdit(data: ProductFormData) {
         updateProduct(data);
