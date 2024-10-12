@@ -6,7 +6,6 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
-import { type createStoreProps } from "../api/req/store";
 import { Textarea } from "../../../components/ui/textarea";
 import createStoreSchema, { type CreateStoreFormData } from "../schema/createStoreSchema";
 import { useCreateStore } from "../mutations/createStoreMutation";
@@ -32,13 +31,13 @@ export default function CreateStorePage() {
         resolver: zodResolver(createStoreSchema),
         defaultValues: {
             gameType: "MINECRAFT",
-            current: 'eur',
+            currency: 'eur',
         }
     })
 
     const { mutate: createStore, isPending} = useCreateStore();
 
-    async function onSubmitCreateStore(data: createStoreProps) {
+    async function onSubmitCreateStore(data: CreateStoreFormData) {
         createStore(data);
     }
 
@@ -79,7 +78,7 @@ export default function CreateStorePage() {
                     <div>
                         <label htmlFor="storeURL" className="mb-1 block text-sm font-medium text-gray-700">Moeda da loja 
                         <span className="text-[13px] text-muted-foreground"> (Moeda que sua loja irá usar)</span></label>
-                        <Select onValueChange={(value) => setValue("current", value)} defaultValue="eur">
+                        <Select onValueChange={(value) => setValue("currency", value)} defaultValue="eur">
                         <SelectTrigger className="w-[180px]">
                             <SelectValue />
                         </SelectTrigger>
@@ -89,7 +88,7 @@ export default function CreateStorePage() {
                             <SelectItem value="usd">Dólar (USD)</SelectItem>
                         </SelectContent>
                         </Select>
-                        {errors.current && <span className='text-destructive text-[12px]'>{errors.current.message}</span>}
+                        {errors.currency && <span className='text-destructive text-[12px]'>{errors.currency.message}</span>}
                     </div>
                     </div>
                 </div>

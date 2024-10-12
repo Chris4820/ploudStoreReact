@@ -3,6 +3,8 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CgSpinner } from "react-icons/cg";
 import axiosAuth from "../lib/axios/axiosAuth";
+import { AxiosError } from "axios";
+import { toast } from "sonner";
 
 type AuthContextType = {
   isAuthenticated: boolean | null;
@@ -42,7 +44,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         handleLogout();
       }
     } catch (error) {
-      handleLogout();
+      if(error instanceof AxiosError) {
+        if(error.response?.status === 403) {
+          toast("Parece que o token da store expirou!");
+          setIsAuthenticated(true);
+        }else {
+          handleLogout();
+        }
+      }else {
+        handleLogout();
+      }
     } finally {
       setLoading(false);
       setAuthChecked(true); // Marca que a verificação de autenticação foi concluída

@@ -1,6 +1,7 @@
 import type { SettingsFormData } from "../../../settings/schema/SettingsSchema";
 import axiosStore from "../../../../lib/axios/axiosStore";
 import axiosUser from "../../../../lib/axios/axiosUser";
+import type { CreateStoreFormData } from "../../schema/createStoreSchema";
 
 export type StoreInformationProps = {
     name: string,
@@ -64,14 +65,8 @@ export async function getStores() {
     return response.data.stores; // Retorna apenas a array de lojas
 }
 
-export async function createStore({name, description, subDomain, current, gameType} : createStoreProps) {
-    const response = await axiosUser.post('store', {
-        name: name,
-        description: description,
-        subDomain: subDomain,
-        current: current,
-        gameType: gameType,
-    })
+export async function createStore(data : CreateStoreFormData) {
+    const response = await axiosUser.post('store', { data });
     return response;
 }
 

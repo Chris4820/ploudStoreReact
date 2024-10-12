@@ -21,13 +21,21 @@ axiosStore.interceptors.request.use(
 
 // Response interceptor
 axiosStore.interceptors.response.use(
-    response => response,
-    error => {
-      if(error.response.status === 403) {
-        return window.location.href = '/';
+  response => response,
+  error => {
+    if (error.response) {
+      switch (error.response.status) {
+        case 403:
+          // Token da loja inválido
+            window.location.href = '/';
+          break;
+        default:
+          // Outros erros
+          console.error('Erro na requisição:', error.response.data);
       }
-      // Adicione isto para garantir que outros erros sejam propagados corretamente
+    }
     return Promise.reject(error);
-    })
+  }
+);
   
 export default axiosStore;

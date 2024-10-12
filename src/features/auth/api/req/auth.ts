@@ -28,11 +28,7 @@ export async function postLoginUser(data : UserLoginProps) {
 
 export async function postRegisterUser(data : UserRegisterProps) {
     try {
-        const response = await axiosAuth.post('register', {
-            name: data.name,
-            email: data.email,
-            password: data.password,
-        });
+        const response = await axiosAuth.post('register', { data });
         return response.data;
     } catch (error) {
         console.error('Erro ao obter informações do usuário:', error);

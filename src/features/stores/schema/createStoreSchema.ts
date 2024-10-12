@@ -6,7 +6,7 @@ const createStoreSchema = z.object({
   description: z.string().min(10, 'Descrição com pelo menos 10 letras'),
   subDomain: z.string().min(3, "Insira pelo menos 3 caracteres")
           .regex(/^[a-zA-Z0-9-_]+$/, "O subdomínio deve conter apenas letras, números, hífens e sublinhados"),
-  current: z.string().default('eur'),
+  currency: z.string().default('eur'),
   gameType: z.enum(['MINECRAFT', 'FIVEM', 'REDDEAD']),
 })
 
