@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getRoles, getSubUsers } from "../req/subuser";
+import { getInvite, getInvites, getSubUsers } from "../req/subuser";
 
 
 
@@ -10,11 +10,19 @@ export function useGetSubUsers() {
     })
   }
 
-
-  export function useGetRoles() {
+  export function useGetInvites() {
     return useQuery({
-      queryKey: ['roles'],
-      queryFn: getRoles,
+      queryKey: ['invites'],
+      queryFn: getInvites,
     })
+  }
+
+  export function useGetInvite(id: string) {
+    return useQuery({
+      queryKey: ['invite', id],
+      queryFn: () => getInvite(id),
+      enabled: !!id,
+      retry: false,
+    });
   }
 

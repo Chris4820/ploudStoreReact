@@ -1,23 +1,23 @@
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 
-const SettingsTabs = [
+const SubUserTabs = [
     {
-        name: 'Geral',
-        link: '/dashboard/design',
+        name: 'Sub-Usuários',
+        link: '/dashboard/subuser',
     },
     {
-        name: 'Templates',
-        link: '/dashboard/design/templates'
+        name: 'Cargos',
+        link: '/dashboard/subuser/roles'
     },
 ];
 
 
-export default function DesignLayout() {
+export default function SubUserLayout() {
     const location = useLocation();
 
     function isMenuItemSelected (href: string) {
         // Verificar se a localização atual corresponde ao href ou se começa com o mesmo caminho base
-        if (href === '/dashboard/design' && location.pathname.startsWith('/dashboard/design/')) {
+        if (href === '/dashboard/subuser' && location.pathname.startsWith('/dashboard/subuser/')) {
             return false; // Evita que o item "Dashboard" seja selecionado quando estiver em uma sub-rota de "/dashboard"
         }
         return location.pathname === href || location.pathname.startsWith(href);
@@ -26,7 +26,7 @@ export default function DesignLayout() {
     return(
         <>
         <section className="w-full flex flex-wrap  justify-center lg:justify-start mb-10">
-                {SettingsTabs.map((tab, index) => (
+                {SubUserTabs.map((tab, index) => (
                         <NavLink key={index} to={tab.link} 
                         className={`${isMenuItemSelected(tab.link) && 'bg-muted/60'} p-3 
                                     border hover:bg-muted/60 

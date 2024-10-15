@@ -6,8 +6,8 @@ import SubmitButton from "../../../components/commons/buttons/SubmitButtonCompon
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../components/ui/select";
 import { Input } from "../../../components/ui/input";
 import LoadingComponent from "../../../containers/LoadingComponent";
-import { useGetRoles } from "../api/store/store";
 import { Link } from "react-router-dom";
+import { useGetRoles } from "../../roles/api/store";
 
 
 

@@ -30,7 +30,9 @@ export default function DashboardHomePage() {
 
     return(
         <>
-        <HeaderSection title={t("dashboard")} description="Description"/>
+        <HeaderSection 
+          title="Dashboard"
+          description="Visão geral do desempenho da sua loja e métricas importantes"/>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         <Cards
             title={t("dashboardPage.dailyEarnings")}

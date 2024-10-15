@@ -31,15 +31,41 @@ export async function createSubUser(data: SubUserFormData) {
   return response.data;
 }
 
-
-type RoleProps = {
+type InviteProps = {
   id: number,
-  name: string,
+  role: {
+    name: string,
+  },
+  user: {
+    name: string,
+  }
 }
 
-export async function getRoles() : Promise<RoleProps[]> {
-  const response = await axiosStore.get<{roles: RoleProps[]}>('role');
-  return response.data.roles;
+export async function getInvites() : Promise<InviteProps[]> {
+  const response = await axiosStore.get<{invites: InviteProps[]}>('invite');
+  return response.data.invites;
+}
+
+type InviteUniqueProps = {
+  id: true,
+  createdAt: string,
+  user: {
+    name: string,
+    email: string,
+    createdAt: string,
+  },
+    role: {
+      name: string,
+  }
+}
+export async function getInvite(id: string) : Promise<InviteUniqueProps> {
+  const response = await axiosStore.get<{invite: InviteUniqueProps}>(`invite/${id}`);
+  return response.data.invite;
+}
+
+export async function deleteInvite(id: string) {
+  const response = await axiosStore.delete(`invite/${id}`);
+  return response.data;
 }
 
 

@@ -53,6 +53,10 @@ import EditVariablesPage from "./features/variables/pages/EditVariablesPage"
 import PlanPage from "./features/plan/pages/PlanPage"
 import SubUserPage from "./features/subusers/Pages/SubUserPage"
 import CreateSubUserPage from "./features/subusers/Pages/CreateSubUserPage"
+import InvitesPage from "./features/subusers/Pages/InvitesPage"
+import SubUserLayout from "./layouts/dashboard/NavBarLayout/SubUserLayout"
+import RolesPage from "./features/roles/Pages/RolesPage"
+import CreateRolePage from "./features/roles/Pages/CreateRole"
 
 
 function App() {
@@ -106,9 +110,16 @@ function App() {
               <Route path="/dashboard/engagement/coupons/edit/:couponId" element={<EditCouponPage/>}/>
               <Route path="/dashboard/engagement/coupons/create" element={<CreateDiscountPage/>}/>
            </Route>
+            <Route path="/dashboard/subuser/invite/:id" element={<InvitesPage/>}/>
 
-            <Route path="/dashboard/subuser" element={<SubUserPage/>}/>
-            <Route path="/dashboard/subuser/create" element={<CreateSubUserPage/>}/>
+            <Route path="subuser" element={<SubUserLayout/>}>
+              <Route path="/dashboard/subuser" element={<SubUserPage/>}/>
+              <Route path="/dashboard/subuser/create" element={<CreateSubUserPage/>}/>
+              <Route path="/dashboard/subuser/roles" element={<RolesPage/>}/>
+              <Route path="/dashboard/subuser/roles/create" element={<CreateRolePage/>}/>
+            </Route>
+
+            
 
            <Route path="settings" element={<SettingsLayout/>}>
               <Route path="/dashboard/settings" element={<SettingsPage/>}/>
