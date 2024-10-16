@@ -33,10 +33,10 @@ export default function PaymentDialog({ children, plan, price, planKey }: Paymen
     let newDiscount = 0;
 
     // Cálculo do subtotal e desconto com base na recorrência
-    if (recurrence === "quarterly") {
+    if (recurrence === "QUARTERLY") {
       newSubTotal = price * 3; // Trimestral: 3 meses
       newDiscount = 0.15 * newSubTotal; // 15% de desconto
-    } else if (recurrence === "yearly") {
+    } else if (recurrence === "YEARLY") {
       newSubTotal = price * 12; // Anual: 12 meses
       newDiscount = 0.25 * newSubTotal; // 25% de desconto
     } else {
@@ -135,9 +135,9 @@ export default function PaymentDialog({ children, plan, price, planKey }: Paymen
 
             <label
               className={`flex cursor-pointer flex-col items-center justify-between rounded-md p-4 border-2 ${
-                selectedPeriod === "quarterly" ? "border-primary bg-accent" : "border-muted bg-popover"
+                selectedPeriod === "QUARTERLY" ? "border-primary bg-accent" : "border-muted bg-popover"
               }`}
-              onClick={() => handleRecurrenceChange("quarterly")}
+              onClick={() => handleRecurrenceChange("QUARTERLY")}
             >
               <div className="flex gap-1 items-end">
                 <h1 className="text-base font-semibold">Trimestral</h1>
