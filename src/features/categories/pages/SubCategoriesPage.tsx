@@ -16,7 +16,7 @@ export default function CategoryIdPage() {
     const navigate = useNavigate();
     const categoryId = params.categoryId;
 
-    const {data: category, isLoading} = useGetCategory(Number(categoryId));
+    const {data: category, isLoading} = useGetCategory(categoryId);
 
     if(isLoading) {
         return <LoadingComponent/>
@@ -29,7 +29,7 @@ export default function CategoryIdPage() {
         <>
         <HeaderSection 
             title={category.name} 
-            backLink="../"
+            backLink="../categories"
             description={`Todos os items criados aqui, serão adicionados na categoria: ${category.name}`}/>
         <div className="flex justify-between">
             <h1 className="text-xl mt-2">Produtos</h1>
@@ -39,7 +39,7 @@ export default function CategoryIdPage() {
             />
         </div>
         <section className="container border rounded-lg space-y-1 py-5 mt-5">
-            <ProductSection categoryId={Number(categoryId)}/>
+            <ProductSection categoryId={categoryId}/>
         </section>
 
         <div className="flex justify-between w-full items-center mt-5">
@@ -50,7 +50,7 @@ export default function CategoryIdPage() {
         />
         </div>
         <section className="container border rounded-lg space-y-1 py-5 mt-5">
-            <CategorieSection parentCategoryId={Number(categoryId)}/>
+            <CategorieSection parentCategoryId={categoryId}/>
         </section>
         </>
     )

@@ -1,18 +1,19 @@
 
   
   
+
   // Função para fazer o upload da imagem
   export async function uploadImage(signedUrl: string, file: File, type: string) {
     try {
       console.log(type);
+      console.log("File" + file);
       const uploadResponse = await fetch(signedUrl, {
         method: 'PUT',
         headers: {
-            'Content-Type': file.type, // Certifique-se de que o tipo de conteúdo está correto
-            'Access-Control-Allow-Origin': 'https://localhost:5173'
+            'Content-Type': file.type, // Define o tipo de conteúdo corretamente
         },
-        body: file,
-        });
+        body: file
+    });
   
         if (uploadResponse.ok) {
             console.log('Upload bem-sucedido!');
@@ -24,5 +25,4 @@
     } catch(error) {
       console.log(error);
     }
-    
   }

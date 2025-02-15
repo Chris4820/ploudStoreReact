@@ -2,14 +2,14 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CgSpinner } from "react-icons/cg";
+import queryClient from "../lib/reactquery/reactquery";
 import axiosAuth from "../lib/axios/axiosAuth";
-import { AxiosError } from "axios";
-import { toast } from "sonner";
+import { getUserInformation } from "../api/req/user";
+import { getStoreInformation } from "../features/stores/api/req/store";
 
 type AuthContextType = {
   isAuthenticated: boolean | null;
   isLoading: boolean;
-  checkAuth: () => Promise<void>;
   handleLogout: () => Promise<void>;
 };
 
@@ -26,37 +26,50 @@ export const useAuth = () => {
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
-  const [isLoading, setLoading] = useState(true); // Inicialmente, setamos isLoading como true
-  const [authChecked, setAuthChecked] = useState(false); // Estado para controlar se a autenticação foi verificada
+  const [isLoading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    checkAuth(); // Executa a verificação de autenticação ao montar o componente
+    authenticate(); // Executa a lógica de autenticação ao montar o componente
   }, []);
 
-  async function checkAuth() {
+  async function authenticate() {
     setLoading(true);
     try {
-      const response = await axiosAuth.post("checkauth");
-      if (response.status === 200) {
-        setIsAuthenticated(true);
-      } else {
-        handleLogout();
+      // Prefetch do usuário
+      console.log("Executando prefetch do usuário...");
+      const user = await queryClient.fetchQuery({
+        queryKey: ["user"],
+        queryFn: getUserInformation, // Adicione explicitamente o queryFn
+      }).catch(() => {
+        return handleLogout();
+      });
+      console.log("User: " + user);
+
+      if (!user) {
+        // Sem usuário, faz logout
+        return handleLogout();
+      }
+      setIsAuthenticated(true);
+
+      // Prefetch da store
+      const store = await queryClient.fetchQuery({
+        queryKey: ["store"],
+        queryFn: getStoreInformation
+      }).catch(() => {
+        return navigate("/", { replace: true }); // Faz logout em caso de erro
+      });
+
+      if (!store) {
+        // Sem store, redireciona para index de lojas
+        return navigate("/", { replace: true });
+        
       }
     } catch (error) {
-      if(error instanceof AxiosError) {
-        if(error.response?.status === 403) {
-          toast("Parece que o token da store expirou!");
-          setIsAuthenticated(true);
-        }else {
-          handleLogout();
-        }
-      }else {
-        handleLogout();
-      }
+      console.error("Erro na autenticação:", error);
+      handleLogout(); // Faz logout em caso de erro
     } finally {
-      setLoading(false);
-      setAuthChecked(true); // Marca que a verificação de autenticação foi concluída
+      setLoading(false); // Conclui o carregamento
     }
   }
 
@@ -66,7 +79,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     navigate("/auth/login", { replace: true });
   }
 
-  if (isLoading || !authChecked || !isAuthenticated) {
+  if (isLoading) {
     return (
       <section className="h-screen w-screen flex justify-center items-center">
         <div className="flex flex-col items-center justify-center text-center">
@@ -77,9 +90,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     );
   }
 
-  // Renderiza o contexto e seus filhos somente após a verificação de autenticação
   return (
-    <AuthContext.Provider value={{ isAuthenticated, isLoading, checkAuth, handleLogout }}>
+    <AuthContext.Provider value={{ isAuthenticated, isLoading, handleLogout }}>
       {children}
     </AuthContext.Provider>
   );

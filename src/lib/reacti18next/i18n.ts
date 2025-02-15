@@ -1,4 +1,3 @@
-import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import enTranslation from "./langs/en.json"
 import ptTranslation from "./langs/pt.json"
@@ -8,8 +7,9 @@ import svTranslation from "./langs/sv.json"
 import itTranslation from "./langs/it.json"
 import alTranslation from "./langs/al.json"
 import nlTranslation from "./langs/nl.json"
+import i18next from "i18next";
 
-i18n.use(initReactI18next).init({
+i18next.use(initReactI18next).init({
   lng: "pt",
   fallbackLng: "pt",
   interpolation: {
@@ -44,4 +44,11 @@ i18n.use(initReactI18next).init({
   },
 });
 
-export default i18n;
+// Função para acessar o tradutor (t)
+export const t = i18next.t.bind(i18next);
+
+// Objeto i18n para controle global
+export const i18n = i18next;
+
+// Exportar os dois para uso global
+export default { t, i18n };

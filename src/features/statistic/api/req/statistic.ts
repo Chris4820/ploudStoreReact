@@ -1,3 +1,4 @@
+import type { DateRange } from "react-day-picker";
 import axiosStore from "../../../../lib/axios/axiosStore";
 
 
@@ -14,6 +15,24 @@ export async function getRevenueSummary(): Promise<RevenueSummaryProps> {
     return response.data.revenueSummary; // Obtemos o primeiro item do array
 }
 
+export type StoreSummaryProps = {
+    totalSales: number;
+    totalItemsSold: number;
+    returnRate: number;
+}
+
+export async function getStoreStats(dateRange?: DateRange): Promise<StoreSummaryProps> {
+    let query = "";
+    if(dateRange && dateRange.from) {
+        query += `startDate=${dateRange.from}&`
+    }
+    if(dateRange && dateRange.to) {
+        query += `endDate=${dateRange.to}&`
+    }
+
+    const response = await axiosStore.get<{storeStat: StoreSummaryProps}>(`storestat?${query}`);
+    return response.data.storeStat; // Obtemos o primeiro item do array
+}
 
 export type CategoryData = {
     name: string;
@@ -31,11 +50,17 @@ interface CategoryResponse {
     meta: MetaProps;
 }
 
-export async function getCategoriesData(page?: number | undefined): Promise<CategoryResponse> {
+export async function getCategoriesData(dateRange?: DateRange, page?: number | undefined): Promise<CategoryResponse> {
     try {
         let query = "";
         if (page) {
             query += `page=${page}&`;
+        }
+        if(dateRange && dateRange.from) {
+            query += `startDate=${dateRange.from}&`
+        }
+        if(dateRange && dateRange.to) {
+            query += `endDate=${dateRange.to}&`
         }
         // Envie a solicitação GET para obter os dados das categorias
         const response = await axiosStore.get<CategoryResponse>(`categoriesstat?${query}`); // Substitua 'categoriesstat' pela URL real
@@ -61,11 +86,17 @@ interface CustomersResponse {
 }
 
 
-export async function getCustomersData(page?: number | undefined): Promise<CustomersResponse> {
+export async function getCustomersData(dateRange?: DateRange, page?: number | undefined): Promise<CustomersResponse> {
     try {
         let query = "";
         if (page) {
             query += `page=${page}&`;
+        }
+        if(dateRange && dateRange.from) {
+            query += `startDate=${dateRange.from}&`
+        }
+        if(dateRange && dateRange.to) {
+            query += `endDate=${dateRange.to}&`
         }
         // Envie a solicitação GET para obter os dados das categorias
         const response = await axiosStore.get<CustomersResponse>(`customersstat?${query}`); // Substitua 'categoriesstat' pela URL real
@@ -91,11 +122,17 @@ interface CouponResponse {
 }
 
 
-export async function getCouponData(page?: number | undefined): Promise<CouponResponse> {
+export async function getCouponData(dateRange?: DateRange, page?: number | undefined): Promise<CouponResponse> {
     try {
         let query = "";
         if (page) {
             query += `page=${page}&`;
+        }
+        if(dateRange && dateRange.from) {
+            query += `startDate=${dateRange.from}&`
+        }
+        if(dateRange && dateRange.to) {
+            query += `endDate=${dateRange.to}&`
         }
         // Envie a solicitação GET para obter os dados das categorias
         const response = await axiosStore.get<CouponResponse>(`couponsstat?${query}`); // Substitua 'categoriesstat' pela URL real

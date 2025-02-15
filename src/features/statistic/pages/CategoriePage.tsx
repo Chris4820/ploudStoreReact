@@ -2,42 +2,55 @@ import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useGetCategoryData } from "../api/store/statistic";
 import HeaderSection from "../../../components/commons/Header";
-import { DatePickerWithRange } from "../../../components/ui/datepickerWithRange";
-import { Button } from "../../../components/ui/button";
 import { columnsCategories } from "./CategorieColumns";
 import { DataTable } from "../../../components/ui/datatable";
+import { DateRangePickComponent } from "../../../components/dataPickerRange";
+import type { DateRange } from "react-day-picker";
 
 
 
 
 export default function CategoriesPage() {
 
-    const [searchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
     const page = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
 
-    const [startDate, setStartDate] = useState();
-    const [currentStartDate,] = useState();
-    const [endDate, setEndDate] = useState();
-    const [currentEndDate,] = useState();
+    const [dateRange, setRangeDate] = useState<DateRange | undefined>(() => {
+        const from = searchParams.get("startDate") ? new Date(searchParams.get("startDate")!) : undefined;
+        const to = searchParams.get("endDate") ? new Date(searchParams.get("endDate")!) : undefined;
 
-    const {data, isLoading} = useGetCategoryData(page);
+        return from || to ? { from, to } : undefined; // Retorna undefined se ambos forem falsy
+    });
 
-    async function handleFilter() {
-        setStartDate(currentStartDate)
-        setEndDate(currentEndDate);
-    }
+    const {data, isLoading} = useGetCategoryData(dateRange, page);
 
-    function EnableButtonSearch() {
-        return startDate === currentStartDate && endDate === currentEndDate;
-    }
+    function onDateChange(dateRange: DateRange) {
+        const updatedParams = new URLSearchParams(searchParams);
+        if(!dateRange.from || !dateRange.to) {
+          updatedParams.delete("startDate");
+          updatedParams.delete("endDate");
+        }else {
+          if (dateRange.from) updatedParams.set("startDate", dateRange.from.toISOString());
+          if (dateRange.to) updatedParams.set("endDate", dateRange.to.toISOString());
+    
+        }
+        setRangeDate(dateRange);
+        setSearchParams(updatedParams);
+      }
+
     return(
         <>
-            <HeaderSection title="Categorias mais usadas" description="Consulte aqui as categorias mais populares de sua loja!!" backLink="../"/>
-            <div className="flex gap-5 items-center flex-wrap">
+            <HeaderSection 
+                title="Categorias mais usadas" 
+                description="Consulte aqui as categorias mais populares de sua loja!!" 
+                backLink="../"/>
+            <div className="flex gap-2 items-center flex-wrap">
 
-                <DatePickerWithRange/>
+            <DateRangePickComponent 
+            onChangeRange={(range) => onDateChange(range)}
+            defaultRange="Desde sempre"/>
 
-                <Button disabled={EnableButtonSearch()} onClick={() => handleFilter()}>Pesquisar</Button>
+
             </div>
             <div className="mt-5">
                 <DataTable data={data?.categories || []} loading={isLoading} meta={data?.meta} columns={columnsCategories}/>

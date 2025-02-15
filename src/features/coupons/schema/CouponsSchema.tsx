@@ -13,6 +13,7 @@ const CouponSchema = z.object({
   expire_at: z.string().datetime({precision: 3}).nullable(),
   isUsableInAllStores: z.boolean(),
   productIds: z.array(z.number()).optional(),
+  enable: z.boolean(),
 }).refine((data) => {
   if (!data.isUsableInAllStores && (!data.productIds || data.productIds.length === 0)) {
     return false;

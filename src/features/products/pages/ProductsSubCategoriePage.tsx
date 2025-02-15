@@ -11,11 +11,10 @@ import { ProductSection } from "../components/ProductSection";
 
 
 export default function SubCategoryIdPage() {
-    const params = useParams();
     const navigate = useNavigate();
-    const subCategoryId = params.subCategoryId;
+    const { subCategoryId } = useParams<{ subCategoryId: string }>(); // Pegar o id da URL
 
-    const {data: category, isLoading} = useGetCategory(Number(subCategoryId));
+    const {data: category, isLoading} = useGetCategory(subCategoryId);
 
     if(isLoading) {
         return <LoadingComponent/>
@@ -28,7 +27,7 @@ export default function SubCategoryIdPage() {
         <>
         <HeaderSection
             title={category.name} 
-            backLink="../" 
+            backLink={`../categories/${category.id}`} 
             description={`Todos os items criados aqui, serão adicionados na categoria: ${category.name}`}/>
         <div className="flex justify-between">
             <h1 className="text-xl mt-2">Produtos</h1>
@@ -38,7 +37,7 @@ export default function SubCategoryIdPage() {
             />
         </div>
         <section className="container border rounded-lg space-y-1 py-5 mt-5">
-            <ProductSection categoryId={Number(subCategoryId)}/>
+            <ProductSection categoryId={subCategoryId}/>
         </section>
         </>
     )

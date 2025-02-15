@@ -15,7 +15,8 @@ export const useCreateCoupon = () => {
   return useMutation({
     mutationFn: (data: CouponFormData) => createCoupons(data),
     onSuccess: () => {
-        queryClient.invalidateQueries({queryKey: ['coupons']}); // Invalida todas as queries de cupons
+        queryClient.invalidateQueries({queryKey: ['coupons']});
+        queryClient.invalidateQueries({queryKey: ['totalCoupons']});
         toast.success("Coupon criado com sucesso");
         navigate ("/dashboard/engagement")
     }

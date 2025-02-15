@@ -6,6 +6,10 @@ const EnganamentTabs = [
         link: '/dashboard/engagement'
     },
     {
+        name: 'Notícias',
+        link: '/dashboard/engagement/news'
+    },
+    {
         name: 'Meta',
         link: '/dashboard/engagement/goal'
     }
@@ -21,7 +25,7 @@ export default function EngagamentLayout() {
             return false; // Evita que o item "Dashboard" seja selecionado quando estiver em uma sub-rota de "/dashboard"
         }
         return location.pathname === href || location.pathname.startsWith(href);
-    };
+    }
 
     return(
         <>

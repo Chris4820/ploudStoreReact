@@ -1,18 +1,18 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
 import { Input } from "../../../components/ui/input";
-import EditorComponent from "../../../components/ui/editor";
+import EditorComponent from "../../../components/ui/editor/editor";
 import { Switch } from "../../../components/ui/switch";
-import SubmitButton from "../../../components/commons/buttons/SubmitButtonComponent";
 import ProductSchema, { ProductFormData } from "../schema/ProductSchema";
-import { useEffect, useMemo, useState } from "react";
-import { useParams, } from "react-router-dom";
-import UploadImageComponent from "../../../components/uploadImageComponent";
 import SubHeaderSection from "../../../components/commons/subHeader";
 import CreateButtonComponent from "../../../components/commons/buttons/CreateButtonComponent";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../components/ui/select";
 import { Button } from "../../../components/ui/button";
 import { Trash2 } from "lucide-react";
+import ImageUploadComponent from "../../../components/imageUploadComponent";
+import CardSection from "../../../components/commons/CardSections";
+import { isDirty } from "zod";
+import SubmitButton from "../../../components/commons/buttons/SubmitButton";
 
 
 
@@ -20,45 +20,31 @@ import { Trash2 } from "lucide-react";
 type CategoryFormProps = {
   initialData?: ProductFormData,
   onSubmit: (data: ProductFormData) => void,
-  mode: 'create' | 'edit',
-  isLoading: boolean,
+  isSubmit: boolean,
   children?: React.ReactNode
   onImageUpload: (file: File | null) => void,
+  buttonText: string,
 }
 
+export default function ProductForm({ initialData, buttonText, onSubmit, isSubmit, children, onImageUpload }: CategoryFormProps) {
 
-
-export default function ProductForm({ initialData, onSubmit, mode, isLoading, children, onImageUpload }: CategoryFormProps) {
-    const { categoryId } = useParams();
-    const [isFormChanged, setIsFormChanged] = useState(false);
-
-    const { handleSubmit, register, formState: { errors }, control, setValue, getValues, watch } = useForm<ProductFormData>({
+    const { handleSubmit, register, formState: { errors }, control, setValue, getValues } = useForm<ProductFormData>({
         resolver: zodResolver(ProductSchema),
         defaultValues: initialData || {
-          id: undefined,
           name: "",
-          description: "",
-          categoryId: parseInt(categoryId as string) || undefined,
+          description: '<p><br></p>',
           visible: true,
-          imageUrl: null,
+          imageUrl: "",
+          newImage: null,
           price: 0,
           stock: 0,
           expire_days: 0,
-          commands: [{ type: "PURCHASE", command: '', offline_execute: false }] // Comando default adicionado
+          commands: [
+            { type: "PURCHASE", command: '', offline_execute: false }
+          ] // Comando default adicionado
         },
         mode: 'onSubmit',
     });
-
-    useEffect(() => {
-      if (mode === 'edit') {
-        const subscription = watch((values) => {
-          const isChanged = JSON.stringify(initialData) !== JSON.stringify(values);
-          setIsFormChanged(isChanged);
-        });
-    
-        return () => subscription.unsubscribe();
-      }
-    }, [initialData, watch, mode]);
 
 
     const {append, remove, fields} = useFieldArray({
@@ -72,21 +58,21 @@ export default function ProductForm({ initialData, onSubmit, mode, isLoading, ch
         }
     }
 
-
     function ChangeImage(image: File | null) {
         if (image) {
             const { size, type } = image;
             const fileMetadata = { type, size }; // Crie um objeto com os metadados do arquivo
-            setValue("imageUrl", fileMetadata); // Define como um array com os metadados do arquivo
+            setValue("newImage", fileMetadata); // Define como um array com os metadados do arquivo
             onImageUpload(image);
           } else {
-            setValue("imageUrl", null); // Remove a URL da imagem se nenhuma imagem estiver selecionada
+            setValue("newImage", null); // Remove a URL da imagem se nenhuma imagem estiver selecionada
           }
+          setValue("hasChangeImage", true);
         }
 
     return(
-        <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 lg:grid-cols-5 gap-5">
-            <div className="col-span-3 space-y-5">
+        <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 lg:grid-cols-6 gap-5">
+            <div className="col-span-4 space-y-5">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
                     <div>
                         <label>Nome</label>
@@ -94,16 +80,16 @@ export default function ProductForm({ initialData, onSubmit, mode, isLoading, ch
                         {errors.name && <span className='text-destructive text-[12px]'>{errors.name.message}</span>}
                     </div>
                     <div>
-                            <label>Preço</label>
-                            <Input id="price" className="mt-1" type="number" {...register("price")}/>
-                            {errors.price && <span className='text-destructive text-[12px]'>{errors.price.message}</span>}
+                        <label>Preço</label>
+                        <Input id="price" className="mt-1" type="number" {...register("price")}/>
+                        {errors.price && <span className='text-destructive text-[12px]'>{errors.price.message}</span>}
                     </div>
                 </div>
                 <div>
                     <label>Descrição</label>
-                    <EditorComponent {...register("description")}
+                    <EditorComponent
+                        onEditorChange={(text) => setValue("description", text, {shouldDirty: true})}
                         value={getValues("description")}
-                      onEditorChange={(content) => setValue('description', content)}
                     />
                     {errors.description && <span className='text-destructive text-[12px]'>{errors.description.message}</span>}
                 </div>
@@ -168,7 +154,11 @@ export default function ProductForm({ initialData, onSubmit, mode, isLoading, ch
 
             <div className="col-span-2 space-y-5">
                 <div className="mt-5">
-                    <UploadImageComponent id="product" MAX_SIZE_IMAGE={5} onImageChange={(image) => ChangeImage(image)}/>
+                    <CardSection 
+                        title="Imagem do produto" 
+                        hAuto>
+                        <ImageUploadComponent imageUrl={getValues("imageUrl")} MAX_SIZE_IMAGE={1} onImageChange={(image) => ChangeImage(image)}/>
+                    </CardSection>
                 </div>
                 <div className="p-5 border rounded-lg flex justify-between items-center">
                     <div>
@@ -185,9 +175,11 @@ export default function ProductForm({ initialData, onSubmit, mode, isLoading, ch
                 {children && children}
                 
                 <div className="mt-5 flex justify-end">
-                    {useMemo(() => {
-                        return <SubmitButton isLoading={isLoading} text="Guardar alterações" enable={mode === "edit" && !isFormChanged} />;
-                        }, [isLoading, isFormChanged, mode])}
+                <SubmitButton
+                    isPending={isSubmit}
+                    text={`${buttonText} produto`}
+                    isDisable={!isDirty}
+                />
                 </div>
             </div>
             

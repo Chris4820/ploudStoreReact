@@ -15,8 +15,6 @@ type DraggableCategoryProps = {
 
 export default function DraggableComponent({item, onClickEdit, onClickOpen} : DraggableCategoryProps) {
 
-    console.log(item);
-
     function handleClickOpen(id: number) {
         if(onClickOpen) {
             onClickOpen(id)

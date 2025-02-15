@@ -13,23 +13,20 @@ import type { ProductFormData } from "../schema/ProductSchema";
 
 
 export default function CreatePackagePage() {
-    const { categoryId } = useParams();
 
     const [image, setImage] = useState<File | null>(null)
 
-    const {data: category, isLoading} = useGetCategory(Number(categoryId));
-    const {mutate: createProduct, isPending} = useCreateProduct(image);
+    const { categoryId } = useParams<{ categoryId: string }>(); // Pegar o id da URL
 
-
-    
-
+    const {data: category, isLoading} = useGetCategory(categoryId);
+    const {mutate: createProduct, isPending} = useCreateProduct(categoryId, image);
 
     function ImageUpload(image: File | null) {
         setImage(image);
     }
 
     function onSubmitCreateProductForm(data: ProductFormData) {
-        if(!data.categoryId) {
+        if(!categoryId) {
             toast.error("CategoryId inválido!");
             return;
         }
@@ -51,7 +48,12 @@ export default function CreatePackagePage() {
         <>
         <HeaderSection title="Criar produto"/>
         <h1>Você irá criar uma produto na categoria: <span className="font-bold">{category.name}</span></h1>
-        <ProductForm onImageUpload={((image: File | null) => ImageUpload(image))} isLoading={isPending} onSubmit={onSubmitCreateProductForm} mode="create"/>
+        <ProductForm 
+            onImageUpload={((image: File | null) => ImageUpload(image))} 
+            isSubmit={isPending} 
+            onSubmit={onSubmitCreateProductForm}
+            buttonText="Criar" 
+            />
         </>
     )
 }

@@ -6,12 +6,15 @@ import { Clock, TrendingUp } from "lucide-react";
 
 type PlanInfo = {
   plan: StorePlanProps | undefined,
-  planLoading: boolean,
 }
 
-export default function PlanInfo({ plan, planLoading }: PlanInfo) {
+export default function PlanInfo({ plan }: PlanInfo) {
   const [daysLeft, setDaysLeft] = useState(0);
   const navigate = useNavigate();
+
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  console.log("Plan: " + plan);
 
   useEffect(() => {
     if (plan?.overdueDate) {
@@ -20,10 +23,14 @@ export default function PlanInfo({ plan, planLoading }: PlanInfo) {
       const timeDiff = overdueDate.getTime() - currentDate.getTime();
       const diffInDays = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
       setDaysLeft(diffInDays);
+      setIsLoaded(true); // Definindo como carregado após o cálculo
+    } else {
+      setIsLoaded(true); // Definindo como carregado mesmo sem plano (se ele não existir)
     }
   }, [plan]);
 
-  if (planLoading || (plan?.plan !== "basic" && daysLeft > 5)) {
+  // Verifica se o plano e os dias restantes foram carregados
+  if (!isLoaded || (plan?.plan !== "basic" && daysLeft && daysLeft > 5)) {
     return null;
   }
 

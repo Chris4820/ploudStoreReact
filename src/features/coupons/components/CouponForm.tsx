@@ -18,9 +18,10 @@ type CouponFormProps = {
   onSubmit: (data: CouponFormData) => void;
   mode: 'create' | 'edit';
   isLoading: boolean,
+  children?: React.ReactNode
 };
 
-export default function CouponForm({ initialData, onSubmit, mode, isLoading }: CouponFormProps) {
+export default function CouponForm({ initialData, onSubmit, mode, isLoading, children }: CouponFormProps) {
 
   const [isFormChanged, setIsFormChanged] = useState(false);
 
@@ -37,6 +38,7 @@ export default function CouponForm({ initialData, onSubmit, mode, isLoading }: C
       code: "",
       minValue: 0,
       value: 0,
+      enable: false,
     },
     mode: 'onSubmit',
   });
@@ -86,8 +88,9 @@ export default function CouponForm({ initialData, onSubmit, mode, isLoading }: C
   
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="border rounded-lg p-5">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+    <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-3 gap-5">
+      <div className='border rounded-lg p-5 col-span-2'>
+      <div className=" grid grid-cols-1 lg:grid-cols-3 gap-5 ">
         <div>
           <label htmlFor="couponCode" className="block font-medium mb-1">
             Código do Cupom <span className="text-sm text-muted-foreground">(Único)</span>
@@ -169,7 +172,6 @@ export default function CouponForm({ initialData, onSubmit, mode, isLoading }: C
           />
         </div>
       </div>
-
       {!watch("isUsableInAllStores") && (
         <div className="w-full p-5 border rounded-md h-auto mt-5">
           <SubHeaderSection title="Produtos" description="Selecione os produtos que o cupom tem efeito" />
@@ -201,10 +203,27 @@ export default function CouponForm({ initialData, onSubmit, mode, isLoading }: C
           {errors.productIds && <p className="text-red-500 text-sm mt-1">{errors.productIds.message}</p>}
         </div>
       )}
-
-      <div className="flex justify-end w-full mt-5">
-        <SubmitButton text={mode === 'create' ? 'Criar' : 'Salvar Alterações'} enable={mode === 'edit' && !isFormChanged} isLoading={isLoading}/>
       </div>
+
+      <div className="space-y-5">
+                <div className="p-5 border rounded-lg flex justify-between items-center">
+                    <div>
+                        <h1 className="font-semibold text-lg">Ativação do Cupom</h1>
+                        <p>Ative o cupom para uso.</p>
+                    </div>
+                    <Switch
+                        defaultChecked={getValues("enable")}
+                        onCheckedChange={(checked) => setValue("enable", checked)} // Atualiza o valor de 'visible'
+                        className="accent-primary"
+                    />
+                </div>
+                
+                {children && children}
+                
+                <div className="mt-5 flex justify-end">
+                  <SubmitButton isLoading={isLoading} text="Guardar alterações" enable={mode === "edit" && !isFormChanged} />
+            </div>
+            </div>
     </form>
   );
 }

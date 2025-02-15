@@ -37,7 +37,8 @@ export default function ChartComponent({graph} : SalesAreaChartProps) {
               tickLine={false}
               axisLine={false}
               tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 3)}
+              interval="preserveStartEnd" // Força o primeiro valor a ser mostrado
+              tickFormatter={(value) => value.slice(0, 5)}
             />
             <ChartTooltip
               cursor={false}

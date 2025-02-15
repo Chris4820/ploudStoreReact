@@ -18,39 +18,20 @@ export type CouponsProps = {
   limit: number | null
 }
 
-
-interface CouponsResponse {
-  coupons: CouponsProps[];
-  meta: MetaProps;
-}
-
-export async function getCoupons(page?: number | undefined): Promise<CouponsResponse> {
+export async function getCoupons(page?: number | undefined) {
 
         let query = "";
         if (page) {
             query += `?page=${page}&`;
         }
 
-  const response = await axiosStore.get<CouponsResponse>(`coupons${query}`);
-  return response.data; // Obtemos o primeiro item do array
+  const response = await axiosStore.get<{coupons: CouponsProps[]}>(`coupons${query}`);
+  return response.data.coupons;
 }
 
 
-export type CouponProps = {
-  id: number;
-  code: string;
-  description: string | null;
-  storeId: number;
-  value: number;
-  limit: number | null;
-  type: "PERCENTAGE" | "VALUE";
-  productIds: number[] | []
-  expire_at: string | null,
-  isUsableInAllStores: boolean,
-}
-
-export async function getCoupon(couponId: string) {
-  const response = await axiosStore.get<{coupon: CouponFormData}>(`coupons/${couponId}`);
+export async function getCoupon(id: string) {
+  const response = await axiosStore.get<{coupon: CouponFormData}>(`coupons/${id}`);
   return response.data.coupon
 }
 
@@ -62,4 +43,14 @@ export async function createCoupons(data: CouponFormData) {
 export async function editCoupons(data: CouponFormData) {
   const response = await axiosStore.put('coupons', { data })
   return response.data;
+}
+
+export async function deleteCoupon(id: string | undefined) {
+  const response = await axiosStore.delete(`coupon/${id}`)
+  return response.data;
+}
+
+export async function getTotalCoupons() {
+  const response = await axiosStore.get<{meta: MetaProps}>(`totalCoupons`);
+  return response.data.meta;
 }

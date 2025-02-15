@@ -1,13 +1,14 @@
 import { useRef, useCallback, forwardRef } from "react";
-import ReactQuill from "react-quill";
+import ReactQuill, { type ReactQuillProps } from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import "./editor.css"
 
-interface EditorComponentProps {
+interface EditorComponentProps extends ReactQuillProps {
   value?: string;
   onEditorChange?: (content: string) => void;
 }
 
-const EditorComponent = forwardRef<ReactQuill, EditorComponentProps>(({ value, onEditorChange }, ref) => {
+const EditorComponent = forwardRef<ReactQuill, EditorComponentProps>(({ value, onEditorChange, ...rest }, ref) => {
   const quillRef = useRef<ReactQuill | null>(null);
 
   const insertImage = useCallback(() => {
@@ -32,7 +33,6 @@ const EditorComponent = forwardRef<ReactQuill, EditorComponentProps>(({ value, o
     if (url && quillRef.current) {
       const editor = quillRef.current.getEditor();
       const range = editor.getSelection();
-
       if (range) {
         // Adiciona o link na posição da seleção ou no final do editor
         editor.formatText(range.index, range.length, "link", url);
@@ -47,8 +47,8 @@ const EditorComponent = forwardRef<ReactQuill, EditorComponentProps>(({ value, o
   const modules = {
     toolbar: {
       container: [
-        [{ 'header': [1, 2, 3, false] }],
-        ['bold', 'italic', 'underline'],
+        [{ header: '1' }, { header: '2' }],
+        ['bold', 'italic', 'underline', 'blockquote'],
         [{ 'list': 'ordered'}, { 'list': 'bullet' }],
         ['link', 'image'],
       ],
@@ -75,6 +75,7 @@ const EditorComponent = forwardRef<ReactQuill, EditorComponentProps>(({ value, o
       formats={[
         "header",
         "bold",
+        'blockquote',
         "italic",
         "underline",
         "list",
@@ -82,7 +83,7 @@ const EditorComponent = forwardRef<ReactQuill, EditorComponentProps>(({ value, o
         "link",
         "image"
       ]}
-      placeholder="Write something awesome..."
+      {...rest}
     />
   );
 });

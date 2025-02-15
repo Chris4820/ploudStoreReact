@@ -10,18 +10,8 @@ export type ProductsProps = {
 }
 
 
-export type ProductProps = {
-    id: number,
-    name: string,
-    description: string,
-    price: number,
-    imageUrl: string,
-    visible: boolean,
-    categoryId: number,
-}
 
-
-export async function getProducts(categoryId: number | undefined): Promise<ProductsProps[] | []> {
+export async function getProducts(categoryId: string | undefined): Promise<ProductsProps[] | []> {
 
     let query = "";
 
@@ -38,8 +28,9 @@ export async function updateProduct(productId: number, data: ProductFormData) {
     })
     return response.data;
 }
-export async function createProduct(data: ProductFormData) {
-    const response = await axiosStore.post("product", { data })
+
+export async function createProduct(categoryId: string | undefined, data: ProductFormData) {
+    const response = await axiosStore.post(`product?categoryId=${categoryId}`, {data});
     return response.data;
 }
 
@@ -50,12 +41,17 @@ export async function orderProducts(products: number[]) {
     return response;
 }
 
-export async function getProduct(productId: number) : Promise<ProductFormData> {
+export async function getProduct(productId: string | undefined) : Promise<ProductFormData> {
     const response = await axiosStore.get<{product: ProductFormData}>(`product/${productId}`);
     return response.data.product;
 }
 
-export async function deleteProduct(productId: number) {
-    const response = await axiosStore.delete(`product/${productId}`)
-    return response;
+
+type DeleteProductProps = {
+    id: number,
+    categoryId: number,
+}
+export async function deleteProduct(productId: string | undefined) {
+    const response = await axiosStore.delete<{product: DeleteProductProps}>(`product/${productId}`)
+    return response.data.product;
 }

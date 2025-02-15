@@ -4,22 +4,25 @@ import { toast } from "sonner";
 import { deleteProduct, type ProductsProps } from "../api/req/products";
 import queryClient from "../../../lib/reactquery/reactquery";
 
-export const useDeleteProduct = () => {
+export const useDeleteProduct = (productId: string | undefined) => {
   const navigate = useNavigate();
 
   return useMutation({
-    // Modifique a função de mutação para aceitar um objeto que inclua `productId` e `categoryId`
-    mutationFn: ({ productId }: { productId: number }) => deleteProduct(productId),
-    onSuccess: async (_, variables: { productId: number; categoryId: number }) => {
-      const { categoryId, productId } = variables;
+    mutationFn: () => deleteProduct(productId),
+    onSuccess: async (data) => {
+      const { id, categoryId } = data;
 
-      // Atualize o cache removendo o produto com o ID correspondente
-      queryClient.setQueryData(['products', categoryId], (oldProducts: ProductsProps[] | undefined) => {
-        return oldProducts?.filter(product => product.id !== productId);
-      });
+      const existingProductsInCache = queryClient.getQueryData<ProductsProps[]>(['products', categoryId.toString()]);
 
-      // Remove o cache específico do produto
-      queryClient.removeQueries({ queryKey: ['product', productId] });
+      if(existingProductsInCache) {
+        // Remove o produto eliminado do cache
+        queryClient.setQueryData(['products', categoryId.toString()], (oldProducts: ProductsProps[] | undefined) => {
+          
+        return oldProducts?.filter(product => product.id !== id);
+        });
+      }
+      // Remove o cache do produto eliminado
+      queryClient.removeQueries({ queryKey: ['product', id.toString()]});
 
       toast.success('Produto Eliminado com sucesso!');
       return navigate(`/dashboard/categories/${categoryId}`);

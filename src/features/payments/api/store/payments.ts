@@ -1,11 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { getPayments} from "../req/payment";
+import type { DateRange } from "react-day-picker";
 
 
 
-export function useGetPayments(byEmail?: string, byFilter?: string, byStatus?: string, startDate?: string, endDate?: string, page: number = 0) {
+export function useGetPayments(byEmail?: string, byFilter?: string, byStatus?: string, date?: DateRange, page: number = 0) {
     return useQuery({
-    queryKey: ['payments', byEmail, byFilter, byStatus, startDate, endDate, page],
-    queryFn: () => getPayments(byEmail, byFilter, byStatus, startDate, endDate, page),
+    queryKey: ['payments', byEmail, byFilter, byStatus, date, page],
+    queryFn: () => getPayments(byEmail, byFilter, byStatus, date, page),
+    placeholderData: keepPreviousData,
 })
 }

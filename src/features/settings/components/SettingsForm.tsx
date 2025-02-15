@@ -46,7 +46,7 @@ export default function SettingsForm({ initialData, onSubmit, isLoading }: Setti
                             <div>
                     <div className='mt-5'>
                                     <p className="mb-1">{t("setup.currency")}:</p>
-                                    <Select defaultValue={getValues("currency")} {...register('currency')} onValueChange={(value) => setValue('currency', value,{shouldDirty: true})}>
+                                    <Select defaultValue={getValues("StoreSettings.currency")} {...register('StoreSettings.currency')} onValueChange={(value) => setValue('StoreSettings.currency', value,{shouldDirty: true})}>
                                         <SelectTrigger className="min-w-[180px]">
                                             <SelectValue/>
                                         </SelectTrigger>
@@ -104,7 +104,7 @@ export default function SettingsForm({ initialData, onSubmit, isLoading }: Setti
                                 <h1 className='font-semibold text-base'>Modo manutenção</h1>
                                 <p className='text-sm text-muted-foreground'>Sua loja irá entrar em manutenção</p>
                             </div>
-                            <Switch defaultChecked={getValues("maintenance")} {...register('maintenance')} onCheckedChange={(value) => setValue("maintenance", value, {shouldDirty: true})}/>
+                            <Switch defaultChecked={getValues("StoreSettings.maintenance")} {...register('StoreSettings.maintenance')} onCheckedChange={(value) => setValue("StoreSettings.maintenance", value, {shouldDirty: true})}/>
                         </div>
                     </div>
                     </div>
@@ -132,7 +132,7 @@ export default function SettingsForm({ initialData, onSubmit, isLoading }: Setti
                         <div className="space-y-5">
                             <div>
                                 <label htmlFor="MinBasket" className="block font-medium mb-1">Valor mínimo do carrinho</label>
-                                <Input {...register('minBasket', { valueAsNumber: true })} type="number" />
+                                <Input {...register('StoreSettings.minBasket', { valueAsNumber: true })} type="number" />
                                 {errors.name && <span className='text-destructive text-[12px]'>{errors.name.message}</span>}
                             </div>
                         </div>

@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import { columnsPayment } from "../../payments/pages/paymentColumns";
 import HeaderSection from "../../../components/commons/Header";
 import Cards from "../../../components/dashboard/DashboardCard";
-import { CgSpinner } from "react-icons/cg";
 import CardSection from "../../../components/commons/CardSections";
 import { DataTable } from "../../../components/ui/datatable";
 import { useGetRevenueSummary } from "../../stores/api/store/store";
@@ -37,25 +36,29 @@ export default function DashboardHomePage() {
         <Cards
             title={t("dashboardPage.dailyEarnings")}
             symbol="€"
-            price={revenueLoading ? <CgSpinner className="animate-spin"/> : revenueSummary?.dailyRevenue || 0}
+            isLoading={revenueLoading}
+            price={revenueSummary?.dailyRevenue || 0}
             icon={GiMoneyStack}
           />
           <Cards
             title={t("dashboardPage.monthlyEarnings")}
             symbol="€"
-            price={revenueLoading ? <CgSpinner className="animate-spin"/> : revenueSummary?.monthlyRevenue || 0}
+            isLoading={revenueLoading}
+            price={revenueSummary?.monthlyRevenue || 0}
             icon={GiMoneyStack}
           />
           <Cards
             title={t("dashboardPage.dailySales")}
             symbol=""
-            price={revenueLoading ? <CgSpinner className="animate-spin"/> : revenueSummary?.dailySales || 0}
+            isLoading={revenueLoading}
+            price={revenueSummary?.dailySales || 0}
             icon={GiMoneyStack}
           />
           <Cards
             title={t("dashboardPage.monthlySales")}
             symbol=""
-            price={revenueLoading ? <CgSpinner className="animate-spin"/> : revenueSummary?.monthlySales || 0}
+            isLoading={revenueLoading}
+            price={revenueSummary?.monthlySales || 0}
             icon={GiMoneyStack}
           />
           

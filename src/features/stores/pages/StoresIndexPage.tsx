@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { Button } from "../../../components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../../components/ui/tabs";
 import { useGetUserInformation } from "../../../api/store/user";
-import UserMenu from "../../../layouts/dashboard/UserMenu";
 import StoreSection from "../components/storeSection";
 import InviteStoreSection from "../components/inviteStoreSection";
 import SubStoreSection from "../components/subStoreSection";
@@ -38,7 +37,6 @@ export default function StoresIndexPage() {
           <Link to={'setup'}>
             <Button>Criar loja</Button>
           </Link>
-          <UserMenu/>
         </div>
 
         <div className="w-full">

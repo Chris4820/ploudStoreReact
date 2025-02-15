@@ -17,10 +17,8 @@ import { Button } from "../../../components/ui/button";
 export default function EditCategoryPage() {
 
     const { id } = useParams();
-
-      const categoryId = parseInt(id as string, 10);
     
-    const {data: category, isLoading} = useGetCategory(categoryId);
+    const {data: category, isLoading} = useGetCategory(id);
 
     const { mutate: editCategory, isPending} = useEditCategory();
 
@@ -31,7 +29,7 @@ export default function EditCategoryPage() {
 
     const parentId = category?.parentId ?? undefined;
 
-    const { mutate: deleteCategory, isPending: deletePending } = useDeleteCategory(Number(parentId), categoryId);
+    const { mutate: deleteCategory, isPending: deletePending } = useDeleteCategory(Number(parentId), id);
 
     if(isLoading) {
         return <LoadingComponent/>

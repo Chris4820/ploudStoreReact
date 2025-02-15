@@ -111,7 +111,6 @@ export async function deleteInviteStore(storeId: number) {
     return response;
 }
 
-
 export async function getStoreSettings() {
     const response = await axiosStore.get<{ settings: SettingsFormData}>('storesettings');
     return response.data.settings;

@@ -5,7 +5,6 @@ import ShopsIndexPage from "./features/stores/pages/StoresIndexPage"
 import SetupPage from "./features/stores/pages/CreateStorePage"
 import EngagamentLayout from "./layouts/dashboard/NavBarLayout/EngagamentLayout"
 import CreateDiscountPage from "./features/coupons/pages/createCouponPage"
-import DesignLayout from "./layouts/dashboard/NavBarLayout/DesignLayout"
 import SubCategoryIdPage from "./features/products/pages/ProductsSubCategoriePage"
 import AuthLayout from "./features/auth/components/authLayout"
 import LoginPage from "./features/auth/pages/loginPage"
@@ -57,6 +56,10 @@ import InvitesPage from "./features/subusers/Pages/InvitesPage"
 import SubUserLayout from "./layouts/dashboard/NavBarLayout/SubUserLayout"
 import RolesPage from "./features/roles/Pages/RolesPage"
 import CreateRolePage from "./features/roles/Pages/CreateRole"
+import DesignPage from "./features/design/Pages/designPage"
+import NewsPage from "./features/news/pages/NewsPage"
+import CreateNewPage from "./features/news/pages/CreateNewPage"
+import EditNewPage from "./features/news/pages/EditBlogPage"
 
 
 function App() {
@@ -101,7 +104,7 @@ function App() {
            <Route path="/dashboard/product/create/:categoryId" element={<CreatePackagePage/>}/>
 
 
-           <Route path="design" element={<DesignLayout/>}>
+           <Route path="design" element={<DesignPage/>}>
            //Design aqui
            </Route>
 
@@ -109,6 +112,9 @@ function App() {
               <Route path="/dashboard/engagement" element={<CouponPage/>}/>
               <Route path="/dashboard/engagement/coupons/edit/:couponId" element={<EditCouponPage/>}/>
               <Route path="/dashboard/engagement/coupons/create" element={<CreateDiscountPage/>}/>
+              <Route path="/dashboard/engagement/news" element={<NewsPage/>}/>
+              <Route path="/dashboard/engagement/news/create" element={<CreateNewPage/>}/>
+              <Route path="/dashboard/engagement/news/edit/:id" element={<EditNewPage/>}/>
            </Route>
             <Route path="/dashboard/subuser/invite/:id" element={<InvitesPage/>}/>
 

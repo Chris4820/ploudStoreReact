@@ -3,14 +3,14 @@ import { getAllCategories, getCategories, getCategory, getProductsWithCategories
 
 
 
-export function useGetCategorie(parentCategoryId: number | null) {
+export function useGetCategorie(parentCategoryId: string | undefined) {
     return useQuery({
     queryKey: ['categories', parentCategoryId],
     queryFn: () => getCategories(parentCategoryId),
 })
 }
 
-export function useGetCategory(categoryId: number) {
+export function useGetCategory(categoryId: string | undefined) {
     return useQuery({
     queryKey: ['category', categoryId],
     queryFn: () => getCategory(categoryId),

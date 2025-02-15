@@ -6,15 +6,16 @@ import { useGetPayments } from "../api/store/payments";
 import HeaderSection from "../../../components/commons/Header";
 import { Input } from "../../../components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../components/ui/select";
-import { DatePickerWithRange } from "../../../components/ui/datepickerWithRange";
 import { Button } from "../../../components/ui/button";
 import { DataTable } from "../../../components/ui/datatable";
+import type { DateRange } from "react-day-picker";
+import { DateRangePickComponent } from "../../../components/dataPickerRange";
 
 
 
 export default function PaymentsPage() {
 
-    const [searchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const page = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
 
@@ -28,28 +29,40 @@ export default function PaymentsPage() {
     const [status, setStatus] = useState('none');
     const [currentStatus, setCurrentStatus] = useState('none');
 
-    const [startDate, setStartDate] = useState();
-    const [currentStartDate,] = useState();
-    const [endDate, setEndDate] = useState();
-    const [currentEndDate,] = useState();
+    const [dateRange, setRangeDate] = useState<DateRange | undefined>(() => {
+        const from = searchParams.get("startDate") ? new Date(searchParams.get("startDate")!) : undefined;
+        const to = searchParams.get("endDate") ? new Date(searchParams.get("endDate")!) : undefined;
 
-    const {data: payments, isLoading} = useGetPayments(email, filter, status === 'none' ? '' : status, startDate, endDate, page);
+        return from || to ? { from, to } : undefined; // Retorna undefined se ambos forem falsy
+    });
+
+    const {data: payments, isLoading} = useGetPayments(email, filter, status === 'none' ? '' : status, dateRange, page);
 
 
     async function handleFilter() {
         setEmail(currentEmail);
         setFilter(currentFilter);
         setStatus(currentStatus);
-        setStartDate(currentStartDate)
-        setEndDate(currentEndDate);
     }
 
-    function EnableButtonSearch() {
-        return email === currentEmail && filter === currentFilter && status === currentStatus && startDate === currentStartDate && endDate === currentEndDate;
-    }
+    function onDateChange(dateRange: DateRange) {
+        const updatedParams = new URLSearchParams(searchParams);
+        if(!dateRange.from || !dateRange.to) {
+          updatedParams.delete("startDate");
+          updatedParams.delete("endDate");
+        }else {
+          if (dateRange.from) updatedParams.set("startDate", dateRange.from.toISOString());
+          if (dateRange.to) updatedParams.set("endDate", dateRange.to.toISOString());
+    
+        }
+        setRangeDate(dateRange);
+        setSearchParams(updatedParams);
+      }
+
     return(
         <>
             <HeaderSection title="Pedidos" description="Consulte os pedidos de sua loja!"/>
+            <div className="flex justify-between items-center">
             <div className="flex gap-5 items-center flex-wrap">
                 <div className="space-y-1">
                 <Input onChange={(e) => setCurrentEmail(e.target.value)} placeholder="Search by Email" className="max-w-[250px] h-8"/>
@@ -101,10 +114,12 @@ export default function PaymentsPage() {
                             </SelectItem>
                 </SelectContent>
                 </Select>
+                <Button onClick={() => handleFilter()}>Pesquisar</Button>
 
-                <DatePickerWithRange/>
-
-                <Button disabled={EnableButtonSearch()} onClick={() => handleFilter()}>Pesquisar</Button>
+                </div>
+                <DateRangePickComponent 
+                defaultRange="Desde sempre"
+                onChangeRange={(date) => onDateChange(date)}/>
             </div>
             <div className="mt-5">
                 <DataTable data={payments?.payments || []} loading={isLoading} meta={payments?.meta} columns={columnsPayment}/>

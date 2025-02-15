@@ -1,7 +1,7 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
 import HeaderSection from "../../../components/commons/Header";
 import CreateButtonComponent from "../../../components/commons/buttons/CreateButtonComponent";
-import { useGetCoupons } from "../api/store/coupons";
+import { useGetCoupons, useGetTotalCoupons } from "../api/store/coupons";
 import { DataTable } from "../../../components/ui/datatable";
 import { columnsCoupon } from "./CouponColumns";
 
@@ -13,6 +13,7 @@ export default function CouponPage() {
     const page = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
 
     const { data: coupons, isLoading} = useGetCoupons(page);
+    const {data: meta, isLoading: metaLoading} = useGetTotalCoupons();
 
     return(
         <>
@@ -20,7 +21,7 @@ export default function CouponPage() {
             <HeaderSection title="Descontos" description="Crie novos descontos para sua loja!"/>
             <CreateButtonComponent onClick={() => navigate('coupons/create')} title="Desconto"/>
         </div>
-        <DataTable data={coupons?.coupons || []} loading={isLoading} columns={columnsCoupon} meta={coupons?.meta} link="coupons/edit/{id}"/>
+        <DataTable data={coupons || []} loading={isLoading} columns={columnsCoupon} meta={meta} metaLoading={metaLoading} link="coupons/edit/{id}"/>
 
         </>
     )

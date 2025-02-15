@@ -1,0 +1,28 @@
+/* customQuillStyles.css */
+
+
+/* Alterações de cor para o modo escuro */
+.ql-toolbar .ql-stroke,
+.ql-toolbar .ql-fill {
+  stroke: hsl(var(--accent-foreground)) !important;
+  color: hsl(var(--accent-foreground)) !important;
+}
+
+/* Estilo da barra de ferramentas e editor com borda e fundo */
+.ql-toolbar {
+  background-color: hsl(var(--muted));
+  border: 1px solid hsl(var(--muted)) !important;
+  border-top-left-radius: 0.5em;
+  border-top-right-radius: 0.5em;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.ql-container {
+  border-bottom-left-radius: 0.5em;
+  border-bottom-right-radius: 0.5em;
+  border: 2px solid hsl(var(--muted)) !important;
+}
+
+.ql-editor {
+  height: 18rem;
+}

@@ -10,7 +10,7 @@ import type { CategorieProps } from '../api/req/categorie';
 import queryClient from '../../../lib/reactquery/reactquery';
 import DraggableComponent from '../../../components/DraggableComponent';
 
-export function CategorieSection({ parentCategoryId }: { parentCategoryId: number | null }) {
+export function CategorieSection({ parentCategoryId }: { parentCategoryId: string | undefined }) {
     const [items, setItems] = useState<CategorieProps[]>([]);
     const sensors = useSensors(useSensor(PointerSensor));
     const { data: categories, isLoading } = useGetCategorie(parentCategoryId);

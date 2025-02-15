@@ -6,7 +6,7 @@ import { getInviteStores, getStores, getSubStores } from "../../features/stores/
 
 export function useGetUserInformation() {
     return useQuery({
-      queryKey: ['userInfo'],
+      queryKey: ['user'],
       queryFn: getUserInformation,
     })
 }

@@ -15,6 +15,8 @@ export default function UploadImageComponent({ id, onImageChange, imageUrl, MAX_
   const [imageUrll, setImageUrl] = useState(imageUrl || "");
   const [fileInputKey, setFileInputKey] = useState(Date.now());
 
+  console.log("ImageUrl" + imageUrl);
+
   const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
     console.log("Sim 1")
     const file = event.target.files?.[0];

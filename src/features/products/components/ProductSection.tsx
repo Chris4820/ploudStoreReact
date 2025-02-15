@@ -21,7 +21,7 @@ import type { ProductsProps } from "../api/req/products";
 import queryClient from "../../../lib/reactquery/reactquery";
 import DraggableComponent from "../../../components/DraggableComponent";
 
-export function ProductSection({categoryId} : {categoryId: number }) {
+export function ProductSection({categoryId} : {categoryId: string | undefined }) {
   const [items, setItems] = useState<ProductsProps[]>([]);
   const sensors = useSensors(useSensor(PointerSensor));
   const { data: products, isLoading } = useGetProducts(categoryId);

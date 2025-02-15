@@ -50,46 +50,34 @@ export default function Pagination({page, items, pages}: PaginationProps) {
     return param;
     })
   }
-  
-   // Calcular o intervalo de itens exibidos na página atual
-   const startItem = (page - 1) * 5 + 1;
-   const endItem = Math.min(page * 5, items);  // O menor valor entre o fim da página e o total de itens
 
   return(
-    <div className="flex text-sm items-center justify-between text-zinc-500 mt-5">
+    <div className="flex items-center justify-between p-4 rounded-lg">
 
-      
-        <span>Mostrando {startItem} a {endItem} de {items} itens</span>
+      <span className="font-semibold">{items} item(s) encontrados</span>
 
       <div className="flex items-center gap-5">
 
-      <span>Page {page} de {pages}</span>
+        <span className="font-medium">Página {page} de {pages + 1}</span>
 
-        <div className="space-x-1.5">
-          <Button onClick={firstPage} size={'icon'} disabled={page <= 1}>
+        <div className="flex space-x-2">
+          <Button onClick={firstPage} size={'icon'} disabled={page <= 1} aria-label="Ir para a primeira página">
               <ChevronsLeft className="size-4"/>
-              <span className="sr-only">Primeira página</span>
           </Button>
 
-          <Button onClick={previousPage} size={'icon'} disabled={page <= 1}>
+          <Button onClick={previousPage} size={'icon'} disabled={page <= 1} aria-label="Ir para a página anterior">
               <ChevronLeft className="size-4"/>
-              <span className="sr-only">Página anterior</span>
           </Button>
 
-          <Button onClick={nextPage} size={'icon'} disabled={page >= pages}>
+          <Button onClick={nextPage} size={'icon'} disabled={page >= pages} aria-label="Ir para a próxima página">
               <ChevronRight className="size-4"/>
-              <span className="sr-only">Próxima página</span>
           </Button>
 
-          <Button onClick={lastPage} size={'icon'} disabled={page >= pages}>
+          <Button onClick={lastPage} size={'icon'} disabled={page >= pages} aria-label="Ir para a última página">
               <ChevronsRight className="size-4"/>
-              <span className="sr-only">Última página</span>
           </Button>
-
         </div>
       </div>
-
     </div>
-
   )
 }

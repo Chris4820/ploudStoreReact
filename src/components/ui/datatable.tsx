@@ -17,6 +17,7 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   loading: boolean;
+  metaLoading?: boolean,
   meta?: MetaProps
   link?: string
 }
@@ -25,6 +26,7 @@ export function DataTable<TData, TValue>({
   columns,
   data,
   loading,
+  metaLoading,
   meta,
   link
 }: DataTableProps<TData, TValue>) {
@@ -34,6 +36,7 @@ export function DataTable<TData, TValue>({
     getCoreRowModel: getCoreRowModel(),
   });
 
+  console.log("DataTable: " + JSON.stringify(meta));
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const page = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
@@ -106,9 +109,9 @@ export function DataTable<TData, TValue>({
         </TableBody>
       </Table>
     </div>
-    {meta && data.length > 0 && (
-        <Pagination items={meta.items} pages={meta.pages} page={page} />
-      )}
+    {!metaLoading && meta && (
+      <Pagination items={meta.items} pages={meta.pages} page={page}/>
+    )}
     </>
   );
 }

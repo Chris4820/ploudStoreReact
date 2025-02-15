@@ -1,3 +1,4 @@
+import type { DateRange } from "react-day-picker";
 import axiosStore from "../../../../lib/axios/axiosStore";
 import { MetaProps } from "../../../statistic/api/req/statistic";
 
@@ -22,7 +23,7 @@ interface PaymentsResponse {
     meta: MetaProps;
 }
 
-export async function getPayments(byEmail?: string, byFilter?: string, byStatus?: string, startDate?: string, endDate?: string, page: number = 0): Promise<PaymentsResponse> {
+export async function getPayments(byEmail?: string, byFilter?: string, byStatus?: string, dateRange?: DateRange, page: number = 0): Promise<PaymentsResponse> {
     let query = "";
     if (byEmail) {
         query += `email=${byEmail}&`;
@@ -33,11 +34,11 @@ export async function getPayments(byEmail?: string, byFilter?: string, byStatus?
     if (byStatus) {
         query += `status=${byStatus}&`;
     }
-    if (startDate) {
-        query += `startdate=${startDate}&`;
+    if(dateRange && dateRange.from) {
+        query += `startDate=${dateRange.from}&`
     }
-    if (endDate) {
-        query += `enddate=${endDate}&`;
+    if(dateRange && dateRange.to) {
+        query += `endDate=${dateRange.to}&`
     }
     if (page) {
         query += `page=${page}&`;

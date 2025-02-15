@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import queryClient from "../../../lib/reactquery/reactquery"
 
 
-export const useDeleteCategory = (parentId: number | null, categoryId : number) => {
+export const useDeleteCategory = (parentId: number | null, categoryId : string | undefined) => {
 
   const navigate = useNavigate();
 
@@ -17,7 +17,7 @@ export const useDeleteCategory = (parentId: number | null, categoryId : number) 
     onSuccess: () => {
       // Remove a categoria do cache sem recarregar todos os dados
       queryClient.setQueryData(['categories', parentId], (oldCategories: CategorieProps[] | undefined) => {
-          return oldCategories?.filter(cat => cat.id !== categoryId);
+          return oldCategories?.filter(cat => cat.id !== Number(categoryId));
       });
       // Remove o cache do servidor específico pelo ID
       queryClient.removeQueries({ queryKey: ['category', categoryId] });

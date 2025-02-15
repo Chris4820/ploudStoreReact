@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogClose, DialogFooter } from "../ui/dialog";
 import { Button } from "../ui/button";
 import { RadioGroup } from "../ui/radioGroup";
-import { CreditCard } from "lucide-react";
 import { BsPaypal } from "react-icons/bs";
 import { FaStripe } from "react-icons/fa";
 import axiosStore from "../../lib/axios/axiosStore";
@@ -17,7 +16,7 @@ type PaymentDialogProps = {
 };
 
 export default function PaymentDialog({ children, plan, price, planKey }: PaymentDialogProps) {
-  const [selectedGateway, setSelectedGateway] = useState("card");
+  const [selectedGateway, setSelectedGateway] = useState("stripe");
   const [selectedPeriod, setSelectedPeriod] = useState("MONTHLY");
   const [subTotal, setSubTotal] = useState(price);
   const [discount, setDiscount] = useState(0);
@@ -85,16 +84,6 @@ export default function PaymentDialog({ children, plan, price, planKey }: Paymen
         <section className="mt-3">
           <h1 className="font-semibold text-lg">Método de pagamento</h1>
           <RadioGroup defaultValue="card" className="grid grid-cols-3 gap-5 mt-3">
-            <label
-              htmlFor="card"
-              className={`flex cursor-pointer flex-col items-center justify-between rounded-md p-4 border-2 ${
-                selectedGateway === "card" ? "border-primary bg-accent" : "border-muted bg-popover"
-              }`}
-              onClick={() => setSelectedGateway("card")}
-            >
-              <CreditCard className="mb-3 h-6 w-6" />
-              <span className="text-sm">Cartão</span>
-            </label>
             <label
               htmlFor="stripe"
               className={`flex cursor-pointer flex-col items-center justify-between rounded-md p-4 border-2 ${

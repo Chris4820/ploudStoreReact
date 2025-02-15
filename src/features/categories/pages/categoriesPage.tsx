@@ -15,7 +15,7 @@ export default function CategoriePage() {
           onClick={() => navigate('/dashboard/categories/create')}/>
       </div>
       <section className="container border rounded-lg space-y-1 py-5">
-        <CategorieSection parentCategoryId={null} />
+        <CategorieSection parentCategoryId={undefined} />
       </section>
     </>
   );

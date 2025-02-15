@@ -25,8 +25,14 @@ export type ProductProps = {
     price: number,
 }
 
-export async function getCategories(parentCategoryId: number | null): Promise<CategorieProps[] | []> {
-    const response = await axiosStore.get<{categories: CategorieProps[] | []}>(`categories?parentCategoryId=${parentCategoryId}`);
+export async function getCategories(parentCategoryId: string | undefined): Promise<CategorieProps[] | []> {
+
+    let query = "";
+    if (parentCategoryId) {
+        query += `parentCategoryId=${parentCategoryId}&`;
+    }
+
+    const response = await axiosStore.get<{categories: CategorieProps[] | []}>(`categories?${query}`);
     return response.data.categories || []; // Obtemos o primeiro item do array
 }
 
@@ -46,7 +52,7 @@ export async function orderCategories(categories: number[], parentId?: number) {
     return response;
 }
 
-export async function getCategorie(categoryId : number): Promise<CategoryProps> {
+export async function getCategorie(categoryId : string | undefined): Promise<CategoryProps> {
     const response = await axiosStore.get<{categorie: CategoryProps}>(`category/${categoryId}`);
     return response.data.categorie; // Obtemos o primeiro item do array
 }
@@ -58,17 +64,17 @@ export async function createCategorie(data: CategoryFormData) {
 }
 
 
-export async function deleteCategory(categoryId: number) {
+export async function deleteCategory(categoryId: string | undefined) {
     const response = await axiosStore.delete(`category/${categoryId}`)
     return response;
 }
 
-export async function getProducts(categoryId: number): Promise<ProductProps[]> {
+export async function getProducts(categoryId: string | undefined): Promise<ProductProps[]> {
     const response = await axiosStore.get<{products: ProductProps[]}>(`product/${categoryId}`);
     return response.data.products; // Obtemos o primeiro item do array
 }
 
-export async function getCategory(categoryId: number) {
+export async function getCategory(categoryId: string | undefined) {
     const response = await axiosStore.get<{category: CategoryProps}>(`category/${categoryId}`);
     return response.data.category;
 }
