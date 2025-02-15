@@ -27,7 +27,7 @@ export default function DashboardLayout() {
             </h1>
   
             <a 
-              href={`https://${store?.subdomain}.ploudcode.com`} 
+              href={`https://${store?.subdomain}.ploudstore.com`} 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-blue-600 hidden lg:block truncate hover:underline"
