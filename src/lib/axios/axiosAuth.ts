@@ -11,7 +11,6 @@ const axiosAuth = axios.create({
 });
 
 
-
 // Response interceptor
 axiosAuth.interceptors.response.use(
   response => response,

@@ -27,12 +27,12 @@ export default function DashboardLayout() {
             </h1>
   
             <a 
-              href="http://localhost:3000/api/auth/renderstore" 
+              href={`http://${store?.subdomain}`} 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-blue-600 hidden lg:block truncate hover:underline"
             >
-              {store?.subdomain}.ploudstore.com
+              {store?.subdomain}
             </a>
           </div>
   
