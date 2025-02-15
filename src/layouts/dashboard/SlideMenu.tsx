@@ -27,12 +27,12 @@ export default function DashboardLayout() {
             </h1>
   
             <a 
-              href={`http://${store?.subdomain}`} 
+              href={`https://${store?.subdomain}.ploudcode.com`} 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-blue-600 hidden lg:block truncate hover:underline"
             >
-              {store?.subdomain}
+              Aceder loja
             </a>
           </div>
   
