@@ -32,10 +32,14 @@ export const columnsPayment: ColumnDef<PaymentProps>[] = [
         header: "Status",
     },
     {
-      accessorKey: "created_at",
+      accessorKey: "createdAt",
       header: "Data",
       cell: ({ row }) => {
-        const date = new Date(row.original.created_at);
+        const dateValue = row.original.createdAt;
+        if (!dateValue) return "N/D";
+        const date = new Date(dateValue);
+        // Verifica se a data é válida
+        if (isNaN(date.getTime())) return "N/D";
         return format(date, "dd/MM/yyyy HH:mm");
       },
     }

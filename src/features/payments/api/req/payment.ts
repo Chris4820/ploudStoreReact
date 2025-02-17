@@ -9,7 +9,7 @@ export type PaymentProps = {
     clientEmail: string,
     value: number,
     status: "pending" | "success" | "failed"
-    created_at: string,
+    createdAt: string,
     coupon?: CouponProps,
 }
 
