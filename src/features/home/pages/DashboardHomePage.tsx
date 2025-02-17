@@ -5,7 +5,7 @@ import HeaderSection from "../../../components/commons/Header";
 import Cards from "../../../components/dashboard/DashboardCard";
 import CardSection from "../../../components/commons/CardSections";
 import { DataTable } from "../../../components/ui/datatable";
-import { useGetRevenueSummary, useGetStoreInformation } from "../../stores/api/store/store";
+import { useGetRevenueSummary, useGetStoreSettings } from "../../stores/api/store/store";
 import { useGetPayments } from "../../payments/api/store/payments";
 import { useGetGraphData, useGetNotifications } from "../api/store/store";
 import LoadingComponent from "../../../containers/LoadingComponent";
@@ -27,7 +27,7 @@ export default function DashboardHomePage() {
 
     const { data: notifications = [], isLoading: notificationsLoading } = useGetNotifications(); 
 
-    const { data: store, isLoading: storeLoading} = useGetStoreInformation();
+    const { data: store, isLoading: storeLoading} = useGetStoreSettings();
 
 
     return(

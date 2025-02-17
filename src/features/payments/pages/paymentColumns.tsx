@@ -2,9 +2,9 @@ import { ColumnDef } from "@tanstack/react-table"
 import { format } from "date-fns";
 import type { PaymentProps } from "../api/req/payment";
 import { formatMoney } from "../../../utils/fomat";
-import type { StoreInformationProps } from "../../stores/api/req/store";
+import type { SettingsFormData } from "../../settings/schema/SettingsSchema";
 
-export const columnsPayment = (store: StoreInformationProps | undefined): ColumnDef<PaymentProps>[] => [
+export const columnsPayment = (store: SettingsFormData | undefined): ColumnDef<PaymentProps>[] => [
     {
       accessorKey: "clientIdentifier",
       header: "Cliente",

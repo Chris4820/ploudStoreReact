@@ -10,14 +10,14 @@ import { Button } from "../../../components/ui/button";
 import { DataTable } from "../../../components/ui/datatable";
 import type { DateRange } from "react-day-picker";
 import { DateRangePickComponent } from "../../../components/dataPickerRange";
-import { useGetStoreInformation } from "../../stores/api/store/store";
+import { useGetStoreSettings } from "../../stores/api/store/store";
 import LoadingComponent from "../../../containers/LoadingComponent";
 
 
 
 export default function PaymentsPage() {
 
-    const { data: store, isLoading: storeLoading } = useGetStoreInformation();
+    const { data: store, isLoading: storeLoading } = useGetStoreSettings();
 
     const [searchParams, setSearchParams] = useSearchParams();
 

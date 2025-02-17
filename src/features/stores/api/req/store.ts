@@ -42,7 +42,6 @@ export type InviteStoreProps = {
     created_at: string,
 }
 
-
 export async function getStoreInformation(): Promise<StoreInformationProps> {
     const response = await axiosStore.get<{store: StoreInformationProps}>('store');
     return response.data.store; // Obtemos o primeiro item do array
