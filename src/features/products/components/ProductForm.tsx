@@ -81,7 +81,7 @@ export default function ProductForm({ initialData, buttonText, onSubmit, isSubmi
                     </div>
                     <div>
                         <label>Preço</label>
-                        <Input id="price" className="mt-1" type="number" {...register("price")}/>
+                        <Input id="price" className="mt-1" {...register("price")}/>
                         {errors.price && <span className='text-destructive text-[12px]'>{errors.price.message}</span>}
                     </div>
                 </div>

@@ -14,7 +14,17 @@ const ProductSchema = z.object({
     id: z.number().optional(),
     name: z.string().min(3, "Mínimo de 3 caracteres"),
     description: z.string().min(6, 'Mínimo de 6 caracteres'),
-    price: z.preprocess((val) => parseFloat(val as string), z.number().positive("O preço deve ser um número positivo")),
+    price: z.preprocess(
+      (val) => {
+        if (typeof val === "string") {
+          // Substitui a vírgula pelo ponto, caso exista
+          return parseFloat(val.replace(",", "."));
+        }
+        return val;
+      },
+      z.number({ invalid_type_error: "Preço inválido" }),
+      z.number().positive("O preço deve ser positivo")
+    ),
     stock: z.preprocess((val) => parseFloat(val as string), z.number()),
     categoryId: z.number().optional(),
     imageUrl: z.string().nullable(),
