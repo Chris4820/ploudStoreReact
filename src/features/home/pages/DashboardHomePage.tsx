@@ -5,7 +5,7 @@ import HeaderSection from "../../../components/commons/Header";
 import Cards from "../../../components/dashboard/DashboardCard";
 import CardSection from "../../../components/commons/CardSections";
 import { DataTable } from "../../../components/ui/datatable";
-import { useGetRevenueSummary } from "../../stores/api/store/store";
+import { useGetRevenueSummary, useGetStoreInformation } from "../../stores/api/store/store";
 import { useGetPayments } from "../../payments/api/store/payments";
 import { useGetGraphData, useGetNotifications } from "../api/store/store";
 import LoadingComponent from "../../../containers/LoadingComponent";
@@ -26,6 +26,8 @@ export default function DashboardHomePage() {
     const {data: payments, isLoading: paymentsLoading } = useGetPayments();
 
     const { data: notifications = [], isLoading: notificationsLoading } = useGetNotifications(); 
+
+    const { data: store, isLoading: storeLoading} = useGetStoreInformation();
 
     return(
         <>
@@ -109,7 +111,11 @@ export default function DashboardHomePage() {
             </div>
             <div className="mt-5">
               <CardSection title="Pagamentos recentes" hAuto link="payments">
-                <DataTable data={payments?.payments || []} loading={paymentsLoading} columns={columnsPayment}/>
+              {storeLoading ? (
+                <DataTable data={payments?.payments || []} loading={paymentsLoading} columns={columnsPayment(store)}/>
+              ) : (
+                <LoadingComponent />
+              )}
               </CardSection>
             </div>
         </>

@@ -17,7 +17,7 @@ import LoadingComponent from "../../../containers/LoadingComponent";
 
 export default function PaymentsPage() {
 
-    
+    const { data: store, isLoading: storeLoading } = useGetStoreInformation();
 
     const [searchParams, setSearchParams] = useSearchParams();
 
@@ -44,13 +44,6 @@ export default function PaymentsPage() {
     
 
     const {data: payments, isLoading} = useGetPayments(email, filter, status === 'none' ? '' : status, dateRange, page);
-
-    const { data: store, isLoading: isLoadingStore } = useGetStoreInformation();
-
-
-    if(isLoadingStore) {
-        return <LoadingComponent/>
-    }
 
 
     async function handleFilter() {
@@ -136,7 +129,12 @@ export default function PaymentsPage() {
                 onChangeRange={(date) => onDateChange(date)}/>
             </div>
             <div className="mt-5">
-                <DataTable data={payments?.payments || []} loading={isLoading} meta={payments?.meta} columns={columnsPayment(store)}/>
+                {storeLoading ? (
+                   <DataTable data={payments?.payments || []} loading={isLoading} meta={payments?.meta} columns={columnsPayment(store)}/>
+                ) : (
+                    <LoadingComponent />
+                )}
+                
             </div>
 
         </>
