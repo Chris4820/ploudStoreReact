@@ -29,7 +29,7 @@ export default function DashboardHomePage() {
 
     const { data: store, isLoading: storeLoading} = useGetStoreInformation();
 
-    
+
     return(
         <>
         <HeaderSection 
@@ -113,9 +113,9 @@ export default function DashboardHomePage() {
             <div className="mt-5">
               <CardSection title="Pagamentos recentes" hAuto link="payments">
               {storeLoading ? (
-                <DataTable data={payments?.payments || []} loading={paymentsLoading} columns={columnsPayment(store)}/>
-              ) : (
                 <LoadingComponent />
+              ) : (
+                <DataTable data={payments?.payments || []} loading={paymentsLoading} columns={columnsPayment(store)}/>
               )}
               </CardSection>
             </div>

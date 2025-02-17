@@ -46,9 +46,6 @@ export default function PaymentsPage() {
     const {data: payments, isLoading} = useGetPayments(email, filter, status === 'none' ? '' : status, dateRange, page);
 
 
-    console.log("Store: + " + JSON.stringify(store) + ", isLoading: " + storeLoading);
-
-
     async function handleFilter() {
         setEmail(currentEmail);
         setFilter(currentFilter);
@@ -133,9 +130,9 @@ export default function PaymentsPage() {
             </div>
             <div className="mt-5">
                 {storeLoading ? (
-                   <DataTable data={payments?.payments || []} loading={isLoading} meta={payments?.meta} columns={columnsPayment(store)}/>
-                ) : (
                     <LoadingComponent />
+                ) : (
+                    <DataTable data={payments?.payments || []} loading={isLoading} meta={payments?.meta} columns={columnsPayment(store)}/>
                 )}
                 
             </div>
