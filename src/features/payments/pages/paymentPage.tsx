@@ -10,10 +10,14 @@ import { Button } from "../../../components/ui/button";
 import { DataTable } from "../../../components/ui/datatable";
 import type { DateRange } from "react-day-picker";
 import { DateRangePickComponent } from "../../../components/dataPickerRange";
+import { useGetStoreInformation } from "../../stores/api/store/store";
+import LoadingComponent from "../../../containers/LoadingComponent";
 
 
 
 export default function PaymentsPage() {
+
+    
 
     const [searchParams, setSearchParams] = useSearchParams();
 
@@ -28,6 +32,7 @@ export default function PaymentsPage() {
 
     const [status, setStatus] = useState('none');
     const [currentStatus, setCurrentStatus] = useState('none');
+    
 
     const [dateRange, setRangeDate] = useState<DateRange | undefined>(() => {
         const from = searchParams.get("startDate") ? new Date(searchParams.get("startDate")!) : undefined;
@@ -36,7 +41,16 @@ export default function PaymentsPage() {
         return from || to ? { from, to } : undefined; // Retorna undefined se ambos forem falsy
     });
 
+    
+
     const {data: payments, isLoading} = useGetPayments(email, filter, status === 'none' ? '' : status, dateRange, page);
+
+    const { data: store, isLoading: isLoadingStore } = useGetStoreInformation();
+
+
+    if(isLoadingStore) {
+        return <LoadingComponent/>
+    }
 
 
     async function handleFilter() {
@@ -122,7 +136,7 @@ export default function PaymentsPage() {
                 onChangeRange={(date) => onDateChange(date)}/>
             </div>
             <div className="mt-5">
-                <DataTable data={payments?.payments || []} loading={isLoading} meta={payments?.meta} columns={columnsPayment}/>
+                <DataTable data={payments?.payments || []} loading={isLoading} meta={payments?.meta} columns={columnsPayment(store)}/>
             </div>
 
         </>

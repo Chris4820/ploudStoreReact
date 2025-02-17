@@ -1,8 +1,10 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { format } from "date-fns";
 import type { PaymentProps } from "../api/req/payment";
+import { formatMoney } from "../../../utils/fomat";
+import type { StoreInformationProps } from "../../stores/api/req/store";
 
-export const columnsPayment: ColumnDef<PaymentProps>[] = [
+export const columnsPayment = (store: StoreInformationProps | undefined): ColumnDef<PaymentProps>[] => [
     {
       accessorKey: "clientIdentifier",
       header: "Cliente",
@@ -15,8 +17,7 @@ export const columnsPayment: ColumnDef<PaymentProps>[] = [
       accessorKey: "value",
       header: "Preço",
       cell: ({ row }) => {
-        const value = row.original.value;
-        return value + "€";
+        return formatMoney(row.original.value, store);
       },
     },
     {
