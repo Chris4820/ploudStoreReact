@@ -32,7 +32,7 @@ export const useEditProduct = (productId: number, image: File | null) => {
         );
       });
       //Invalida a produto editada do cache
-      queryClient.removeQueries({queryKey: ['product', variables.id]});
+      queryClient.removeQueries({queryKey: ['product', variables.id?.toString()]});
       if (image && signedUrl) {
         await uploadImage(signedUrl, image as File, image.type);
       }
