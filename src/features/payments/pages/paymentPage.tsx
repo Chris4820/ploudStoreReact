@@ -66,6 +66,8 @@ export default function PaymentsPage() {
         setSearchParams(updatedParams);
       }
 
+      console.log(JSON.stringify(store));
+
     return(
         <>
             <HeaderSection title="Pedidos" description="Consulte os pedidos de sua loja!"/>
