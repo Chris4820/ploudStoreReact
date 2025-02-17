@@ -29,6 +29,7 @@ export default function DashboardHomePage() {
 
     const { data: store, isLoading: storeLoading} = useGetStoreInformation();
 
+    
     return(
         <>
         <HeaderSection 

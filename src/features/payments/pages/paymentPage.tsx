@@ -46,6 +46,9 @@ export default function PaymentsPage() {
     const {data: payments, isLoading} = useGetPayments(email, filter, status === 'none' ? '' : status, dateRange, page);
 
 
+    console.log("Store: + " + JSON.stringify(store) + ", isLoading: " + storeLoading);
+
+
     async function handleFilter() {
         setEmail(currentEmail);
         setFilter(currentFilter);
