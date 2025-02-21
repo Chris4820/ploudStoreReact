@@ -32,3 +32,4 @@ export function useGetInviteStores() {
       queryFn: getInviteStores,
     })
 }
+

@@ -6,7 +6,6 @@ import SetupPage from "./features/stores/pages/CreateStorePage"
 import EngagamentLayout from "./layouts/dashboard/NavBarLayout/EngagamentLayout"
 import CreateDiscountPage from "./features/coupons/pages/createCouponPage"
 import SubCategoryIdPage from "./features/products/pages/ProductsSubCategoriePage"
-import AuthLayout from "./features/auth/components/authLayout"
 import LoginPage from "./features/auth/pages/loginPage"
 import RegisterPage from "./features/auth/pages/registerPage"
 import RecoveryPasswordPage from "./features/auth/pages/RecoveryPasswordPage"
@@ -60,6 +59,9 @@ import DesignPage from "./features/design/Pages/designPage"
 import NewsPage from "./features/news/pages/NewsPage"
 import CreateNewPage from "./features/news/pages/CreateNewPage"
 import EditNewPage from "./features/news/pages/EditBlogPage"
+import PaymentDetailsPage from "./features/payments/pages/PaymentDetails/PaymentsDetails"
+import UserProviderWrapper from "./provider/User/UserWrapper"
+import StoreProviderWrapper from "./provider/Store/StoreWrapper.tsx"
 
 
 function App() {
@@ -67,19 +69,18 @@ function App() {
    <div className="App">
      <BrowserRouter>
        <Routes>
+        <Route element={<UserProviderWrapper/>}>
         <Route path="/" element={<ShopsIndexPage/>}/>
         <Route path="/setup" element={<SetupPage />} />
         <Route path="/profile" element={<ProfilePage />} />
 
-        <Route path="auth" element={<AuthLayout/>}>
           <Route path="/auth/login" element={<LoginPage/>}/>
           <Route path="/auth/register" element={<RegisterPage/>}/>
           <Route path="/auth/recovery-password" element={<RecoveryPasswordPage/>}/>
           <Route path="/auth/recovery-password/:passwordToken" element={<ResetPasswordPage/>}/>
           <Route path="/auth/confirm-email/:emailToken" element={<ConfirmEmailPage/>}/>
-        </Route>
 
-
+        <Route element={<StoreProviderWrapper />}>
          <Route path="dashboard" element={<DashboardLayout />} >
            <Route path="/dashboard" element={<DashboardHomePage />} />
            <Route path="/dashboard/statistic" element={<StatisticPage />} />
@@ -87,8 +88,7 @@ function App() {
            <Route path="/dashboard/statistic/customers" element={<CustomersPage />}/>
            <Route path="/dashboard/statistic/coupons" element={<CouponReportPage />}/>
            <Route path="/dashboard/payments" element={<PaymentsPage/>} />
-
-
+           <Route path="/dashboard/payments/details/:id" element={<PaymentDetailsPage/>} />
 
           //CATEGORY
            <Route path="/dashboard/categories" element={<CategoriePage/>}/>
@@ -99,7 +99,7 @@ function App() {
            <Route path="/dashboard/categories/create" element={<CreateCategoryPage/>} />
            <Route path="/dashboard/categories/edit/:id" element={<EditCategoryPage/>} />
 
-          //PRODUCTS
+            //PRODUCTS
            <Route path="/dashboard/product/edit/:productId" element={<EditProductPage/>} />
            <Route path="/dashboard/product/create/:categoryId" element={<CreatePackagePage/>}/>
 
@@ -154,6 +154,9 @@ function App() {
               <Route path="/dashboard/settings/domain/custom" element={<CustomDomainPage/>}/>
            </Route>
            <Route path="/dashboard/plan" element={<PlanPage/>}/>
+         </Route>
+         </Route>
+
          </Route>
 
        </Routes>

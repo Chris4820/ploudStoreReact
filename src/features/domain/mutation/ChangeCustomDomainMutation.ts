@@ -4,9 +4,10 @@
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { updateCustomDomain } from "../api/req/domain";
-import type { StoreProps } from "../../stores/api/req/store";
 import queryClient from "../../../lib/reactquery/reactquery";
 import type { CustomDomainFormData } from "../Schema/CustomDomainSchema";
+
+
 
 export const useUpdateCustomDomain = () => {
 
@@ -14,15 +15,14 @@ export const useUpdateCustomDomain = () => {
   return useMutation({
     mutationFn: (data: CustomDomainFormData) => updateCustomDomain(data),
     onSuccess: (_, variables) => {
-      const storeDataCache = queryClient.getQueryData<StoreProps>(['store']);
-
+      const storeDataCache = queryClient.getQueryData<CustomDomainFormData>(['store']);
       if(storeDataCache) {
-        queryClient.setQueryData(['store'], {
+        queryClient.setQueryData<CustomDomainFormData>(['store'], {
           ...storeDataCache,
-          domain: variables.domain, // Atualiza o subdomain
+          domain: variables.domain,
         });
-      }
-      toast.success("Domínio atualizado!");
+    }
+    toast.success("Domínio atualizado!");
     }
   }
   )

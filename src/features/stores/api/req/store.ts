@@ -1,4 +1,3 @@
-import type { SettingsFormData } from "../../../settings/schema/SettingsSchema";
 import axiosStore from "../../../../lib/axios/axiosStore";
 import axiosUser from "../../../../lib/axios/axiosUser";
 import type { CreateStoreFormData } from "../../schema/createStoreSchema";
@@ -6,18 +5,33 @@ import type { CreateStoreFormData } from "../../schema/createStoreSchema";
 export type StoreInformationProps = {
     name: string,
     description: string,
-    shortname: string,
+    shortame: string,
     gameType: 'MINECRAFT' | 'FIVEM',
     domain: string,
     subdomain: string,
-    activedomain: string,
-    currency: string,
-    locale: string,
+    activeDomain: string,
     createdAt: string,
+    terms: string,
+
+    keywords: string,
+    locale: string,
+    currency: string,
+    backgroundUrl: string | undefined,
     maintenance: boolean,
-    type: 'MINECRAFT' | 'FIVEM',
-    keywords: string
+    minBasket: number,
+    primaryColor: string,
+    secondaryColor: string,
+
+    //STORE PLAN
+    StorePlan: {
+        overdueDate: string,
+        plan: string,
+        status: string,
+        period: string,
+        extra_price: number,
+    }
 }
+
 
 export type StoreProps = {
     id: number,
@@ -109,15 +123,5 @@ export async function deleteInviteStore(storeId: number) {
     const response = await axiosUser.delete(`inviteStore/${storeId}`);
     return response;
 }
-
-export async function getStoreSettings() {
-    const response = await axiosStore.get<{ settings: SettingsFormData}>('storesettings');
-    return response.data.settings;
-}
-export async function updateStoreSettings(data: SettingsFormData) {
-    const response = await axiosStore.put("storesettings", { data });
-    return response;
-}
-
 
 

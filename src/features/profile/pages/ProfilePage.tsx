@@ -1,4 +1,3 @@
-import { useGetUserInformation } from "../../../api/store/user"
 import { Avatar, AvatarFallback, AvatarImage } from "../../../components/ui/avatar";
 import { Input } from "../../../components/ui/input";
 import { Button } from "../../../components/ui/button";
@@ -11,12 +10,14 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { changeNameUser } from "../../../api/req/user";
 import { toast } from "sonner";
 import EditModal from "../../../components/modal/editModal";
+import { useUser } from "../../../provider/User/UserContext";
 
 
 
 
 export default function ProfilePage() {
-    const {data: user} = useGetUserInformation();
+
+    const user = useUser();
 
     const { i18n, t} = useTranslation();
 

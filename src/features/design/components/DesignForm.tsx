@@ -6,6 +6,7 @@ import ColorPickerComponent from "../../../components/colorPickerComponent";
 import SubmitButton from "../../../components/commons/buttons/SubmitButtonComponent";
 import SubHeaderSection from "../../../components/commons/subHeader";
 import { Switch } from "../../../components/ui/switch";
+import { useEffect } from "react";
 
 
 
@@ -18,11 +19,15 @@ type DesignFormProps = {
 
 export default function DesignForm({initialData, onSubmit} : DesignFormProps) {
 
-const { handleSubmit, formState: { isDirty }, getValues, setValue } = useForm<designFormData>({
+const { handleSubmit, formState: { isDirty }, getValues, setValue, reset } = useForm<designFormData>({
   resolver: zodResolver(designSchema),
   defaultValues: initialData,
   mode: 'onSubmit',
 });
+
+useEffect(() => {
+        reset(initialData)
+}, [initialData, reset])
 
 return(
   <>

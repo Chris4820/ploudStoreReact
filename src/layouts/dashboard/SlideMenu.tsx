@@ -1,16 +1,14 @@
 import {  Outlet, useNavigate } from "react-router-dom";
 import {  IoMdNotificationsOutline } from "react-icons/io";
-import { useGetStoreInformation } from "../../features/stores/api/store/store";
-import { AuthProvider } from "../../provider/AuthProvider";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "../../components/ui/slidebar";
 import { AppSidebar } from "./NewSlideMenu";
+import { useStore } from "../../provider/Store/StoreContext";
 
 export default function DashboardLayout() {
   const navigate = useNavigate();
-  const { data: store } = useGetStoreInformation();
+  const store = useStore();
 
   return (
-    <AuthProvider>
       <SidebarProvider>
 
         <AppSidebar/>
@@ -27,7 +25,7 @@ export default function DashboardLayout() {
             </h1>
   
             <a 
-              href={`https://${store?.subdomain}.ploudstore.com`} 
+              href={`https://${store.activeDomain}`} 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-blue-600 hidden lg:block truncate hover:underline"
@@ -49,6 +47,5 @@ export default function DashboardLayout() {
 
         </SidebarInset>
       </SidebarProvider>
-    </AuthProvider>
   );
 }  

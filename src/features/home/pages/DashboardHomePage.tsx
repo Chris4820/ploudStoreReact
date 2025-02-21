@@ -5,13 +5,14 @@ import HeaderSection from "../../../components/commons/Header";
 import Cards from "../../../components/dashboard/DashboardCard";
 import CardSection from "../../../components/commons/CardSections";
 import { DataTable } from "../../../components/ui/datatable";
-import { useGetRevenueSummary, useGetStoreSettings } from "../../stores/api/store/store";
+import { useGetRevenueSummary } from "../../stores/api/store/store";
 import { useGetPayments } from "../../payments/api/store/payments";
 import { useGetGraphData, useGetNotifications } from "../api/store/store";
 import LoadingComponent from "../../../containers/LoadingComponent";
 import CardEmptyComponent from "../../../components/commons/CardEmpty";
 import { Coins, Goal } from "lucide-react";
 import ChartComponent from "../../../components/ui/ChartComponent";
+import { FormatMoney } from "../../../utils/fomat";
 
 
 
@@ -27,7 +28,6 @@ export default function DashboardHomePage() {
 
     const { data: notifications = [], isLoading: notificationsLoading } = useGetNotifications(); 
 
-    const { data: store, isLoading: storeLoading} = useGetStoreSettings();
 
 
     return(
@@ -38,28 +38,24 @@ export default function DashboardHomePage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         <Cards
             title={t("dashboardPage.dailyEarnings")}
-            symbol="€"
             isLoading={revenueLoading}
-            price={revenueSummary?.dailyRevenue || 0}
+            price={FormatMoney(revenueSummary?.dailyRevenue || 0)}
             icon={GiMoneyStack}
           />
           <Cards
             title={t("dashboardPage.monthlyEarnings")}
-            symbol="€"
             isLoading={revenueLoading}
-            price={revenueSummary?.monthlyRevenue || 0}
+            price={FormatMoney(revenueSummary?.monthlyRevenue || 0)}
             icon={GiMoneyStack}
           />
           <Cards
             title={t("dashboardPage.dailySales")}
-            symbol=""
             isLoading={revenueLoading}
             price={revenueSummary?.dailySales || 0}
             icon={GiMoneyStack}
           />
           <Cards
             title={t("dashboardPage.monthlySales")}
-            symbol=""
             isLoading={revenueLoading}
             price={revenueSummary?.monthlySales || 0}
             icon={GiMoneyStack}
@@ -112,11 +108,7 @@ export default function DashboardHomePage() {
             </div>
             <div className="mt-5">
               <CardSection title="Pagamentos recentes" hAuto link="payments">
-              {storeLoading ? (
-                <LoadingComponent />
-              ) : (
-                <DataTable data={payments?.payments || []} loading={paymentsLoading} columns={columnsPayment(store)}/>
-              )}
+                <DataTable data={payments?.payments || []} loading={paymentsLoading} columns={columnsPayment}/>
               </CardSection>
             </div>
         </>

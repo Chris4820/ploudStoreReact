@@ -7,6 +7,7 @@ import {
 } from "./chart"
 import { Coins } from "lucide-react"
 import type { GraphProps } from "../../features/home/api/req/req"
+import { FormatMoney } from "../../utils/fomat"
 
 
 const chartConfig = {
@@ -42,7 +43,12 @@ export default function ChartComponent({graph} : SalesAreaChartProps) {
             />
             <ChartTooltip
               cursor={false}
-              content={<ChartTooltipContent indicator="line" />}
+              content={<ChartTooltipContent 
+                indicator="line" 
+                formatter={(value: unknown) =>
+                  FormatMoney(Number(value))
+                }
+                />}
             />
             <Area
               dataKey="value"

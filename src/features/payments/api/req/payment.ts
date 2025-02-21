@@ -46,3 +46,24 @@ export async function getPayments(byEmail?: string, byFilter?: string, byStatus?
     const response = await axiosStore.get<PaymentsResponse>(`payments?${query}`);
     return response.data;
 }
+
+
+type PaymentDetails = {
+    id: number,
+    createdAt: string,
+    status: string,
+    clientEmail: true,
+    clientIdentifier: true,
+    paymentItems: PaymentItensDetails[]
+}
+
+type PaymentItensDetails = {
+    name: string,
+    price: number,
+    quantity: number
+}
+
+export async function getPaymentDetails(paymentId: string) : Promise<PaymentDetails> {
+    const response = await axiosStore.get<{payment: PaymentDetails}>(`payments/details/${paymentId}`);
+    return response.data.payment;
+}

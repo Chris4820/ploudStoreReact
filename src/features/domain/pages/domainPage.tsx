@@ -1,24 +1,18 @@
 import { LockIcon } from "lucide-react"
 import { Button } from "../../../components/ui/button"
 import HeaderSection from "../../../components/commons/Header"
-import { useGetStoreInformation } from "../../stores/api/store/store"
 import { t } from "i18next"
 import SubDomainForm from "../../../features/domain/components/SubDomainForm"
 import { useUpdateSubDomain } from "../../../features/domain/mutation/ChangeSubDomainMutation"
-import LoadingComponent from "../../../containers/LoadingComponent"
 import { useNavigate } from "react-router-dom"
+import { useStore } from "../../../provider/Store/StoreContext"
 
 
 
 export default function DomainPage() {
     const navigate = useNavigate();
-    const { data: store, isLoading } = useGetStoreInformation();
+    const store = useStore();
     const { mutate: updateSubDomain, isPending} = useUpdateSubDomain();
-
-    if(isLoading) {
-        return <LoadingComponent/>
-    }
-
 
     return(
         <>

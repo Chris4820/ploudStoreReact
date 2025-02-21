@@ -10,14 +10,9 @@ import { Button } from "../../../components/ui/button";
 import { DataTable } from "../../../components/ui/datatable";
 import type { DateRange } from "react-day-picker";
 import { DateRangePickComponent } from "../../../components/dataPickerRange";
-import { useGetStoreSettings } from "../../stores/api/store/store";
-import LoadingComponent from "../../../containers/LoadingComponent";
-
 
 
 export default function PaymentsPage() {
-
-    const { data: store, isLoading: storeLoading } = useGetStoreSettings();
 
     const [searchParams, setSearchParams] = useSearchParams();
 
@@ -65,8 +60,6 @@ export default function PaymentsPage() {
         setRangeDate(dateRange);
         setSearchParams(updatedParams);
       }
-
-      console.log(JSON.stringify(store));
 
     return(
         <>
@@ -131,12 +124,7 @@ export default function PaymentsPage() {
                 onChangeRange={(date) => onDateChange(date)}/>
             </div>
             <div className="mt-5">
-                {storeLoading ? (
-                    <LoadingComponent />
-                ) : (
-                    <DataTable data={payments?.payments || []} loading={isLoading} meta={payments?.meta} columns={columnsPayment(store)}/>
-                )}
-                
+                <DataTable data={payments?.payments || []} loading={isLoading} meta={payments?.meta} columns={columnsPayment} link="/dashboard/payments/details/{id}"/>
             </div>
 
         </>

@@ -1,5 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table"
 import type { CustomersData } from "../api/req/statistic"
+import { FormatMoney } from "../../../utils/fomat";
 
 export const columnsCustomer: ColumnDef<CustomersData>[] = [
     {
@@ -14,13 +15,7 @@ export const columnsCustomer: ColumnDef<CustomersData>[] = [
         accessorKey: "totalAmount",
         header: "Amount",
         cell: ({ row }) => {
-          const amount = parseFloat(row.getValue("totalAmount"))
-          const formatted = new Intl.NumberFormat("en-US", {
-            style: "currency",
-            currency: "USD",
-          }).format(amount)
-     
-          return <div>{formatted}</div>
+          return FormatMoney(row.original.totalAmount);
         },
     },
 ]

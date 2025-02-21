@@ -78,7 +78,7 @@ export default function CategoryForm({ initialData, onSubmit, mode, isLoading, c
                     <label>Slug</label>
                     <div className="flex mt-1">
                         <div className="h-10 border px-5 bg-muted rounded-l-md flex items-center">
-                            <h1>{store?.activedomain}</h1>
+                            <h1>{store?.activeDomain}</h1>
                         </div>
                         <Input
                         {...register("slug")}

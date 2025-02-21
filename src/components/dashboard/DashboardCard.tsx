@@ -3,14 +3,13 @@ import { CgSpinner } from 'react-icons/cg';
 
 export type CardType = {
   title: string;
-  price: number;
+  price: string | number;
   isLoading: boolean,
-  symbol: string;
   icon?: React.ElementType;
   isInt?: boolean
 };
 
-export default function Cards({ title, price, symbol, icon, isInt = false, isLoading }: CardType) {
+export default function Cards({ title, price, icon, isLoading }: CardType) {
   const Icon = icon;
 
     return (
@@ -21,10 +20,8 @@ export default function Cards({ title, price, symbol, icon, isInt = false, isLoa
             {isLoading ? (
                 <CgSpinner className="animate-spin"/>
             ) : (
-              <h2>{isInt? price : price.toFixed(2)}</h2>
+              <h2>{price}</h2>
             )}
-            
-            <h2>{symbol}</h2>
           </div>
         </div>
         <div>

@@ -3,11 +3,12 @@ import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, Sid
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "../../components/ui/avatar";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useGetUserInformation } from "../../api/store/user";
 import { Separator } from "../../components/ui/separator";
 import { t } from "../../lib/reacti18next/i18n";
-import { useTheme } from "../providers/Theme";
+import { useTheme, type Theme } from "../providers/Theme";
 import { logout } from "../../features/auth/api/req/auth";
+import { useUser } from "../../provider/User/UserContext";
+import { UseUpdateTheme } from "../../features/user/mutation/ChangeThemeMutation";
 
 
 
@@ -63,17 +64,28 @@ import { logout } from "../../features/auth/api/req/auth";
   export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     const { isMobile, setOpenMobile } = useSidebar()
 
-    const {data:user} = useGetUserInformation();
+    const user = useUser();
+
     const { setTheme , theme} = useTheme();
+
+    const { mutate: updateTheme} = UseUpdateTheme();
 
     const navigate = useNavigate();
 
-    function changeTheme() {
-      if(theme === "dark") {
-          setTheme("light");
-          return;
+    const initialTheme = (user.theme?.toLowerCase() as Theme) || "light";
+    if (theme !== initialTheme) {
+      setTheme(initialTheme);
+    }
+
+    async function changeTheme() {
+      let newTheme = 'light';
+      // Alternar o tema imediatamente no frontend
+      if(theme as Theme) {
+        newTheme = theme === "dark" ? "light" : "dark";
       }
-      setTheme("dark");
+      
+      // Atualizar o backend em segundo plano
+      updateTheme(newTheme.toUpperCase() as Theme);
     }
 
     async function logoutUser() {
@@ -161,7 +173,7 @@ import { logout } from "../../features/auth/api/req/auth";
                 Perfil
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => changeTheme()}>
-                {theme === 'dark' ? (
+                {user.theme === 'DARK' ? (
                   <>
                     <Sun size={21}/>
                     Tema claro

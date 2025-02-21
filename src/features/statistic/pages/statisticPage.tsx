@@ -14,6 +14,7 @@ import { CgUndo } from "react-icons/cg";
 import { columnsCategories } from "./CategorieColumns";
 import { columnsCustomer } from "./customersColumns";
 import { columnsCupon } from "./CouponColumns";
+import { FormatMoney } from "../../../utils/fomat";
 
 export default function StatisticPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -67,28 +68,23 @@ export default function StatisticPage() {
                 <div className="grid grid-cols-2 items-start gap-5">
                   <Cards 
                     title={"Vendas Totais"} 
-                    symbol="€" 
-                    price={storeStat?.totalSales || 0}
+                    price={FormatMoney(storeStat?.totalSales || 0)}
                     isLoading={storeStatLoading} 
                     icon={GiMoneyStack} />
                   <Cards 
                     title={"Itens Vendidos"} 
-                    symbol="" 
-                    isInt
                     price={storeStat?.totalItemsSold || 0} 
                     isLoading={storeStatLoading}
                     icon={GiShoppingCart} />
                   <Cards 
                     title={"Acessos na loja"} 
-                    symbol="" 
                     price={0} 
                     isInt 
                     isLoading={false}
                     icon={User2Icon} />
                   <Cards 
                     title={"Total de Retornos"} 
-                    symbol="%" 
-                    price={storeStat?.returnRate || 0} 
+                    price={`${storeStat?.returnRate || 0}%`}
                     isInt 
                     isLoading={storeStatLoading}
                     icon={CgUndo} />

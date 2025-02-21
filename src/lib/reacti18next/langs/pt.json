@@ -1,5 +1,7 @@
 {
     "translation": {
+        "success": "Concluído",
+        "pending": "Pendente",
         "auth": {
             "description": "Monetize seu servidor de jogos com nossa plataforma avançada de comércio eletrônico",
             "noAccount": "Ainda não tem uma conta?",

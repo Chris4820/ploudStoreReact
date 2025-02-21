@@ -11,9 +11,17 @@ export const useUpdateDesign = () => {
 
   return useMutation({
     mutationFn: (data: designFormData) => updateDesign(data),
-    onSuccess: () => {
-        queryClient.invalidateQueries({queryKey: ['design']}); // Invalida todas as queries de cupons
-        toast.success("Design atualizado com sucesso");
+    onSuccess: (_, variables) => {
+      const userDataCache = queryClient.getQueryData<designFormData>(['store']);
+      if(userDataCache) {
+        queryClient.setQueryData<designFormData>(['store'], {
+          ...userDataCache,
+          primaryColor: variables.primaryColor,
+          secondaryColor: variables.secondaryColor,
+          
+        });
+    }
+        toast.success("Design atualizado");
     }
   }
   )

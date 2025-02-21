@@ -2,8 +2,7 @@ import HeaderSection from "../../../components/commons/Header";
 import CustomDomainForm from "../components/DomainForm";
 import { Button } from "../../../components/ui/button";
 import { useUpdateCustomDomain } from "../mutation/ChangeCustomDomainMutation";
-import { useGetStoreInformation } from "../../stores/api/store/store";
-import LoadingComponent from "../../../containers/LoadingComponent";
+import { useStore } from "../../../provider/Store/StoreContext";
 
 
 
@@ -12,14 +11,8 @@ import LoadingComponent from "../../../containers/LoadingComponent";
 
 export default function CustomDomainPage() {
 
-  const { data: store , isLoading} = useGetStoreInformation();
+  const store = useStore();
   const { mutate: updateDomain, isPending} = useUpdateCustomDomain();
-
-
-
-  if(isLoading) {
-    return <LoadingComponent/>
-}
 
 
   return(

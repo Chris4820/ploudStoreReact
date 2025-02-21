@@ -1,5 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table"
 import type { CategoryData } from "../api/req/statistic"
+import { FormatMoney } from "../../../utils/fomat";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -17,13 +18,7 @@ export const columnsCategories: ColumnDef<CategoryData>[] = [
         accessorKey: "totalAmount",
         header: "Amount",
         cell: ({ row }) => {
-          const amount = parseFloat(row.getValue("totalAmount"))
-          const formatted = new Intl.NumberFormat("en-US", {
-            style: "currency",
-            currency: "USD",
-          }).format(amount)
-     
-          return <div>{formatted}</div>
+          return FormatMoney(row.original.totalAmount);
         },
     },
 ]

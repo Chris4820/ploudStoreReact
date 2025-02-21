@@ -1,41 +1,19 @@
 import { Check, Snowflake, X } from "lucide-react";
 import HeaderSection from "../../../components/commons/Header";
-import LoadingComponent from "../../../containers/LoadingComponent";
-import { useGetPlan } from "../../home/api/store/store";
 import { Button } from "../../../components/ui/button";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import PaymentDialog from "../../../components/modal/renovPlanModal";
 import { toast } from "sonner";
 import { useSearchParams } from "react-router-dom";
 import queryClient from "../../../lib/reactquery/reactquery";
+import { useStore } from "../../../provider/Store/StoreContext";
+import { CalculeDaysLeft, getPlanStatusColor } from "../../../utils/fomat";
 
 
 
 
 export default function PlanPage() {
-  const {data: plan, isLoading: planLoading } = useGetPlan();
-
-const [daysLeft, setDaysLeft] = useState<number | null>();
-
-
-  useEffect(() => {
-    if(plan?.plan != "basic") {
-      console.log("Entrou");
-    if (plan?.overdueDate) {
-      const currentDate = new Date();
-      const overdueDate = new Date(plan.overdueDate);
-      
-      // Calculate the difference in milliseconds
-      const timeDiff = overdueDate.getTime() - currentDate.getTime(); // Convert Date to milliseconds
-      
-      // Calculate the difference in days
-      const diffInDays = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-      setDaysLeft(diffInDays);
-    }
-    }else {
-      setDaysLeft(null);
-    }
-  }, [plan]);
+  const store = useStore();
 
 
   const [searchParams, setSearchParams] = useSearchParams(); // Agora usamos setSearchParams para atualizar os parâmetros
@@ -62,9 +40,6 @@ const [daysLeft, setDaysLeft] = useState<number | null>();
   }, [searchParams, setSearchParams]);
 
 
-  if(planLoading) {
-    return <LoadingComponent/>
-  }
   return(
     <>
       <HeaderSection title="Plano" description="Renove seu plano aqui!"/>
@@ -73,11 +48,19 @@ const [daysLeft, setDaysLeft] = useState<number | null>();
         <div>
           <div className="flex gap-2 items-center text-violet-500">
               <Snowflake size={26}/>
-              <h1 className="font-bold text-lg">Plano {plan?.plan}</h1>
+              <h1 className="font-bold text-lg">Plano {store.StorePlan.plan}</h1>
+              <span className={`${getPlanStatusColor(store.StorePlan.overdueDate)} text-sm text-destructive font-semibold mt-0.5`}>
+                  {store.StorePlan.plan !== 'basic' ? (
+                  (() => {
+                    const daysLeft = CalculeDaysLeft(store.StorePlan.overdueDate);
+                    return daysLeft && daysLeft > 0 ? `(${daysLeft} dias restantes)` : "Plano expirado";
+                  })()
+                    ) : "Seu plano expirou"}
+              </span>
           </div>
           <p className="mt-1 text-sm text-muted-foreground">Até 5 produtos, 3 categorias, 1 colaborador e muito mais!</p>
         </div>
-        <Button disabled={plan?.plan === "basic"}>Renovar</Button>
+        <Button disabled={store.StorePlan.plan === "basic"}>Renovar</Button>
       </div>
 
       <section className="grid grid-cols-1 lg:grid-cols-3 gap-5 mt-5">
@@ -147,7 +130,7 @@ const [daysLeft, setDaysLeft] = useState<number | null>();
               </ul>
 
               <div className="mt-10 flex justify-center">
-                {plan?.plan !== "basic" && (
+                {store.StorePlan.plan !== "basic" && (
                   <Button className="px-10" variant={"outline"}>Atualizar</Button>
                 )}
               </div>
@@ -157,7 +140,6 @@ const [daysLeft, setDaysLeft] = useState<number | null>();
           <div className="p-5 border shadow-md rounded-md">
             <div className="flex gap-2 items-end">
               <h1 className="text-2xl text-violet-600 font-bold">Standard</h1>
-              <span className="text-sm mb-1">{plan?.plan === "standard" ? `(${daysLeft} dias restantes)` : ""}</span>
             </div>
             
               <div className="flex gap-2 items-end">
@@ -224,7 +206,7 @@ const [daysLeft, setDaysLeft] = useState<number | null>();
               </ul>
               <div className="mt-10 flex justify-center">
               <PaymentDialog key={"standard"} plan="Standard" planKey="standard" price={3.99}>
-                <Button className="px-10" variant={"outline"}>{plan?.plan === "standard" ? "Renovar" : "Atualizar"}</Button>
+                <Button className="px-10" variant={"outline"}>{store.StorePlan.plan === "standard" ? "Renovar" : "Atualizar"}</Button>
               </PaymentDialog>
               </div>
           </div>
@@ -233,7 +215,6 @@ const [daysLeft, setDaysLeft] = useState<number | null>();
           <div className="p-5 border shadow-md rounded-md">
           <div className="flex gap-2 items-end">
               <h1 className="text-2xl text-violet-600 font-bold">Premium</h1>
-              <span className="text-sm mb-1">{plan?.plan === "premium" ? `(${daysLeft} dias restantes)` : ""}</span>
             </div>
               <div className="flex gap-2 items-end">
                 <h1 className="text-4xl font-bold">9,99€</h1>
@@ -300,7 +281,7 @@ const [daysLeft, setDaysLeft] = useState<number | null>();
 
               <div className="mt-10 flex justify-center">
                 <PaymentDialog key={"premium"} plan="Premium" planKey="premium" price={9.99}>
-                  <Button className="px-10">{plan?.plan === "premium" ? "Renovar" : "Atualizar"}</Button>
+                  <Button className="px-10">{store.StorePlan.plan === "premium" ? "Renovar" : "Atualizar"}</Button>
                 </PaymentDialog>
               </div>
           </div>
