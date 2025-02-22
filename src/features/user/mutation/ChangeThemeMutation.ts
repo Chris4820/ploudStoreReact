@@ -1,7 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import queryClient from "../../../lib/reactquery/reactquery";
-import { changeThemeReq, type UserInformationProps } from "../../../api/req/user";
+import { changeThemeReq } from "../../../api/req/user";
 import type { Theme } from "../../../layouts/providers/Theme";
+import type { UserInformationProps } from "../../../globaldata/httpglobal";
 
 
 export const UseUpdateTheme = () => {

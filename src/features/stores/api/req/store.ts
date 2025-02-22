@@ -1,36 +1,7 @@
+import type { StoreInformationProps } from "../../../../globaldata/httpglobal";
 import axiosStore from "../../../../lib/axios/axiosStore";
 import axiosUser from "../../../../lib/axios/axiosUser";
 import type { CreateStoreFormData } from "../../schema/createStoreSchema";
-
-export type StoreInformationProps = {
-    name: string,
-    description: string,
-    shortame: string,
-    gameType: 'MINECRAFT' | 'FIVEM',
-    domain: string,
-    subdomain: string,
-    activeDomain: string,
-    createdAt: string,
-    terms: string,
-
-    keywords: string,
-    locale: string,
-    currency: string,
-    backgroundUrl: string | undefined,
-    maintenance: boolean,
-    minBasket: number,
-    primaryColor: string,
-    secondaryColor: string,
-
-    //STORE PLAN
-    StorePlan: {
-        overdueDate: string,
-        plan: string,
-        status: string,
-        period: string,
-        extra_price: number,
-    }
-}
 
 
 export type StoreProps = {
@@ -56,10 +27,7 @@ export type InviteStoreProps = {
     created_at: string,
 }
 
-export async function getStoreInformation(): Promise<StoreInformationProps> {
-    const response = await axiosStore.get<{store: StoreInformationProps}>('store');
-    return response.data.store; // Obtemos o primeiro item do array
-}
+
 
 export async function saveStoreInformation({name, description, keywords, currency,maintenance} : StoreInformationProps) {
     const response = await axiosStore.put('/store', {

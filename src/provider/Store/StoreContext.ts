@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import type { StoreInformationProps } from "../../features/stores/api/req/store";
+import type { StoreInformationProps } from "../../globaldata/httpglobal";
 
 
 

@@ -1,16 +1,16 @@
 import { Link } from "react-router-dom";
 import { Button } from "../../../components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../../components/ui/tabs";
-import { useGetUserInformation } from "../../../api/store/user";
 import StoreSection from "../components/storeSection";
 import InviteStoreSection from "../components/inviteStoreSection";
 import SubStoreSection from "../components/subStoreSection";
 import { useEffect } from "react";
 import queryClient from "../../../lib/reactquery/reactquery";
+import { useUser } from "../../../provider/User/UserContext";
 
 
 export default function StoresIndexPage() {
-  const { data: user } = useGetUserInformation(); 
+  const user = useUser();
 
 
 

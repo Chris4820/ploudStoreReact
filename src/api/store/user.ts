@@ -1,15 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { getUserInformation } from "../req/user";
 import { getInviteStores, getStores, getSubStores } from "../../features/stores/api/req/store";
 
 
-
-export function useGetUserInformation() {
-    return useQuery({
-      queryKey: ['user'],
-      queryFn: getUserInformation,
-    })
-}
 
   
 export function useGetStores() {

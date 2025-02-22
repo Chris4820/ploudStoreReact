@@ -5,9 +5,9 @@ import CategorySchema, { CategoryFormData } from "../schema/CategorySchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSearchParams } from "react-router-dom";
 import { Textarea } from "../../../components/ui/textarea";
-import { useGetStoreInformation } from "../../stores/api/store/store";
 import React, { useEffect, useMemo, useState } from "react";
 import { Switch } from "../../../components/ui/switch";
+import { useStore } from "../../../provider/Store/StoreContext";
 
 
 
@@ -22,10 +22,9 @@ type CategoryFormProps = {
 
 export default function CategoryForm({ initialData, onSubmit, mode, isLoading, children }: CategoryFormProps) {
 
-  console.log("Renderizou");
   const [searchParams] = useSearchParams();
   const [isFormChanged, setIsFormChanged] = useState(false);
-  const { data: store } = useGetStoreInformation();
+  const store = useStore();
 
 
 

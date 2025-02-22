@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import type { UserInformationProps } from "../../api/req/user";
+import type { UserInformationProps } from "../../globaldata/httpglobal";
 
 
 

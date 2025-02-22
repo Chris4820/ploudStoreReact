@@ -1,7 +1,6 @@
-import { useGetStoreInformation } from "../../stores/api/store/store";
-import LoadingComponent from "../../../containers/LoadingComponent";
 import MinecraftIntegrationSection from "../components/MinecraftIntegrationSection";
 import FiveMIntegrationSection from "../components/FivemIntegrationSection";
+import { useStore } from "../../../provider/Store/StoreContext";
 
 
 
@@ -12,11 +11,8 @@ import FiveMIntegrationSection from "../components/FivemIntegrationSection";
 export default function IntegrationServerPage() {
 
 
-  const { data: store, isLoading } = useGetStoreInformation();
+  const store = useStore();
 
-  if(isLoading) {
-    return <LoadingComponent/>
-  }
 
   if(!store) {
     return (

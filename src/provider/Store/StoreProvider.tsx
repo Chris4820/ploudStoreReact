@@ -1,9 +1,9 @@
 // src/contexts/StoreProvider.tsx
 import { ReactNode } from "react";
-import { useGetStoreInformation } from "../../features/stores/api/store/store";
 import { Navigate } from "react-router-dom";
 import LoadingPage from "../../containers/LoadingPage";
 import { StoreContext } from "./StoreContext";
+import { useGetStoreInformation } from "../../globaldata/httpglobal";
 
 interface StoreProviderProps {
   children: ReactNode;

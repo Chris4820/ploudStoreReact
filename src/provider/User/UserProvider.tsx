@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { UserContext } from "./UserContext";
 import { useLocation, Navigate } from "react-router-dom";
 import LoadingPage from "../../containers/LoadingPage";
-import { useGetUserInformation } from "./Requisition";
+import { useGetUserInformation } from "../../globaldata/httpglobal";
 
 interface StoreProviderProps {
   children: ReactNode;
