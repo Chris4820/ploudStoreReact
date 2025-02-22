@@ -16,6 +16,7 @@ const queryClient = new QueryClient({
     },
     mutations: {
       onError: (error: Error) => {
+        console.log("Erro aqui");
         if ((error as AxiosError<CustomErrorResponse>).isAxiosError) {
           const axiosError = error as AxiosError<CustomErrorResponse>;
           const errorMessage = axiosError.response?.data?.message || 'Erro ao executar a operação.';

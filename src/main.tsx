@@ -12,12 +12,12 @@ import { StrictMode } from 'react';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <StrictMode>
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-    <QueryClientProvider client={queryClient}>
-    <App/>
-    <ReactQueryDevtools initialIsOpen={false} />
-    <Toaster />
-    </QueryClientProvider>
-    </ThemeProvider>
+        <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+            <QueryClientProvider client={queryClient}>
+                <App/>
+                <ReactQueryDevtools initialIsOpen={false} />
+                <Toaster />
+            </QueryClientProvider>
+        </ThemeProvider>
     </StrictMode>,
 )

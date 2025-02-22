@@ -61,7 +61,8 @@ import CreateNewPage from "./features/news/pages/CreateNewPage"
 import EditNewPage from "./features/news/pages/EditBlogPage"
 import PaymentDetailsPage from "./features/payments/pages/PaymentDetails/PaymentsDetails"
 import UserProviderWrapper from "./provider/User/UserWrapper"
-import StoreProviderWrapper from "./provider/Store/StoreWrapper.tsx"
+import StoreProviderWrapper from "./provider/Store/StoreWrapper"
+import AuthLayout from "./features/auth/components/authLayout"
 
 
 function App() {
@@ -74,13 +75,15 @@ function App() {
         <Route path="/setup" element={<SetupPage />} />
         <Route path="/profile" element={<ProfilePage />} />
 
+        <Route path="auth" element={<AuthLayout />} >
+        
           <Route path="/auth/login" element={<LoginPage/>}/>
           <Route path="/auth/register" element={<RegisterPage/>}/>
           <Route path="/auth/recovery-password" element={<RecoveryPasswordPage/>}/>
           <Route path="/auth/recovery-password/:passwordToken" element={<ResetPasswordPage/>}/>
           <Route path="/auth/confirm-email/:emailToken" element={<ConfirmEmailPage/>}/>
-
-        <Route element={<StoreProviderWrapper />}>
+        </Route>
+        <Route element={<StoreProviderWrapper/>}>
          <Route path="dashboard" element={<DashboardLayout />} >
            <Route path="/dashboard" element={<DashboardHomePage />} />
            <Route path="/dashboard/statistic" element={<StatisticPage />} />

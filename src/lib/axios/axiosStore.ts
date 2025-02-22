@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 
 
 const baseURL = import.meta.env.VITE_URL ? import.meta.env.VITE_URL + "/api/store" : 'http://localhost:3000/api'; // Default fallback
@@ -29,6 +30,12 @@ axiosStore.interceptors.response.use(
           // Token da loja inválido
             window.location.href = '/';
           break;
+         case 401:
+          // Token do usuário inválido
+          Cookies.remove("authToken", { path: "/" }); // Remover o cookie authToken
+          window.location.href = '/auth/login';
+          break; 
+        
         default:
           // Outros erros
           console.error('Erro na requisição:', error.response.data);
