@@ -76,7 +76,6 @@ function App() {
         <Route path="/profile" element={<ProfilePage />} />
 
         <Route path="auth" element={<AuthLayout />} >
-        
           <Route path="/auth/login" element={<LoginPage/>}/>
           <Route path="/auth/register" element={<RegisterPage/>}/>
           <Route path="/auth/recovery-password" element={<RecoveryPasswordPage/>}/>
