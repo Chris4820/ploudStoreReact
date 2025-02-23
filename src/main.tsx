@@ -8,16 +8,18 @@ import { Toaster } from 'sonner';
 
 import "./lib/reacti18next/i18n.ts";
 import queryClient from './lib/reactquery/reactquery.ts';
-import { StrictMode } from 'react';
+import React from 'react';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-    <StrictMode>
-        <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-            <QueryClientProvider client={queryClient}>
-                <App/>
-                <ReactQueryDevtools initialIsOpen={false} />
-                <Toaster />
-            </QueryClientProvider>
-        </ThemeProvider>
-    </StrictMode>,
+    <React.StrictMode>
+        <QueryClientProvider client={queryClient}>
+            <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+                
+                    <App/>
+                    <ReactQueryDevtools initialIsOpen={false} />
+                    <Toaster />
+                
+            </ThemeProvider>
+        </QueryClientProvider>
+    </React.StrictMode>
 )

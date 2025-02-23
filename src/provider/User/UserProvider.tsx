@@ -4,11 +4,11 @@ import { useLocation, Navigate } from "react-router-dom";
 import LoadingPage from "../../containers/LoadingPage";
 import { useGetUserInformation } from "../../globaldata/httpglobal";
 
-interface StoreProviderProps {
+interface UserProviderProps {
   children: ReactNode;
 }
 
-export function UserProvider({ children }: StoreProviderProps) {
+export function UserProvider({ children }: UserProviderProps) {
   const { data: user, isLoading } = useGetUserInformation();
   const location = useLocation();
 
@@ -18,14 +18,16 @@ export function UserProvider({ children }: StoreProviderProps) {
 
   // Se não houver usuário e não estivermos em /auth, redireciona para /auth/login
   if (!user && !location.pathname.startsWith("/auth")) {
+    console.log("1");
     return <Navigate to="/auth/login" replace />;
   }
 
   // Se houver usuário e estivermos em /auth, redireciona para a home
   if (user && location.pathname.startsWith("/auth")) {
+    console.log("2");
     return <Navigate to="/" replace />;
   }
-
+  console.log("3");
   return (
     <UserContext.Provider value={user || null}>
       {children}

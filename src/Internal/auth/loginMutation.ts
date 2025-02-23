@@ -1,11 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom"
-import { postLoginUser } from "../api/req/auth";
-import type { loginSchemaFormData } from "../schemas/LoginSchema";
+import type { loginSchemaFormData } from "../../features/auth/schemas/LoginSchema";
+import axiosAuth from "../../lib/axios/axiosAuth";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import queryClient from "../../lib/reactquery/reactquery";
 import type { AxiosResponse } from "axios";
-import queryClient from "../../../lib/reactquery/reactquery";
-
 
 
 
@@ -15,7 +14,7 @@ export const useLoginUser = () => {
 
 
   return useMutation({
-    mutationFn: (data: loginSchemaFormData) => postLoginUser(data),
+    mutationFn: (data: loginSchemaFormData) => LoginUser(data),
     onSuccess: async (data) => {
       const message = data.message;
       toast(message)
@@ -29,4 +28,15 @@ export const useLoginUser = () => {
     }
   }
   )
+}
+
+
+export async function LoginUser(data : loginSchemaFormData) {
+  try {
+      const response = await axiosAuth.post('login', { data });
+      return response.data;
+  } catch (error) {
+      console.error('Erro ao obter informações do usuário:', error);
+      throw error;
+  }
 }

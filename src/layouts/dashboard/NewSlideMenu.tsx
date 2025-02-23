@@ -6,9 +6,9 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { Separator } from "../../components/ui/separator";
 import { t } from "../../lib/reacti18next/i18n";
 import { useTheme, type Theme } from "../providers/Theme";
-import { logout } from "../../features/auth/api/req/auth";
 import { useUser } from "../../provider/User/UserContext";
 import { UseUpdateTheme } from "../../features/user/mutation/ChangeThemeMutation";
+import { useLogoutUser } from "../../Internal/auth/logoutMutation";
 
 
 
@@ -66,6 +66,8 @@ import { UseUpdateTheme } from "../../features/user/mutation/ChangeThemeMutation
 
     const user = useUser();
 
+    const { mutate: logoutUser} = useLogoutUser();
+
     const { setTheme , theme} = useTheme();
 
     const { mutate: updateTheme} = UseUpdateTheme();
@@ -86,11 +88,6 @@ import { UseUpdateTheme } from "../../features/user/mutation/ChangeThemeMutation
       
       // Atualizar o backend em segundo plano
       updateTheme(newTheme.toUpperCase() as Theme);
-    }
-
-    async function logoutUser() {
-      await logout();
-      return navigate("/auth/login")
     }
 
     function isMenuItemSelected(href: string) {

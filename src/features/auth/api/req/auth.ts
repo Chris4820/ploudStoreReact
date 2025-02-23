@@ -16,26 +16,6 @@ export type UserRegisterProps = {
 }
 
 
-export async function postLoginUser(data : UserLoginProps) {
-    try {
-        const response = await axiosAuth.post('login', { data });
-        return response.data;
-    } catch (error) {
-        console.error('Erro ao obter informações do usuário:', error);
-        throw error;
-    }
-}
-
-export async function postRegisterUser(data : UserRegisterProps) {
-    try {
-        const response = await axiosAuth.post('register', { data });
-        return response.data;
-    } catch (error) {
-        console.error('Erro ao obter informações do usuário:', error);
-        throw error;
-    }
-}
-
 export async function confirmEmailUser(emailToken: string) {
     try {
         const response = await axiosAuth.post(`confirmEmail/${emailToken}`, );
@@ -52,16 +32,6 @@ export async function recoveryPassword(data: recoveryPasswordSchemaFormData) {
             email: data.email,
         });
         return response.data;
-    } catch (error) {
-        console.log('Erro');
-        throw error;
-    }
-}
-
-export async function logout() {
-    try {
-        const response = await axiosAuth.get('logout');
-        return response;
     } catch (error) {
         console.log('Erro');
         throw error;

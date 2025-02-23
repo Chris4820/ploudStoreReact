@@ -3,7 +3,7 @@ import CardEmptyComponent from "../../../components/commons/CardEmpty";
 import StoreCardComponent from "../components/storeCard";
 import type { SubStoreProps } from "../api/req/store";
 import { useGetSubStores } from "../../../api/store/user";
-import { useOpenStore } from "../mutations/openStoreMutation";
+import { useOpenStore } from "../../../Internal/Store/openStoreToken";
 
 export default function SubStoreSection() {
     const { data: substore, isLoading } = useGetSubStores();

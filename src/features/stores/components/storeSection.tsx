@@ -1,9 +1,10 @@
-import { useOpenStore } from "../mutations/openStoreMutation";
+
 import { useGetStores } from "../../../api/store/user";
 import CardEmptyComponent from "../../../components/commons/CardEmpty";
 import type { StoreProps } from "../api/req/store";
 import StoreCardComponent from "../components/storeCard";
 import LoadingComponent from "../../../containers/LoadingComponent";
+import { useOpenStore } from "../../../Internal/Store/openStoreToken";
 
 
 

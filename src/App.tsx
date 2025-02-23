@@ -69,8 +69,8 @@ function App() {
  return (
    <div className="App">
      <BrowserRouter>
+     <UserProviderWrapper>
        <Routes>
-        <Route element={<UserProviderWrapper/>}>
         <Route path="/" element={<ShopsIndexPage/>}/>
         <Route path="/setup" element={<SetupPage />} />
         <Route path="/profile" element={<ProfilePage />} />
@@ -159,9 +159,8 @@ function App() {
          </Route>
          </Route>
 
-         </Route>
-
        </Routes>
+       </UserProviderWrapper>
      </BrowserRouter>
    </div>
  )

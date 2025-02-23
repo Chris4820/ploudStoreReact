@@ -51,14 +51,6 @@ export async function createStore(data : CreateStoreFormData) {
     return response;
 }
 
-export async function getTokenStore(storeId: number, isOwner: boolean | undefined) {
-    const response = await axiosUser.get(`openStore/${storeId}`, {
-        params: {
-            isOwner: isOwner,
-        }
-    })
-    return response;
-}
 
 
 

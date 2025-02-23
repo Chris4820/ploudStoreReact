@@ -1,6 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import axiosStore from "../lib/axios/axiosStore";
+import { useQuery } from "@tanstack/react-query";
 
 
 export type UserInformationProps = {
@@ -14,6 +14,8 @@ export type UserInformationProps = {
 //Dados iniciais 
 //Requisição para buscar dados iniciais do usuário
 const baseURL = import.meta.env.VITE_URL ? import.meta.env.VITE_URL + "/api/user" : 'http://localhost:3000/api/user'; // Default fallback
+
+
 //http://localhost:3000/api/userapi/user/user
 export async function getUserInformation(): Promise<UserInformationProps | null> {
   const response = await axios.get<{ userInformation?: UserInformationProps | null }>(`${baseURL}/user`, {
@@ -31,8 +33,15 @@ export function useGetUserInformation() {
   return useQuery({
     queryKey: ['user'],
     queryFn: getUserInformation,
+    refetchOnWindowFocus: false,
+    // Evita refetch ao "re-montar" se ainda não estiver stale
+    refetchOnMount: false,
+    // Tempo que os dados ficam "frescos" antes de serem marcados stale
+    staleTime: 1000 * 60 * 5, // 5 minutos
   })
 }
+
+
 
 
 

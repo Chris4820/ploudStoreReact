@@ -1,11 +1,10 @@
-// src/layouts/DashboardStoreWrapper.tsx
-import { Outlet } from "react-router-dom";
+import { ReactNode } from "react";
 import { UserProvider } from "./UserProvider";
 
-export default function UserProviderWrapper() {
-  return (
-    <UserProvider>
-      <Outlet />
-    </UserProvider>
-  );
+interface UserProviderWrapperProps {
+  children: ReactNode;
+}
+
+export default function UserProviderWrapper({ children }: UserProviderWrapperProps) {
+  return <UserProvider>{children}</UserProvider>;
 }

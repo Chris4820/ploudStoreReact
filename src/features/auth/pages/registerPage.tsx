@@ -8,7 +8,7 @@ import { Input } from '../../../components/ui/input';
 import { Button } from '../../../components/ui/button';
 import { Link } from 'react-router-dom';
 import registerSchema, { type registerSchemaFormData } from '../schemas/RegisterSchema';
-import { useRegisterUser } from '../mutations/registerMutation';
+import { useRegisterUser } from '../../../Internal/auth/registerMutation';
 
 
 export default function RegisterPage() {

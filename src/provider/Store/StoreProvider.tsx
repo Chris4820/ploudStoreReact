@@ -20,7 +20,7 @@ export function StoreProvider({ children }: StoreProviderProps) {
     // Se não houver dados, redireciona ou exibe uma mensagem
     return <Navigate to="/" replace />;
   }
-
+  console.log("Store Provider");
   return (
     <StoreContext.Provider value={store}>
       {children}

@@ -5,8 +5,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { t } from "i18next";
 import loginSchema, { type loginSchemaFormData } from "../schemas/LoginSchema";
-import { useLoginUser } from "../mutations/loginMutation";
 import SubmitButton from "../../../components/commons/buttons/SubmitButtonComponent";
+import { useLoginUser } from '../../../Internal/auth/loginMutation';
 
 
 export default function LoginPage() {

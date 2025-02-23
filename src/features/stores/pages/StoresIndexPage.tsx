@@ -4,20 +4,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../../components/ui
 import StoreSection from "../components/storeSection";
 import InviteStoreSection from "../components/inviteStoreSection";
 import SubStoreSection from "../components/subStoreSection";
-import { useEffect } from "react";
-import queryClient from "../../../lib/reactquery/reactquery";
 import { useUser } from "../../../provider/User/UserContext";
 
 
 export default function StoresIndexPage() {
   const user = useUser();
 
-
-
-  useEffect(() => {
-    console.log("Limpo");
-    queryClient.invalidateQueries();
-  }, [])
   
 
     return(

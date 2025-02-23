@@ -23,7 +23,6 @@ export default function CreateStorePage() {
             setSelectGameId(gameType);
             setValue('gameType', gameType);
         }
-        
       }; 
 
 
@@ -99,18 +98,20 @@ export default function CreateStorePage() {
 
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-center">
                     <GameCardComponent
-                        game="Minecraft" 
+                        game="Minecraft"
                         selectedOption={selectGameId} 
                         onChange={handleGameType} 
                         iconPath="/games/Minecraft-Background.jpg" 
                     />
                     <GameCardComponent
+                        disabled={true} 
                         selectedOption={selectGameId} 
                         onChange={handleGameType} 
                         game="FiveM"
                         iconPath="/games/FiveM-Background.webp" 
                     />
                     <GameCardComponent
+                        disabled={true} 
                         selectedOption={selectGameId} 
                         onChange={handleGameType} 
                         game="RedDead"
