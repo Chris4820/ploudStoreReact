@@ -1,17 +1,12 @@
-"use client";
 
-import {
-  ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
+
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./table";
 import { CgSpinner } from "react-icons/cg";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import CardEmptyComponent from "../commons/CardEmpty";
 import Pagination from "./pagination";
 import { MetaProps } from "../../features/statistic/api/req/statistic";
+import { flexRender, getCoreRowModel, useReactTable, type ColumnDef } from "@tanstack/react-table";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
