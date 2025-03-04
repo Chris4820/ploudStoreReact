@@ -1,5 +1,5 @@
 import { CgArrowLeft } from "react-icons/cg"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 type BackComponentProps = {
     toLink?: string,
@@ -7,6 +7,7 @@ type BackComponentProps = {
 }
 
 export default function BackComponent({ text, toLink} : BackComponentProps) {
+    const navigate = useNavigate();
     return(
         <>
         {toLink ? (
@@ -15,7 +16,7 @@ export default function BackComponent({ text, toLink} : BackComponentProps) {
                 {text}
             </Link>
         ) : (
-            <div onClick={() => window.history.back} className="flex gap-1 items-center text-base hover:underline hover:cursor-pointer">
+            <div onClick={() => navigate(-1)} className="flex gap-1 items-center text-base hover:underline hover:cursor-pointer">
                 <CgArrowLeft className="font-bold mt-0.5" size={22}/>
                 {text}
             </div>

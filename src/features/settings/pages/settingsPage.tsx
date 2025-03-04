@@ -30,7 +30,8 @@ export default function SettingsPage() {
                             currency: store.currency,
                             locale: store.locale,
                             maintenance: store.maintenance,
-                            minBasket: store.minBasket,
+                            minBasket: Number(store.minBasket),
+                            timezone: store.timezone,
                         }
                     } 
                     onSubmit={onSubmitUpdateSettings}/>

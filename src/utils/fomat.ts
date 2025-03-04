@@ -4,7 +4,15 @@ import { useStore } from "../provider/Store/StoreContext";
 
 
 
-
+export function FormatDateTime(dateTime: Date): string  {
+  const store = useStore();
+  const formatDate = Intl.DateTimeFormat(store.locale, {
+    dateStyle: 'medium',
+    timeStyle: 'short',
+    timeZone: store.timezone, // Isto é crucial para exibir a hora correta
+  }).format(new Date(dateTime));
+  return formatDate;
+}
 
 
 export function FormatMoney(price: number) : string {

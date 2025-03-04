@@ -1,7 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table"
-import { format } from "date-fns";
 import type { PaymentProps } from "../api/req/payment";
-import { FormatMoney } from "../../../utils/fomat";
+import { FormatDateTime, FormatMoney } from "../../../utils/fomat";
 import { t } from "../../../lib/reacti18next/i18n";
 
 export const columnsPayment: ColumnDef<PaymentProps>[] = [
@@ -69,12 +68,8 @@ export const columnsPayment: ColumnDef<PaymentProps>[] = [
       accessorKey: "createdAt",
       header: "Data",
       cell: ({ row }) => {
-        const dateValue = row.original.createdAt;
-        if (!dateValue) return "N/D";
-        const date = new Date(dateValue);
-        // Verifica se a data é válida
-        if (isNaN(date.getTime())) return "N/D";
-        return format(date, "dd/MM/yyyy HH:mm");
+        const date = row.original.createdAt ? FormatDateTime(new Date(row.original.createdAt)) : "Indefinido";
+        return date;
       },
     }
   ]

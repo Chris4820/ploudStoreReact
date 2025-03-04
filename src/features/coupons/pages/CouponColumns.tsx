@@ -1,6 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { CouponsProps, CouponType } from "../api/req/coupons"
-import { format } from "date-fns";
+import { FormatDateTime } from "../../../utils/fomat";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -36,8 +36,8 @@ export const columnsCoupon: ColumnDef<CouponsProps>[] = [
     accessorKey: "created_at",
     header: "Expira em",
     cell: ({ row }) => {
-      const date = row.original.expire_at ? new Date(row.original.expire_at) : null;
-      return date ? format(date, "dd/MM/yyyy HH:mm") : "Indefinido";
+      const date = row.original.expire_at ? FormatDateTime(new Date(row.original.expire_at)) : "Indefinido";
+      return date;
     },
   }
 ]

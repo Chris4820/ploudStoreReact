@@ -1,19 +1,18 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Input } from "../../../components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../components/ui/select";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../../../components/ui/select";
 import { t } from "i18next";
-import { Switch } from "../../../components/ui/switch";
 import { Textarea } from "../../../components/ui/textarea";
-import { IoIosHelpCircle } from "react-icons/io";
 import settingsSchema, { type SettingsFormData } from "../schema/SettingsSchema";
 import SubmitButton from "../../../components/commons/buttons/SubmitButtonComponent";
-import { useEffect } from "react";
 import SubHeaderSection from "../../../components/commons/subHeader";
 import { FlagPT } from "../../../components/flags/pt";
 import { FlagUS } from "../../../components/flags/us";
 import { FlagBR } from "../../../components/flags/br";
 import { FlagSE } from "../../../components/flags/se";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../../../components/ui/form";
+import { Switch } from "../../../components/ui/switch";
 
 
 type SettingsFormProps = {
@@ -25,35 +24,50 @@ type SettingsFormProps = {
 
 export default function SettingsForm({ initialData, onSubmit, isLoading }: SettingsFormProps) {
 
-    const { handleSubmit, register, formState: { errors, isDirty }, setValue, getValues, reset} = useForm<SettingsFormData>({
+    const form = useForm<SettingsFormData>({
         resolver: zodResolver(settingsSchema),
         defaultValues: initialData,
         mode: 'onSubmit',
     })
 
-    console.log("Render");
+    console.log("Basket: " + form.getValues("minBasket"));
 
-    useEffect(() => {
-        reset(initialData)
-      }, [initialData, reset])
+    function submitForm(data: SettingsFormData) {
+        form.reset();
+        onSubmit(data);
+    }
 
     return(
-                <form onSubmit={handleSubmit(onSubmit)}>
+        <Form {...form}>
+                <form onSubmit={form.handleSubmit(submitForm)}>
                     <SubHeaderSection title="Loja" description="Configure os detalhes gerais de sua loja"/>
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-5">
-                        <div>
-                            <div>
-                                <label htmlFor="storeName" className="block font-medium mb-1">Nome da loja</label>
-                                <Input {...register('name')} />
-                                {errors.name && <span className='text-destructive text-[12px]'>{errors.name.message}</span>}
-                            </div>
-                            <div className="flex items-center gap-5">
-                    <div className='mt-5'>
-                                    <p className="mb-1">{t("setup.currency")}:</p>
-                                    <Select defaultValue={getValues("currency")} {...register('currency')} onValueChange={(value) => setValue('currency', value,{shouldDirty: true})}>
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-5">
+                    <FormField 
+                        control={form.control}
+                        name="name"
+                        render={({ field }) => (
+                            <FormItem>
+                            <FormLabel>Nome da loja</FormLabel>
+                            <FormControl>
+                                <Input placeholder="shadcn" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    
+                    <FormField 
+                        control={form.control}
+                        name="currency"
+                        render={({ field }) => (
+                            <FormItem>
+                            <FormLabel>{t("setup.currency")}</FormLabel>
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
                                         <SelectTrigger className="min-w-[180px]">
                                             <SelectValue/>
                                         </SelectTrigger>
+                                        </FormControl>
                                         <SelectContent className="max-h-[200px] overflow-y-auto">
                                             <SelectItem value="eur">
                                                 <div className="flex items-center gap-1">
@@ -98,18 +112,24 @@ export default function SettingsForm({ initialData, onSubmit, isLoading }: Setti
                                                 </div>
                                             </SelectItem>
                                         </SelectContent>
-                                        </Select>
-                                </div>
-                                <div className='mt-5'>
-                                    <p className="mb-1">Localidade:</p>
-                                    <Select
-                                        defaultValue={getValues("locale")}
-                                        {...register('locale')}
-                                        onValueChange={(value) => setValue('locale', value, { shouldDirty: true })}
-                                    >
+                            </Select>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+
+                    <FormField 
+                        control={form.control}
+                        name="locale"
+                        render={({ field }) => (
+                            <FormItem>
+                            <FormLabel>Local</FormLabel>
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
                                         <SelectTrigger className="min-w-[180px]">
-                                        <SelectValue />
+                                            <SelectValue/>
                                         </SelectTrigger>
+                                        </FormControl>
                                         <SelectContent className="max-h-[200px] overflow-y-auto">
                                         <SelectItem value="pt-PT">
                                                 <div className="flex items-center gap-1">
@@ -141,55 +161,146 @@ export default function SettingsForm({ initialData, onSubmit, isLoading }: Setti
                                             </SelectItem>
                                         {/* Podes adicionar outros conforme necessário */}
                                         </SelectContent>
-                                    </Select>
-                                </div>
-                    </div>
-                    
+                            </Select>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField 
+                        control={form.control}
+                        name="timezone"
+                        render={({ field }) => (
+                            <FormItem>
+                            <FormLabel>TimeZone</FormLabel>
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                                        <SelectTrigger className="min-w-[180px]">
+                                            <SelectValue/>
+                                        </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent className="max-h-[200px] overflow-y-auto">
+        {/* Europa */}
+        <SelectGroup>
+            <SelectLabel>Europa</SelectLabel>
+            <SelectItem value="Europe/Lisbon">
+                <div className="flex items-center gap-1">
+                    <FlagPT className="w-6 h-6"/>
+                    <div className="inline-block w-0.5 self-stretch bg-muted-foreground mx-1"/>
+                    Lisboa (GMT+0/+1)
+                </div>
+            </SelectItem>
+        </SelectGroup>
 
-                    <div className='grid grid-cols-1 lg:grid-cols-3 mt-5'>
-                        <div className='border rounded-md h-auto flex justify-between items-center p-5 sm:min-w-[400px]'>
-                            <div>
-                                <h1 className='font-semibold text-base'>Modo manutenção</h1>
-                                <p className='text-sm text-muted-foreground'>Sua loja irá entrar em manutenção</p>
-                            </div>
-                            <Switch defaultChecked={getValues("maintenance")} {...register('maintenance')} onCheckedChange={(value) => setValue("maintenance", value, {shouldDirty: true})}/>
-                        </div>
-                    </div>
-                    </div>
-                        <div className="space-y-5">
-                            <div>
-                                <label htmlFor="description" className="block font-medium mb-1">Descrição</label>
-                                <Textarea className="resize-none" {...register('description')} maxLength={60}/>
-                                {errors.description && <span className='text-destructive text-[12px]'>{errors.description.message}</span>}
-                            </div>
-                            <div>
-                                <div className="flex gap-2 items-center mb-1">
-                                <label htmlFor="keywords" className="block font-medium">KeyWords</label>
-                                <a href="https://www.atinternet.com/en/glossary/keyword-2/" rel="noopener noreferrer" target="_blank">
-                                    <IoIosHelpCircle className="cursor-pointer h-5 w-5"/>
-                                </a>
-                                </div>
-                                <Textarea className="resize-none" {...register('keywords')} maxLength={90}/>
-                                {errors.keywords && <span className='text-destructive text-[12px]'>{errors.keywords.message}</span>}
-                            </div>
-                        </div>
-                    </div>
+        {/* América */}
+        <SelectGroup>
+            <SelectLabel>América</SelectLabel>
+            <SelectItem value="America/Sao_Paulo">
+                <div className="flex items-center gap-1">
+                    <FlagBR className="w-6 h-6"/>
+                    <div className="inline-block w-0.5 self-stretch bg-muted-foreground mx-1"/>
+                    São Paulo (GMT-3)
+                </div>
+            </SelectItem>
+            <SelectItem value="America/New_York">
+                <div className="flex items-center gap-1">
+                    <FlagUS className="w-6 h-6"/>
+                    <div className="inline-block w-0.5 self-stretch bg-muted-foreground mx-1"/>
+                    Nova Iorque (GMT-5/-4)
+                </div>
+            </SelectItem>
+            <SelectItem value="America/Chicago">
+                <div className="flex items-center gap-1">
+                    <FlagUS className="w-6 h-6"/>
+                    <div className="inline-block w-0.5 self-stretch bg-muted-foreground mx-1"/>
+                    Chicago (GMT-6/-5)
+                </div>
+            </SelectItem>
+            <SelectItem value="America/Los_Angeles">
+                <div className="flex items-center gap-1">
+                    <FlagUS className="w-6 h-6"/>
+                    <div className="inline-block w-0.5 self-stretch bg-muted-foreground mx-1"/>
+                    Los Angeles (GMT-8/-7)
+                </div>
+            </SelectItem>
+        </SelectGroup>
+    </SelectContent>
+                            </Select>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                    />
 
-                    <SubHeaderSection title="Checkout" description="Configure os detalhes do checkout"/>
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-                        <div className="space-y-5">
-                            <div>
-                                <label htmlFor="MinBasket" className="block font-medium mb-1">Valor mínimo do carrinho</label>
-                                <Input {...register('minBasket', { valueAsNumber: true })} type="number" />
-                                {errors.name && <span className='text-destructive text-[12px]'>{errors.name.message}</span>}
-                            </div>
-                        </div>
+    <FormField
+          control={form.control}
+          name="maintenance"
+          render={({ field }) => (
+            <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow">
+              <FormControl>
+                <Switch
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+              <div className="space-y-1 leading-none">
+                <FormLabel>
+                Modo manutenção
+                </FormLabel>
+                <FormDescription>
+                Sua loja irá entrar em manutenção
+                </FormDescription>
+              </div>
+            </FormItem>
+          )}
+        />
 
+                <FormField 
+                        control={form.control}
+                        name="description"
+                        render={({ field }) => (
+                            <FormItem>
+                            <FormLabel>Descrição</FormLabel>
+                            <FormControl>
+                                <Textarea placeholder="shadcn" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+
+                    <FormField 
+                        control={form.control}
+                        name="keywords"
+                        render={({ field }) => (
+                            <FormItem>
+                            <FormLabel>KeyWords</FormLabel>
+                            <FormControl>
+                                <Textarea placeholder="shadcn" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField 
+                        control={form.control}
+                        name="minBasket"
+                        render={({ field: { value, onChange } }) => (
+                            <FormItem>
+                            <FormLabel>Carrinho mínimo</FormLabel>
+                            <FormControl>
+                                <Input value={value} placeholder="shadcn" type="number" min={0} onChange={(e)=>onChange(Number(e.target.value))}/>
+                                
+                            </FormControl>
+                            <FormDescription>Valor mínimo para efetuar uma compra na loja</FormDescription>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                    />
                     </div>
 
                     <div className="flex justify-end mt-5">
-                        <SubmitButton isLoading={isLoading} text="Guardar alterações" enable={!isDirty} />;
+                        <SubmitButton isLoading={isLoading} text="Guardar alterações" enable={!form.formState.isDirty}/>;
                     </div>
                 </form>
+                </Form>
     );
 }

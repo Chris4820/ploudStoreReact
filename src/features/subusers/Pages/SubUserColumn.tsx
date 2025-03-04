@@ -1,6 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table"
 import type { SubUsersProps } from "../api/req/subuser"
-import { format } from "date-fns";
+import { FormatDateTime } from "../../../utils/fomat";
 
 export const columnsSubUsers: ColumnDef<SubUsersProps>[] = [
     {
@@ -19,8 +19,8 @@ export const columnsSubUsers: ColumnDef<SubUsersProps>[] = [
       accessorKey: "createdAt",
       header: "Entrou em:",
       cell: ({ row }) => {
-        const date = row.original.createdAt ? new Date(row.original.createdAt) : null;
-        return date ? format(date, "dd/MM/yyyy HH:mm") : "Indefinido";
+        const date = row.original.createdAt ? FormatDateTime(new Date(row.original.createdAt)) : "Indefinido";
+        return date;
       },
     }
   ]

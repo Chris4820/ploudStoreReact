@@ -1,14 +1,13 @@
-import { Box, ChevronsUpDown, CreditCard, LayoutDashboardIcon, LogOut, Moon, Palette, PieChartIcon, Settings, Star, Sun, User, UserPlus, Users } from "lucide-react";
+import { Box, ChevronsUpDown, CreditCard, LayoutDashboardIcon, LogOut, Palette, PieChartIcon, Settings, Star, User, UserPlus, Users } from "lucide-react";
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "../../components/ui/slidebar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "../../components/ui/avatar";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Separator } from "../../components/ui/separator";
 import { t } from "../../lib/reacti18next/i18n";
-import { useTheme, type Theme } from "../providers/Theme";
 import { useUser } from "../../provider/User/UserContext";
-import { UseUpdateTheme } from "../../features/user/mutation/ChangeThemeMutation";
 import { useLogoutUser } from "../../Internal/auth/logoutMutation";
+import ChangeThemeComponent from "../../components/commons/ChangeThemeComponent";
 
 
 
@@ -68,27 +67,8 @@ import { useLogoutUser } from "../../Internal/auth/logoutMutation";
 
     const { mutate: logoutUser} = useLogoutUser();
 
-    const { setTheme , theme} = useTheme();
-
-    const { mutate: updateTheme} = UseUpdateTheme();
 
     const navigate = useNavigate();
-
-    const initialTheme = (user.theme?.toLowerCase() as Theme) || "light";
-    if (theme !== initialTheme) {
-      setTheme(initialTheme);
-    }
-
-    async function changeTheme() {
-      let newTheme = 'light';
-      // Alternar o tema imediatamente no frontend
-      if(theme as Theme) {
-        newTheme = theme === "dark" ? "light" : "dark";
-      }
-      
-      // Atualizar o backend em segundo plano
-      updateTheme(newTheme.toUpperCase() as Theme);
-    }
 
     function isMenuItemSelected(href: string) {
       if (href === "/dashboard" && location.pathname.startsWith("/dashboard/")) {
@@ -169,20 +149,9 @@ import { useLogoutUser } from "../../Internal/auth/logoutMutation";
                 <User />
                 Perfil
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => changeTheme()}>
-                {user.theme === 'DARK' ? (
-                  <>
-                    <Sun size={21}/>
-                    Tema claro
-                  </>
-                ): (
-                  <>
-                    <Moon size={21}/>
-                    Tema escuro
-                  </>
-                )}
-                
-              </DropdownMenuItem>
+
+              <ChangeThemeComponent/>
+
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => logoutUser()}>

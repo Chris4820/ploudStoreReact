@@ -40,7 +40,7 @@ export default function ProfilePage() {
 
     return(
         <section className="m-5 lg:m-20">
-            <BackComponent text="Voltar para o dashboard" toLink="/dashboard"/>
+            <BackComponent text="Voltar para o dashboard"/>
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-3 mt-2">
             <div className="col-span-1 p-5 rounded-lg gap-5 h-40 flex items-center justify-center bg-muted">
                 <div>

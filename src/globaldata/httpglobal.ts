@@ -8,6 +8,7 @@ export type UserInformationProps = {
   email: string,
   theme: string,
   language: string,
+  shortName: string,
 }
 
 
@@ -62,6 +63,7 @@ export type StoreInformationProps = {
   activeDomain: string,
   createdAt: string,
   terms: string,
+  timezone: string,
 
   keywords: string,
   locale: string,

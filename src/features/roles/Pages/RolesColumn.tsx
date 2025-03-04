@@ -1,6 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table"
-import { format } from "date-fns";
 import type { RoleProps } from "../api/req";
+import { FormatDateTime } from "../../../utils/fomat";
 
 export const columnsRoles: ColumnDef<RoleProps>[] = [
     {
@@ -15,8 +15,8 @@ export const columnsRoles: ColumnDef<RoleProps>[] = [
       accessorKey: "createdAt",
       header: "Criado em:",
       cell: ({ row }) => {
-        const date = row.original.createdAt ? new Date(row.original.createdAt) : null;
-        return date ? format(date, "dd/MM/yyyy HH:mm") : "Indefinido";
+        const date = row.original.createdAt ? FormatDateTime(new Date(row.original.createdAt)) : "Indefinido";
+        return date;
       },
     }
   ]
