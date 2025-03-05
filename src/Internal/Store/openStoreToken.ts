@@ -9,7 +9,7 @@ export const useOpenStore = () => {
   const navigate = useNavigate();
   
   return useMutation({
-    mutationFn: ({ storeId, isOwner }: { storeId: number; isOwner?: boolean }) => getTokenStore(storeId, isOwner),
+    mutationFn: ({ storeId }: { storeId: number }) => getTokenStore(storeId),
     onMutate: () => {
       queryClient.removeQueries({ queryKey: ['store'] });
     },
@@ -20,11 +20,7 @@ export const useOpenStore = () => {
   });
 };
 
-export async function getTokenStore(storeId: number, isOwner: boolean | undefined) {
-    const response = await axiosUser.get(`openStore/${storeId}`, {
-        params: {
-            isOwner: isOwner,
-        }
-    })
+export async function getTokenStore(storeId: number) {
+    const response = await axiosUser.get(`openStore/${storeId}`);
     return response;
 }

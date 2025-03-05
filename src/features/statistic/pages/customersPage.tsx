@@ -6,6 +6,7 @@ import { DataTable } from "../../../components/ui/datatable";
 import { useSearchParams } from "react-router-dom";
 import type { DateRange } from "react-day-picker";
 import { DateRangePickComponent } from "../../../components/dataPickerRange";
+import { t } from "../../../lib/reacti18next/i18n";
 
 
 
@@ -42,13 +43,13 @@ export default function CustomersPage() {
     return(
         <>
             <HeaderSection 
-                title="Melhores clientes" 
-                description="Consulte aqui os melhores clientes de sua loja!!"
+                title={t("statisticPage.bestCustomers")} 
+                description={t("statisticPage.customersDetail.description")}
                 backLink="../"/>
             <div className="flex gap-5 items-center flex-wrap">
                 <DateRangePickComponent 
                     onChangeRange={(range) => onDateChange(range)} 
-                    defaultRange="Desde sempre"/>
+                    defaultRange="lastWeek"/>
             </div>
             <div className="mt-5">
                 <DataTable data={data?.customers || []} loading={isLoading} meta={data?.meta} columns={columnsCustomer}/>

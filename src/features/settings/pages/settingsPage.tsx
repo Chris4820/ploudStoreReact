@@ -15,7 +15,6 @@ export default function SettingsPage() {
         updateSettings(data);
     }
 
-
     return(
         <>
             <HeaderSection title="Definições" description="Configure as definições gerais aqui"/>
@@ -28,10 +27,8 @@ export default function SettingsPage() {
                             keywords: store.description,
                             terms: store.terms,
                             currency: store.currency,
-                            locale: store.locale,
                             maintenance: store.maintenance,
                             minBasket: Number(store.minBasket),
-                            timezone: store.timezone,
                         }
                     } 
                     onSubmit={onSubmitUpdateSettings}/>

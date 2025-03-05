@@ -1,19 +1,20 @@
 import { ColumnDef } from "@tanstack/react-table"
 import type { CustomersData } from "../api/req/statistic"
 import { FormatMoney } from "../../../utils/fomat";
+import { t } from "../../../lib/reacti18next/i18n";
 
 export const columnsCustomer: ColumnDef<CustomersData>[] = [
     {
         accessorKey: "name",
-        header: "Name",
+        header: () => t("client"),
     },
     {
         accessorKey: "totalSells",
-        header: "Purchase",
+        header: () => t("sales"),
     },
     {
         accessorKey: "totalAmount",
-        header: "Amount",
+        header: () => t("total"),
         cell: ({ row }) => {
           return FormatMoney(row.original.totalAmount);
         },

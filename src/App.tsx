@@ -63,6 +63,7 @@ import PaymentDetailsPage from "./features/payments/pages/PaymentDetails/Payment
 import UserProviderWrapper from "./provider/User/UserWrapper"
 import StoreProviderWrapper from "./provider/Store/StoreWrapper"
 import AuthLayout from "./features/auth/components/authLayout"
+import UpdateRolePage from "./features/roles/Pages/UpdateRole"
 
 
 function App() {
@@ -124,6 +125,7 @@ function App() {
               <Route path="/dashboard/subuser" element={<SubUserPage/>}/>
               <Route path="/dashboard/subuser/create" element={<CreateSubUserPage/>}/>
               <Route path="/dashboard/subuser/roles" element={<RolesPage/>}/>
+              <Route path="/dashboard/subuser/roles/:id" element={<UpdateRolePage/>}/>
               <Route path="/dashboard/subuser/roles/create" element={<CreateRolePage/>}/>
             </Route>
 

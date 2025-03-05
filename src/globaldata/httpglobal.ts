@@ -9,6 +9,9 @@ export type UserInformationProps = {
   theme: string,
   language: string,
   shortName: string,
+
+  locale: string,
+  timezone: string,
 }
 
 
@@ -19,7 +22,7 @@ const baseURL = import.meta.env.VITE_URL ? import.meta.env.VITE_URL + "/api/user
 
 //http://localhost:3000/api/userapi/user/user
 export async function getUserInformation(): Promise<UserInformationProps | null> {
-  const response = await axios.get<{ userInformation?: UserInformationProps | null }>(`${baseURL}/user`, {
+  const response = await axios.get<{ userInformation?: UserInformationProps | null }>(`${baseURL}`, {
     headers: {
       'Content-Type': 'application/json',
     },
@@ -63,10 +66,8 @@ export type StoreInformationProps = {
   activeDomain: string,
   createdAt: string,
   terms: string,
-  timezone: string,
 
   keywords: string,
-  locale: string,
   currency: string,
   backgroundUrl: string | undefined,
   maintenance: boolean,

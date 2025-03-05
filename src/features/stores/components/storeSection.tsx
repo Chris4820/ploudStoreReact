@@ -32,7 +32,7 @@ export default function StoreSection() {
                 color="pink" 
                 onClick={() => {
                     if(!isPending) {
-                        openStore({ storeId: store.id, isOwner: true})}}
+                        openStore({ storeId: store.id})}}
                     }/>
                     
             ))}

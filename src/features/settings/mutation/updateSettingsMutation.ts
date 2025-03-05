@@ -18,8 +18,6 @@ export const useUpdateSettings = () => {
           keywords: variables.keywords,
 
           currency: variables.currency,
-          locale: variables.locale,
-          timezone: variables.timezone,
           maintenance: variables.maintenance,
           minBasket: variables.minBasket,
           name: variables.name,

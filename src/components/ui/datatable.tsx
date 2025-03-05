@@ -7,6 +7,7 @@ import CardEmptyComponent from "../commons/CardEmpty";
 import Pagination from "./pagination";
 import { MetaProps } from "../../features/statistic/api/req/statistic";
 import { flexRender, getCoreRowModel, useReactTable, type ColumnDef } from "@tanstack/react-table";
+import { t } from "../../lib/reacti18next/i18n";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -31,7 +32,6 @@ export function DataTable<TData, TValue>({
     getCoreRowModel: getCoreRowModel(),
   });
 
-  console.log("DataTable: " + JSON.stringify(meta));
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const page = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
@@ -95,8 +95,8 @@ export function DataTable<TData, TValue>({
             <TableRow className="min-h-[320px]">
               <TableCell  colSpan={columns.length} className="text-center">
                 <CardEmptyComponent
-                  title="Sem resultados"
-                  description="Nenhum resultado foi encontrado!"
+                  title={t("noFound.title")}
+                  description={t("noFound.description")}
                 />
               </TableCell>
             </TableRow>

@@ -1,6 +1,7 @@
 import { useSearchParams } from "react-router-dom"
 import { Button } from "./button";
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react";
+import { t } from "../../lib/reacti18next/i18n";
 
 
 
@@ -54,11 +55,11 @@ export default function Pagination({page, items, pages}: PaginationProps) {
   return(
     <div className="flex items-center justify-between p-4 rounded-lg">
 
-      <span className="font-semibold">{items} item(s) encontrados</span>
+      <span className="font-semibold">{items} {t("itensFound")}</span>
 
       <div className="flex items-center gap-5">
 
-        <span className="font-medium">Página {page} de {pages + 1}</span>
+        <span className="font-medium">{t("page")} {page} {t("of")} {pages + 1}</span>
 
         <div className="flex space-x-2">
           <Button onClick={firstPage} size={'icon'} disabled={page <= 1} aria-label="Ir para a primeira página">

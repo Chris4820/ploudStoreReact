@@ -7,13 +7,14 @@ import { cn } from "../lib/utils";
 import { Calendar } from "./ui/calendar";
 import { useSearchParams } from "react-router-dom";
 import { useState } from "react";
+import { t } from "../lib/reacti18next/i18n";
 
 type DateRangePickComponentProps = {
-  defaultRange?: "Hoje" | "Última Semana" | "Último Mês" | "Desde sempre";
+  defaultRange?: "Hoje" | "lastWeek" | "lastMonth" | "sinceAlways";
   onChangeRange: (date: DateRange) => void,
 };
 
-export function DateRangePickComponent({ defaultRange = "Última Semana", onChangeRange }: DateRangePickComponentProps) {
+export function DateRangePickComponent({ defaultRange = "lastWeek", onChangeRange }: DateRangePickComponentProps) {
   const [searchParams] = useSearchParams();
   const [enableSearch, setEnableSearch] = useState(false);
 
@@ -25,11 +26,11 @@ export function DateRangePickComponent({ defaultRange = "Última Semana", onChan
     switch (defaultRange) {
       case "Hoje":
         return { from: today, to: today };
-      case "Última Semana":
+      case "lastWeek":
         return { from: addDays(today, -7), to: today };
-      case "Último Mês":
+      case "lastMonth":
         return { from: addDays(today, -30), to: today };
-      case "Desde sempre":
+      case "sinceAlways":
         return { from: oneYearAgo, to: today };
       default:
         return { from: addDays(today, -7), to: today }; // Padrão para "Última Semana"
@@ -59,19 +60,19 @@ export function DateRangePickComponent({ defaultRange = "Última Semana", onChan
     let to: Date | undefined;
 
     switch (range) {
-      case "Hoje":
+      case "today":
         from = today;
         to = today;
         break;
-      case "Última Semana":
+      case "lastWeek":
         from = addDays(today, -7);
         to = today;
         break;
-      case "Último Mês":
+      case "lastMonth":
         from = addDays(today, -30);
         to = today;
         break;
-      case "Desde sempre":
+      case "sinceAlways":
         from = undefined;
         to = undefined;
         break;
@@ -106,7 +107,7 @@ export function DateRangePickComponent({ defaultRange = "Última Semana", onChan
             >
               <div className="flex items-center">
                 <CalendarIcon className="mr-1 h-4 w-4" />
-                <span className="font-semibold">Período</span>
+                <span className="font-semibold">{t("dateRange.period")}</span>
               </div>
               <span className="mx-2">|</span>
               <span className="bg-muted text-[12px] rounded-md p-1">{selectedLabel}</span>
@@ -122,21 +123,22 @@ export function DateRangePickComponent({ defaultRange = "Última Semana", onChan
         <PopoverContent className="w-auto p-0" align="start">
           <div className="p-4 gap-4">
             <div className="grid grid-cols-2 text-[15px]">
-              {["Hoje", "Última Semana", "Último Mês", "Desde sempre"].map(range => (
+              {["today", "lastWeek", "lastMonth", "sinceAlways"].map(range => (
                 <Button
                   key={range}
+                  id="range"
                   variant="ghost"
                   className="p-2 hover:bg-muted rounded-md"
                   onClick={() => handleRangeSelect(range)}
                 >
-                  {range}
+                  {t(`dateRange.${range}`)}
                 </Button>
               ))}
             </div>
             <hr className="my-2" />
             <div className="grid grid-cols-2 gap-5">
               <div className="flex flex-col items-center">
-                <h4 className="mb-2 text-center font-semibold">Data de Início</h4>
+                <h4 className="mb-2 text-center font-semibold">{t("dateRange.startDate")}</h4>
                 <Calendar
                   mode="single"
                   selected={currentDateRange.from}
@@ -150,7 +152,7 @@ export function DateRangePickComponent({ defaultRange = "Última Semana", onChan
               </div>
 
               <div className="flex flex-col items-center">
-                <h4 className="mb-2 text-center font-semibold">Data de Fim</h4>
+                <h4 className="mb-2 text-center font-semibold">{t("dateRange.endDate")}</h4>
                 <Calendar
                   mode="single"
                   selected={currentDateRange.to}

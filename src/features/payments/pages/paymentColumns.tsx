@@ -6,7 +6,7 @@ import { t } from "../../../lib/reacti18next/i18n";
 export const columnsPayment: ColumnDef<PaymentProps>[] = [
     {
       accessorKey: "clientIdentifier",
-      header: "Cliente",
+      header: () => t("client"),
     },
     {
         accessorKey: "clientEmail",
@@ -14,14 +14,14 @@ export const columnsPayment: ColumnDef<PaymentProps>[] = [
     },
     {
       accessorKey: "value",
-      header: "Preço",
+      header: () => t("price"),
       cell: ({ row }) => {
         return FormatMoney(row.original.value);
       },
     },
     {
       accessorKey: "coupon",
-      header: "Cupom",
+      header: () => t("coupon"),
       cell: ({ row }) => {
         const cupon = row.original.coupon;
         return cupon ? cupon.name : "Não utilizado";
@@ -29,7 +29,7 @@ export const columnsPayment: ColumnDef<PaymentProps>[] = [
     },
     {
         accessorKey: "status",
-        header: "Status",
+        header: () => t("status"),
         cell: ({ row }) => {
           const status = row.original.status;
           let bgClass = "";
@@ -66,7 +66,7 @@ export const columnsPayment: ColumnDef<PaymentProps>[] = [
     },
     {
       accessorKey: "createdAt",
-      header: "Data",
+      header: () => t("date"),
       cell: ({ row }) => {
         const date = row.original.createdAt ? FormatDateTime(new Date(row.original.createdAt)) : "Indefinido";
         return date;

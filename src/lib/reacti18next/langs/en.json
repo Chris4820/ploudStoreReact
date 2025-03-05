@@ -1,82 +1,152 @@
 {
-    "translation": {
-      "auth": {
-        "description": "Monetize your game server with our advanced e-commerce platform",
-        "noAccount": "Don't have an account yet?",
-        "createOne": "Create one now",
-        "loginPage": {
-          "welcomeback": "Welcome back!",
-          "description": "Log in to access the dashboard",
-          "forgot": "Forgot your password?",
-          "rememberMe": "Remember me",
-          "login": "Log in"
+  "translation": {
+    "auth": {
+      "description": "Monetize your game server with our advanced e-commerce platform",
+      "noAccount": "Don't have an account yet?",
+      "createOne": "Create one now",
+      "loginPage": {
+        "welcomeback": "Welcome back!",
+        "description": "Log in to access the dashboard",
+        "forgot": "Forgot your password?",
+        "rememberMe": "Remember me",
+        "login": "Log in"
+      },
+      "registerPage": {
+        "welcome": "Welcome",
+        "description": "Register to access the dashboard",
+        "terms": "terms and conditions",
+        "createAccount": "Create account",
+        "haveAccount": "Already have an account?",
+        "login": "Log in"
+      }
+    },
+    "dashboardPage": {
+      "title": "Dashboard",
+      "description": "Overview of your store's performance and key metrics",
+      "dailyEarnings": "Daily Earnings",
+      "dailySales": "Daily Sales",
+      "monthlyEarnings": "Monthly Earnings",
+      "monthlySales": "Monthly Sales",
+      "last7Days": "Sales in the Last 7 Days",
+      "lastPayments": "Recent Payments",
+      "notifications": "General Notifications"
+    },
+
+    "settingsPage": {
+      "integrationSection": {
+        "integration": "Integrations",
+        "description": "Connect your store with various applications",
+        "configureMinecraft": {
+          "description": "Connect the store to your Minecraft server and set up automatic product activations!"
         },
-        "registerPage": {
-          "welcome": "Welcome",
-          "description": "Register to access the dashboard",
-          "terms": "terms and conditions",
-          "createAccount": "Create account",
-          "haveAccount": "Already have an account?",
-          "login": "Log in"
+        "configureDiscord": {
+          "description": "Connect the store to your Discord server to set up notifications for new purchases..."
+        },
+        "configureSlack": {
+          "description": "Connect the store to your Slack server to set up notifications for new purchases..."
         }
       },
-      "dashboardPage": {
-        "dailyEarnings": "Daily earnings",
-        "dailySales": "Daily Sales",
-        "monthlyEarnings": "Monthly Earnings",
-        "monthlySales": "Monthly Sales"
-      },
-      "settingsPage": {
-        "integrationSection": {
-          "integration": "Integrations",
-          "description": "Connect your store with various applications",
-          "configureMinecraft": {
-            "description": "Connect the store to your Minecraft server and set up automatic product activations!"
-          },
-          "configureDiscord": {
-            "description": "Connect the store to your Discord server to set up notifications for new purchases..."
-          },
-          "configureSlack": {
-            "description": "Connect the store to your Slack server to set up notifications for new purchases..."
-          }
+      "domainSection": {
+        "domain": "Domain",
+        "description": "Manage your domain here",
+        "configureDomain": {
+          "title": "Configure your domain",
+          "description": "Use your own domain name in your online store to match your brand."
         },
-        "domainSection": {
-          "domain": "Domain",
-          "description": "Manage your domain here",
-          "configureDomain": {
-            "title": "Configure your domain",
-            "description": "Use your own domain name in your online store to match your brand."
-          },
-          "configureHttps": {
-            "description": "Your store is protected by an SSL certificate to keep all personal data secure.",
-            "footer": "Safe and encrypted"
-          },
-          "configureSubDomain": {
-            "title": "Configure sub-domain",
-            "description": "The PloudStore brand address used to access your online store."
-          }
+        "configureHttps": {
+          "description": "Your store is protected by an SSL certificate to keep all personal data secure.",
+          "footer": "Safe and encrypted"
+        },
+        "configureSubDomain": {
+          "title": "Configure sub-domain",
+          "description": "The PloudStore brand address used to access your online store."
+        }
+      }
+    },
+    "setup": {
+      "name": "Name",
+      "email": "Email",
+      "password": "Password",
+      "idiom": "Idiom",
+      "currency": "Currency",
+      "timezone": "Timezone"
+    },
+    "statisticPage": {
+        "title": "Statistics",
+        "description": "Analyze in detail the performance of your store",
+        "bestCategories": "Best Categories",
+        "bestCoupons": "Best Coupons",
+        "bestCustomers": "Best Customers",
+        "totalSales": "Total Sales",
+        "itemsSold": "Items Sold",
+        "storeVisits": "Store Visits",
+        "totalReturns": "Total Returns",
+
+        "categoriesDetail": {
+          "description": "Explore the most popular categories in your store here!"
+        },
+        "customersDetail": {
+            "description": "Explore the most popular customers in your store here!"
+        },
+        "couponsDetail": {
+            "description": "Explore the most popular coupons in your store here!"
         }
       },
-      "setup": {
-        "name": "Name",
-        "email": "Email",
-        "password": "Password",
-        "idiom": "Idiom",
-        "currency": "Currency",
-        "timezone": "Timezone"
+      "ordersPage": {
+        "description": "Check your store's orders!",
+        "newest": "Newest",
+        "oldest": "Oldest",
+        "mostExpensive": "Most Expensive",
+        "success": "Success",
+        "pending": "Pending",
+        "failed": "Failed",
+        "all": "All"
       },
-      "dashboard": "Dashboard",
-      "statistics": "Statistics",
-      "products": "Products",
-      "engagement": "Engagement",
-      "save": "Save",
-      "accepted": "Accepted",
-      "confirm": "Confirm",
-      "configure": "Configure",
-      "payments": "Payments",
-      "settings": "Settings",
-      "update": "Update",
-      "change": "Change"
+      "categoriesPage": {
+        "description": "Create categories and drag them"
+      },
+      "dateRange": {
+          "period": "Period",
+          "today": "Today",
+          "lastWeek": "Last week",
+          "lastMonth": "Last month",
+          "sinceAlways": "Since always",
+
+          "startDate": "Start date",
+          "endDate": "End date"
+      },
+
+    "dashboard": "Dashboard",
+    "statistics": "Statistics",
+    "products": "Products",
+    "engagement": "Engagement",
+    "save": "Save",
+    "accepted": "Accepted",
+    "confirm": "Confirm",
+    "configure": "Configure",
+    "search": "Search",
+    "payments": "Payments",
+    "orders": "Orders",
+    "settings": "Settings",
+    "update": "Update",
+    "change": "Change",
+    "seeMore": "See More",
+    "itensFound": "Item(s) found",
+    "of": "of",
+    "page": "Page",
+    "client": "Client",
+    "category": "Category",
+    "categories": "Categories",
+    "sales": "Sales",
+    "total": "Total",
+    "date": "Date",
+    "price": "Price",
+    "status": "Status",
+    "coupon": "Coupon",
+    "noFound": {
+      "title": "No Results",
+      "description": "No results were found!"
     }
+
   }
-  
+}

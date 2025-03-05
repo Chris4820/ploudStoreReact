@@ -1,8 +1,8 @@
 import { ColumnDef } from "@tanstack/react-table"
-import type { RoleProps } from "../api/req";
 import { FormatDateTime } from "../../../utils/fomat";
+import type { RolesProps } from "../api/req";
 
-export const columnsRoles: ColumnDef<RoleProps>[] = [
+export const columnsRoles: ColumnDef<RolesProps>[] = [
     {
       accessorKey: "name",
       header: "Nome",

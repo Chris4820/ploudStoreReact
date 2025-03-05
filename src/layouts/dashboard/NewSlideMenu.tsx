@@ -4,57 +4,57 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem,
 import { Avatar, AvatarFallback, AvatarImage } from "../../components/ui/avatar";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Separator } from "../../components/ui/separator";
-import { t } from "../../lib/reacti18next/i18n";
 import { useUser } from "../../provider/User/UserContext";
 import { useLogoutUser } from "../../Internal/auth/logoutMutation";
 import ChangeThemeComponent from "../../components/commons/ChangeThemeComponent";
+import { t } from "../../lib/reacti18next/i18n";
 
 
 
   // Menu items.
   const menus = [
     {
-      title: t("dashboard"),
+      title: "dashboard",
       url: "/dashboard",
       icon: LayoutDashboardIcon,
     },
     {
-      title: t("statistics"),
+      title: "statistics",
       url: "/dashboard/statistic",
       icon: PieChartIcon,
     },
     {
-      title: t("payments"),
+      title: "payments",
       url: "/dashboard/payments",
       icon: CreditCard, // Ícone do Lucide React
     },
     {
-      title: t("products"),
+      title: "products",
       url: "/dashboard/categories",
       icon: Box, // Ícone do Lucide React
     },
     {
-      title: t("engagement"),
+      title: "engagement",
       url: "/dashboard/engagement",
       icon: Users, // Ícone do Lucide React
     },
     {
-      title: t("design"),
+      title: "design",
       url: "/dashboard/design",
       icon: Palette, // Ícone do Lucide React
     },
     {
-      title: t("subusers"),
+      title: "subusers",
       url: "/dashboard/subuser",
       icon: UserPlus, // Ícone do Lucide React
     },
     {
-      title: t("settings"),
+      title: "settings",
       url: "/dashboard/settings",
       icon: Settings, // Mantido como está
     },
     {
-      title: t("plan"),
+      title: "plan",
       url: "/dashboard/plan",
       icon: Star, // Mantido como está
     },
@@ -98,7 +98,7 @@ import ChangeThemeComponent from "../../components/commons/ChangeThemeComponent"
         <SidebarMenuItem key={item.title} onClick={() => setOpenMobile(false)}>
             <NavLink to={item.url} className={`${isMenuItemSelected(item.url) ? "border-r-4" : ""} w-full group/iconmenu relative cursor-pointer transition-all duration-300 border-purple-600 p-2 flex items-center gap-2 text-base`}>
               <item.icon size={21} className="group-hover/iconmenu:text-purple-600 ml-5 " /> {/* Aumentando o tamanho do ícone */}
-              <span className="">{item.title}</span> {/* Aumentando o tamanho do texto */}
+              <span className="">{t(item.title)}</span> {/* Aumentando o tamanho do texto */}
             </NavLink>
         </SidebarMenuItem>
       ))}

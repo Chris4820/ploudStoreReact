@@ -6,6 +6,7 @@ import { columnsCategories } from "./CategorieColumns";
 import { DataTable } from "../../../components/ui/datatable";
 import { DateRangePickComponent } from "../../../components/dataPickerRange";
 import type { DateRange } from "react-day-picker";
+import { t } from "../../../lib/reacti18next/i18n";
 
 
 
@@ -41,14 +42,14 @@ export default function CategoriesPage() {
     return(
         <>
             <HeaderSection 
-                title="Categorias mais usadas" 
-                description="Consulte aqui as categorias mais populares de sua loja!!" 
+                title={t("statisticPage.bestCategories")} 
+                description={t("statisticPage.categoriesDetail.description")}
                 backLink="../"/>
             <div className="flex gap-2 items-center flex-wrap">
 
             <DateRangePickComponent 
             onChangeRange={(range) => onDateChange(range)}
-            defaultRange="Desde sempre"/>
+            defaultRange="lastWeek"/>
 
 
             </div>

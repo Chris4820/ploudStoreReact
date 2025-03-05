@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 export default function RolesPage() {
 
   const {data: roles = [], isLoading} = useGetRoles()
+  
 
   const navigate = useNavigate()
     return(
@@ -31,6 +32,7 @@ export default function RolesPage() {
         <DataTable
           columns={columnsRoles}
           data={roles}
+          link="/dashboard/subuser/roles/{id}"
           loading={isLoading}
         />
       </>

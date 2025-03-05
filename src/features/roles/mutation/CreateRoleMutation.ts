@@ -5,7 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import type { RoleFormData } from "../Schema/RoleSchema";
 import { useNavigate } from "react-router-dom";
-import { createRole, type RoleProps } from "../api/req";
+import { createRole, type RolesProps } from "../api/req";
 import queryClient from "../../../lib/reactquery/reactquery";
 
 export const useCreateRole = () => {
@@ -21,7 +21,7 @@ export const useCreateRole = () => {
         description: variables.description, // descrição da role
         createdAt: role.createdAt,
       };
-      queryClient.setQueryData(['roles'], (oldData: RoleProps[]) => {
+      queryClient.setQueryData(['roles'], (oldData: RolesProps[]) => {
         return oldData ? [newRole, ...oldData] : [newRole];
       });
 

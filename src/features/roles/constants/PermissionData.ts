@@ -29,16 +29,6 @@ export const permissionsData = [
     ],
   },
   {
-    category: "Definições",
-    permissions: [
-      { label: "Editar definições gerais", value: PermissionTypes.EDIT_SETTINGS },
-      { label: "Editar definições checkout", value: PermissionTypes.EDIT_CHECKOUT_SETTINGS },
-      { label: "Editar domínio", value: PermissionTypes.EDIT_DOMAIN },
-      { label: "Editar SubDomínio", value: PermissionTypes.EDIT_SUBDOMAIN },
-      { label: "Gerenciar integrações (ver/atualizar tokens)", value: PermissionTypes.EDIT_SERVER },
-    ],
-  },
-  {
     category: "Variáveis",
     permissions: [
       { label: "Visualizar variáveis", value: PermissionTypes.LIST_VARIABLE },
@@ -63,6 +53,16 @@ export const permissionsData = [
       { label: "Criar templates", value: PermissionTypes.CREATE_TEMPLATE },
       { label: "Editar templates", value: PermissionTypes.EDIT_TEMPLATE },
       { label: "Remover templates", value: PermissionTypes.REMOVE_TEMPLATE },
+    ],
+  },
+  {
+    category: "Definições",
+    permissions: [
+      { label: "Editar definições gerais", value: PermissionTypes.EDIT_SETTINGS },
+      { label: "Editar definições checkout", value: PermissionTypes.EDIT_CHECKOUT_SETTINGS },
+      { label: "Editar domínio", value: PermissionTypes.EDIT_DOMAIN },
+      { label: "Editar SubDomínio", value: PermissionTypes.EDIT_SUBDOMAIN },
+      { label: "Gerenciar integrações", value: PermissionTypes.EDIT_SERVER },
     ],
   },
 ];

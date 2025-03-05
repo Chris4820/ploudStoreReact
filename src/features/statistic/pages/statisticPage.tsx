@@ -15,6 +15,7 @@ import { columnsCategories } from "./CategorieColumns";
 import { columnsCustomer } from "./customersColumns";
 import { columnsCupon } from "./CouponColumns";
 import { FormatMoney } from "../../../utils/fomat";
+import { t } from "../../../lib/reacti18next/i18n";
 
 export default function StatisticPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -54,47 +55,47 @@ export default function StatisticPage() {
   return (
     <>
       <div className="flex items-center justify-between">
-        <HeaderSection title={'Estatística'} description="Veja detalhadamente o caminho de sua loja" />
+        <HeaderSection title={t('statisticPage.title')} description={t('statisticPage.description')} />
         <DateRangePickComponent 
           onChangeRange={(date) => onDateChange(date)}
-          defaultRange="Última Semana" />
+          defaultRange="lastWeek" />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5">
-                <CardSection title="Categorias mais vendidas" hAuto link="categories">
+                <CardSection title={t('statisticPage.bestCategories')} hAuto link="categories">
                     <DataTable data={categoriesData?.categories || []} loading={categoriesLoading} columns={columnsCategories}/>
                 </CardSection>
 
                 <div className="grid grid-cols-2 items-start gap-5">
                   <Cards 
-                    title={"Vendas Totais"} 
+                    title={t('statisticPage.totalSales')} 
                     price={FormatMoney(storeStat?.totalSales || 0)}
                     isLoading={storeStatLoading} 
                     icon={GiMoneyStack} />
                   <Cards 
-                    title={"Itens Vendidos"} 
+                    title={t('statisticPage.itemsSold')} 
                     price={storeStat?.totalItemsSold || 0} 
                     isLoading={storeStatLoading}
                     icon={GiShoppingCart} />
                   <Cards 
-                    title={"Acessos na loja"} 
+                    title={t('statisticPage.storeVisits')}
                     price={0} 
                     isInt 
                     isLoading={false}
                     icon={User2Icon} />
                   <Cards 
-                    title={"Total de Retornos"} 
+                    title={t('statisticPage.totalReturns')}
                     price={`${storeStat?.returnRate || 0}%`}
                     isInt 
                     isLoading={storeStatLoading}
                     icon={CgUndo} />
                 </div>
 
-                <CardSection title="Melhores clientes" hAuto link="customers">
+                <CardSection title={t('statisticPage.bestCustomers')} hAuto link="customers">
                     <DataTable data={customersData?.customers || []} loading={customersLoading} columns={columnsCustomer}/>
                 </CardSection>
 
-                <CardSection title="Melhores coupons" hAuto link="coupons">
+                <CardSection title={t('statisticPage.bestCoupons')} hAuto link="coupons">
                     <DataTable data={couponData?.coupons || []} loading={couponLoading} columns={columnsCupon}/>
                 </CardSection>
             </div>

@@ -6,6 +6,7 @@ import HeaderSection from "../../../components/commons/Header";
 import { DataTable } from "../../../components/ui/datatable";
 import { DateRangePickComponent } from "../../../components/dataPickerRange";
 import type { DateRange } from "react-day-picker";
+import { t } from "../../../lib/reacti18next/i18n";
 
 
 
@@ -46,13 +47,13 @@ export default function CouponReportPage() {
     return(
         <>
             <HeaderSection 
-                title="Melhores Coupons" 
-                description="Consulte aqui os melhores coupons de sua loja!!"
+                title={t("statisticPage.bestCoupons")} 
+                description={t("statisticPage.couponsDetail.description")}
                 backLink="../"/>
             <div className="flex gap-5 items-center flex-wrap">
                 <DateRangePickComponent 
                 onChangeRange={(range) => onDateChange(range)} 
-                defaultRange="Desde sempre"/>
+                defaultRange="lastWeek"/>
             </div>
             <div className="mt-5">
                 <DataTable data={data?.coupons || []} loading={isLoading} meta={data?.meta} columns={columnsCupon}/>

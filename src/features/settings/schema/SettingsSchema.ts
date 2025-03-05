@@ -10,8 +10,6 @@ const settingsSchema = z.object({
   keywords: z.string(),
   terms: z.string(),
   currency: z.string().default('eur'),
-  locale: z.string().default('pt-PT'),
-  timezone: z.string(),
   maintenance: z.boolean(),
   minBasket: z.preprocess((val) => parseFloat(val as string), z.number().min(0, "0 é o valor minimo do carrinho")),
   

@@ -33,8 +33,8 @@ export default function DashboardHomePage() {
     return(
         <>
         <HeaderSection 
-          title="Dashboard"
-          description="Visão geral do desempenho da sua loja e métricas importantes"/>
+          title={t("dashboardPage.title")}
+          description={t("dashboardPage.description")}/>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         <Cards
             title={t("dashboardPage.dailyEarnings")}
@@ -64,19 +64,19 @@ export default function DashboardHomePage() {
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mt-5">
                 <div className="col-span-2">
-                <CardSection title="Vendas dos últimos 7 dias" className="h-[250px]">
+                <CardSection title={t("dashboardPage.last7Days")} className="h-[250px]">
                   {graphLoading ? (
                     <LoadingComponent/>
                   ) : graph && graph.length > 0 ? (
                       <ChartComponent graph={graph}/>
                   ) : (
-                      <CardEmptyComponent title="Sem dados" description="Não foram encontrados dados"/>
+                      <CardEmptyComponent title={t("noFound.title")} description={t("noFound.description")}/>
                   )}
                   
                 </CardSection>
                 </div>
                 <div className="col-span-1">
-                  <CardSection title="Notificações Gerais">
+                  <CardSection title={t("dashboardPage.notifications")}>
                   {notificationsLoading ? (
                       <LoadingComponent />
                     ) : notifications && notifications.length > 0 ? (
@@ -100,14 +100,14 @@ export default function DashboardHomePage() {
                       </ul>
                     ) : (
                       <CardEmptyComponent 
-                        title="Sem notificações"
-                        description="Parece que ainda não tem nenhuma notificação"/>
+                        title={t("noFound.title")}
+                        description={t("noFound.description")}/>
                     )}
                   </CardSection>
                 </div>
             </div>
             <div className="mt-5">
-              <CardSection title="Pagamentos recentes" hAuto link="payments">
+              <CardSection title={t("dashboardPage.lastPayments")} hAuto link="payments">
                 <DataTable data={payments?.payments || []} loading={paymentsLoading} columns={columnsPayment}/>
               </CardSection>
             </div>

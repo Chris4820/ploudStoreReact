@@ -1,6 +1,7 @@
 import { HelpCircle } from "lucide-react"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip"
 import NextComponent from "./NextComponent"
+import { t } from "../../lib/reacti18next/i18n"
 
 type CardSectionProps = {
     title: string,
@@ -16,7 +17,7 @@ export default function CardSection({title, children, hAuto = false, link, help}
         <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
             <div className="flex px-6 py-4 justify-between items-center">
                 <h1 className="font-semibold text-lg leading-none tracking-tight">{title}</h1>
-                {link && <NextComponent toLink={link} text="Ver mais"/>}
+                {link && <NextComponent toLink={link} text={t("seeMore")}/>}
                 {help && (
                 <TooltipProvider>
                     <Tooltip>

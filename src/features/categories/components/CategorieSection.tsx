@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import type { CategorieProps } from '../api/req/categorie';
 import queryClient from '../../../lib/reactquery/reactquery';
 import DraggableComponent from '../../../components/DraggableComponent';
+import { t } from '../../../lib/reacti18next/i18n';
 
 export function CategorieSection({ parentCategoryId }: { parentCategoryId: string | undefined }) {
     const [items, setItems] = useState<CategorieProps[]>([]);
@@ -45,7 +46,7 @@ export function CategorieSection({ parentCategoryId }: { parentCategoryId: strin
     }
 
     if (!categories || categories.length <= 0) {
-        return <CardEmptyComponent title="Sem categorias" description="Parece que não existe nenhuma categoria" />;
+        return <CardEmptyComponent title={t("noFound.title")} description={t("noFound.description")} />;
     }
 
     return (

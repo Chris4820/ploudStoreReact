@@ -10,6 +10,7 @@ import { Button } from "../../../components/ui/button";
 import { DataTable } from "../../../components/ui/datatable";
 import type { DateRange } from "react-day-picker";
 import { DateRangePickComponent } from "../../../components/dataPickerRange";
+import { t } from "../../../lib/reacti18next/i18n";
 
 
 export default function PaymentsPage() {
@@ -63,7 +64,7 @@ export default function PaymentsPage() {
 
     return(
         <>
-            <HeaderSection title="Pedidos" description="Consulte os pedidos de sua loja!"/>
+            <HeaderSection title={t("orders")} description={t("ordersPage.description")}/>
             <div className="flex justify-between items-center">
             <div className="flex gap-5 items-center flex-wrap">
                 <div className="space-y-1">
@@ -79,9 +80,9 @@ export default function PaymentsPage() {
                         </div>
                     </SelectTrigger>
                 <SelectContent>
-                        <SelectItem value="recent">Mais recente</SelectItem>
-                        <SelectItem value="oldest">Mais antigo</SelectItem>
-                        <SelectItem value="expensive">Mais caros</SelectItem>
+                        <SelectItem value="recent">{t("ordersPage.newest")}</SelectItem>
+                        <SelectItem value="oldest">{t("ordersPage.oldest")}</SelectItem>
+                        <SelectItem value="expensive">{t("ordersPage.mostExpensive")}</SelectItem>
                 </SelectContent>
                 </Select>
 
@@ -93,34 +94,34 @@ export default function PaymentsPage() {
                         <SelectItem value="success">
                             <div className="flex gap-2 items-center">
                                 <div className="bg-green-500 h-[9px] w-[9px] rounded-full"/>
-                                <h1>Success</h1>
+                                <h1>{t("ordersPage.success")}</h1>
                             </div>
                             </SelectItem>
                         <SelectItem value="pending">
                             <div className="flex gap-2 items-center">
                                 <div className="bg-yellow-500 h-[9px] w-[9px] rounded-full"/>
-                                <h1>Pending</h1>
+                                <h1>{t("ordersPage.pending")}</h1>
                             </div>
                             </SelectItem>
                         <SelectItem value="failed">
                             <div className="flex gap-2 items-center">
                                 <div className="bg-red-500 h-[9px] w-[9px] rounded-full"/>
-                                <h1>Failed</h1>
+                                <h1>{t("ordersPage.failed")}</h1>
                             </div>
                             </SelectItem>
                             <SelectItem value="none">
                             <div className="flex gap-2 items-center">
                                 <div className="bg-purple-600 h-[9px] w-[9px] rounded-full"/>
-                                <h1>Todos</h1>
+                                <h1>{t("ordersPage.all")}</h1>
                             </div>
                             </SelectItem>
                 </SelectContent>
                 </Select>
-                <Button onClick={() => handleFilter()}>Pesquisar</Button>
+                <Button onClick={() => handleFilter()}>{t("search")}</Button>
 
                 </div>
                 <DateRangePickComponent 
-                defaultRange="Desde sempre"
+                defaultRange="sinceAlways"
                 onChangeRange={(date) => onDateChange(date)}/>
             </div>
             <div className="mt-5">

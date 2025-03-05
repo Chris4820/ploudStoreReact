@@ -1,16 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Input } from "../../../components/ui/input";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../../../components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../components/ui/select";
 import { t } from "i18next";
 import { Textarea } from "../../../components/ui/textarea";
 import settingsSchema, { type SettingsFormData } from "../schema/SettingsSchema";
 import SubmitButton from "../../../components/commons/buttons/SubmitButtonComponent";
 import SubHeaderSection from "../../../components/commons/subHeader";
-import { FlagPT } from "../../../components/flags/pt";
-import { FlagUS } from "../../../components/flags/us";
-import { FlagBR } from "../../../components/flags/br";
-import { FlagSE } from "../../../components/flags/se";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../../../components/ui/form";
 import { Switch } from "../../../components/ui/switch";
 
@@ -112,118 +108,6 @@ export default function SettingsForm({ initialData, onSubmit, isLoading }: Setti
                                                 </div>
                                             </SelectItem>
                                         </SelectContent>
-                            </Select>
-                            <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-
-                    <FormField 
-                        control={form.control}
-                        name="locale"
-                        render={({ field }) => (
-                            <FormItem>
-                            <FormLabel>Local</FormLabel>
-                            <Select onValueChange={field.onChange} defaultValue={field.value}>
-                            <FormControl>
-                                        <SelectTrigger className="min-w-[180px]">
-                                            <SelectValue/>
-                                        </SelectTrigger>
-                                        </FormControl>
-                                        <SelectContent className="max-h-[200px] overflow-y-auto">
-                                        <SelectItem value="pt-PT">
-                                                <div className="flex items-center gap-1">
-                                                <FlagPT className="w-6 h-6"/>
-                                                    <div className="inline-block w-0.5 self-stretch bg-muted-foreground mx-1"/>
-                                                    Portugal
-                                                </div>
-                                            </SelectItem>
-                                        <SelectItem value="en-US">
-                                            <div className="flex items-center gap-1">
-                                                <FlagUS className="w-6 h-6"/>
-                                                <div className="inline-block w-0.5 self-stretch bg-muted-foreground mx-1"/>
-                                                English
-                                                </div>
-                                            </SelectItem>
-                                        <SelectItem value="pt-BR">
-                                                <div className="flex items-center gap-1">
-                                                <FlagBR className="w-6 h-6"/>
-                                                    <div className="inline-block w-0.5 self-stretch bg-muted-foreground mx-1"/>
-                                                    Brasil
-                                                </div>
-                                            </SelectItem>
-                                        <SelectItem value="sv-SE">
-                                            <div className="flex items-center gap-1">
-                                            <FlagSE className="w-6 h-6"/>
-                                                <div className="inline-block w-0.5 self-stretch bg-muted-foreground mx-1"/>
-                                                Svenska
-                                            </div>
-                                            </SelectItem>
-                                        {/* Podes adicionar outros conforme necessário */}
-                                        </SelectContent>
-                            </Select>
-                            <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField 
-                        control={form.control}
-                        name="timezone"
-                        render={({ field }) => (
-                            <FormItem>
-                            <FormLabel>TimeZone</FormLabel>
-                            <Select onValueChange={field.onChange} defaultValue={field.value}>
-                            <FormControl>
-                                        <SelectTrigger className="min-w-[180px]">
-                                            <SelectValue/>
-                                        </SelectTrigger>
-                                        </FormControl>
-                                        <SelectContent className="max-h-[200px] overflow-y-auto">
-        {/* Europa */}
-        <SelectGroup>
-            <SelectLabel>Europa</SelectLabel>
-            <SelectItem value="Europe/Lisbon">
-                <div className="flex items-center gap-1">
-                    <FlagPT className="w-6 h-6"/>
-                    <div className="inline-block w-0.5 self-stretch bg-muted-foreground mx-1"/>
-                    Lisboa (GMT+0/+1)
-                </div>
-            </SelectItem>
-        </SelectGroup>
-
-        {/* América */}
-        <SelectGroup>
-            <SelectLabel>América</SelectLabel>
-            <SelectItem value="America/Sao_Paulo">
-                <div className="flex items-center gap-1">
-                    <FlagBR className="w-6 h-6"/>
-                    <div className="inline-block w-0.5 self-stretch bg-muted-foreground mx-1"/>
-                    São Paulo (GMT-3)
-                </div>
-            </SelectItem>
-            <SelectItem value="America/New_York">
-                <div className="flex items-center gap-1">
-                    <FlagUS className="w-6 h-6"/>
-                    <div className="inline-block w-0.5 self-stretch bg-muted-foreground mx-1"/>
-                    Nova Iorque (GMT-5/-4)
-                </div>
-            </SelectItem>
-            <SelectItem value="America/Chicago">
-                <div className="flex items-center gap-1">
-                    <FlagUS className="w-6 h-6"/>
-                    <div className="inline-block w-0.5 self-stretch bg-muted-foreground mx-1"/>
-                    Chicago (GMT-6/-5)
-                </div>
-            </SelectItem>
-            <SelectItem value="America/Los_Angeles">
-                <div className="flex items-center gap-1">
-                    <FlagUS className="w-6 h-6"/>
-                    <div className="inline-block w-0.5 self-stretch bg-muted-foreground mx-1"/>
-                    Los Angeles (GMT-8/-7)
-                </div>
-            </SelectItem>
-        </SelectGroup>
-    </SelectContent>
                             </Select>
                             <FormMessage />
                             </FormItem>

@@ -1,83 +1,151 @@
 {
-    "translation": {
-        "success": "Concluído",
+  "translation": {
+      "success": "Concluído",
+      "pending": "Pendente",
+      "auth": {
+          "description": "Monetize seu servidor de jogos com nossa plataforma avançada de comércio eletrônico",
+          "noAccount": "Ainda não tem uma conta?",
+          "createOne": "Crie uma agora",
+          "loginPage": {
+              "welcomeback": "Bem-vindo de volta!",
+              "description": "Faça login para acessar o painel",
+              "forgot": "Esqueceu a senha?",
+              "rememberMe": "Lembrar de mim",
+              "login": "Iniciar sessão"
+          },
+          "registerPage": {
+              "welcome": "Bem-vindo",
+              "description": "Faça registro para acessar o painel",
+              "terms": "terms and conditions",
+              "createAccount": "Criar conta",
+              "haveAccount": "Já tem uma conta?",
+              "login": "Faça login"
+          }
+      },
+      "dashboardPage": {
+          "title": "Painel",
+          "description": "Visão geral do desempenho da sua loja e métricas importantes",
+          "dailyEarnings": "Ganhos diários",
+          "dailySales": "Vendas diárias",
+          "monthlyEarnings": "Ganhos Mensais",
+          "monthlySales": "Vendas Mensais",
+          "last7Days": "Vendas dos últimos 7 dias",
+          "lastPayments": "Pagamentos recentes",
+          "notifications": "Notificações Gerais"
+      },
+      "settingsPage": {
+          "integrationSection": {
+              "integration": "Integrações",
+              "description": "Conecte sua loja com diversas aplicações",
+              "configureMinecraft": {
+                  "description": "Conecte a loja ao seu servidor de Minecraft e configure as ativações automáticas dos produtos!"
+              },
+              "configureDiscord": {
+                  "description": "Conecte a loja ao seu servidor Discord, para configurar avisos de novas compras..."
+              },
+              "configureSlack": {
+                  "description": "Conecte a loja ao seu servidor Slack, para configurar avisos de novas compras..."
+              }
+          },
+          "domainSection": {
+              "domain": "Domínio",
+              "description": "Gerencie aqui o seu domínio",
+              "configureDomain": {
+                  "title": "Configure o seu domínio",
+                  "description": "Use seu próprio nome de domínio em sua loja virtual para combinar com sua própria marca."
+              },
+              "configureHttps": {
+                  "description": "Sua loja está protegida por um certificado SSL para manter todos os dados pessoais seguros.",
+                  "footer": "Seguro e criptografado"
+              },
+              "configureSubDomain": {
+                  "title": "Configure o sub-domínio",
+                  "description": "O endereço da marca PloudStore usado para acessar sua loja virtual."
+              }
+          }
+      },
+      "setup": {
+          "name": "Nome",
+          "email": "Email",
+          "password": "Palavra Passe",
+          "idiom": "Idioma",
+          "currency": "Moeda",
+          "timezone": "Fuso horário"
+      },
+      "statisticPage": {
+        "title": "Estatísticas",
+        "description": "Analise detalhadamente o desempenho da sua loja",
+        "bestCategories": "Melhores categorias",
+        "bestCoupons": "Melhores coupons",
+        "bestCustomers": "Melhores clientes",
+        "totalSales": "Vendas totais",
+        "itemsSold": "Itens vendidos",
+        "storeVisits": "Acessos na loja",
+        "totalReturns": "Total de Retornos",
+
+        "categoriesDetail": {
+            "description": "Explore aqui as categorias mais populares da sua loja!"
+        },
+        "customersDetail": {
+            "description": "Explore aqui os clientes mais populares da sua loja!"
+        },
+        "cuponsDetail": {
+            "description": "Explore aqui os coupoms mais populares da sua loja!"
+        }
+      },
+      "ordersPage": {
+        "description": "Consulte os pedidos de sua loja!",
+        "newest": "Mais recentes",
+        "oldest": "Mais antigos",
+        "mostExpensive": "Mais caros",
+        "success": "Sucesso",
         "pending": "Pendente",
-        "auth": {
-            "description": "Monetize seu servidor de jogos com nossa plataforma avançada de comércio eletrônico",
-            "noAccount": "Ainda não tem uma conta?",
-            "createOne": "Crie uma agora",
-            "loginPage": {
-                "welcomeback": "Bem-vindo de volta!",
-                "description": "Faça login para acessar o painel",
-                "forgot": "Esqueceu a senha?",
-                "rememberMe": "Lembrar de mim",
-                "login": "Iniciar sessão"
-            },
-            "registerPage": {
-                "welcome": "Bem-vindo",
-                "description": "Faça registro para acessar o painel",
-                "terms": "terms and conditions",
-                "createAccount": "Criar conta",
-                "haveAccount": "Já tem uma conta?",
-                "login": "Faça login"
-            }
-        },
-        "dashboardPage": {
-            "dailyEarnings": "Ganhos diários",
-            "dailySales": "Vendas diárias",
-            "monthlyEarnings": "Ganhos Mensais",
-            "monthlySales": "Vendas Mensais"
-        },
-        "settingsPage": {
-            "integrationSection": {
-                "integration": "Integrações",
-                "description": "Conecte sua loja com diversas aplicações",
-                "configureMinecraft": {
-                    "description": "Conecte a loja ao seu servidor de Minecraft e configure as ativações automáticas dos produtos!"
-                },
-                "configureDiscord": {
-                    "description": "Conecte a loja ao seu servidor Discord, para configurar avisos de novas compras..."
-                },
-                "configureSlack": {
-                    "description": "Conecte a loja ao seu servidor Slack, para configurar avisos de novas compras..."
-                }
-            },
-            "domainSection": {
-                "domain": "Domínio",
-                "description": "Gerencie aqui o seu domínio",
-                "configureDomain": {
-                    "title": "Configure o seu domínio",
-                    "description": "Use seu próprio nome de domínio em sua loja virtual para combinar com sua própria marca."
-                },
-                "configureHttps": {
-                    "description": "Sua loja está protegida por um certificado SSL para manter todos os dados pessoais seguros.",
-                    "footer": "Seguro e criptografado"
-                },
-                "configureSubDomain": {
-                    "title": "Configure o sub-domínio",
-                    "description": "O endereço da marca PloudStore usado para acessar sua loja virtual."
-                }
-            }
-        },
-        "setup": {
-            "name": "Nome",
-            "email": "Email",
-            "password": "Palavra Passe",
-            "idiom": "Idioma",
-            "currency": "Moeda",
-            "timezone": "Fuso horário"
-        },
-        "dashboard": "Painel",
-        "statistics": "Estatística",
-        "engagement": "Engajamento",
-        "products": "Produtos",
-        "save": "Salvar",
-        "accepted": "Aceito",
-        "confirm": "Confirmar",
-        "configure": "Configurar",
-        "payments": "Pagamentos",
-        "settings": "Definições",
-        "update": "Atualizar",
-        "change": "Alterar"
-    }
+        "failed": "Falhado",
+        "all": "Todos"
+      },
+      "categoriesPage": {
+        "description": "Crie categorias e arraste-as"
+      },
+      "dateRange": {
+        "period": "Period",
+        "today": "Hoje",
+        "lastWeek": "Última semana",
+        "lastMonth": "Último mês",
+        "sinceAlways": "Desde sempre",
+
+        "startDate": "Data de ínicio",
+        "endDate": "Data de fim"
+      },
+      "dashboard": "Painel",
+      "statistics": "Estatística",
+      "engagement": "Engajamento",
+      "products": "Produtos",
+      "save": "Salvar",
+      "accepted": "Aceito",
+      "confirm": "Confirmar",
+      "configure": "Configurar",
+      "search": "Pesquisar",
+      "payments": "Pagamentos",
+      "orders": "Pedidos",
+      "settings": "Definições",
+      "update": "Atualizar",
+      "change": "Alterar",
+      "seeMore": "Ver mais",
+      "itensFound": "Item(s) encontrados",
+      "of": "de",
+      "page": "Página",
+      "client": "Cliente",
+      "category": "Categoria",
+      "categories": "Categorias",
+      "sales": "Vendas",
+      "total": "Total",
+      "date": "Data",
+      "price": "Preço",
+      "status": "Estado",
+      "coupon": "Coupom",
+      "noFound": {
+        "title": "Sem resultados",
+        "description": "Nenhum resultado foi encontrado!"
+      }
   }
+}

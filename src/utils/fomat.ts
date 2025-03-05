@@ -1,25 +1,27 @@
 import { format, parseISO, type Locale } from "date-fns";
 import { enUS, pt, ptBR } from "date-fns/locale";
 import { useStore } from "../provider/Store/StoreContext";
+import { useUser } from "../provider/User/UserContext";
 
 
 
 export function FormatDateTime(dateTime: Date): string  {
-  const store = useStore();
-  const formatDate = Intl.DateTimeFormat(store.locale, {
+  const user = useUser();
+  const formatDate = Intl.DateTimeFormat(user.locale, {
     dateStyle: 'medium',
     timeStyle: 'short',
-    timeZone: store.timezone, // Isto é crucial para exibir a hora correta
+    timeZone: user.timezone, // Isto é crucial para exibir a hora correta
   }).format(new Date(dateTime));
   return formatDate;
 }
 
 
 export function FormatMoney(price: number) : string {
+  const user = useUser();
   const store = useStore();
   const finalPrice = (price / 100);
-  if(store && store.locale && store.currency) {
-    const formated = Intl.NumberFormat(store.locale, {
+  if(user && user.locale && store.currency) {
+    const formated = Intl.NumberFormat(user.locale, {
       style: 'currency',
       currency: store.currency.toUpperCase()
     })
@@ -40,11 +42,11 @@ const localeMapping: Record<string, Locale> = {
 
 
 export function FormatDate(dateFormat: string) {
-  const store = useStore();
+  const user = useUser();
   const formatDate = (dateString: string): string => {
     try {
       const date = parseISO(dateString);
-      const localeKey = store?.locale || "pt-PT";
+      const localeKey = user?.locale || "pt-PT";
       const locale = localeMapping[localeKey] || pt;
       return format(date, dateFormat, { locale });
     } catch (error) {
