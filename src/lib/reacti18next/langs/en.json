@@ -1,25 +1,5 @@
 {
   "translation": {
-    "auth": {
-      "description": "Monetize your game server with our advanced e-commerce platform",
-      "noAccount": "Don't have an account yet?",
-      "createOne": "Create one now",
-      "loginPage": {
-        "welcomeback": "Welcome back!",
-        "description": "Log in to access the dashboard",
-        "forgot": "Forgot your password?",
-        "rememberMe": "Remember me",
-        "login": "Log in"
-      },
-      "registerPage": {
-        "welcome": "Welcome",
-        "description": "Register to access the dashboard",
-        "terms": "terms and conditions",
-        "createAccount": "Create account",
-        "haveAccount": "Already have an account?",
-        "login": "Log in"
-      }
-    },
     "dashboardPage": {
       "title": "Dashboard",
       "description": "Overview of your store's performance and key metrics",

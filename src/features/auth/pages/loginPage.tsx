@@ -3,7 +3,6 @@ import { Input } from '../../../components/ui/input';
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { t } from "i18next";
 import loginSchema, { type loginSchemaFormData } from "../schemas/LoginSchema";
 import SubmitButton from "../../../components/commons/buttons/SubmitButtonComponent";
 import { useLoginUser } from '../../../Internal/auth/loginMutation';
@@ -26,8 +25,8 @@ export default function LoginPage() {
     return (
         <section className="h-full flex flex-col gap-5">
             <div className="text-center">
-                <h1 className="font-bold text-3xl">{t("auth.loginPage.welcomeback")}</h1>
-                <p className="text-[15px]">{t("auth.loginPage.description")}</p>
+                <h1 className="font-bold text-3xl">Bem-vindo de volta</h1>
+                <p className="text-[15px]">Faça login para acessar o painel</p>
             </div>
                 <motion.form className="space-y-6 mt-10"
                 initial={{ opacity: 0, y: -20 }}
@@ -35,12 +34,12 @@ export default function LoginPage() {
                 transition={{ duration: 0.5 }}
                 onSubmit={handleSubmit(onSubmitForm)}>
                 <div>
-                    <label htmlFor='email' className='block font-semibold text-[14px]'>{t("setup.email")}:</label>
+                    <label htmlFor='email' className='block font-semibold text-[14px]'>Email:</label>
                     <Input {...register('email')} id='email' className='mt-2' placeholder='chrismoreiraa02@gmail.com' />
                     {errors.email && <span className='text-destructive text-[12px]'>{errors.email.message}</span>}
                 </div>
                 <div className='mt-5'>
-                    <label htmlFor='password' className="block font-semibold text-[14px]">{t("setup.password")}:</label>
+                    <label htmlFor='password' className="block font-semibold text-[14px]">Password:</label>
                     <Input {...register('password')} type='password' id='password' placeholder='Coloque sua password' className="mt-2"/>
                     {errors.password && <span className='text-destructive text-[12px]'>{errors.password.message}</span>}
                 </div>
@@ -53,23 +52,23 @@ export default function LoginPage() {
                         <label htmlFor="terms"
                         className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                         >
-                        {t("auth.loginPage.rememberMe")}
+                        Lembrar de mim
                         </label>
                         </div>
                     </div>
-                <Link className='hover:underline' to={'../recovery-password'}>{t("auth.loginPage.forgot")}</Link>
+                <Link className='hover:underline' to={'../recovery-password'}>Esqueceu a senha?</Link>
                 </div>
                 <div className='w-full mt-10'>
                     <SubmitButton
                     isLoading={isPending}
-                    text={t("auth.loginPage.login")}
+                    text="Login"
                     enable={false}
                     className="w-full"/>
 
                 </div>
             </motion.form>
             <div className='w-full text-center'>
-                <p>{t("auth.noAccount")} <Link className='hover:underline text-blue-500' to={'../register'}>{t("auth.createOne")}</Link>.</p>
+                <p>Ainda não tem uma conta? <Link className='hover:underline text-blue-500' to={'../register'}>Crie uma agora</Link>.</p>
             </div>
         </section>
     );

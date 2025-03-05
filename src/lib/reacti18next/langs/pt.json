@@ -2,26 +2,6 @@
   "translation": {
       "success": "Concluído",
       "pending": "Pendente",
-      "auth": {
-          "description": "Monetize seu servidor de jogos com nossa plataforma avançada de comércio eletrônico",
-          "noAccount": "Ainda não tem uma conta?",
-          "createOne": "Crie uma agora",
-          "loginPage": {
-              "welcomeback": "Bem-vindo de volta!",
-              "description": "Faça login para acessar o painel",
-              "forgot": "Esqueceu a senha?",
-              "rememberMe": "Lembrar de mim",
-              "login": "Iniciar sessão"
-          },
-          "registerPage": {
-              "welcome": "Bem-vindo",
-              "description": "Faça registro para acessar o painel",
-              "terms": "terms and conditions",
-              "createAccount": "Criar conta",
-              "haveAccount": "Já tem uma conta?",
-              "login": "Faça login"
-          }
-      },
       "dashboardPage": {
           "title": "Painel",
           "description": "Visão geral do desempenho da sua loja e métricas importantes",
@@ -66,8 +46,6 @@
       },
       "setup": {
           "name": "Nome",
-          "email": "Email",
-          "password": "Palavra Passe",
           "idiom": "Idioma",
           "currency": "Moeda",
           "timezone": "Fuso horário"
