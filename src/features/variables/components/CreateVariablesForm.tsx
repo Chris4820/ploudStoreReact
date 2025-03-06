@@ -5,10 +5,10 @@ import { Input } from "../../../components/ui/input";
 import { Button } from "../../../components/ui/button";
 import { Trash2 } from "lucide-react";
 import SubHeaderSection from "../../../components/commons/subHeader";
-import CreateButtonComponent from "../../../components/commons/buttons/CreateButtonComponent";
+import CreateButtonComponent from "../../../components/commons/buttons/CreateButton";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../../../components/ui/table";
 import { Switch } from "../../../components/ui/switch";
-import SubmitButton from "../../../components/commons/buttons/SubmitButtonComponent";
+import SubmitButton from "../../../components/commons/buttons/SubmitButton";
 import { toast } from "sonner";
 
 

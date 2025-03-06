@@ -1,6 +1,6 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
 import HeaderSection from "../../../components/commons/Header";
-import CreateButtonComponent from "../../../components/commons/buttons/CreateButtonComponent";
+import CreateButtonComponent from "../../../components/commons/buttons/CreateButton";
 import { useGetCoupons, useGetTotalCoupons } from "../api/store/coupons";
 import { DataTable } from "../../../components/ui/datatable";
 import { columnsCoupon } from "./CouponColumns";

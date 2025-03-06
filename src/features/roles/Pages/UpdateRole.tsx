@@ -6,8 +6,8 @@ import RoleFormComponent from "../components/RoleForm";
 import NotFoundComponent from "../../../containers/404Component";
 import { useUpdateRole } from "../mutation/UpdateRoleMutation";
 import DeleteModal from "../../../components/modal/deleteModal";
-import { Button } from "../../../components/ui/button";
 import { useDeleteRole } from "../mutation/DeleteRoleMutation";
+import DeleteButton from "../../../components/commons/buttons/DeleteButton";
 
 export default function UpdateRolePage() {
 
@@ -48,7 +48,11 @@ export default function UpdateRolePage() {
                 description="Esta acção não é reversivel"
                 important="Esta ação não tem volta"
                 onConfirm={() => deleteRole()}>
-                    <Button type="button" disabled={deletePending} variant={"destructive"}>Eliminar</Button>
+                    <DeleteButton 
+                      type="button" 
+                      disabled={deletePending}
+                      text="Eliminar"
+                    />
                 </DeleteModal>
       </RoleFormComponent>
     </div>

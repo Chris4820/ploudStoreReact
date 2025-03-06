@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import type { RoleFormData } from "../Schema/RoleSchema";
 import RoleSchema from "../Schema/RoleSchema";
 import { useForm } from "react-hook-form";
-import SubmitButton from "../../../components/commons/buttons/SubmitButtonComponent";
+import SubmitButton from "../../../components/commons/buttons/SubmitButton";
 import { Input } from "../../../components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../../../components/ui/form";
 import SwitchPermissionComponent from "./SwitchPermission";

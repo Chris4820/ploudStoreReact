@@ -1,6 +1,6 @@
 import HeaderSection from "../../../components/commons/Header";
 import { useNavigate } from "react-router-dom";
-import CreateButtonComponent from "../../../components/commons/buttons/CreateButtonComponent";
+import CreateButtonComponent from "../../../components/commons/buttons/CreateButton";
 import { CategorieSection } from "../components/CategorieSection";
 import { t } from "../../../lib/reacti18next/i18n";
 

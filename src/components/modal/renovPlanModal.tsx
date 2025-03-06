@@ -6,7 +6,7 @@ import { BsPaypal } from "react-icons/bs";
 import { FaStripe } from "react-icons/fa";
 import axiosStore from "../../lib/axios/axiosStore";
 import { toast } from "sonner";
-import SubmitButton from "../commons/buttons/SubmitButtonComponent";
+import SubmitButton from "../commons/buttons/SubmitButton";
 
 type PaymentDialogProps = {
   children: React.ReactNode;

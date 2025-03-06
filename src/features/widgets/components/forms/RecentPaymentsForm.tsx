@@ -4,7 +4,7 @@ import { Input } from "../../../../components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../../components/ui/select";
 import { Textarea } from "../../../../components/ui/textarea";
 import { useForm } from "react-hook-form";
-import SubmitButton from "../../../../components/commons/buttons/SubmitButtonComponent";
+import SubmitButton from "../../../../components/commons/buttons/SubmitButton";
 import { Switch } from "../../../../components/ui/switch";
 import type { RecentPaymentsWidgetFormData } from "../../schema/RecentPaymentsSchema";
 import RecentPaymentsWidgetSchema from "../../schema/RecentPaymentsSchema";

@@ -5,7 +5,7 @@ import FeaturedProductWidgetSchema, { type FeaturedProductWidgetFormData } from 
 import { useForm } from "react-hook-form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../../components/ui/select";
 import LoadingComponent from "../../../../containers/LoadingComponent";
-import SubmitButton from "../../../../components/commons/buttons/SubmitButtonComponent";
+import SubmitButton from "../../../../components/commons/buttons/SubmitButton";
 import { Switch } from "../../../../components/ui/switch";
 import { DatePickerDemo } from "../../../../components/ui/datapicker";
 import { Textarea } from "../../../../components/ui/textarea";

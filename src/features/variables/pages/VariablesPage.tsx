@@ -4,7 +4,7 @@ import { useGetVariables } from "../api/store/VariablesStore";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../../../components/ui/table";
 import LoadingComponent from "../../../containers/LoadingComponent";
 import CardEmptyComponent from "../../../components/commons/CardEmpty";
-import CreateButtonComponent from "../../../components/commons/buttons/CreateButtonComponent";
+import CreateButtonComponent from "../../../components/commons/buttons/CreateButton";
 
 
 

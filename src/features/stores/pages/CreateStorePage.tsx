@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { Textarea } from "../../../components/ui/textarea";
 import createStoreSchema, { type CreateStoreFormData } from "../schema/createStoreSchema";
 import { useCreateStore } from "../mutations/createStoreMutation";
-import SubmitButton from "../../../components/commons/buttons/SubmitButtonComponent";
+import SubmitButton from "../../../components/commons/buttons/SubmitButton";
 import GameCardComponent from "../components/gameCardComponent";
 
 

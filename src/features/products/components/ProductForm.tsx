@@ -5,7 +5,7 @@ import EditorComponent from "../../../components/ui/editor/editor";
 import { Switch } from "../../../components/ui/switch";
 import ProductSchema, { ProductFormData } from "../schema/ProductSchema";
 import SubHeaderSection from "../../../components/commons/subHeader";
-import CreateButtonComponent from "../../../components/commons/buttons/CreateButtonComponent";
+import CreateButtonComponent from "../../../components/commons/buttons/CreateButton";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../components/ui/select";
 import { Button } from "../../../components/ui/button";
 import { Trash2 } from "lucide-react";
@@ -176,9 +176,9 @@ export default function ProductForm({ initialData, buttonText, onSubmit, isSubmi
                 
                 <div className="mt-5 flex justify-end">
                 <SubmitButton
-                    isPending={isSubmit}
+                    isLoading={isSubmit}
                     text={`${buttonText} produto`}
-                    isDisable={!isDirty}
+                    disabled={!isDirty}
                 />
                 </div>
             </div>

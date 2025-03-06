@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import SubmitButton from "../../../components/commons/buttons/SubmitButtonComponent";
+import SubmitButton from "../../../components/commons/buttons/SubmitButton";
 import { Input } from "../../../components/ui/input";
 import CategorySchema, { CategoryFormData } from "../schema/CategorySchema";
 import { zodResolver } from "@hookform/resolvers/zod";

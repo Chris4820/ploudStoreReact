@@ -3,7 +3,7 @@ import designSchema, { type designFormData } from "../Schema/designSchema";
 import { useForm } from "react-hook-form";
 import HeaderSection from "../../../components/commons/Header";
 import ColorPickerComponent from "../../../components/colorPickerComponent";
-import SubmitButton from "../../../components/commons/buttons/SubmitButtonComponent";
+import SubmitButton from "../../../components/commons/buttons/SubmitButton";
 import SubHeaderSection from "../../../components/commons/subHeader";
 import { Switch } from "../../../components/ui/switch";
 import { useEffect } from "react";

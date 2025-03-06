@@ -1,29 +1,28 @@
+import { Button, type ButtonProps } from "../../ui/button"
 import { LoaderCircle } from "lucide-react";
-import { Button, type ButtonProps } from "../../ui/button";
-
-
-
 
 
 interface SubmitButtonProps extends ButtonProps {
   text: string,
-  isPending: boolean,
-  isDisable: boolean,
+  isLoading: boolean,
+  enable?: boolean,
 }
 
-export default function SubmitButton({text, isPending, isDisable, ...rest} : SubmitButtonProps) {
+export default function SubmitButton({text, isLoading, enable = true, ...rest}: SubmitButtonProps) {
+
   return(
-    <Button
-      {...rest}
-      type="submit"
-      disabled={isPending || isDisable}>
-      {isPending ? (
+    <Button 
+      {...rest} 
+      type="submit" 
+      className="border-2 border-primary bg-primary/85 hover:bg-primary duration-150"
+      disabled={isLoading || enable}>
+      {isLoading ? (
         <span className="flex gap-1 items-center">
           Carregando
           <LoaderCircle className="animate-spin"/>
         </span>
       ) : (
-        <span>{text}</span>
+        text
       )}
     </Button>
   )

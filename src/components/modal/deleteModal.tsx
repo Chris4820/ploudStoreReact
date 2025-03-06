@@ -1,3 +1,4 @@
+import DeleteButton from "../commons/buttons/DeleteButton";
 import { Button } from "../ui/button";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
 
@@ -30,7 +31,7 @@ export default function DeleteModal({ children, title, description, onConfirm, i
                     <Button variant={"outline"}>Fechar</Button>
               </DialogClose>
               <DialogClose asChild>
-                <Button onClick={() => onConfirm()} variant="destructive">Eliminar</Button>
+                <DeleteButton onClick={() => onConfirm()} text="Eliminar"/>
               </DialogClose>
           </div>
         </DialogFooter>

@@ -5,7 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { t } from "i18next";
 import { Textarea } from "../../../components/ui/textarea";
 import settingsSchema, { type SettingsFormData } from "../schema/SettingsSchema";
-import SubmitButton from "../../../components/commons/buttons/SubmitButtonComponent";
+import SubmitButton from "../../../components/commons/buttons/SubmitButton";
 import SubHeaderSection from "../../../components/commons/subHeader";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../../../components/ui/form";
 import { Switch } from "../../../components/ui/switch";

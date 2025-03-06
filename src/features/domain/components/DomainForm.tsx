@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import type { CustomDomainFormData } from "../Schema/CustomDomainSchema";
 import CustomDomainSchema from "../Schema/CustomDomainSchema";
 import { Input } from "../../../components/ui/input";
-import SubmitButton from "../../../components/commons/buttons/SubmitButtonComponent";
+import SubmitButton from "../../../components/commons/buttons/SubmitButton";
 import { useEffect } from "react";
 
 

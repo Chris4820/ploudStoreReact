@@ -34,5 +34,5 @@ export default function SettingsPage() {
                     onSubmit={onSubmitUpdateSettings}/>
             </section>
         </>
-    );
+    )
 }

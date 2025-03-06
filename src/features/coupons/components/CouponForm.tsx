@@ -8,7 +8,7 @@ import { Switch } from '../../../components/ui/switch';
 import { Checkbox } from '../../../components/ui/checkbox';
 import SubHeaderSection from '../../../components/commons/subHeader';
 import { useGetProductsWithCategory } from '../../categories/api/store/categorie';
-import SubmitButton from '../../../components/commons/buttons/SubmitButtonComponent';
+import SubmitButton from '../../../components/commons/buttons/SubmitButton';
 import { useCallback, useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import CouponSchema, { CouponFormData } from '../schema/CouponsSchema';

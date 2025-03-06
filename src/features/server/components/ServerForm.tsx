@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import SubmitButton from "../../../components/commons/buttons/SubmitButtonComponent";
+import SubmitButton from "../../../components/commons/buttons/SubmitButton";
 import { Input } from "../../../components/ui/input";
 import type { ServerFormData } from "../Schema/ServerSchema";
 import ServerSchema from "../Schema/ServerSchema";

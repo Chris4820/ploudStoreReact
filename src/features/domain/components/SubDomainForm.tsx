@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "../../../components/ui/input";
 import SubDomainSchema, { type SubDomainFormData } from "../Schema/SubDomainSchema";
 import { useForm } from "react-hook-form";
-import SubmitButton from "../../../components/commons/buttons/SubmitButtonComponent";
+import SubmitButton from "../../../components/commons/buttons/SubmitButton";
 import { t } from "i18next";
 import { useEffect } from "react";
 

@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import type { SubUserFormData } from "../Schema/SubUserSchema";
 import SubUserSchema from "../Schema/SubUserSchema";
 import { useForm } from "react-hook-form";
-import SubmitButton from "../../../components/commons/buttons/SubmitButtonComponent";
+import SubmitButton from "../../../components/commons/buttons/SubmitButton";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../components/ui/select";
 import { Input } from "../../../components/ui/input";
 import LoadingComponent from "../../../containers/LoadingComponent";

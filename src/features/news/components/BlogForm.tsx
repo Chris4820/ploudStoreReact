@@ -4,8 +4,8 @@ import { type BlogFormData, } from "../schema/newsSchema";
 import { Input } from "../../../components/ui/input";
 import { Switch } from "../../../components/ui/switch";
 import EditorComponent from "../../../components/ui/editor/editor";
-import SubmitButton from "../../../components/commons/buttons/SubmitButton";
 import BlogSchema from "../schema/newsSchema";
+import SubmitButton from "../../../components/commons/buttons/SubmitButton";
 
 
 type BlogFormProps = {
@@ -74,9 +74,9 @@ export default function BlogForm({initialData, onSubmit, buttonText, isSubmit, c
       </div>
       <div className="flex justify-end mt-5">
           <SubmitButton 
-            isPending={isSubmit}
+            isLoading={isSubmit}
             text={`${buttonText} notícia`}
-            isDisable={!isDirty}
+            disabled={!isDirty}
             />
       </div>
     </form>

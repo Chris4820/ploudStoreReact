@@ -3,7 +3,7 @@ import HeaderSection from "../../../components/commons/Header";
 import NotFoundComponent from "../../../containers/404Component";
 import LoadingComponent from "../../../containers/LoadingComponent";
 import { useGetCategory } from "../api/store/categorie";
-import CreateButtonComponent from "../../../components/commons/buttons/CreateButtonComponent";
+import CreateButtonComponent from "../../../components/commons/buttons/CreateButton";
 import { ProductSection } from "../../products/components/ProductSection";
 import { CategorieSection } from "../components/CategorieSection";
 

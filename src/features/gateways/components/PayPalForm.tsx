@@ -3,7 +3,7 @@ import type { PaypalFormData } from "../schema/PayPalSchema";
 import PaypalSchema from "../schema/PayPalSchema";
 import { useForm } from "react-hook-form";
 import { Input } from "../../../components/ui/input";
-import SubmitButton from "../../../components/commons/buttons/SubmitButtonComponent";
+import SubmitButton from "../../../components/commons/buttons/SubmitButton";
 import { Switch } from "../../../components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../components/ui/select";
 

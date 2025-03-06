@@ -1,5 +1,5 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
-import CreateButtonComponent from "../../../components/commons/buttons/CreateButtonComponent";
+import CreateButtonComponent from "../../../components/commons/buttons/CreateButton";
 import HeaderSection from "../../../components/commons/Header";
 import { DataTable } from "../../../components/ui/datatable";
 import { useGetBlogs, useGetTotalBlogs } from "../api/store";

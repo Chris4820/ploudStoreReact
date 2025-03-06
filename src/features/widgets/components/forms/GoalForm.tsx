@@ -8,7 +8,7 @@ import LoadingComponent from "../../../../containers/LoadingComponent";
 import type { GoalWidgetFormData } from "../../schema/GoalSchema";
 import GoalWidgetSchema from "../../schema/GoalSchema";
 import { useForm } from "react-hook-form";
-import SubmitButton from "../../../../components/commons/buttons/SubmitButtonComponent";
+import SubmitButton from "../../../../components/commons/buttons/SubmitButton";
 import { Switch } from "../../../../components/ui/switch";
 import SubHeaderSection from "../../../../components/commons/subHeader";
 

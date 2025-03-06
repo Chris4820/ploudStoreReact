@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Input } from "../../../components/ui/input";
-import SubmitButton from "../../../components/commons/buttons/SubmitButtonComponent";
+import SubmitButton from "../../../components/commons/buttons/SubmitButton";
 import { Switch } from "../../../components/ui/switch";
 import type { MollieFormData } from "../schema/MollieSchema";
 import MollieSchema from "../schema/MollieSchema";

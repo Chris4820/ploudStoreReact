@@ -4,7 +4,7 @@ import StepCardComponent from "../../../components/dashboard/stepCard";
 import { DataTable } from "../../../components/ui/datatable";
 import { useGetServers } from "../../server/api/store/server";
 import { columnsServer } from "../columns/ServerColumns";
-import CreateButtonComponent from "../../../components/commons/buttons/CreateButtonComponent";
+import CreateButtonComponent from "../../../components/commons/buttons/CreateButton";
 import CreateModal from "../../../components/modal/createModal";
 import { toast } from "sonner";
 import HeaderSection from "../../../components/commons/Header";
