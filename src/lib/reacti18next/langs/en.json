@@ -126,7 +126,19 @@
     "noFound": {
       "title": "No Results",
       "description": "No results were found!"
+    },
+
+    "errors": {
+      "ConflitRole": "There are users with this role defined!",
+      "ConflitDomain": "The subdomain is already registered."
+    },
+    "success": {
+      "productCreated": "Product created successfully",
+      "categoryCreated": "Category created successfully"
     }
+    
 
   }
+
+  
 }

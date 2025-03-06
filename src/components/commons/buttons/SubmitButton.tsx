@@ -14,7 +14,7 @@ export default function SubmitButton({text, isLoading, enable = true, ...rest}: 
     <Button 
       {...rest} 
       type="submit" 
-      className="border-2 border-primary bg-primary/85 hover:bg-primary duration-150"
+      className="border-2 border-primary bg-primary/85 hover:bg-primary duration-150 w-full"
       disabled={isLoading || enable}>
       {isLoading ? (
         <span className="flex gap-1 items-center">

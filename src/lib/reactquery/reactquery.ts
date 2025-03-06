@@ -1,6 +1,7 @@
 import { QueryClient } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 import { toast } from "sonner";
+import { t } from "../reacti18next/i18n";
 
 interface CustomErrorResponse {
   message: string;
@@ -20,13 +21,8 @@ const queryClient = new QueryClient({
         console.log("Erro aqui");
         if ((error as AxiosError<CustomErrorResponse>).isAxiosError) {
           const axiosError = error as AxiosError<CustomErrorResponse>;
-          const statusCode = axiosError.response?.status;
-          if (statusCode === 401) {
-            console.log("Sessão expirada ou sem autorização.");
-            toast.error("Sessão expirada ou sem autorização.");
-          }
-          const errorMessage = axiosError.response?.data?.message || 'Erro ao executar a operação.';
-          toast.error(errorMessage);
+          const errorCode = axiosError.response?.data?.message || 'Erro ao executar a operação.';
+          toast.error(t("errors." + errorCode));
         } else {
           toast.error(error.message || 'Erro desconhecido');
         }

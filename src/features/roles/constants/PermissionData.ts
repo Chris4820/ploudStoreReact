@@ -22,10 +22,10 @@ export const permissionsData = [
   {
     category: "Coupons",
     permissions: [
-      { label: "ver coupons", value: PermissionTypes.LIST_COUPOM },
-      { label: "Criar coupons", value: PermissionTypes.CREATE_COUPOM },
-      { label: "Atualizar coupons", value: PermissionTypes.UPDATE_COUPOM },
-      { label: "Deletar coupons", value: PermissionTypes.DELETE_COUPOM },
+      { label: "ver coupons", value: PermissionTypes.LIST_COUPON },
+      { label: "Criar coupons", value: PermissionTypes.CREATE_COUPON },
+      { label: "Atualizar coupons", value: PermissionTypes.UPDATE_COUPON },
+      { label: "Deletar coupons", value: PermissionTypes.DELETE_COUPON },
     ],
   },
   {

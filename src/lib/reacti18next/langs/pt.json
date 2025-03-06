@@ -1,7 +1,5 @@
 {
   "translation": {
-      "success": "Concluído",
-      "pending": "Pendente",
       "dashboardPage": {
           "title": "Painel",
           "description": "Visão geral do desempenho da sua loja e métricas importantes",
@@ -124,6 +122,16 @@
       "noFound": {
         "title": "Sem resultados",
         "description": "Nenhum resultado foi encontrado!"
-      }
+      },
+
+        "errors": {
+            "ConflitRole": "Existe utilizadores com esse cargo definido",
+            "ConflitDomain": "O subdominio já se encontra registrado"
+        },
+
+        "success": {
+            "productCreated": "Produto criado com sucesso",
+            "categoryCreated": "Categoria criada com sucesso"
+        }
   }
 }
