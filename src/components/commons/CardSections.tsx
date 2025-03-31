@@ -32,10 +32,8 @@ export default function CardSection({title, children, hAuto = false, link, help}
                 )}
             </div>
             <hr/>
-                <div className={`${hAuto ? 'h-auto' : 'h-72 text-center'} w-full rounded-md p-6 shadow-md`}>
-                    <div>
+                <div className={`${hAuto ? 'h-auto' : 'h-72 text-center'} w-full rounded-md p-3 lg:p-6 shadow-md`}>
                         {children}
-                    </div>
                 </div>
         </div>
     )

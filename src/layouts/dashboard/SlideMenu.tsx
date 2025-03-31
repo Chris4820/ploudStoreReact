@@ -40,7 +40,7 @@ export default function DashboardLayout() {
             </button>
           </div>
         </nav>
-        <div className="border-l p-5">
+        <div className="relative overflow-y-auto border-l p-3 sm:p-5 overflow-x-hidden">
           <Outlet/>
         </div>
           

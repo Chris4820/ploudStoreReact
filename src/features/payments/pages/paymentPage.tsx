@@ -65,7 +65,7 @@ export default function PaymentsPage() {
     return(
         <>
             <HeaderSection title={t("orders")} description={t("ordersPage.description")}/>
-            <div className="flex justify-between items-center">
+            <div className="flex flex-wrap justify-between">
             <div className="flex gap-5 items-center flex-wrap">
                 <div className="space-y-1">
                 <Input onChange={(e) => setCurrentEmail(e.target.value)} placeholder="Search by Email" className="max-w-[250px] h-8"/>
@@ -120,9 +120,11 @@ export default function PaymentsPage() {
                 <Button onClick={() => handleFilter()}>{t("search")}</Button>
 
                 </div>
-                <DateRangePickComponent 
-                defaultRange="sinceAlways"
-                onChangeRange={(date) => onDateChange(date)}/>
+                <div className="lg:mt-0 mt-5">
+                    <DateRangePickComponent 
+                    defaultRange="sinceAlways"
+                    onChangeRange={(date) => onDateChange(date)}/>
+                </div>
             </div>
             <div className="mt-5">
                 <DataTable data={payments?.payments || []} loading={isLoading} meta={payments?.meta} columns={columnsPayment} link="/dashboard/payments/details/{id}"/>

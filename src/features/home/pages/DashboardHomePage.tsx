@@ -62,7 +62,7 @@ export default function DashboardHomePage() {
           />
           
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mt-5">
+            <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-5 mt-5">
                 <div className="col-span-2">
                 <CardSection title={t("dashboardPage.last7Days")} className="h-[250px]">
                   {graphLoading ? (
@@ -75,7 +75,7 @@ export default function DashboardHomePage() {
                   
                 </CardSection>
                 </div>
-                <div className="col-span-1">
+                <div className="col-span-1 mt-5">
                   <CardSection title={t("dashboardPage.notifications")}>
                   {notificationsLoading ? (
                       <LoadingComponent />

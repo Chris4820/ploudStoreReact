@@ -54,7 +54,7 @@ export default function StatisticPage() {
 
   return (
     <>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center flex-wrap justify-between">
         <HeaderSection title={t('statisticPage.title')} description={t('statisticPage.description')} />
         <DateRangePickComponent 
           onChangeRange={(date) => onDateChange(date)}
