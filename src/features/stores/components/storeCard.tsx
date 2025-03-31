@@ -16,7 +16,7 @@ export default function StoreCardComponent({ store, color, ...otherProps } : Sto
                 </div>
                 <div>
                     <h1 className="font-semibold text-sm">{store.name}</h1>
-                    <p className="text-[13px]">{store.subdomain}</p>
+                    <p className="text-[13px]">{store.activeDomain}</p>
                 </div>
             </div>
             <div>  

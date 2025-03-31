@@ -1,7 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
 import { Input } from "../../../components/ui/input";
-import EditorComponent from "../../../components/ui/editor/editor";
 import { Switch } from "../../../components/ui/switch";
 import ProductSchema, { ProductFormData } from "../schema/ProductSchema";
 import SubHeaderSection from "../../../components/commons/subHeader";
@@ -13,6 +12,7 @@ import ImageUploadComponent from "../../../components/imageUploadComponent";
 import CardSection from "../../../components/commons/CardSections";
 import { isDirty } from "zod";
 import SubmitButton from "../../../components/commons/buttons/SubmitButton";
+import PageEditor from "../../../components/ui/tiptap-Editor/Editortest";
 
 
 
@@ -87,9 +87,9 @@ export default function ProductForm({ initialData, buttonText, onSubmit, isSubmi
                 </div>
                 <div>
                     <label>Descrição</label>
-                    <EditorComponent
-                        onEditorChange={(text) => setValue("description", text, {shouldDirty: true})}
-                        value={getValues("description")}
+                    <PageEditor
+                        onChange={(text) => setValue("description", text, {shouldDirty: true})}
+                        content={getValues("description")}
                     />
                     {errors.description && <span className='text-destructive text-[12px]'>{errors.description.message}</span>}
                 </div>

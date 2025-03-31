@@ -64,6 +64,11 @@ import UserProviderWrapper from "./provider/User/UserWrapper"
 import StoreProviderWrapper from "./provider/Store/StoreWrapper"
 import AuthLayout from "./features/auth/components/authLayout"
 import UpdateRolePage from "./features/roles/Pages/UpdateRole"
+import CustomPageIndex from "./features/customPages/pages"
+import CreateCustomPage from "./features/customPages/pages/create"
+import EditCustomPage from "./features/customPages/pages/edit"
+import DesignLayout from "./layouts/dashboard/NavBarLayout/DesignLayout"
+import TemplateIndexPage from "./features/template/page"
 
 
 function App() {
@@ -107,9 +112,15 @@ function App() {
            <Route path="/dashboard/product/create/:categoryId" element={<CreatePackagePage/>}/>
 
 
-           <Route path="design" element={<DesignPage/>}>
-           //Design aqui
-           </Route>
+           //customPages
+           <Route path="/dashboard/page" element={<CustomPageIndex/>} />
+           <Route path="/dashboard/page/create" element={<CreateCustomPage/>} />
+           <Route path="/dashboard/page/edit/:id" element={<EditCustomPage/>} />
+
+          <Route path="design" element={<DesignLayout/>}>
+           <Route path="/dashboard/design" element={<DesignPage/>}/>
+           <Route path="/dashboard/design/template" element={<TemplateIndexPage/>}/>
+          </Route>
 
            <Route path="engagement" element={<EngagamentLayout/>}>
               <Route path="/dashboard/engagement" element={<CouponPage/>}/>

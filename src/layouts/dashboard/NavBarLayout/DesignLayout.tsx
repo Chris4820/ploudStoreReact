@@ -7,7 +7,7 @@ const SettingsTabs = [
     },
     {
         name: 'Templates',
-        link: '/dashboard/design/templates'
+        link: '/dashboard/design/template'
     },
 ];
 

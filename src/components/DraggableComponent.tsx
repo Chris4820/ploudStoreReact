@@ -34,8 +34,7 @@ export default function DraggableComponent({item, onClickEdit, onClickOpen} : Dr
 
   const style = {
       transform: CSS.Translate.toString(transform),
-      opacity: isDragging ? 0.4 : 1,
-      transition
+      transition,
   };
 
   return(
@@ -45,8 +44,8 @@ export default function DraggableComponent({item, onClickEdit, onClickOpen} : Dr
             data-dnd-id={item.id}
             ref={setNodeRef}
             style={style}
-            className={`flex justify-between ${onClickOpen ? 'cursor-pointer' : ''} p-3 w-full border hover:bg-muted/50 items-center rounded-md ${
-                isDragging && "shadow-lg"
+            className={`flex justify-between ${onClickOpen ? 'cursor-pointer' : ''} p-3 w-full border items-center rounded-md ${
+                isDragging && "shadow-md" // Trocar shadow-lg por shadow-md mais sutil
             }`}
         >
             <div className="flex gap-2 w-[80%] items-center">

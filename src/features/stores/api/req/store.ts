@@ -7,7 +7,7 @@ import type { CreateStoreFormData } from "../../schema/createStoreSchema";
 export type StoreProps = {
     id: number,
     name: string,
-    subdomain: string,
+    activeDomain: string,
     gametype: "MINECRAFT" | "FIVEM" | "REDM",
     shortName?: string,
     ownerId?: number,

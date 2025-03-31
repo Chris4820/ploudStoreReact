@@ -126,7 +126,8 @@
 
         "errors": {
             "ConflitRole": "Existe utilizadores com esse cargo definido",
-            "ConflitDomain": "O subdominio já se encontra registrado"
+            "ConflitDomain": "O subdominio já se encontra registrado",
+            "ownerOnly": "Apenas o dono da loja pode executar esta ação"
         },
 
         "success": {
