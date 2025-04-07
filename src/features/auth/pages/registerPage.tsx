@@ -1,84 +1,236 @@
-import {useForm } from 'react-hook-form';
-import { CgSpinner } from "react-icons/cg";
-import { motion } from 'framer-motion';
-import { zodResolver } from '@hookform/resolvers/zod';
-import FormLayoutAuth from '../components/formLayout';
-import { Input } from '../../../components/ui/input';
-import { Button } from '../../../components/ui/button';
-import { Link } from 'react-router-dom';
-import registerSchema, { type registerSchemaFormData } from '../schemas/RegisterSchema';
-import { useRegisterUser } from '../../../Internal/auth/registerMutation';
+"use client"
 
+import { motion } from "framer-motion"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Input } from "../../../components/ui/input"
+import { Button } from "../../../components/ui/button"
+import { Link } from "react-router-dom"
+import registerSchema, { type registerSchemaFormData } from "../schemas/RegisterSchema"
+import { useRegisterUser } from "../../../Internal/auth/registerMutation"
+import { Turnstile } from "@marsidev/react-turnstile"
+import { useState } from "react"
+import { Loader2, CheckCircle2, AlertCircle, User, Mail, Lock, ArrowRight } from "lucide-react"
+import { Checkbox } from "../../../components/ui/checkbox"
 
 export default function RegisterPage() {
+  const [captchaStatus, setCaptchaStatus] = useState<boolean>(false)
+  const [captchaError, setCaptchaError] = useState<string | null>(null)
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
-    const { handleSubmit, register, formState: { errors }} = useForm<registerSchemaFormData>({
-        resolver: zodResolver(registerSchema),
-    })
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+    setValue,
+  } = useForm<registerSchemaFormData>({
+    resolver: zodResolver(registerSchema),
+  })
 
-    const { mutate: createUser, isPending} = useRegisterUser();
+  const { mutate: createUser, isPending } = useRegisterUser()
 
+  function onSubmitForm(data: registerSchemaFormData) {
+    createUser(data)
+  }
 
-    function onSubmitForm(data: registerSchemaFormData) {
-        createUser(data);
-    }
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="w-full max-w-md"
+    >
+      <div className="text-center mb-6">
+        <motion.h1
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1, duration: 0.5 }}
+          className="text-2xl md:text-3xl font-bold text-gray-900"
+        >
+          Crie sua conta
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+          className="text-gray-500 mt-2"
+        >
+          Comece a monetizar seu servidor de jogos
+        </motion.p>
+      </div>
 
-    return (
-            <FormLayoutAuth 
-                title="Bem-vindo"
-                description="Faça registro para acessar o painel">
+      <motion.form
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3, duration: 0.5 }}
+        className="space-y-4"
+        onSubmit={handleSubmit(onSubmitForm)}
+      >
+        <motion.div className="space-y-1.5" whileHover={{ scale: 1.01 }} transition={{ duration: 0.2 }}>
+          <label htmlFor="name" className="text-sm font-medium text-gray-700 flex items-center">
+            <User className="w-4 h-4 mr-2 text-violet-600" />
+            Nome
+          </label>
+          <Input
+            {...register("name")}
+            id="name"
+            placeholder="Seu nome completo"
+            className={`bg-white border-gray-200 text-gray-900 placeholder:text-gray-400 focus:border-violet-500 focus:ring-violet-500/20 ${errors.name ? "border-red-500 focus:ring-red-500/20" : ""}`}
+          />
+          {errors.name && <p className="text-sm text-red-600">{errors.name.message}</p>}
+        </motion.div>
 
-                <motion.form className="space-y-4 mt-5"
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
-                    onSubmit={handleSubmit(onSubmitForm)}>
-                <div>
-                    <label htmlFor='name' className='block font-semibold text-[14px]'>Nome:</label>
-                    <Input {...register('name')} id='name' className='mt-2' placeholder='Chris Moreira' />
-                    {errors.name && <span className='text-destructive text-[12px]'>{errors.name.message}</span>}
-                </div>
-                <div>
-                    <label htmlFor='email' className='block font-semibold text-[14px]'>Email:</label>
-                    <Input {...register('email')} id='email' className='mt-2' placeholder='chrismoreiraa02@gmail.com' />
-                    {errors.email && <span className='text-destructive text-[12px]'>{errors.email.message}</span>}
-                    
-                </div>
-                <div className='mt-5'>
-                    <label htmlFor='password' className="block font-semibold text-[14px]">Password:</label>
-                    <Input {...register('password')} type='password' id='password' placeholder='Coloque sua password' className="mt-2"/>
-                    {errors.password && <span className='text-destructive text-[12px]'>{errors.password.message}</span>}
-                </div>
-                <div className='mt-5'>
-                    <label htmlFor='confirmpassword' className="block font-semibold text-[14px]">Confirme Password:</label>
-                    <Input {...register('confirmPassword')} type='password' id='confirmpassword' placeholder='Coloque sua password' className="mt-2"/>
-                    {errors.confirmPassword && <span className='text-destructive text-[12px]'>{errors.confirmPassword.message}</span>}
+        <motion.div className="space-y-1.5" whileHover={{ scale: 1.01 }} transition={{ duration: 0.2 }}>
+          <label htmlFor="email" className="text-sm font-medium text-gray-700 flex items-center">
+            <Mail className="w-4 h-4 mr-2 text-violet-600" />
+            Email
+          </label>
+          <Input
+            {...register("email")}
+            id="email"
+            type="email"
+            placeholder="seu@email.com"
+            className={`bg-white border-gray-200 text-gray-900 placeholder:text-gray-400 focus:border-violet-500 focus:ring-violet-500/20 ${errors.email ? "border-red-500 focus:ring-red-500/20" : ""}`}
+          />
+          {errors.email && <p className="text-sm text-red-600">{errors.email.message}</p>}
+        </motion.div>
 
-                </div>
-                <div>
-                <div className="flex items-center space-x-2">
-                <Input {...register('terms')} className='w-4 h-4 accent-primary' 
-                type='checkbox' id="terms" />
-                    <label htmlFor="terms"
-                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                    Aceito termos e condições
-                    </label>
-                </div>
-                {errors.terms && <span className='text-destructive text-[12px] absolute'>{errors.terms.message}</span>}
-                </div>
-                <div className='w-full mt-10'>
-                    <Button disabled={isPending} type='submit' className='text-base w-full mt-5'>
-                        {isPending && (
-                            <CgSpinner className='animate-spin' size={20}/>
-                        )}
-                            Register
-                        </Button>
-                </div>
-            </motion.form>
-            <div className='w-full text-center'>
-                <p>Já tem uma conta? <Link className='hover:underline text-blue-500' to={'../login'}>Faça login</Link>.</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <motion.div className="space-y-1.5" whileHover={{ scale: 1.01 }} transition={{ duration: 0.2 }}>
+            <label htmlFor="password" className="text-sm font-medium text-gray-700 flex items-center">
+              <Lock className="w-4 h-4 mr-2 text-violet-600" />
+              Senha
+            </label>
+            <div className="relative">
+              <Input
+                {...register("password")}
+                id="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="••••••••"
+                className={`bg-white border-gray-200 text-gray-900 placeholder:text-gray-400 focus:border-violet-500 focus:ring-violet-500/20 ${errors.password ? "border-red-500 focus:ring-red-500/20" : ""}`}
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 text-xs"
+              >
+                {showPassword ? "Ocultar" : "Mostrar"}
+              </button>
             </div>
-            </FormLayoutAuth>
-    );
+            {errors.password && <p className="text-sm text-red-600">{errors.password.message}</p>}
+          </motion.div>
+
+          <motion.div className="space-y-1.5" whileHover={{ scale: 1.01 }} transition={{ duration: 0.2 }}>
+            <label htmlFor="confirmpassword" className="text-sm font-medium text-gray-700 flex items-center">
+              <Lock className="w-4 h-4 mr-2 text-violet-600" />
+              Confirme a Senha
+            </label>
+            <div className="relative">
+              <Input
+                {...register("confirmPassword")}
+                id="confirmpassword"
+                type={showConfirmPassword ? "text" : "password"}
+                placeholder="••••••••"
+                className={`bg-white border-gray-200 text-gray-900 placeholder:text-gray-400 focus:border-violet-500 focus:ring-violet-500/20 ${errors.confirmPassword ? "border-red-500 focus:ring-red-500/20" : ""}`}
+              />
+              <button
+                type="button"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 text-xs"
+              >
+                {showConfirmPassword ? "Ocultar" : "Mostrar"}
+              </button>
+            </div>
+            {errors.confirmPassword && <p className="text-sm text-red-600">{errors.confirmPassword.message}</p>}
+          </motion.div>
+        </div>
+
+        <div className="flex flex-col items-center">
+          <Turnstile
+            siteKey="0x4AAAAAABFxIdRyVjsQMB7n"
+            options={{
+              theme: "light",
+              size: "normal",
+            }}
+            onError={() => {
+              setCaptchaStatus(false)
+              setCaptchaError("Erro no captcha, tente novamente.")
+            }}
+            onExpire={() => {
+              setCaptchaStatus(false)
+              setCaptchaError("Captcha expirou, tente novamente.")
+            }}
+            onWidgetLoad={() => {
+              setCaptchaStatus(false)
+              setCaptchaError(null)
+            }}
+            onSuccess={(token) => {
+              setCaptchaStatus(true)
+              setValue("token", token)
+              setCaptchaError(null)
+            }}
+          />
+          {captchaError && (
+            <div className="flex items-center mt-2 text-red-600">
+              <AlertCircle className="h-4 w-4 mr-1" />
+              <span className="text-sm">{captchaError}</span>
+            </div>
+          )}
+          {captchaStatus && (
+            <div className="flex items-center mt-2 text-green-600">
+              <CheckCircle2 className="h-4 w-4 mr-1" />
+              <span className="text-sm">Verificação concluída</span>
+            </div>
+          )}
+        </div>
+
+        <div className="flex items-center space-x-2 mt-2">
+          <Checkbox
+            id="terms"
+            {...register("terms")}
+            className="border-gray-300 data-[state=checked]:bg-violet-600 data-[state=checked]:border-violet-600"
+          />
+          <label
+            htmlFor="terms"
+            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-700"
+          >
+            Aceito os{" "}
+            <Link to="/terms" className="text-violet-600 hover:underline">
+              termos e condições
+            </Link>
+          </label>
+        </div>
+        {errors.terms && <p className="text-sm text-red-600 -mt-2">{errors.terms.message}</p>}
+
+        <Button
+          type="submit"
+          className="w-full bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700 text-white py-6 h-12 rounded-xl font-medium mt-4"
+          disabled={isPending || !captchaStatus}
+        >
+          {isPending ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Registrando...
+            </>
+          ) : (
+            <>
+              Criar conta
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </>
+          )}
+        </Button>
+      </motion.form>
+
+      <div className="mt-6 text-center">
+        <p className="text-gray-600">
+          Já tem uma conta?{" "}
+          <Link to="../login" className="font-medium text-violet-600 hover:text-violet-700 transition-colors">
+            Faça login
+          </Link>
+        </p>
+      </div>
+    </motion.div>
+  )
 }
+

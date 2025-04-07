@@ -4,6 +4,7 @@
 import { z } from 'zod';
 
 const registerSchema = z.object({
+  token: z.string().optional(), //Captcha
   name: z.string().min(3, "O email precisa ter pelo menos 3 caracteres"),
   email: z.string().min(3, "O email precisa ter pelo menos 3 caracteres").email('Formato email errado'),
   password: z
