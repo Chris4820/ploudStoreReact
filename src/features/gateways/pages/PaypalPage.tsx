@@ -23,7 +23,7 @@ export default function PaypalPage() {
 
   return(
     <>
-    <HeaderSection backLink="../" title="Paypal" description="Configure e aceite PayPal em sua loja!"/>
+    <HeaderSection backLink="../checkout" title="Paypal" description="Configure e aceite PayPal em sua loja!"/>
     <PayPalForm initialData={gateway as PaypalFormData} isLoading={isPending} onSubmit={(data) => updateGateway(data)}/>
       
     </>

@@ -62,11 +62,11 @@ export default function StatisticPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5">
-                <CardSection title={t('statisticPage.bestCategories')} hAuto link="categories">
-                    <DataTable data={categoriesData?.categories || []} loading={categoriesLoading} columns={columnsCategories}/>
+                <CardSection title={t('statisticPage.bestCategories')} hAuto>
+                    <DataTable data={categoriesData || []} loading={categoriesLoading} columns={columnsCategories}/>
                 </CardSection>
 
-                <div className="grid grid-cols-2 items-start gap-5">
+                <div className="grid grid-cols-1 lg:grid-cols-2 items-start gap-5">
                   <Cards 
                     title={t('statisticPage.totalSales')} 
                     price={FormatMoney(storeStat?.totalSales || 0)}
@@ -91,12 +91,12 @@ export default function StatisticPage() {
                     icon={CgUndo} />
                 </div>
 
-                <CardSection title={t('statisticPage.bestCustomers')} hAuto link="customers">
-                    <DataTable data={customersData?.customers || []} loading={customersLoading} columns={columnsCustomer}/>
+                <CardSection title={t('statisticPage.bestCustomers')} hAuto>
+                    <DataTable data={customersData || []} loading={customersLoading} columns={columnsCustomer}/>
                 </CardSection>
 
-                <CardSection title={t('statisticPage.bestCoupons')} hAuto link="coupons">
-                    <DataTable data={couponData?.coupons || []} loading={couponLoading} columns={columnsCupon}/>
+                <CardSection title={t('statisticPage.bestCoupons')} hAuto>
+                    <DataTable data={couponData || []} loading={couponLoading} columns={columnsCupon}/>
                 </CardSection>
             </div>
     </>

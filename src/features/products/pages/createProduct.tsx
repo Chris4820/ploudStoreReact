@@ -8,6 +8,7 @@ import ProductForm from "../components/ProductForm";
 import LoadingComponent from "../../../containers/LoadingComponent";
 import { useState } from "react";
 import type { ProductFormData } from "../schema/ProductSchema";
+import { useGetServers } from "../../server/api/store/server";
 
 
 
@@ -19,6 +20,8 @@ export default function CreatePackagePage() {
     const { categoryId } = useParams<{ categoryId: string }>(); // Pegar o id da URL
 
     const {data: category, isLoading} = useGetCategory(categoryId);
+    const {data: servers, isLoading: serverLoading} = useGetServers("server");
+
     const {mutate: createProduct, isPending} = useCreateProduct(categoryId, image);
 
     function ImageUpload(image: File | null) {
@@ -33,7 +36,7 @@ export default function CreatePackagePage() {
         createProduct(data);
     }
 
-    if(isLoading) {
+    if(isLoading || serverLoading) {
         return <LoadingComponent/>
     }
 
@@ -46,9 +49,12 @@ export default function CreatePackagePage() {
 
     return(
         <>
-        <HeaderSection title="Criar produto"/>
-        <h1>Você irá criar uma produto na categoria: <span className="font-bold">{category.name}</span></h1>
-        <ProductForm 
+        <HeaderSection title="Criar produto"
+        backLink="../"
+        description={`Crie produto na categoria ${category.name}`}/>
+
+        <ProductForm
+            servers={servers || []} 
             onImageUpload={((image: File | null) => ImageUpload(image))} 
             isSubmit={isPending} 
             onSubmit={onSubmitCreateProductForm}

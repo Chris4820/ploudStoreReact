@@ -7,10 +7,9 @@ import CardSection from "../../../components/commons/CardSections";
 import { DataTable } from "../../../components/ui/datatable";
 import { useGetRevenueSummary } from "../../stores/api/store/store";
 import { useGetPayments } from "../../payments/api/store/payments";
-import { useGetGraphData, useGetNotifications } from "../api/store/store";
+import { useGetGraphData } from "../api/store/store";
 import LoadingComponent from "../../../containers/LoadingComponent";
 import CardEmptyComponent from "../../../components/commons/CardEmpty";
-import { Coins, Goal } from "lucide-react";
 import ChartComponent from "../../../components/ui/ChartComponent";
 import { FormatMoney } from "../../../utils/fomat";
 
@@ -26,16 +25,14 @@ export default function DashboardHomePage() {
 
     const {data: payments, isLoading: paymentsLoading } = useGetPayments();
 
-    const { data: notifications = [], isLoading: notificationsLoading } = useGetNotifications(); 
-
 
 
     return(
-        <>
+        <div className="w-full">
         <HeaderSection 
           title={t("dashboardPage.title")}
           description={t("dashboardPage.description")}/>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
         <Cards
             title={t("dashboardPage.dailyEarnings")}
             isLoading={revenueLoading}
@@ -62,9 +59,8 @@ export default function DashboardHomePage() {
           />
           
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-5 mt-5">
-                <div className="col-span-2">
-                <CardSection title={t("dashboardPage.last7Days")} className="h-[250px]">
+            <div className="w-full mt-5">
+                <CardSection title={t("dashboardPage.last7Days")}>
                   {graphLoading ? (
                     <LoadingComponent/>
                   ) : graph && graph.length > 0 ? (
@@ -75,42 +71,11 @@ export default function DashboardHomePage() {
                   
                 </CardSection>
                 </div>
-                <div className="col-span-1 mt-5">
-                  <CardSection title={t("dashboardPage.notifications")}>
-                  {notificationsLoading ? (
-                      <LoadingComponent />
-                    ) : notifications && notifications.length > 0 ? (
-                      <ul className="mt-[-10px] space-y-1">
-                        {notifications.map((notification, index) => (
-                          <>
-                          <li key={index} className="flex justify-start gap-5 items-center">
-                            {notification.type === "GOAL" ? (
-                              <Goal size={26} className="text-violet-600"/>
-                            ) : (
-                              <Coins/>
-                            )}
-                            <div className="text-start">
-                              <h1 className="font-semibold text-base">{notification.title}</h1>
-                              <p className="text-sm">{notification.description}</p>
-                            </div>
-                          </li>
-                          <hr/>
-                          </>
-                        ))}
-                      </ul>
-                    ) : (
-                      <CardEmptyComponent 
-                        title={t("noFound.title")}
-                        description={t("noFound.description")}/>
-                    )}
-                  </CardSection>
-                </div>
-            </div>
             <div className="mt-5">
               <CardSection title={t("dashboardPage.lastPayments")} hAuto link="payments">
                 <DataTable data={payments?.payments || []} loading={paymentsLoading} columns={columnsPayment}/>
               </CardSection>
             </div>
-        </>
+            </div>
     )
 }

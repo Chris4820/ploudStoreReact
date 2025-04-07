@@ -15,12 +15,12 @@ import { useDeleteCoupon } from "../mutations/deleteCouponMutation";
 
 export default function EditCouponPage() {
 
-  const { couponId } = useParams(); // Especifica que couponId pode ser uma string ou undefined
+  const { couponId } = useParams<{ couponId: string }>();
   const navigate = useNavigate();
 
   const {data: coupon, isLoading} = useGetCoupon(couponId as string)
 
-  const { mutate: editCoupon, isPending} = useEditCoupon();
+  const { mutate: editCoupon, isPending} = useEditCoupon(couponId as string);
 
   const { mutate: deleteCategory, isPending: deletePending } = useDeleteCoupon(couponId);
 

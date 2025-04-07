@@ -1,6 +1,6 @@
 import type { DateRange } from "react-day-picker";
 import axiosStore from "../../../../lib/axios/axiosStore";
-import { MetaProps } from "../../../statistic/api/req/statistic";
+import type { MetaProps } from "../../../../components/ui/datatable";
 
 
 export type PaymentProps = {
@@ -10,7 +10,6 @@ export type PaymentProps = {
     value: number,
     status: "pending" | "success" | "failed"
     createdAt: string,
-    coupon?: CouponProps,
 }
 
 export type CouponProps = {

@@ -1,6 +1,6 @@
+import type { MetaProps } from "../../../../components/ui/datatable";
 import axiosStore from "../../../../lib/axios/axiosStore";
 import type { CouponFormData } from "../../../coupons/schema/CouponsSchema";
-import { MetaProps } from "../../../statistic/api/req/statistic";
 
 
 export enum CouponType {

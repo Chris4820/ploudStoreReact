@@ -43,6 +43,12 @@ export async function orderProducts(products: number[]) {
 
 export async function getProduct(productId: string | undefined) : Promise<ProductFormData> {
     const response = await axiosStore.get<{product: ProductFormData}>(`product/${productId}`);
+    response.data.product.price = response.data.product.price.toString();
+    if(response.data.product.oldPrice) {
+        response.data.product.oldPrice = response.data.product.oldPrice.toString();
+    }else {
+        response.data.product.oldPrice = "";
+    }
     return response.data.product;
 }
 

@@ -18,7 +18,7 @@ export default function MolliePage() {
 
   return(
     <>
-    <HeaderSection backLink="../" title="Mollie" description="Configure e aceite Mollie em sua loja!"/>
+    <HeaderSection backLink="../checkout" title="Mollie" description="Configure e aceite Mollie em sua loja!"/>
     <MollieForm initialData={gateway as MollieFormData} isLoading={isPending} onSubmit={(data) => updateGateway(data)}/>
     </>
   )

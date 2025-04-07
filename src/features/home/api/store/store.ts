@@ -1,16 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { getGraphDataLast7Days, getStoreNotifications, getStorePlan } from "../req/req";
+import { getGraphDataLast7Days,  getStorePlan } from "../req/req";
 
 
 
-
-
-export function useGetNotifications() {
-  return useQuery({
-  queryKey: ['notifications'],
-  queryFn: () => getStoreNotifications(),
-})
-}
 
 
 export function useGetGraphData() {

@@ -40,17 +40,7 @@ export type CategoryData = {
     totalAmount: number;
 }
 
-export type MetaProps = {
-    items: number,
-    pages: number,
-}
-
-interface CategoryResponse {
-    categories: CategoryData[];
-    meta: MetaProps;
-}
-
-export async function getCategoriesData(dateRange?: DateRange, page?: number | undefined): Promise<CategoryResponse> {
+export async function getCategoriesData(dateRange?: DateRange, page?: number | undefined): Promise<CategoryData []> {
     try {
         let query = "";
         if (page) {
@@ -63,10 +53,10 @@ export async function getCategoriesData(dateRange?: DateRange, page?: number | u
             query += `endDate=${dateRange.to}&`
         }
         // Envie a solicitação GET para obter os dados das categorias
-        const response = await axiosStore.get<CategoryResponse>(`categoriesstat?${query}`); // Substitua 'categoriesstat' pela URL real
+        const response = await axiosStore.get<{products: CategoryData[]}>(`categoriesstat?${query}`); // Substitua 'categoriesstat' pela URL real
 
         // Retorne diretamente a resposta no formato esperado
-        return response.data;
+        return response.data.products;
     } catch (error) {
         // Lide com erros de solicitação
         console.error('Error fetching categories data:', error);
@@ -80,13 +70,8 @@ export type CustomersData = {
     totalAmount: number;
 }
 
-interface CustomersResponse {
-    customers: CustomersData[];
-    meta: MetaProps;
-}
 
-
-export async function getCustomersData(dateRange?: DateRange, page?: number | undefined): Promise<CustomersResponse> {
+export async function getCustomersData(dateRange?: DateRange, page?: number | undefined): Promise<CustomersData[]> {
     try {
         let query = "";
         if (page) {
@@ -99,10 +84,10 @@ export async function getCustomersData(dateRange?: DateRange, page?: number | un
             query += `endDate=${dateRange.to}&`
         }
         // Envie a solicitação GET para obter os dados das categorias
-        const response = await axiosStore.get<CustomersResponse>(`customersstat?${query}`); // Substitua 'categoriesstat' pela URL real
+        const response = await axiosStore.get<{customers: CustomersData[]}>(`customersstat?${query}`); // Substitua 'categoriesstat' pela URL real
 
         // Retorne diretamente a resposta no formato esperado
-        return response.data;
+        return response.data.customers;
     } catch (error) {
         // Lide com erros de solicitação
         console.error('Error fetching categories data:', error);
@@ -116,13 +101,7 @@ export type CouponData = {
     totalAmount: number;
 }
 
-interface CouponResponse {
-    coupons: CouponData[];
-    meta: MetaProps;
-}
-
-
-export async function getCouponData(dateRange?: DateRange, page?: number | undefined): Promise<CouponResponse> {
+export async function getCouponData(dateRange?: DateRange, page?: number | undefined): Promise<CouponData[]> {
     try {
         let query = "";
         if (page) {
@@ -135,10 +114,10 @@ export async function getCouponData(dateRange?: DateRange, page?: number | undef
             query += `endDate=${dateRange.to}&`
         }
         // Envie a solicitação GET para obter os dados das categorias
-        const response = await axiosStore.get<CouponResponse>(`couponsstat?${query}`); // Substitua 'categoriesstat' pela URL real
+        const response = await axiosStore.get<{coupons: CouponData[]}>(`couponsstat?${query}`); // Substitua 'categoriesstat' pela URL real
 
         // Retorne diretamente a resposta no formato esperado
-        return response.data;
+        return response.data.coupons;
     } catch (error) {
         // Lide com erros de solicitação
         console.error('Error fetching categories data:', error);

@@ -28,9 +28,7 @@ export async function confirmEmailUser(emailToken: string) {
 
 export async function recoveryPassword(data: recoveryPasswordSchemaFormData) {
     try {
-        const response = await axiosAuth.post('recoveryPassword', {
-            email: data.email,
-        });
+        const response = await axiosAuth.post('recoveryPassword', {data});
         return response.data;
     } catch (error) {
         console.log('Erro');

@@ -1,40 +1,26 @@
-import { HelpCircle } from "lucide-react"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip"
-import NextComponent from "./NextComponent"
-import { t } from "../../lib/reacti18next/i18n"
+import type React from "react"
+import { Link } from "react-router-dom"
 
-type CardSectionProps = {
-    title: string,
-    hAuto?: boolean,
-    link?: string,
-    children: React.ReactNode,
-    className?: string // Propriedade opcional para a classe CSS personalizada
-    help?: string,
+interface CardSectionProps {
+  title: string
+  children: React.ReactNode
+  hAuto?: boolean
+  link?: string
 }
 
-export default function CardSection({title, children, hAuto = false, link, help}: CardSectionProps) {
-    return(
-        <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
-            <div className="flex px-6 py-4 justify-between items-center">
-                <h1 className="font-semibold text-lg leading-none tracking-tight">{title}</h1>
-                {link && <NextComponent toLink={link} text={t("seeMore")}/>}
-                {help && (
-                <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <HelpCircle className="cursor-pointer"/>
-                      </TooltipTrigger>
-                      <TooltipContent className="max-w-[250px]">
-                        <p>{help}</p>
-                      </TooltipContent>
-                    </Tooltip>
-                </TooltipProvider>
-                )}
-            </div>
-            <hr/>
-                <div className={`${hAuto ? 'h-auto' : 'h-72 text-center'} w-full rounded-md p-3 lg:p-6 shadow-md`}>
-                        {children}
-                </div>
-        </div>
-    )
+export default function CardSection({ title, children, hAuto, link }: CardSectionProps) {
+  return (
+    <div className="bg-card rounded-lg shadow-sm border w-full overflow-hidden">
+      <div className="flex justify-between items-center p-4 border-b">
+        <h2 className="font-medium">{title}</h2>
+        {link && (
+          <Link to={link} className="text-blue-600 text-sm hover:underline">
+            Ver todos
+          </Link>
+        )}
+      </div>
+      <div className={`p-4 ${hAuto ? "" : "h-[320px]"} overflow-hidden`}>{children}</div>
+    </div>
+  )
 }
+

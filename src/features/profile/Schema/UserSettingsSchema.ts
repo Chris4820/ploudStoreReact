@@ -2,8 +2,9 @@ import { z } from 'zod';
 
 // Definindo o esquema Zod para domínio próprio
 const UserSettingsSchema = z.object({
+  name: z.string().min(5, "Mínimo de 5 caracteres"),
   language: z.string(),
-  locale: z.string().default('pt-PT'),
+  locale: z.string(),
   timezone: z.string(),
 });
 

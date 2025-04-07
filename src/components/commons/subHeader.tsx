@@ -8,7 +8,7 @@ type SubHeaderSectionProps = {
 
 export default function SubHeaderSection({title, description} : SubHeaderSectionProps) {
     return(
-        <div className="mb-5">
+        <div>
             <h1 className="font-bold text-xl">{title}</h1>
             <p className="text-muted-foreground text-sm">{description}</p>
         </div>

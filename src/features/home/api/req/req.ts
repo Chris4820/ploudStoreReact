@@ -1,18 +1,6 @@
 import axiosStore from "../../../../lib/axios/axiosStore";
 
 
-type NotificationProps = {
-  title: string,
-  description: string,
-  type: 'GOAL'
-}
-
-
-export async function getStoreNotifications() {
-  const response = await axiosStore<{notifications: NotificationProps[]}>('notification');
-  return response.data.notifications;
-}
-
 export type GraphProps = {
   date: string,
   value: number,

@@ -15,6 +15,7 @@ import { useState } from "react";
 import DeleteModal from "../../../components/modal/deleteModal";
 import { Button } from "../../../components/ui/button";
 import { useDeleteProduct } from "../mutation/DeleteProductMutation";
+import { useGetServers } from "../../server/api/store/server";
 
 
 
@@ -22,19 +23,21 @@ import { useDeleteProduct } from "../mutation/DeleteProductMutation";
 
 export default function EditProductPage() {
 
-    const { productId } = useParams();
+    const { productId } = useParams<{ productId: string }>();
 
     const [cloneCategoryId, setCloneCategoryId] = useState<string | undefined>(undefined);
 
     const {data: categories} = useGetAllCategorie();
 
+    const {data: servers, isLoading: serverLoading} = useGetServers("server");
+
     const [image, setImage] = useState<File | null>(null)
 
-    const {data: product, isLoading} = useGetProduct(productId);
+    const {data: product, isLoading} = useGetProduct(productId as string);
 
     const {mutate: CloneProduct, isPending: cloneProductPending} = useCloneProduct(cloneCategoryId);
 
-    const { mutate: deleteProduct, isPending: DeletePending} = useDeleteProduct(productId);
+    const { mutate: deleteProduct, isPending: DeletePending} = useDeleteProduct(productId as string);
 
     const { mutate: updateProduct, isPending} = useEditProduct(Number(productId), image);
 
@@ -46,7 +49,7 @@ export default function EditProductPage() {
         setImage(image);
     }
 
-    if(isLoading) {
+    if(isLoading || serverLoading) {
         return <LoadingComponent/>
     }
 
@@ -61,14 +64,18 @@ export default function EditProductPage() {
 
     return(
         <section className="relative w-full overflow-y-auto overflow-x-hidden">
-        <HeaderSection backLink="../" title="Editar produto" description="Edite seu produto aqui!"/>
+        <HeaderSection 
+            autoBack
+            title="Editar produto" 
+            description="Edite seu produto aqui!"/>
         <ProductForm 
+            servers={servers || []}
             onImageUpload={((image: File | null) => ImageUpload(image))} 
             isSubmit={isPending} onSubmit={onSubmitFormEdit} 
             initialData={product}
             buttonText="Editar">
             <>
-            <div className="p-5 border rounded-lg">
+            <div className="p-5 border rounded-lg shadow-md">
                     <div>
                         <h1 className="font-semibold text-lg mb-2">Clonar produto</h1>
                     </div>
@@ -97,7 +104,7 @@ export default function EditProductPage() {
                          </ConfirmModal>
                     </div>
             </div>
-            <div className="p-5 border rounded-lg flex justify-between items-center">
+            <div className="p-5 border rounded-lg flex justify-between items-center shadow-md">
                 <div>
                     <h1 className="font-semibold text-destructive text-lg">Eliminar Produto</h1>
                     <p className="text-muted-foreground">Elimine permanentemente o produto</p>

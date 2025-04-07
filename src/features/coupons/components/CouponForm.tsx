@@ -38,7 +38,7 @@ export default function CouponForm({ initialData, onSubmit, mode, isLoading, chi
       code: "",
       minValue: 0,
       value: 0,
-      enable: false,
+      enable: true,
     },
     mode: 'onSubmit',
   });
@@ -84,13 +84,15 @@ export default function CouponForm({ initialData, onSubmit, mode, isLoading, chi
     }
   }, [initialData, watch, mode]);
 
+  console.log(errors);
+
 
   
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-3 gap-5">
+    <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 lg:grid-cols-3 gap-5">
       <div className='border rounded-lg p-5 col-span-2'>
-      <div className=" grid grid-cols-1 lg:grid-cols-3 gap-5 ">
+      <div className=" grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 ">
         <div>
           <label htmlFor="couponCode" className="block font-medium mb-1">
             Código do Cupom <span className="text-sm text-muted-foreground">(Único)</span>
@@ -112,18 +114,18 @@ export default function CouponForm({ initialData, onSubmit, mode, isLoading, chi
           <label htmlFor="usageLimit" className="block font-medium mb-1">
             Limite de Usos <span className="text-sm text-muted-foreground">(0 para ilimitado)</span>
           </label>
-          <Input defaultValue={0} id="usageLimit" type="number" {...register("limit", { valueAsNumber: true })} />
+          <Input id="usageLimit" type="number" {...register("limit", { valueAsNumber: true })} />
           {errors.limit && <p className="text-red-500 text-sm mt-1">{errors.limit.message}</p>}
         </div>
 
         <div>
           <label htmlFor="discountType" className="block font-medium mb-1">Tipo de Desconto</label>
           <Select
-            defaultValue="PERCENTAGE"
+            defaultValue={getValues("type")}
             onValueChange={(value: "PERCENTAGE" | "VALUE") => setValue("type", value)}
           >
             <SelectTrigger className="min-w-[180px] w-full">
-              <SelectValue />
+              <SelectValue/>
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="PERCENTAGE">Percentagem (%)</SelectItem>
@@ -190,7 +192,7 @@ export default function CouponForm({ initialData, onSubmit, mode, isLoading, chi
                       />
                       <label
                         htmlFor={`product-${item.id}`}
-                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 break-words overflow-hidden"
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 break-words"
                       >
                         {item.name}
                       </label>
@@ -222,7 +224,7 @@ export default function CouponForm({ initialData, onSubmit, mode, isLoading, chi
                 
                 <div className="mt-5 flex justify-end">
                   <SubmitButton isLoading={isLoading} text="Guardar alterações" enable={mode === "edit" && !isFormChanged} />
-            </div>
+                </div>
             </div>
     </form>
   );

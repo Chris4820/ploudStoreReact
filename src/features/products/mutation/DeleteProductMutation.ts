@@ -4,28 +4,30 @@ import { toast } from "sonner";
 import { deleteProduct, type ProductsProps } from "../api/req/products";
 import queryClient from "../../../lib/reactquery/reactquery";
 
-export const useDeleteProduct = (productId: string | undefined) => {
+export const useDeleteProduct = (productId: string) => {
   const navigate = useNavigate();
+
+  if (!productId) {
+    throw new Error("Product ID is required");
+  }
 
   return useMutation({
     mutationFn: () => deleteProduct(productId),
     onSuccess: async (data) => {
-      const { id, categoryId } = data;
+      const { categoryId } = data;
 
-      const existingProductsInCache = queryClient.getQueryData<ProductsProps[]>(['products', categoryId.toString()]);
+      console.log(data);
 
-      if(existingProductsInCache) {
-        // Remove o produto eliminado do cache
-        queryClient.setQueryData(['products', categoryId.toString()], (oldProducts: ProductsProps[] | undefined) => {
-          
-        return oldProducts?.filter(product => product.id !== id);
-        });
-      }
-      // Remove o cache do produto eliminado
-      queryClient.removeQueries({ queryKey: ['product', id.toString()]});
+      // Update products cache
+      queryClient.setQueryData(['products', categoryId.toString()], (oldProducts: ProductsProps[] | undefined) => {
+        return oldProducts ? oldProducts.filter(product => product.id !== Number(productId)) : [];
+      });
 
-      toast.success('Produto Eliminado com sucesso!');
-      return navigate(`/dashboard/categories/${categoryId}`);
-    }
+      // Remove single product cache
+      queryClient.removeQueries({ queryKey: ['product', productId] });
+
+      toast.success('Produto eliminado com sucesso!');
+      navigate(`/dashboard/categories/${categoryId}`);
+    },
   });
 };

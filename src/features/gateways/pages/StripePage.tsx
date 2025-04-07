@@ -22,7 +22,7 @@ export default function StripePage() {
 
   return(
     <>
-    <HeaderSection backLink="../" title="Stripe" description="Configure e aceite Stripe em sua loja!"/>
+    <HeaderSection backLink="../checkout" title="Stripe" description="Configure e aceite Stripe em sua loja!"/>
     <StripeForm initialData={gateway as StripeFormData} isLoading={isPending} onSubmit={(data) => updateGateway(data)}/>
       
     </>

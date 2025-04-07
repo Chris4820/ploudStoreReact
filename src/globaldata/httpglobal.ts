@@ -59,7 +59,7 @@ export function useGetUserInformation() {
 export type StoreInformationProps = {
   name: string,
   description: string,
-  shortame: string,
+  shortName: string,
   gameType: 'MINECRAFT' | 'FIVEM',
   domain: string,
   subdomain: string,
@@ -70,6 +70,7 @@ export type StoreInformationProps = {
   keywords: string,
   currency: string,
   backgroundUrl: string | undefined,
+  logoUrl: string | undefined,
   maintenance: boolean,
   minBasket: number,
   primaryColor: string,

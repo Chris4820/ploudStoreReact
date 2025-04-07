@@ -29,7 +29,7 @@ export default function SettingsForm({ initialData, onSubmit, isLoading }: Setti
     console.log("Basket: " + form.getValues("minBasket"));
 
     function submitForm(data: SettingsFormData) {
-        form.reset();
+        form.reset(data);
         onSubmit(data);
     }
 
@@ -45,7 +45,7 @@ export default function SettingsForm({ initialData, onSubmit, isLoading }: Setti
                             <FormItem>
                             <FormLabel>Nome da loja</FormLabel>
                             <FormControl>
-                                <Input placeholder="shadcn" {...field} />
+                                <Input placeholder="Rede teste" {...field} />
                             </FormControl>
                             <FormMessage />
                             </FormItem>
@@ -182,7 +182,7 @@ export default function SettingsForm({ initialData, onSubmit, isLoading }: Setti
                     </div>
 
                     <div className="flex justify-end mt-5">
-                        <SubmitButton isLoading={isLoading} text="Guardar alterações" enable={!form.formState.isDirty}/>;
+                        <SubmitButton isLoading={isLoading} text="Guardar alterações" enable={!form.formState.isDirty}/>
                     </div>
                 </form>
                 </Form>

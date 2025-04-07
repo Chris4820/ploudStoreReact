@@ -12,8 +12,6 @@ import RecoveryPasswordPage from "./features/auth/pages/RecoveryPasswordPage"
 import ResetPasswordPage from "./features/auth/pages/ResetPasswordPage"
 import ConfirmEmailPage from "./features/auth/pages/confirmEmailPage"
 import StatisticPage from "./features/statistic/pages/statisticPage"
-import CategoriesPage from "./features/statistic/pages/CategoriePage"
-import CustomersPage from "./features/statistic/pages/customersPage"
 import PaymentsPage from "./features/payments/pages/paymentPage"
 import CategoriePage from "./features/categories/pages/categoriesPage"
 import CategoryIdPage from "./features/categories/pages/SubCategoriesPage"
@@ -22,7 +20,6 @@ import EditCategoryPage from "./features/categories/pages/editCategoryPage"
 import CreatePackagePage from "./features/products/pages/createProduct"
 import ProfilePage from "./features/profile/pages/ProfilePage"
 import DashboardHomePage from "./features/home/pages/DashboardHomePage"
-import CouponReportPage from "./features/statistic/pages/CouponReportPage"
 import CouponPage from "./features/coupons/pages/couponsPage"
 import EditCouponPage from "./features/coupons/pages/editCouponPage"
 import EditProductPage from "./features/products/pages/editProductPage"
@@ -92,9 +89,6 @@ function App() {
          <Route path="dashboard" element={<DashboardLayout />} >
            <Route path="/dashboard" element={<DashboardHomePage />} />
            <Route path="/dashboard/statistic" element={<StatisticPage />} />
-           <Route path="/dashboard/statistic/categories" element={<CategoriesPage />}/>
-           <Route path="/dashboard/statistic/customers" element={<CustomersPage />}/>
-           <Route path="/dashboard/statistic/coupons" element={<CouponReportPage />}/>
            <Route path="/dashboard/payments" element={<PaymentsPage/>} />
            <Route path="/dashboard/payments/details/:id" element={<PaymentDetailsPage/>} />
 

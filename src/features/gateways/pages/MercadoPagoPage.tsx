@@ -18,7 +18,7 @@ export default function MercadoPagoPage() {
 
   return(
     <>
-    <HeaderSection backLink="../" title="Mercado pago" description="Configure e aceite Mercado pago em sua loja!"/>
+    <HeaderSection backLink="../checkout" title="Mercado pago" description="Configure e aceite Mercado pago em sua loja!"/>
     <MercadoPagoForm initialData={gateway as MercadoPagoFormData} isLoading={isPending} onSubmit={(data) => updateGateway(data)}/>
       
     </>

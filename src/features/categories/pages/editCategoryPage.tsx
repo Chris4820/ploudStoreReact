@@ -43,7 +43,7 @@ export default function EditCategoryPage() {
 
     return(
         <>
-        <HeaderSection backLink="../" title="Editar categoria" description="Edite a categoria aqui!"/>
+        <HeaderSection autoBack title="Editar categoria" description="Edite a categoria aqui!"/>
         <CategoryForm mode="edit" isLoading={isPending} onSubmit={onSubmitEditCategory} initialData={category}>
             <div className="p-5 border rounded-lg flex justify-between items-center">
                 <div>

@@ -22,10 +22,10 @@ export const columnsCoupon: ColumnDef<CouponsProps>[] = [
       }
   },
   {
-    accessorKey: "usages",
+    accessorKey: "usage",
     header: "Usos",
     cell: ({ row }) => {
-        const usages = row.original.usages;
+        const usages = row.original.usage;
         const limit = row.original.limit;
 
         // Se existir um limite, mostra usages/limit, senão mostra apenas usages

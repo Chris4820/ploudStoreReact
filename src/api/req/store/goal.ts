@@ -1,5 +1,5 @@
+import type { MetaProps } from "../../../components/ui/datatable";
 import axiosStore from "../../../lib/axios/axiosStore";
-import { MetaProps } from "../../../features/statistic/api/req/statistic";
 
 
 

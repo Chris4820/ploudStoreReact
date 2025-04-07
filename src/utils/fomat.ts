@@ -23,10 +23,12 @@ export function FormatMoney(price: number) : string {
   if(user && user.locale && store.currency) {
     const formated = Intl.NumberFormat(user.locale, {
       style: 'currency',
-      currency: store.currency.toUpperCase()
+      currency: store.currency.toUpperCase(),
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
     })
     //Converter de centimos para euros
-    return formated.format(finalPrice);
+    return formated.format(finalPrice * 100);
   }
   return finalPrice.toFixed(2);
 }

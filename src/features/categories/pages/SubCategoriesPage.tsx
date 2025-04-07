@@ -28,7 +28,7 @@ export default function CategoryIdPage() {
     return(
         <>
         <HeaderSection 
-            title={category.name} 
+            title={category.name}
             backLink="../categories"
             description={`Todos os items criados aqui, serão adicionados na categoria: ${category.name}`}/>
         <div className="flex justify-between">

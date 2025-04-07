@@ -4,6 +4,8 @@ import { z } from 'zod';
 const designSchema = z.object({
   primaryColor: z.string(),
   secondaryColor: z.string(),
+  defaultDarkTheme: z.boolean(),
+  enableChangeTheme: z.boolean(),
 });
 
 // Exportando o tipo inferido

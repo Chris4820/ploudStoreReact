@@ -8,14 +8,14 @@ import { useNavigate } from "react-router-dom";
 import queryClient from "../../../lib/reactquery/reactquery";
 import { CouponFormData } from "../schema/CouponsSchema";
 
-export const useEditCoupon = () => {
+export const useEditCoupon = (couponId: string) => {
 
   const navigate = useNavigate();
 
 
   return useMutation({
-    mutationFn: (data: CouponFormData) => editCoupons(data),
-    onSuccess: (_) => {
+    mutationFn: (data: CouponFormData) => editCoupons(couponId, data),
+    onSuccess: () => {
       queryClient.invalidateQueries({queryKey: ['coupons']}); // Invalida todas as queries de cupons
       toast.success("Editado com sucesso!");
       navigate("/dashboard/engagement")

@@ -12,7 +12,7 @@ export function useGetProducts(categoryId: string | undefined) {
 })
 }
 
-export function useGetProduct(productId: string | undefined) {
+export function useGetProduct(productId: string) {
     return useQuery({
     queryKey: ['product', productId],
     queryFn: () => getProduct(productId),

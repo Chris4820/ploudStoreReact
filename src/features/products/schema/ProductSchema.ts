@@ -1,44 +1,52 @@
 import { z } from 'zod';
 
-
-
-// Define o esquema para os metadados do arquivo
+// Define schema for file metadata
 const FileMetadataSchema = z.object({
-    size: z.number().positive("O tamanho deve ser positivo"),
-    type: z.string().min(1, "O tipo deve ser uma string não vazia")
-  }).nullable().default(null);
+  size: z.number().positive("O tamanho deve ser positivo"),
+  type: z.string().min(1, "O tipo deve ser uma string não vazia")
+}).nullable().default(null);
 
 
-// Definindo o esquema Zod
-const ProductSchema = z.object({
-    id: z.number().optional(),
-    name: z.string().min(3, "Mínimo de 3 caracteres"),
-    description: z.string().min(6, 'Mínimo de 6 caracteres'),
-    price: z.preprocess(
-      (val) => {
-        if (typeof val === "string") {
-          // Substitui a vírgula pelo ponto, caso exista
-          return parseFloat(val.replace(",", "."));
-        }
-        return val;
-      },
-      z.number({ invalid_type_error: "Preço inválido" }),
-      z.number().positive("O preço deve ser positivo")
-    ),
-    stock: z.preprocess((val) => parseFloat(val as string), z.number()),
-    categoryId: z.number().optional(),
-    imageUrl: z.string().nullable(),
-    hasChangeImage: z.boolean().default(false),
-    newImage: FileMetadataSchema,
-    visible: z.boolean(),
-    expire_days: z.preprocess((val) => parseFloat(val as string), z.number().min(0, "No minimo 0")),
-    commands: z.array(z.object( {
-      command: z.string().min(3, "O comando é obrigatório"),
-      type: z.enum(['EXPIRE', 'PURCHASE']),
-      offline_execute: z.boolean(),
-    })), // Corrigido para aceitar um array de strings
+// Command schema for reusability
+const CommandSchema = z.object({
+  command: z.string().min(3, "O comando é obrigatório"),
+  server: z.object({
+    id: z.number({required_error: 'Servidor é obrigatório'}).positive("Servidor é obrigatório"),
+    name: z.string().optional(),
+  }, {message: "Servidor inválido"}),
+  type: z.enum(['EXPIRE', 'PURCHASE'], {
+    errorMap: () => ({ message: "Tipo de comando inválido" })
+  }),
+  offline_execute: z.boolean().default(false),
 });
 
-// Exportando o tipo inferido
+// Main product schema
+const ProductSchema = z.object({
+  id: z.number().optional(),
+  name: z.string().min(3, "Mínimo de 3 caracteres").max(100, "Máximo de 100 caracteres"),
+  description: z.string().min(6, 'Mínimo de 6 caracteres'),
+  price: z.string().min(1, "O preço é obrigatório"),
+  oldPrice: z.string().optional(),
+  categoryId: z.number().optional(),
+  imageUrl: z.string().nullable().default(null),
+  hasChangeImage: z.boolean().default(false),
+  newImage: FileMetadataSchema,
+  stockEnable: z.boolean().default(false),
+  quantityEnable: z.boolean().default(true),
+  expireEnable: z.boolean().default(false),
+  stock: z.preprocess(
+    (val) => {
+      if (val === undefined || val === null || val === "") return 0;
+      const num = typeof val === "string" ? parseFloat(val as string) : Number(val);
+      return isNaN(num) ? 0 : Math.max(0, Math.round(num));
+    }, 
+    z.number().nonnegative("Estoque não pode ser negativo")
+  ),
+  visible: z.boolean().default(true),
+  expireAt: z.string().nullable().default(null),
+  ProductCommands: z.array(CommandSchema).min(1, "Pelo menos um comando é necessário"),
+});
+
+// Export the inferred type
 export type ProductFormData = z.infer<typeof ProductSchema>;
 export default ProductSchema;

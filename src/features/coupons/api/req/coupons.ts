@@ -1,6 +1,6 @@
 import { CouponFormData } from "../../schema/CouponsSchema";
 import axiosStore from "../../../../lib/axios/axiosStore";
-import { MetaProps } from "../../../statistic/api/req/statistic";
+import type { MetaProps } from "../../../../components/ui/datatable";
 
 
 export enum CouponType {
@@ -14,7 +14,7 @@ export type CouponsProps = {
   expire_at: string | null,
   value: number,
   type: CouponType,
-  usages: number,
+  usage: number,
   limit: number | null
 }
 
@@ -40,8 +40,8 @@ export async function createCoupons(data: CouponFormData) {
   return response.data;
 }
 
-export async function editCoupons(data: CouponFormData) {
-  const response = await axiosStore.put('coupons', { data })
+export async function editCoupons(couponId: string, data: CouponFormData) {
+  const response = await axiosStore.put(`coupons/${couponId}`, { data })
   return response.data;
 }
 

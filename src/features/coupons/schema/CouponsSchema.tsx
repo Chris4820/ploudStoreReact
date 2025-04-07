@@ -5,7 +5,7 @@ import { z } from 'zod';
 const CouponSchema = z.object({
   id: z.number().optional(),
   code: z.string({ required_error: "O código coupom é obrigatório"}).min(3,"O código do cupom é obrigatório"),
-  limit: z.preprocess((val) => parseFloat(val as string), z.number().min(0, "O limite deve ser um numero positivo")),
+  limit: z.preprocess((val) => parseFloat(val as string), z.number({message: "O valor deve ser um número inteiro"})),
   type: z.enum(["PERCENTAGE", "VALUE"]),
   value: z.preprocess((val) => parseFloat(val as string), z.number().positive("O valor deve ser um número positivo")),
   minValue: z.preprocess((val) => parseFloat(val as string), z.number().min(0, "O valor minimo deve ser um número positivo")),

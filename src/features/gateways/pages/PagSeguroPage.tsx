@@ -18,7 +18,7 @@ export default function PagSeguroPage() {
 
   return(
     <>
-    <HeaderSection backLink="../" title="PagSeguro" description="Configure e aceite pagseguro em sua loja!"/>
+    <HeaderSection backLink="../checkout" title="PagSeguro" description="Configure e aceite pagseguro em sua loja!"/>
     <PagSeguroForm initialData={gateway as PagSeguroFormData} isLoading={isPending} onSubmit={(data) => updateGateway(data)}/>
     </>
   )

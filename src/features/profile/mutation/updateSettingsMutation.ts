@@ -3,6 +3,8 @@ import { toast } from "sonner";
 import queryClient from "../../../lib/reactquery/reactquery";
 import type { UserSettingsFormData } from "../Schema/UserSettingsSchema";
 import { updateUserSettings } from "../api/user";
+import type { UserInformationProps } from "../../../globaldata/httpglobal";
+
 
 export const useUpdateUserSettings = () => {
 
@@ -10,15 +12,16 @@ export const useUpdateUserSettings = () => {
     mutationFn: (data: UserSettingsFormData) => updateUserSettings(data),
     onSuccess: (_, variables) => {
 
-      const storeDataCache = queryClient.getQueryData<UserSettingsFormData>(['user']);
-      if(storeDataCache) {
-        queryClient.setQueryData<UserSettingsFormData>(['user'], {
-          ...storeDataCache,
-          language: variables.language,
+      const userDataCache = queryClient.getQueryData<UserInformationProps>(['user']);
+      if(userDataCache) {
+         queryClient.setQueryData<UserInformationProps>(['user'], {
+          ...userDataCache,
+          name: variables.name,
           locale: variables.locale,
-          timezone: variables.timezone,
+          language: variables.language,
+          timezone: variables.timezone
         });
-    }
+    } 
       toast.success("Definições atualizadas com sucesso!");
     }
   }

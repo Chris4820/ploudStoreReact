@@ -20,14 +20,6 @@ export const columnsPayment: ColumnDef<PaymentProps>[] = [
       },
     },
     {
-      accessorKey: "coupon",
-      header: () => t("coupon"),
-      cell: ({ row }) => {
-        const cupon = row.original.coupon;
-        return cupon ? cupon.name : "Não utilizado";
-      },
-    },
-    {
         accessorKey: "status",
         header: () => t("status"),
         cell: ({ row }) => {
@@ -40,17 +32,17 @@ export const columnsPayment: ColumnDef<PaymentProps>[] = [
             case "SUCCESS":
               bgClass = "bg-green-900/50";
               borderClass = "border-green-900";
-              text = t("success");
+              text = "success";
               break;
             case "PENDING":
               bgClass = "bg-yellow-900/50";
               borderClass = "border-yellow-900";
-              text = t("pending");
+              text = "pending";
               break;
             case "FAILED":
               bgClass = "bg-red-600/90";
               borderClass = "border-red-900";
-              text = t("failed");
+              text = "failed";
               break;
             default:
               bgClass = "bg-gray-600/90";
@@ -59,7 +51,7 @@ export const columnsPayment: ColumnDef<PaymentProps>[] = [
           }
           return (
             <div className={`inline-block text-white rounded-full border-2 ${bgClass} ${borderClass} px-3 py-1 text-sm font-medium`}>
-              <span className="text-sm mb-1">{text}</span>
+              <span className="text-sm mb-1">{t(`ordersPage.${text}`)}</span>
             </div>
           );
         }
