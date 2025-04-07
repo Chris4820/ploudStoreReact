@@ -1,5 +1,3 @@
-"use client"
-
 import { motion } from "framer-motion"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -15,7 +13,7 @@ import { Checkbox } from "../../../components/ui/checkbox"
 
 export default function RegisterPage() {
   const [captchaStatus, setCaptchaStatus] = useState<boolean>(false)
-  const [captchaError, setCaptchaError] = useState<string | null>(null)
+  const [, setCaptchaError] = useState<string | null>(null)
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
