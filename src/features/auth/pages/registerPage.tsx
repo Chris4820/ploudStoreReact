@@ -10,7 +10,7 @@ import registerSchema, { type registerSchemaFormData } from "../schemas/Register
 import { useRegisterUser } from "../../../Internal/auth/registerMutation"
 import { Turnstile } from "@marsidev/react-turnstile"
 import { useState } from "react"
-import { Loader2, CheckCircle2, AlertCircle, User, Mail, Lock, ArrowRight } from "lucide-react"
+import { Loader2, User, Mail, Lock, ArrowRight } from "lucide-react"
 import { Checkbox } from "../../../components/ui/checkbox"
 
 export default function RegisterPage() {
@@ -171,24 +171,13 @@ export default function RegisterPage() {
               setCaptchaError(null)
             }}
           />
-          {captchaError && (
-            <div className="flex items-center mt-2 text-red-600">
-              <AlertCircle className="h-4 w-4 mr-1" />
-              <span className="text-sm">{captchaError}</span>
-            </div>
-          )}
-          {captchaStatus && (
-            <div className="flex items-center mt-2 text-green-600">
-              <CheckCircle2 className="h-4 w-4 mr-1" />
-              <span className="text-sm">Verificação concluída</span>
-            </div>
-          )}
         </div>
 
         <div className="flex items-center space-x-2 mt-2">
           <Checkbox
             id="terms"
             {...register("terms")}
+            onCheckedChange={(value: boolean) => setValue("terms", value)}
             className="border-gray-300 data-[state=checked]:bg-violet-600 data-[state=checked]:border-violet-600"
           />
           <label
