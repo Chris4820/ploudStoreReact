@@ -144,7 +144,7 @@ export default function SettingsForm({ initialData, onSubmit, isLoading }: Setti
                             <FormItem>
                             <FormLabel>Descrição</FormLabel>
                             <FormControl>
-                                <Textarea placeholder="shadcn" {...field} />
+                                <Textarea className="max-h-[250px]" placeholder="shadcn" {...field} />
                             </FormControl>
                             <FormMessage />
                             </FormItem>
