@@ -1,4 +1,4 @@
-import { Check, Snowflake, X } from "lucide-react";
+import { Check, Snowflake, Sparkles, X, Zap } from "lucide-react";
 import HeaderSection from "../../../components/commons/Header";
 import { Button } from "../../../components/ui/button";
 import { useEffect } from "react";
@@ -8,6 +8,7 @@ import { useSearchParams } from "react-router-dom";
 import queryClient from "../../../lib/reactquery/reactquery";
 import { useStore } from "../../../provider/Store/StoreContext";
 import { CalculeDaysLeft, getPlanStatusColor } from "../../../utils/fomat";
+import { Card, CardContent } from "../../../components/ui/card";
 
 
 
@@ -44,24 +45,46 @@ export default function PlanPage() {
     <>
       <HeaderSection title="Plano" description="Renove seu plano aqui!"/>
 
-      <div className="w-full border shadow-md p-5 flex justify-between items-center">
-        <div>
-          <div className="flex gap-2 items-center text-violet-500">
-              <Snowflake size={26}/>
-              <h1 className="font-bold text-lg">Plano {store.StorePlan.plan}</h1>
-              <span className={`${getPlanStatusColor(store.StorePlan.overdueDate)} text-sm text-destructive font-semibold mt-0.5`}>
-                  {store.StorePlan.plan !== 'basic' ? (
-                  (() => {
-                    const daysLeft = CalculeDaysLeft(store.StorePlan.overdueDate);
-                    return daysLeft && daysLeft > 0 ? `(${daysLeft} dias restantes)` : "Plano expirado";
-                  })()
-                    ) : "Seu plano expirou"}
-              </span>
+      <Card className="mb-8">
+        <CardContent className="p-6">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+              <div className="flex gap-2 items-center text-violet-500">
+                {store.StorePlan.plan === "basic" && <Snowflake size={26} />}
+                {store.StorePlan.plan === "standard" && <Zap size={26} />}
+                {store.StorePlan.plan === "premium" && <Sparkles size={26} />}
+                <h1 className="font-bold text-lg capitalize">Plano {store.StorePlan.plan}</h1>
+                <span
+                  className={`${getPlanStatusColor(store.StorePlan.overdueDate)} text-sm font-semibold mt-0.5 px-2 py-0.5 rounded-full`}
+                >
+                  {store.StorePlan.plan !== "basic"
+                    ? (() => {
+                        const daysLeft = CalculeDaysLeft(store.StorePlan.overdueDate)
+                        return daysLeft && daysLeft > 0 ? `${daysLeft} dias restantes` : "Plano expirado"
+                      })()
+                    : "Plano gratuito"}
+                </span>
+              </div>
+              <p className="mt-1 text-sm text-muted-foreground">
+                {store.StorePlan.plan === "basic" && "Até 5 produtos, 3 categorias, 1 colaborador e mais."}
+                {store.StorePlan.plan === "standard" && "Até 25 produtos, 15 categorias, 3 colaboradores e mais."}
+                {store.StorePlan.plan === "premium" &&
+                  "Produtos e categorias ilimitados, 6 colaboradores e todos os recursos."}
+              </p>
+            </div>
+            {store.StorePlan.plan !== "basic" && (
+              <PaymentDialog
+                key={store.StorePlan.plan}
+                plan={store.StorePlan.plan}
+                planKey={store.StorePlan.plan}
+                price={store.StorePlan.plan === "standard" ? 3.99 : 9.99}
+              >
+                <Button className="px-6">Renovar Plano</Button>
+              </PaymentDialog>
+            )}
           </div>
-          <p className="mt-1 text-sm text-muted-foreground">Até 5 produtos, 3 categorias, 1 colaborador e muito mais!</p>
-        </div>
-        <Button disabled={store.StorePlan.plan === "basic"}>Renovar</Button>
-      </div>
+        </CardContent>
+      </Card>
 
       <section className="grid grid-cols-1 lg:grid-cols-3 gap-5 mt-5">
           <div className="p-5 border shadow-md rounded-md">

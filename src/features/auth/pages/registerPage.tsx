@@ -24,6 +24,9 @@ export default function RegisterPage() {
     setValue,
   } = useForm<registerSchemaFormData>({
     resolver: zodResolver(registerSchema),
+    defaultValues: {
+      language: navigator.language,
+    }
   })
 
   const { mutate: createUser, isPending } = useRegisterUser()

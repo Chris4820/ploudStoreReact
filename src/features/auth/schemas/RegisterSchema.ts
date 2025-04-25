@@ -14,6 +14,7 @@ const registerSchema = z.object({
   .regex(/[A-Z]/, "A senha deve conter pelo menos 1 letra maiúscula")
   .regex(/[0-9]/, "A senha deve conter pelo menos 1 número"),
   confirmPassword: z.string(),
+  language: z.string().optional(),
   terms: z.literal<boolean>(true, { errorMap: () => ({ message: "Você precisa aceitar os termos!", }), })
   }).refine(({password, confirmPassword}) => password === confirmPassword, {
       message: "As senhas não coicidem",
