@@ -3,9 +3,9 @@ import { useForm } from "react-hook-form";
 import { type BlogFormData, } from "../schema/newsSchema";
 import { Input } from "../../../components/ui/input";
 import { Switch } from "../../../components/ui/switch";
-import EditorComponent from "../../../components/ui/editor/editor";
 import BlogSchema from "../schema/newsSchema";
 import SubmitButton from "../../../components/commons/buttons/SubmitButton";
+import PageEditor from "../../../components/ui/tiptap-Editor/Editortest";
 
 
 type BlogFormProps = {
@@ -48,10 +48,9 @@ export default function BlogForm({initialData, onSubmit, buttonText, isSubmit, c
         </div>
         <div>
           <span className="font-semibold text-lg">Conteúdo da Notícia</span>
-          <EditorComponent 
-            tabIndex={3}
-            onEditorChange={(text) => setValue("content", text, {shouldDirty: true})}
-            value={getValues("content")}
+          <PageEditor 
+            onChange={(text) => setValue("content", text, {shouldDirty: true})}
+            content={getValues("content")}
           />
           {errors.content && <span className='text-destructive text-[12px]'>{errors.content.message}</span>}
         </div>

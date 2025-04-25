@@ -9,7 +9,6 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import loginSchema, { type loginSchemaFormData } from "../schemas/LoginSchema"
 import { useLoginUser } from '../../../Internal/auth/loginMutation'
 import { Loader2, Mail, Lock, ArrowRight } from 'lucide-react'
-import { Checkbox } from "../../../components/ui/checkbox"
 import { useState } from 'react'
 
 export default function LoginPage() {
@@ -19,6 +18,7 @@ export default function LoginPage() {
     resolver: zodResolver(loginSchema),
   })
 
+  console.log(errors);
   const { mutate: loginUser, isPending } = useLoginUser()
 
   function onSubmitForm(data: loginSchemaFormData) {
@@ -123,18 +123,17 @@ export default function LoginPage() {
         </motion.div>
 
         <div className="flex items-center space-x-2">
-          <Checkbox 
-            id="remember" 
-            {...register('remember')} 
-            className="border-gray-300 data-[state=checked]:bg-violet-600 data-[state=checked]:border-violet-600"
-          />
-          <label
-            htmlFor="remember"
-            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-700"
-          >
-            Lembrar de mim
-          </label>
-        </div>
+                    {errors.remember && <span className='text-destructive text-[12px]'>{errors.remember.message}</span>}
+                        <div className="flex items-center space-x-2">
+                        <Input className='w-4 h-4 accent-primary' 
+                        type='checkbox' {...register('remember')} id="remember" />
+                        <label htmlFor="terms"
+                        className="text-sm text-gray-500 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        >
+                        Lembrar de mim
+                        </label>
+                        </div>
+                    </div>
 
         <Button 
           type="submit" 

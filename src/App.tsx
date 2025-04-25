@@ -66,6 +66,11 @@ import CreateCustomPage from "./features/customPages/pages/create"
 import EditCustomPage from "./features/customPages/pages/edit"
 import DesignLayout from "./layouts/dashboard/NavBarLayout/DesignLayout"
 import TemplateIndexPage from "./features/template/page"
+import DiscordNotificationIntegrationPage from "./features/integrations/pages/notification/discord"
+import GoogleAnalyticsIntegrationPage from "./features/integrations/pages/Analytics/google"
+import TawkToIntegrationPage from "./features/integrations/pages/support/tawk"
+import CrispIntegrationPage from "./features/integrations/pages/support/crisp"
+import SlackNotificationIntegrationPage from "./features/integrations/pages/notification/slack"
 
 
 function App() {
@@ -149,6 +154,16 @@ function App() {
               <Route path="/dashboard/settings/integration/server" element={<IntegrationServerPage/>}/>
               <Route path="/dashboard/settings/integration/discord" element={<DiscordIntegrationSection/>}/>
               <Route path="/dashboard/settings/integration/:type/edit/:id" element={<ServerPage/>}/>
+
+              <Route path="/dashboard/settings/integration/notification/discord" element={<DiscordNotificationIntegrationPage/>}/>
+              <Route path="/dashboard/settings/integration/notification/slack" element={<SlackNotificationIntegrationPage/>}/>
+
+              <Route path="/dashboard/settings/integration/analytics/google" element={<GoogleAnalyticsIntegrationPage/>}/>
+
+              <Route path="/dashboard/settings/integration/support/tawko" element={<TawkToIntegrationPage/>}/>
+              <Route path="/dashboard/settings/integration/support/crisp" element={<CrispIntegrationPage/>}/>
+
+
               <Route path="/dashboard/settings/widgets" element={<WidgetsPage/>}/>
               <Route path="/dashboard/settings/widgets/edit" element={<CreateWidgetPage/>}/>
               <Route path="/dashboard/settings/widgets/edit/goal" element={<CreateWidgetGoal/>}/>

@@ -193,7 +193,7 @@ export default function RegisterPage() {
         <Button
           type="submit"
           className="w-full bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700 text-white py-6 h-12 rounded-xl font-medium mt-4"
-          disabled={isPending || !captchaStatus}
+          disabled={isPending || import.meta.env.MODE === 'production' && !captchaStatus}
         >
           {isPending ? (
             <>

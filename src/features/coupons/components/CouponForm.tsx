@@ -33,8 +33,8 @@ export default function CouponForm({ initialData, onSubmit, mode, isLoading, chi
       isUsableInAllStores: true,
       productIds: [],
       type: 'PERCENTAGE',
-      start_at: null,
-      expire_at: null,
+      startAt: null,
+      expireAt: null,
       code: "",
       minValue: 0,
       value: 0,
@@ -156,12 +156,12 @@ export default function CouponForm({ initialData, onSubmit, mode, isLoading, chi
 
         <div>
           <label className="block font-medium mb-1">Data de Início</label>
-          <DatePickerDemo key={"startDate"} initialDate={getValues("start_at")} onChange={(date) => setValue("start_at", date)} />
+          <DatePickerDemo key={"startDate"} initialDate={getValues("startAt")} onChange={(date) => setValue("startAt", date)} />
         </div>
 
         <div>
           <label className="block font-medium mb-1">Data de Término (Opcional)</label>
-          <DatePickerDemo key={"expire_at"} initialDate={getValues("expire_at")} onChange={(date) => setValue("expire_at", date)} />
+          <DatePickerDemo key={"expire_at"} initialDate={getValues("expireAt")} onChange={(date) => setValue("expireAt", date)} />
         </div>
 
         <div>

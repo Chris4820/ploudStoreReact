@@ -73,15 +73,6 @@ export default function PagesDragComponent({ items }: DraggableTableProps) {
     [items, updateOrder]
   );
 
-  if (items.length === 0) {
-    return (
-      <NotFoundComponent
-        title="Nenhuma página encontrada"
-        description="Comece criando uma nova página personalizada"
-      />
-    );
-  }
-
   return (
     <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
       <SortableContext items={ids} strategy={verticalListSortingStrategy}>
@@ -97,11 +88,20 @@ export default function PagesDragComponent({ items }: DraggableTableProps) {
               <TableHead className="text-right">Ações</TableHead>
             </TableRow>
           </TableHeader>
-          <TableBody>
-            {items.map((item) => (
-              <SortableItem key={item.id} item={item} />
-            ))}
-          </TableBody>
+            <TableBody>
+            {items.length > 0 ? (
+              items.map((item) => <SortableItem key={item.id} item={item} />)
+            ) : (
+              <TableRow className="h-20 text-center text-gray-500">
+              <TableCell colSpan={7}>
+                <NotFoundComponent
+                title="Nenhuma página encontrada"
+                description="Comece criando uma nova página personalizada"
+                />
+              </TableCell>
+              </TableRow>
+            )}
+            </TableBody>
         </Table>
       </SortableContext>
     </DndContext>

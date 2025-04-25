@@ -7,8 +7,8 @@ export type PaymentProps = {
     id: number,
     clientName: string,
     clientEmail: string,
-    value: number,
-    status: "pending" | "success" | "failed"
+    totalAmount: number,
+    paymentStatus: "pending" | "success" | "failed"
     createdAt: string,
 }
 
@@ -49,16 +49,17 @@ export async function getPayments(byEmail?: string, byFilter?: string, byStatus?
 
 type PaymentDetails = {
     id: number,
+    paymentStatus: string,
+    totalAmount: number,
     createdAt: string,
-    status: string,
     clientEmail: true,
     clientIdentifier: true,
-    paymentItems: PaymentItensDetails[]
+    orderItems: orderItems[]
 }
 
-type PaymentItensDetails = {
+type orderItems = {
     name: string,
-    price: number,
+    total: number,
     quantity: number
 }
 

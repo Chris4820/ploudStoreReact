@@ -11,19 +11,22 @@ export const columnsPayment: ColumnDef<PaymentProps>[] = [
     {
         accessorKey: "clientEmail",
         header: "Email",
+        cell: ({ row }) => {
+          return row.original.clientEmail ? row.original.clientEmail : "Indefinido";
+        },
     },
     {
-      accessorKey: "value",
+      accessorKey: "totalAmount",
       header: () => t("price"),
       cell: ({ row }) => {
-        return FormatMoney(row.original.value);
+        return FormatMoney(row.original.totalAmount);
       },
     },
     {
-        accessorKey: "status",
+        accessorKey: "paymentStatus",
         header: () => t("status"),
         cell: ({ row }) => {
-          const status = row.original.status;
+          const status = row.original.paymentStatus;
           let bgClass = "";
           let borderClass = "";
           let text = "";

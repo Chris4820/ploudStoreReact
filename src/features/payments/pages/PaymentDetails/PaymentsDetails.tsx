@@ -64,14 +64,14 @@ export default function PaymentDetailsPage() {
           description="Confira os detalhes do produtos"/>
           
 
-            {payment.paymentItems && payment.paymentItems.length > 0 ? (
+            {payment.orderItems && payment.orderItems.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-              {payment.paymentItems.map((item, index) => (
+              {payment.orderItems.map((item, index) => (
                 <div key={index} className="border rounded-lg p-2">
                 <div>
                   <h1>Pacote: <span className="font-semibold">{item.name}</span></h1>
                   <h1>Quantidade: <span className="font-semibold">2</span></h1>
-                  <h1>Preço unitário: <span className="font-semibold">{item.price}</span></h1>
+                  <h1>Preço unitário: <span className="font-semibold">{item.total}</span></h1>
                   <div className="mt-5">
                     <h1>Estado: <span className="bg-green-900/50 border-green-900 inline-block text-white rounded-full border-2 px-3 py-0.5 text-sm font-semibold">Ativado</span></h1>
                     <h1>Ativado em: <span className="font-semibold">25/05/2022</span></h1>

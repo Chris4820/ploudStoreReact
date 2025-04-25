@@ -36,7 +36,7 @@ export const columnsCoupon: ColumnDef<CouponsProps>[] = [
     accessorKey: "created_at",
     header: "Expira em",
     cell: ({ row }) => {
-      const date = row.original.expire_at ? FormatDateTime(new Date(row.original.expire_at)) : "Indefinido";
+      const date = row.original.expireAt ? FormatDateTime(new Date(row.original.expireAt)) : "Indefinido";
       return date;
     },
   }

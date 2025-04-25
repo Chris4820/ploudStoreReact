@@ -11,7 +11,7 @@ export enum CouponType {
 export type CouponsProps = {
   id: number,
   code: string,
-  expire_at: string | null,
+  expireAt: string | null,
   value: number,
   type: CouponType,
   usage: number,
